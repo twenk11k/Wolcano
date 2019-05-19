@@ -1,0 +1,202 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="appname">Wolcano</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="settings">Configurações</string>
+
+    <string name="recentlyadded">Último Adicionado</string>
+    <string name="library">Biblioteca</string>
+    <string name="songs">Músicas</string>
+    <string name="playlists">Listas de Reprodução</string>
+    <string name="folders">Jogador Online</string>
+
+    <string name="folder_name">Musique</string>
+    <string name="folder_search_history">Histórico De Busca</string>
+
+    <string name="backup_search_history_file_name">musique_all_searches</string>
+    <string name="backup_last_searches_file_name">musique_last_searches</string>
+
+    <string name="search">Pesquisa</string>
+    <string name="save">Salve</string>
+    <string name="cnn_err">Erro de conexão</string>
+    <string name="nosonuc">Sem resultados</string>
+    <string name="delete">Excluir</string>
+    <string name="share">Compartilhar</string>
+    <string name="itsstart">Salvar iniciado&#8230;</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+    <string name="sharesong">Compartilhar Música</string>
+    <string name="albums">ÁLBUNS</string>
+    <string name="artists">ARTISTAS</string>
+    <string name="genres">GÊNEROS</string>
+
+    <string name="sharewolcano">Compartilhar "Musique Player V2"</string>
+    <string name="net_mobile">net_mobile</string>
+    <string name="warning">Atenção</string>
+
+    <string name="control_inter_message">Você está conectado à rede móvel.Você tem certeza que quer continuar?</string>
+
+    <string name="no_perm_storage">Não é possível verificar músicas no seu dispositivo porque a permissão necessária não foi concedida.</string>
+    <string name="no_perm_open_settings">Não é possível acessar as configurações porque a permissão necessária não é concedida.</string>
+    <string name="no_perm_add_playlist">Esta ação não pode ser executada porque a permissão necessária não é concedida.</string>
+
+    <string name="start">00:00</string>
+
+    <string name="cancel">Cancelar</string>
+    <plurals name="Nsongs">
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> canção</item>
+    </plurals>
+    <string name="title_activity_settings">Configurações</string>
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">Geral</string>
+    <string name="pref_header_other">Outros</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notificações</string>
+
+    <string name="permissions_denied">Permissões negadas.</string>
+    <string name="action_grant">Conceder</string>
+    <string name="presets">Predefinições</string>
+    <string name="custom">Personalizadas</string>
+    <string name="done">Feito</string>
+    <string name="back">Costas</string>
+    <string name="primary_color_desc_title">Escolher a cor principal</string>
+    <string name="accent_color_desc_title">Escolha a cor de acento</string>
+    <string name="pref_header_colors">Cores</string>
+
+    <string name="primary_color">Cor principal</string>
+    <string name="accent_color">Cor de acento</string>
+    <string name="primary_color_desc">Definir a cor do tema principal.</string>
+    <string name="accent_color_desc">Definir a cor de acento.</string>
+
+    <string name="pref_title_opening">Escolher a abertura</string>
+    <string name="pref_title_remember_last_search">Pesquisa automática</string>
+    <string name="pref_summary_remember_last_search">Pesquisar última pesquisa automaticamente.</string>
+    <string name="pref_title_delete_history">Excluir histórico de pesquisas</string>
+    <string name="pref_summary_delete_history">Excluir todo o histórico de pesquisas.</string>
+    <string name="pref_delete_history_dialog_content">Todo o histórico de pesquisa será removido permanentemente.Este processo não inclui backup do histórico de pesquisa.\nVocê confirma?</string>
+
+    <string name="copytoclipboard">Copiar para área de transferência</string>
+    <string name="copy_question">O que você gostaria de copiar?</string>
+    <string name="copy_song_infos" translatable="false">copy_song_infos</string>
+    <string name="copy_to_clipboard"><![CDATA[&quot;<b>%1$s</b>&quot; copiado para a área de transferência.]]></string>
+    <string name="searchhint">Pesquisar música</string>
+    <string name="setasringtone">Definir como toque</string>
+    <string name="queryhintyerel">Pesquisar música&#8230;</string>
+    <string name="x_has_been_set_as_ringtone"><![CDATA[<b>%1$s</b> definir com sucesso como toque.]]></string>
+    <string name="deleted_x_songs">%1$d canção eliminada.</string>
+    <string name="delete_song_content">irá remover permanentemente.\nVocê confirma?</string>
+    <string name="share_audio_file">Arquivo de música</string>
+    <string name="sharequestion">O que você gostaria de compartilhar?</string>
+    <string name="share_song_info_plain"><![CDATA[&quot;<b>%1$s</b>&quot;"]]></string>
+    <string name="share_song_info_wartist"><![CDATA[&quot;<b>%1$s</b> - <b>%2$s</b>&quot;]]></string>
+    <string name="share_name_ofsong">Compartilhar nome da música</string>
+    <string name="rename">Renomear</string>
+    <string name="create_new_playlist">Criar nova lista de reprodução</string>
+    <string name="add_to_playlist">Adicionar à lista de reprodução</string>
+    <string name="number_song_add_playlist"><![CDATA[<b>%1$s</b> adicionado a <b>%2$s</b> lista de reprodução.]]></string>
+    <string name="playlist_name">Digite o nome da lista de reprodução</string>
+    <string name="create">Criar</string>
+    <string name="create_playlist_fail">Ocorreu um erro ao criar nova lista de reprodução.</string>
+    <string name="create_playlist_success">Playlist criada com sucesso</string>
+    <string name="pref_summary_change_delete_history">Excluir o histórico de toda pesquisa.</string>
+    <string name="change">Mudança</string>
+    <string name="rename_playlist_success">Nome da lista de reprodução com sucesso mudada</string>
+    <string name="delete_playlist">"playlist irá remover permanentemente.\nVocê confirma?"</string>
+    <string name="delete_playlist_success">Playlist removido com sucesso.</string>
+    <string name="removefromplaylist">Remover da lista de reprodução</string>
+    <string name="search_history_removed">Histórico de pesquisa removido com sucesso.</string>
+    <string name="rate">Taxa, Compartilhar</string>
+    <string name="like_dialog_title">O que você gostaria de fazer?</string>
+    <string name="share_the_app">Compartilhe o aplicativo</string>
+    <string name="removefromqueue">Remover da fila</string>
+    <string name="nowplaying">Agora jogando</string>
+    <string name="set_ringtone_message_first"><![CDATA[<b>%1$s</b> é necessário para usar  \'modificar configurações do sistema\' permissão.\n\nPor favor, tente novamente depois que você concedeu a permissão para definir como toque.]]></string>
+    <string name="ok">Está bem</string>
+    <string name="search_info">Use o botão de pesquisa para as músicas de pesquisa.</string>
+    <string name="empty_queue">Fila está vazia.</string>
+
+    <string name="pref_summary_change_backup_history">Salve o arquivo de backup do histórico de pesquisa no dispositivo.</string>
+    <string name="pref_title_backup_history">Histórico de pesquisa de backup</string>
+    <string name="pref_backup_history_dialog_content">Todo o histórico de pesquisa será salvo para \"Musique/Histórico De Busca\" pasta. Se você já se registrou, será sobrescrito.Portanto, você pode perder o histórico de pesquisa antigo.\n Você confirma?</string>
+
+    <string name="pref_title_import_history">Importar histórico de pesquisa</string>
+    <string name="pref_backup_import_dialog_content">A história existente da busca no app será removida e substituída com a história previamente salvar da busca.\nVocê confirma?</string>
+    <string name="backup_success">Histórico de pesquisa suportado com sucesso</string>
+    <string name="backup_fail">Ocorreu um erro ao fazer o backup do histórico de pesquisa.</string>
+    <string name="elapsed_time_short_format_mm_ss">%1$02d:%2$02d</string>
+    <string name="elapsed_time_short_format_h_mm_ss">%1$d:%2$02d:%3$02d</string>
+    <string name="no_song">Nenhuma Música</string>
+    <string name="no_playlist">Nenhuma lista de reprodução</string>
+    <string name="no_genre">Nenhum Gênero</string>
+    <string name="no_album">Nenhum Àlbum</string>
+    <string name="no_artist">Nenhum Artista</string>
+    <string name="no_result">Nenhum Resultado</string>
+    <string name="no_queue">A fila de reprodução está vazia</string>
+    <string name="artist_notification">Artista: </string>
+    <string name="notification">Notificação</string>
+    <string name="action_play_pause">Jogar/Pausa</string>
+    <string name="action_previous">Anterior</string>
+    <string name="action_next">Próximo</string>
+    <string name="question_remove_history">Remover do histórico de pesquisa?</string>
+    <string name="queue_act">queue</string>
+    <string name="cancelU">CANCELAR</string>
+    <string name="removeU">REMOVER</string>
+
+    <string name="colors">Cores</string>
+    <string name="pref_title_rate">Avalie o aplicativo no Google Play</string>
+    <string name="cannot_play">Música não pode ser tocada</string>
+    <string name="sponsored">Patrocinadas</string>
+    <string name="first_title">Informação Importante</string>
+    <string name="close">Perto</string>
+    <string name="first_dec"> - Para pesquisar uma música, você deve pressionar o botão de pesquisa que será exibido no teclado.\n\n - Esteja ciente de que o player on-line pode não funcionar devido ao uso de qualquer rede VPN.\n\n - Quando o app é desinstalado todos os arquivos salvos serão completamente removidos do dispositivo. Se você quiser desinstalá-lo, sugerimos para mover arquivos salvos para outro arquivo, a fim de evitar este problema.\n\n - Você pode facilmente remover pesquisas antigas enquanto segura nele.\n\n Musique Player V2</string>
+    <string name="first_dec_old"> - Para pesquisar uma música, você deve pressionar o botão de pesquisa que será exibido no teclado.\n\n - Esteja ciente de que o player on-line pode não funcionar devido ao uso de qualquer rede VPN.\n\n- Você pode facilmente remover pesquisas antigas enquanto segura nele.\n\n Musique Player V2</string>
+    <string name="sleeptimer">Temporizador Do Sono</string>
+    <string name="action_set">Conjunto</string>
+    <string name="sleep_timer_set"><![CDATA[Temporizador do sono ajustado para <b>%1$d minutos</b> a partir de agora.]]></string>
+    <string name="sleep_timer_set_one"><![CDATA[Temporizador do sono ajustado para <b>%1$d minuto</b> a partir de agora.]]></string>
+
+    <string name="sleep_timer_canceled">Temporizador de sono cancelado.</string>
+    <string name="cancel_current_timer">Cancelar temporizador atual</string>
+    <string name="settings_sleeptimer_pause">Pause tocando música</string>
+    <string name="settings_sleeptimer_stop">Pare de tocar música</string>
+    <string name="base_path_prefix">_(mp3.pm)</string>
+    <string name="pref_title_sleeptimer">Comportamento do temporizador do sono</string>
+    <string name="pref_summary_sleeptimer">Alterar o comportamento do temporizador de sono.</string>
+    <string name="sleeptimer_set_pause"><![CDATA[Comportamento do temporizador do sono definido para &quot;<b>Pause tocando música</b>&quot;.]]></string>
+    <string name="sleeptimer_set_stop"><![CDATA[Comportamento do temporizador do sono definido para &quot;<b>Pare de tocar música</b>&quot;.]]></string>
+
+    <string name="sleeptimerstopped_stop">Temporizador Do Sono e música tocando é interrompido. Você pode alterar esse comportamento a partir de configurações.</string>
+    <string name="sleeptimerstopped_pause">O temporizador do sono está parado. Tocando Song está em pausa. Você pode alterar esse comportamento a partir de configurações.</string>
+
+    <string name="sleeptimerstopped_plain">O temporizador do sono está parado.</string>
+
+    <string name="sleeptimer_min">minuto</string>
+    <string name="search_history_import_success">Histórico de pesquisa importado com sucesso.</string>
+    <string name="cannot_found_file">Arquivo não encontrado.</string>
+    <string name="rating_title">Como foi sua experiência conosco?</string>
+    <string name="rating_submit">Enviar</string>
+    <string name="form_title">Feedback</string>
+    <string name="notnow">Agora Não</string>
+    <string name="rating_cancel">Cancelar</string>
+    <string name="form_hint">Diga-nos onde podemos melhorar</string>
+    <string name="form_later">Talvez Mais Tarde</string>
+    <string name="form_never">Nunca</string>
+    <string name="feedback_submit">Agradecimentos para seu gabarito!</string>
+    <string name="errorinter">Ocorreu um erro ao carregar o anúncio. Por favor, tente novamente mais tarde.</string>
+    <string name="please">A fila está vazia.</string>
+    <string name="http_error">HTTP error fetching URL</string>
+    <string name="pref_title_thefirst">Como Usar?</string>
+    <string name="pref_summary_thefirst">Aprenda a usar o aplicativo.</string>
+    <string name="email_us_title">Aviso De Direitos Autorais</string>
+    <string name="email_us_via">Enviar email</string>
+    <string name="pref_title_email_us">Aviso de direitos autorais</string>
+    <string name="pref_email_us_dialog_content">- Musique Player V2, não usa seu próprio servidor ou provedor e apenas fornece acesso a outros serviços e todos esses serviços não têm relação com o Musique Player V2\n- Musique Player V2 é um tocador de música Android que possui mecanismo de busca abrangente e Ele é focado na interface do usuário e fácil de usar.\n- O Musique Player V2 respeita os direitos de propriedade intelectual e ajuda a remover o conteúdo de o mecanismo de busca o mais rápido possível. Se você é proprietário de direitos autorais ou agente, envie-nos um e-mail com seu nome e nós entraremos em contato com você o mais breve possível e, em seguida, executaremos o processo de filtragem no mecanismo de pesquisa. Por favor, não envie qualquer aviso falso. Em uma emergência, o processo pode demorar um pouco. Obrigado pela sua compreensão.\n Você pode pressionar sim se você quiser enviar um email para nós.</string>
+    <string name="pref_title_rate_app">Taxa de aplicativo</string>
+    <string name="pref_title_share_app">Compartilhamento de aplicativos</string>
+    <string name="pref_summary_rate_app">Avalie o aplicativo no Google Play.</string>
+    <string name="pref_summary_share_app">Compartilhe o aplicativo com seus amigos.</string>
+    <string name="pref_header_other_2">Outros</string>
+
+</resources>

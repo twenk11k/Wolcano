@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/child2bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/album_default" />
+
+    <LinearLayout
+        android:id="@+id/child2linear"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black_u6"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/mini_player_height"
+            android:gravity="center_vertical"
+            android:id="@+id/relativeTopPlay"
+         >
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="@dimen/mini_player_height"
+                android:layout_height="@dimen/mini_player_height"
+                android:background="@drawable/btn_rect_selector"
+                android:scaleType="centerInside"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:tint="@color/grey0"
+                android:src="@drawable/down_button" />
+            <ImageView
+                android:id="@+id/menu"
+                android:layout_width="@dimen/mini_player_height"
+                android:layout_height="@dimen/mini_player_height"
+                android:background="@drawable/btn_rect_selector"
+                android:scaleType="centerInside"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:tint="@color/grey0"
+                app:srcCompat="@drawable/menu_overflow" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:id="@+id/innerLinearTopOne"
+                android:layout_toRightOf="@id/back"
+                android:layout_toLeftOf="@id/menu"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="4dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:scrollHorizontally="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:singleLine="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_common" />
+
+                <TextView
+                    android:id="@+id/artist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/grey0"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+
+        </RelativeLayout>
+        <com.wolcano.musicplayer.music.widgets.ModelView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:overScrollMode="never"
+            android:id="@+id/modelcover"
+            />
+
+
+        <include layout="@layout/slidinguppanel_controller"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/page_controller_height"
+            android:clickable="true" />
+    </LinearLayout>
+</FrameLayout>

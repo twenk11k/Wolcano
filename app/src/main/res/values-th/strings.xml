@@ -1,0 +1,211 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="appname">Wolcano</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="settings">การตั้งค่า</string>
+
+    <string name="recentlyadded">เพิ่มล่าสุด</string>
+    <string name="library">ห้องสมุด</string>
+    <string name="songs">เพลง</string>
+    <string name="playlists">เพลย์ลิส</string>
+    <string name="folders">โฟลเดอร์</string>
+
+    <string name="folder_name">Musique</string>
+    <string name="folder_search_history">ประวัติการค้นหา</string>
+
+    <string name="backup_search_history_file_name">musique_all_searches</string>
+    <string name="backup_last_searches_file_name">musique_last_searches</string>
+
+
+    <string name="search">ค้นหา</string>
+    <string name="save">บันทึก</string>
+    <string name="cnn_err">เกิดข้อผิดพลาดในการเชื่อมต่อ</string>
+    <string name="nosonuc">ไม่มีผลลัพธ์</string>
+    <string name="delete">ลบ</string>
+    <string name="share">หุ้น</string>
+    <string name="itsstart">เริ่มการบันทึก&#8230;</string>
+    <string name="yes">ใช่</string>
+    <string name="no">ไม่ใช่</string>
+    <string name="sharesong">แชร์เพลง</string>
+    <string name="albums">อัลบั้ม</string>
+    <string name="artists">ศิลปิน</string>
+    <string name="genres">ประเภท</string>
+
+    <string name="sharewolcano">หุ้น "Musique Player V2"</string>
+    <string name="net_mobile">net_mobile</string>
+    <string name="warning">การเตือน</string>
+
+    <string name="control_inter_message">คุณเชื่อมต่อกับเครือข่ายมือถือ.คุณแน่ใจหรือไม่ว่าต้องการดำเนินการต่อ?</string>
+
+    <string name="no_perm_storage">ไม่สามารถสแกนเพลงบนอุปกรณ์ของคุณเนื่องจากไม่ได้รับสิทธิ์ที่จำเป็น.</string>
+    <string name="no_perm_open_settings">ไม่สามารถเข้าถึงการตั้งค่าได้เนื่องจากสิทธิ์ที่จำเป็นไม่ได้รับ.</string>
+    <string name="no_perm_add_playlist">ไม่สามารถดำเนินการนี้ได้เนื่องจากไม่ได้รับสิทธิ์ที่ยืนยัน.</string>
+
+    <string name="start">00:00</string>
+
+    <string name="cancel">ยกเลิก</string>
+    <plurals name="Nsongs">
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> เพลง</item>
+    </plurals>
+    <string name="title_activity_settings">การตั้งค่า</string>
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">ทั่วไป</string>
+    <string name="pref_header_other">อื่นๆ</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">การแจ้งเตือน</string>
+
+    <string name="permissions_denied">สิทธิ์ที่ถูกปฏิเสธ.</string>
+    <string name="action_grant">แกรนท์</string>
+    <string name="presets">ค่าที่ตั้งไว้</string>
+    <string name="custom">กำหนด เอง</string>
+    <string name="done">เรียบร้อย</string>
+    <string name="back">กลับ</string>
+    <string name="primary_color_desc_title">เลือกสีหลัก</string>
+    <string name="accent_color_desc_title">เลือกโทนสี</string>
+    <string name="pref_header_colors">สี</string>
+
+    <string name="primary_color">สีหลัก</string>
+    <string name="accent_color">สีเน้น</string>
+    <string name="primary_color_desc">ตั้งค่าสีธีมหลัก.</string>
+    <string name="accent_color_desc">ตั้งค่าสีเน้นเสียง.</string>
+
+    <string name="pref_title_opening">เลือก การเปิด</string>
+    <string name="pref_title_remember_last_search">ค้นหาอัตโนมัติ</string>
+    <string name="pref_summary_remember_last_search">ค้นหาอันล่าสุด.</string>
+    <string name="pref_title_delete_history">ลบประวัติการค้นหา</string>
+    <string name="pref_summary_delete_history">ลบประวัติการค้นหาทั้งหมด.</string>
+    <string name="pref_delete_history_dialog_content">ประวัติการค้นหาทั้งหมดจะถูกนำออกอย่างถาวร.ขั้นตอนนี้ไม่รวมการกู้ข้อมูลการค้นหา.\nคุณยืนยันหรือไม่?</string>
+
+    <string name="copytoclipboard">คัดลอกไปที่คลิปบอร์ด</string>
+    <string name="copy_question">คุณต้องการคัดลอกสิ่งใด?</string>
+    <string name="copy_song_infos" translatable="false">copy_song_infos</string>
+    <string name="copy_to_clipboard"><![CDATA[&quot;<b>%1$s</b>&quot; คัดลอกลงคลิปบอร์ด.]]></string>
+    <string name="searchhint">ค้นหาเพลง</string>
+    <string name="setasringtone">ตั้งเป็นเสียงเรียกเข้า</string>
+    <string name="queryhintyerel">ค้นหาเพลง&#8230;</string>
+    <string name="x_has_been_set_as_ringtone"><![CDATA[<b>%1$s</b> ตั้งเป็นเสียงเรียกเข้าเรียบร้อย.]]></string>
+    <string name="deleted_x_songs">%1$d เพลงถูกลบแล้ว.</string>
+    <string name="delete_song_content">จะเอาออกอย่างถาวร.\nคุณยืนยันหรือไม่?</string>
+    <string name="share_audio_file">รายการเพลง</string>
+    <string name="sharequestion">คุณอยากแชร์อะไร?</string>
+    <string name="share_song_info_plain"><![CDATA[&quot;<b>%1$s</b>&quot;"]]></string>
+    <string name="share_song_info_wartist"><![CDATA[&quot;<b>%1$s</b> - <b>%2$s</b>&quot;]]></string>
+    <string name="share_name_ofsong">แชร์ชื่อเพลง</string>
+    <string name="rename">เปลี่ยนชื่อ</string>
+    <string name="create_new_playlist">สร้างเพลย์ลิสต์ใหม่</string>
+    <string name="add_to_playlist">เพิ่มลงในรายการที่จะเล่น</string>
+    <string name="number_song_add_playlist"><![CDATA[<b>%1$s</b> เพิ่มไปยัง <b>%2$s</b> รายชื่อเพลง.]]></string>
+    <string name="playlist_name">เข้าไปในรายชื่อเพลง</string>
+    <string name="create">สร้าง</string>
+    <string name="create_playlist_fail">มีข้อผิดพลาดเกิดขึ้นขณะกำลังสร้างรายการที่จะเล่นใหม่.</string>
+    <string name="create_playlist_success">สร้างเพลย์ลิสต์เรียบร้อยแล้ว</string>
+    <string name="pref_summary_change_delete_history">ลบประวัติการค้นหาทั้งหมด.</string>
+    <string name="change">เปลี่ยน</string>
+    <string name="rename_playlist_success">รายชื่อเพลงเปลี่ยนเรียบร้อย</string>
+    <string name="delete_playlist">รายการที่เล่นเพลงจะถูกลบอย่างถาวร.\nคุณยืนยันใช่ไหม?"</string>
+    <string name="delete_playlist_success">ลบเพลย์ลิสต์เรียบร้อยแล้ว.</string>
+    <string name="removefromplaylist">เอาออกจากรายการ</string>
+    <string name="search_history_removed">ลบประวัติการค้นหาเรียบร้อย.</string>
+    <string name="rate">อัตรา, หุ้น</string>
+    <string name="like_dialog_title">คุณต้องการทำอะไร</string>
+    <string name="share_the_app">แบ่งปันแอพนี้</string>
+    <string name="removefromqueue">ลบออกจากคิวเล่น</string>
+    <string name="nowplaying">กำลังเล่นตอนนี้</string>
+    <string name="set_ringtone_message_first"><![CDATA[<b>%1$s</b> จำเป็นต้องใช้  \'ปรับเปลี่ยนการตั้งค่าระบบ\' การรับรองสิทธิ์.\n\nกรุณาลองอีกครั้งหลังจากคุณยืนยันการรับรองสิทธิ์เพื่อตั้งเสียงเรียกเข้า.]]></string>
+    <string name="ok">ตกลง</string>
+    <string name="search_info">ใช้ปุ่มค้นหาเพื่อค้นหาเพลง.</string>
+    <string name="empty_queue">คิวการเล่นว่างเปล่า.</string>
+
+    <string name="pref_summary_change_backup_history">บันทึกไฟล์สำรองของประวัติการค้นหาอุปกรณ์.</string>
+    <string name="pref_title_backup_history">บันทึกการค้นหาประวัติ</string>
+    <string name="pref_backup_history_dialog_content">การค้นหาประวัติทั้งหมดจะบันทึกสู่ \"Musique/ประวัติการค้นหา\" แฟ้ม. ถ้าคุณได้บันทึกไว้แล้วจะทำการเขียนซ้ำ. ดังนั้นประวัติการค้นหาเก่าของคุณอาจจะหายไป.\n คุณยืนยันใช่ไหม?</string>
+
+    <string name="pref_title_import_history">นำเข้าประวัติการค้นหา</string>
+    <string name="pref_backup_import_dialog_content">ประวัติการค้นหาที่เหลืออยู่ในแอพจะถูกย้ายออกและแทนที่ด้วยประวัติการค้นหาที่ถูกบันทึกไว้ก่อนหน้านี้.\nคุณยืนยันใช่ไหม?</string>
+    <string name="backup_success">ประวัติการค้นหากู้คืนเรียบร้อยแล้ว</string>
+    <string name="backup_fail">เกิดความผิดพลาดขึ้นขณะกู้ข้อมูลประวัติการค้นหา.</string>
+    <string name="elapsed_time_short_format_mm_ss">%1$02d:%2$02d</string>
+    <string name="elapsed_time_short_format_h_mm_ss">%1$d:%2$02d:%3$02d</string>
+    <string name="no_song">ไม่มีเพลง</string>
+    <string name="no_playlist">ไม่มีเพลย์ลิสต์</string>
+    <string name="no_genre">ไม่มีประเภท</string>
+    <string name="no_album">ไม่มีอัลบั้ม</string>
+    <string name="no_artist">ไม่มีศิลปิน</string>
+    <string name="no_result">ไม่มีผลลัพธ์</string>
+    <string name="no_queue">คิวการเล่นว่างเปล่า</string>
+    <string name="artist_notification">ศิลปิน: </string>
+    <string name="notification">การแจ้งเตือน</string>
+    <string name="action_play_pause">เล่น/หยุด คราว</string>
+    <string name="action_previous">ก่อน</string>
+    <string name="action_next">ถัด ไป</string>
+    <string name="question_remove_history">นำออกจากประวัติการค้นหา?</string>
+    <string name="queue_act">คิว</string>
+    <string name="cancelU">ยกเลิก</string>
+    <string name="removeU">ลบ</string>
+
+    <string name="colors">สี</string>
+    <string name="pref_title_rate">ราคาจะแสดงที่ Google Play</string>
+    <string name="cannot_play">ไม่สามารถเล่นเพลงได้</string>
+    <string name="sponsored">ผู้สนับสนุน</string>
+    <string name="first_title">ข้อมูลสำคัญ</string>
+    <string name="close">ปิด</string>
+    <string name="first_dec"> - คุณต้องกดปุ่มค้นหาซึ่งจะอยู่บนแป้นพิมพ์เพื่อหาเพลง.\n\n - ระวังเครื่องเล่นออนไลน์อาจไม่ทำงานเนื่องจากใช้เครือข่าย VPN.\n\n - เมื่อถอนการติดตั้งแอปพลิเคชัน ไฟล์ที่บันทึกไว้ทั้งหมดจะถูกลบออกจากอุปกรณ์. ควรระวังขณะใช้แอพนี. ถ้าคุณต้องการถอนการติดตั้ง เราขอแนะนำให้คุณเซฟไฟล์ทั้งหมดไปไว้ที่ไฟล์อื่น เพื่อป้องกันปัญหานี้\n\n - คุณสามารถลบคำค้นหาเก่าออกได้ในช่องการค้นหา.\n\n Musique Player V2</string>
+    <string name="first_dec_old"> - คุณต้องกดปุ่มค้นหาซึ่งจะอยู่บนแป้นพิมพ์เพื่อหาเพลง.\n\n - ระวังเครื่องเล่นออนไลน์อาจไม่ทำงานเนื่องจากใช้เครือข่าย VPN.\n\n - คุณสามารถลบคำค้นหาเก่าออกได้ในช่องการค้นหา.\n\n Musique Player V2</string>
+    <string name="sleeptimer">ตั้งเวลาปิดเครื่อง</string>
+    <string name="action_set">ตั้งค่า</string>
+    <string name="sleep_timer_set"><![CDATA[ตั้งเวลาปิดไว้สำหรับ <b>%1$d นาที</b> ณ ปัจจุบัน.]]></string>
+    <string name="sleep_timer_set_one"><![CDATA[ตั้งเวลาปิดไว้สำหรับ <b>%1$d นาที</b> ณ ปัจจุบัน.]]></string>
+
+    <string name="sleep_timer_canceled">ยกเลิกการตั้งเวลาปิดแล้ว.</string>
+    <string name="cancel_current_timer">ยกเลิกตัวจับเวลาปัจจุบัน</string>
+    <string name="settings_sleeptimer_pause">หยุดเล่นเพลงชั่วคราว</string>
+    <string name="settings_sleeptimer_stop">หยุดการเล่นเพลง</string>
+    <string name="base_path_prefix">_(mp3.pm)</string>
+    <string name="pref_title_sleeptimer">ลักษณะการตั้งเวลาปิด</string>
+    <string name="pref_summary_sleeptimer">เปลี่ยนลักษณะการตั้งเวลาปิด.</string>
+    <string name="sleeptimer_set_pause"><![CDATA[การตั้งเวลาปิดของ &quot;<b>พักการเล่นเพลง</b>&quot;.]]></string>
+    <string name="sleeptimer_set_stop"><![CDATA[การตั้งเวลาปิดของ &quot;<b>การเล่นเพลง</b>&quot;.]]></string>
+
+    <string name="sleeptimerstopped_stop">หยุดการตั้งเวลาปิดและการเล่นเพลงแล้ว. คุณสามารถเปลี่ยนค่าการทำงานได้จากการตั้งค่า.</string>
+    <string name="sleeptimerstopped_pause">หยุดการตั้งเวลาปิดแล้ว. การเล่นเพลงหยุดพักชั่วคราว. คุณสามารถเปลี่ยนค่าการทำงานได้จากการตั้งค่า.</string>
+
+    <string name="sleeptimerstopped_plain">หยุดการตั้งเวลาปิดแล้ว.</string>
+
+    <string name="sleeptimer_min">นาที</string>
+    <string name="search_history_import_success">ดึงประวัติการค้นหาเรียบร้อยแล้ว.</string>
+    <string name="cannot_found_file">ไม่พบแฟ้ม.</string>
+    <string name="rating_title">เป็นประสบการณ์ของคุณกับเราอย่างไร?</string>
+    <string name="rating_submit">ส่ง</string>
+    <string name="form_title">ผลตอบรับ</string>
+    <string name="notnow">ไม่ใช่ตอนนี้</string>
+    <string name="rating_cancel">ยกเลิก</string>
+    <string name="form_hint">บอกเราว่าเราสามารถปรับปรุงได้ที่ไหน</string>
+    <string name="form_later">อาจจะในภายหลัง</string>
+    <string name="form_never">ไม่เคย</string>
+    <string name="feedback_submit">ขอบคุณสำหรับความคิดเห็นของคุณ!</string>
+    <string name="errorinter">มีข้อผิดพลาดเกิดขึ้นขณะกำลังโหลดโฆษณา. กรุณาลองใหม่อีกครั้งในภายหลัง</string>
+    <string name="please">คิวการเล่นว่างเปล่า.</string>
+    <string name="http_error">HTTP error fetching URL</string>
+    <string name="email_us_title">ประกาศเกี่ยวกับลิขสิทธิ์</string>
+    <string name="email_us_via">ส่งอีเมล์</string>
+    <string name="pref_title_email_us">ประกาศเกี่ยวกับลิขสิทธิ์</string>
+    <string name="pref_title_thefirst">วิธีการใช้งาน?</string>
+    <string name="pref_summary_thefirst">เรียนรู้วิธีการใช้ Musique Player V2.</string>
+
+    <string name="pref_email_us_dialog_content">Musique Player V2 ไม่ได้ใช้เซิร์ฟเวอร์หรือผู้ให้บริการของตัวเองและให้บริการเฉพาะกับบริการอื่น ๆ เท่านั้นและบริการเหล่านี้ไม่มีส่วนเกี่ยวข้องกับ Musique Player V2.\n
+Musique Player V2 เป็นแอพลิเคชั่นเล่นเพลงประเภทหนึ่งสำหรับแอนดรอยด์ ซึ่งสะดวกในการค้นหาเพลงและง่ายต่อการใช้งาน.\n
+Musique  Player V2 เคารพสิทธิ์ในทรัพย์สินทางปัญญาและยังช่วยกำจัดเนื้อหาออกจากเครื่องมือการค้นหาโดยเร็วที่สุด. ถ้าคุณเป็นเจ้าของลิขสิทธิ์ หรือตัวแทน กรุณาส่งชื่อของคุณกลับมาผ่านอีเมล์ และในทันทีที่ได้รับ เราจะทำการดำเนินการคัดกรองในโปรแกรมการค้นหา. กรุณาอย่าส่งข้อความที่ผิดพลาด.
+ในกรณีฉุกเฉินกระบวนการทำงานอาจใช้เวลาสักครู่. ขอบคุณในความเข้าใจ.\n
+คุณสามารถกดปุ่ม ใช่ หากคุณต้องการส่งอีเมลถึงเรา.</string>
+
+
+
+    <string name="pref_title_rate_app">ราคาแอพพลิเคชัน</string>
+    <string name="pref_title_share_app">แชร์แอป</string>
+    <string name="pref_summary_rate_app">ให้คะแนนแอปบน Google Play.</string>
+    <string name="pref_summary_share_app">แชร์แอปนี้บน Google Play.</string>
+    <string name="pref_header_other_2">อื่น ๆ</string>
+
+</resources>

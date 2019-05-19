@@ -1,0 +1,19 @@
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.wolcano.musicplayer.music.prefs.CustomPreferenceCategory
+        android:title="@string/pref_header_other_2"
+        >
+
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreference
+            android:key="rate_app"
+            android:persistent="false"
+            android:summary="@string/pref_summary_rate_app"
+            android:title="@string/pref_title_rate_app" />
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreference
+            android:key="share_app"
+            android:persistent="false"
+            android:summary="@string/pref_summary_share_app"
+            android:title="@string/pref_title_share_app" />
+    </com.wolcano.musicplayer.music.prefs.CustomPreferenceCategory>
+
+</androidx.preference.PreferenceScreen>

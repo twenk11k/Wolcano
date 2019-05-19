@@ -1,0 +1,203 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="appname">Wolcano</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="settings">Configuración</string>
+
+    <string name="recentlyadded">Última Añadido</string>
+    <string name="library">Biblioteca</string>
+    <string name="songs">Canciones</string>
+    <string name="playlists">Listas De Reproducción</string>
+    <string name="folders">Jugador En Línea</string>
+
+    <string name="folder_name">Musique</string>
+    <string name="folder_search_history">Buscar Historia</string>
+
+    <string name="backup_search_history_file_name">musique_all_searches</string>
+    <string name="backup_last_searches_file_name">musique_last_searches</string>
+
+
+    <string name="search">Buscar</string>
+    <string name="save">Salvar</string>
+    <string name="cnn_err">Error de conexión</string>
+    <string name="nosonuc">No hay resultados</string>
+    <string name="delete">Borrar</string>
+    <string name="share">Compartir</string>
+    <string name="itsstart">Guardar comenzando&#8230;</string>
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
+    <string name="sharesong">Compartir La Canción</string>
+    <string name="albums">Álbumes</string>
+    <string name="artists">Artistas</string>
+    <string name="genres">Géneros</string>
+
+    <string name="sharewolcano">Compartir "Musique Player V2"</string>
+    <string name="net_mobile">net_mobile</string>
+    <string name="warning">Advertencia</string>
+
+    <string name="control_inter_message">Estás conectado a una red móvil.Estás seguro de que quieres continuar?</string>
+
+    <string name="no_perm_storage">No se pueden escanear canciones en su dispositivo porque no se concede el permiso requerido.</string>
+    <string name="no_perm_open_settings">No se puede acceder a la configuración porque no se concede el permiso requerido.</string>
+    <string name="no_perm_add_playlist">Esta acción no se puede realizar porque no se concede el permiso requerido.</string>
+
+    <string name="start">00:00</string>
+
+    <string name="cancel">Cancelar</string>
+    <plurals name="Nsongs">
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> canción</item>
+    </plurals>
+    <string name="title_activity_settings">Configuración</string>
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+    <string name="pref_header_other">Otro</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notificaciones</string>
+
+    <string name="permissions_denied">Permisos denegados.</string>
+    <string name="action_grant">Conceder</string>
+    <string name="presets">Presets</string>
+    <string name="custom">Personalizado</string>
+    <string name="done">Hecho</string>
+    <string name="back">Espalda</string>
+    <string name="primary_color_desc_title">Elija el color principal</string>
+    <string name="accent_color_desc_title">Elige color de acento</string>
+    <string name="pref_header_colors">Colores</string>
+
+    <string name="primary_color">Color principal</string>
+    <string name="accent_color">Acentuar el color</string>
+    <string name="primary_color_desc">Establecer el color del tema principal.</string>
+    <string name="accent_color_desc">Establecer el color de acento.</string>
+
+    <string name="pref_title_opening">Elige la apertura</string>
+    <string name="pref_title_remember_last_search">Auto búsqueda</string>
+    <string name="pref_summary_remember_last_search">Buscar lo último automáticamente.</string>
+    <string name="pref_title_delete_history">Eliminar el historial de búsqueda</string>
+    <string name="pref_summary_delete_history">Eliminar todo el historial de búsqueda.</string>
+    <string name="pref_delete_history_dialog_content">Todo el historial de búsqueda se eliminará permanentemente.Este proceso no incluye copia de seguridad del historial de búsqueda.\nConfirmas?</string>
+
+    <string name="copytoclipboard">Copiar al portapapeles</string>
+    <string name="copy_question">Qué te gustaría copiar??</string>
+    <string name="copy_song_infos" translatable="false">copy_song_infos</string>
+    <string name="copy_to_clipboard"><![CDATA[&quot;<b>%1$s</b>&quot; copiado en el portapapeles.]]></string>
+    <string name="searchhint">Canción de búsqueda</string>
+    <string name="setasringtone">Establecer como tono de llamada</string>
+    <string name="queryhintyerel">Canción de búsqueda&#8230;</string>
+    <string name="x_has_been_set_as_ringtone"><![CDATA[<b>%1$s</b> configurado con éxito como tono de llamada.]]></string>
+    <string name="deleted_x_songs">%1$d canción eliminada.</string>
+    <string name="delete_song_content">eliminará permanentemente.\nConfirmas?</string>
+    <string name="share_audio_file">Archivo de canción</string>
+    <string name="sharequestion">Qué te gustaría compartir?</string>
+    <string name="share_song_info_plain"><![CDATA[&quot;<b>%1$s</b>&quot;"]]></string>
+    <string name="share_song_info_wartist"><![CDATA[&quot;<b>%1$s</b> - <b>%2$s</b>&quot;]]></string>
+    <string name="share_name_ofsong">Compartir el nombre de la canción</string>
+    <string name="rename">Rebautizar</string>
+    <string name="create_new_playlist">Crear nueva lista de reproducción</string>
+    <string name="add_to_playlist">Agregar a la lista de reproducción</string>
+    <string name="number_song_add_playlist"><![CDATA[<b>%1$s</b> añadido a <b>%2$s</b> lista de reproducción.]]></string>
+    <string name="playlist_name">Ingrese el nombre de la lista de reproducción</string>
+    <string name="create">Crear</string>
+    <string name="create_playlist_fail">Se produjo un error al crear una nueva lista de reproducción.</string>
+    <string name="create_playlist_success">Lista de reproducción creada con éxito</string>
+    <string name="pref_summary_change_delete_history">Eliminar todo el historial de búsqueda.</string>
+    <string name="change">Cambio</string>
+    <string name="rename_playlist_success">El nombre de la lista de reproducción cambió con éxito</string>
+    <string name="delete_playlist">"la lista de reproducción eliminará permanentemente.\nConfirmas?"</string>
+    <string name="delete_playlist_success">Lista de reproducción eliminada con éxito.</string>
+    <string name="removefromplaylist">Eliminar de la lista de reproducción</string>
+    <string name="search_history_removed">El historial de búsqueda se eliminó correctamente.</string>
+    <string name="rate">Calificar, Compartir</string>
+    <string name="like_dialog_title">Que te gustaría hacer?</string>
+    <string name="share_the_app">Comparte la aplicación</string>
+    <string name="removefromqueue">Eliminar de la cola</string>
+    <string name="nowplaying">Ahora Jugando</string>
+    <string name="set_ringtone_message_first"><![CDATA[<b>%1$s</b> es requerido para usar  \'modificar la configuración del sistema\' autorisation.\n\nPor favor, inténtelo de nuevo después de que haya otorgado el permiso para establecer como tono de llamada.]]></string>
+    <string name="ok">De acuerdo</string>
+    <string name="search_info">Use el botón de búsqueda para buscar canciones.</string>
+    <string name="empty_queue">La cola de reproducción está vacía.</string>
+
+    <string name="pref_summary_change_backup_history">Guarde el archivo de copia de seguridad del historial de búsqueda en el dispositivo.</string>
+    <string name="pref_title_backup_history">Historial de búsqueda de respaldo</string>
+    <string name="pref_backup_history_dialog_content">Todo el historial de búsqueda se guardará a \"Musique/Buscar Historia\" carpeta. Si ya has guardado, se sobrescribirá.Por lo tanto, puede perder el historial de búsqueda anterior.\n Confirmas?</string>
+
+    <string name="pref_title_import_history">Importar historial de búsqueda</string>
+    <string name="pref_backup_import_dialog_content">El historial de búsqueda existente en la aplicación será eliminado y reemplazado por el historial de búsqueda previamente guardado.\nConfirmas?</string>
+    <string name="backup_success">Historial de búsqueda respaldado exitosamente.</string>
+    <string name="backup_fail">Hubo un error al hacer una copia de seguridad del historial de búsqueda.</string>
+    <string name="elapsed_time_short_format_mm_ss">%1$02d:%2$02d</string>
+    <string name="elapsed_time_short_format_h_mm_ss">%1$d:%2$02d:%3$02d</string>
+    <string name="no_song">No Canción</string>
+    <string name="no_playlist">No Lista De Reproducción</string>
+    <string name="no_genre">No Género</string>
+    <string name="no_album">No Álbum</string>
+    <string name="no_artist">No Artista</string>
+    <string name="no_result">No Resultados</string>
+    <string name="no_queue">La cola está vacía</string>
+    <string name="artist_notification">Artista: </string>
+    <string name="notification">Notificación</string>
+    <string name="action_play_pause">Jugar/Pausa</string>
+    <string name="action_previous">Anterior</string>
+    <string name="action_next">Siguiente</string>
+    <string name="question_remove_history">Eliminar del historial de búsqueda?</string>
+    <string name="queue_act">queue</string>
+    <string name="removeU">RETIRAR</string>
+
+    <string name="colors">Colores</string>
+    <string name="pref_title_rate">Califica la aplicación en Google Play</string>
+    <string name="cannot_play">La canción no puede ser jugada</string>
+    <string name="sponsored">Patrocinado</string>
+    <string name="first_title">Información Importante</string>
+    <string name="close">Cerca</string>
+    <string name="first_dec"> - Para buscar una canción, debes presionar el ícono de búsqueda que aparecerá en el teclado.\n\n - Tenga en cuenta que el reproductor en línea puede no funcionar debido al uso de cualquier red VPN.\n\n - Cuando la aplicación se desinstala del dispositivo, todos los archivos guardados se eliminarán por completo del dispositivo. Tenga esto en cuenta mientras usar esta aplicación. Si desea desinstalarlo, le sugerimos mover los archivos guardados a otro archivo para evitar esto. - Puedes eliminar fácilmente las búsquedas antiguas del historial de búsqueda al mantenerlo presionado.\n\n Musique Player V2</string>
+    <string name="first_dec_old"> - Para buscar una canción, debes presionar el ícono de búsqueda que aparecerá en el teclado.\n\n - Tenga en cuenta que el reproductor en línea puede no funcionar debido al uso de cualquier red VPN.\n\n- Puedes eliminar fácilmente las búsquedas antiguas del historial de búsqueda al mantenerlo presionado.\n\n Musique Player V2</string>
+    <string name="sleeptimer">Temporizador</string>
+    <string name="action_set">Conjunto</string>
+    <string name="sleep_timer_set"><![CDATA[Temporizador para dormir configurado para <b>%1$d minutos</b> desde ahora.]]></string>
+    <string name="sleep_timer_set_one"><![CDATA[Temporizador para dormir configurado para <b>%1$d minuto</b> desde ahora.]]></string>
+
+    <string name="sleep_timer_canceled">Temporizador de reposo cancelado.</string>
+    <string name="cancel_current_timer">Cancelar el temporizador actual</string>
+    <string name="settings_sleeptimer_pause">Pausa la reproducción de la canción</string>
+    <string name="settings_sleeptimer_stop">Deja de reproducir la canción</string>
+    <string name="base_path_prefix">_(mp3.pm)</string>
+    <string name="pref_title_sleeptimer">Comportamiento del temporizador de dormir</string>
+    <string name="pref_summary_sleeptimer">Cambiar el comportamiento del temporizador de reposo.</string>
+    <string name="sleeptimer_set_pause"><![CDATA[Comportamiento del temporizador de reposo configurado en &quot;<b>Pausa la reproducción de la canción</b>&quot;.]]></string>
+    <string name="sleeptimer_set_stop"><![CDATA[Comportamiento del temporizador de reposo configurado en &quot;<b>Deja de reproducir la canción</b>&quot;.]]></string>
+
+    <string name="sleeptimerstopped_stop">Se detiene el temporizador de reposo y la reproducción de la canción. Puede cambiar este comportamiento desde la configuración.</string>
+    <string name="sleeptimerstopped_pause">El temporizador de apagado está detenido. La reproducción de canción está en pausa. Puede cambiar este comportamiento desde la configuración.</string>
+
+    <string name="sleeptimerstopped_plain">El temporizador de apagado está detenido.</string>
+
+    <string name="sleeptimer_min">minutos</string>
+    <string name="search_history_import_success">Historial de búsqueda importado con éxito.</string>
+    <string name="cannot_found_file">Archivo no encontrado.</string>
+    <string name="rating_title">Cómo fue tu experiencia con nosotros??</string>
+    <string name="rating_submit">Enviar</string>
+    <string name="form_title">Realimentación</string>
+    <string name="notnow">Ahora No</string>
+    <string name="rating_cancel">Cancelar</string>
+    <string name="form_hint">Dinos dónde podemos mejorar</string>
+    <string name="form_later">Quizás mas tarde</string>
+    <string name="form_never">Nunca</string>
+    <string name="feedback_submit">Gracias por sus realimentación!</string>
+    <string name="errorinter">Se produjo un error al ejecutar el anuncio. Por favor, inténtelo de nuevo más tarde.</string>
+    <string name="please">La cola de reproducción está vacía.</string>
+    <string name="http_error">HTTP error fetching URL</string>
+    <string name="pref_title_thefirst">Cómo Utilizar?</string>
+    <string name="pref_summary_thefirst">Aprende cómo usar Musique Player V2.</string>
+    <string name="pref_title_email_us">Aviso de copyright</string>
+    <string name="email_us_title">Aviso De Copyright</string>
+    <string name="email_us_via">Enviar correo electrónico</string>
+    <string name="pref_email_us_dialog_content">- Musique Player V2, no utiliza su propio servidor o proveedor y sólo proporciona acceso a otros servicios y todos estos servicios no tienen nada que ver con Musique Player V2.\n- Musique Player V2 es un reproductor de música que tiene un potente motor de búsqueda y se centra en la interfaz de usuario y fácil de usar.\n- Musique Player V2 respeta los derechos de propiedad intelectual y ayuda a eliminar el contenido de el motor de búsqueda lo más rápido posible.Si usted es un propietario o agente de derechos de autor, envíenos un correo electrónico con su nombre y nos comunicaremos con usted lo antes posible, luego realizaremos un proceso de filtrado en el motor de búsqueda. Por favor no envíe ningún aviso falso.En una emergencia, el proceso puede tomar un tiempo. Gracias por su comprensión.\n Puede presionar yes si desea enviarnos un correo electrónico.</string>
+
+    <string name="pref_title_rate_app">Calificar Aplicación</string>
+    <string name="pref_title_share_app">Compartir Aplicación</string>
+    <string name="pref_summary_rate_app">Califica la aplicación en Google Play.</string>
+    <string name="pref_summary_share_app">Comparte la aplicación a tus amigos.</string>
+    <string name="pref_header_other_2">Otro</string>
+
+</resources>

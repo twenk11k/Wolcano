@@ -1,0 +1,216 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="appname">Wolcano</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="settings">Settings</string>
+
+    <string name="recentlyadded">Recently Added</string>
+    <string name="library">Library</string>
+    <string name="songs">Songs</string>
+    <string name="playlists">Playlists</string>
+    <string name="folders">Online Player</string>
+
+    <string name="folder_name">wolcanomusic</string>
+    <string name="folder_search_history">Search History</string>
+
+    <string name="backup_search_history_file_name">wolcano_all_searches</string>
+    <string name="backup_last_searches_file_name">wolcano_last_searches</string>
+
+
+    <string name="search">Search</string>
+    <string name="save">Save</string>
+    <string name="cnn_err">Connection error occurred</string>
+    <string name="nosonuc">Cannot find lyrics</string>
+    <string name="delete">Delete</string>
+    <string name="share">Share</string>
+    <string name="itsstart">Save starting&#8230;</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="sharesong">Share Song</string>
+    <string name="albums">ALBUMS</string>
+    <string name="artists">ARTISTS</string>
+    <string name="genres">GENRES</string>
+
+    <string name="sharewolcano">Share "Wolcano Music Player"</string>
+    <string name="net_mobile">net_mobile</string>
+    <string name="warning">Warning</string>
+
+    <string name="control_inter_message">You are connected to mobile network.Are you sure you want to continue?</string>
+
+    <string name="no_perm_storage">Unable to scan songs on your device because the required permission is not granted.</string>
+    <string name="no_perm_open_settings">Unable to access settings because the required permission is not granted.</string>
+    <string name="no_perm_add_playlist">This action cannot be performed because the required permission is not granted.</string>
+
+    <string name="start">00:00</string>
+
+    <string name="cancel">Cancel</string>
+    <plurals name="Nsongs">
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> song</item>
+    </plurals>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+    <string name="pref_header_other">Other</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notifications</string>
+
+    <string name="permissions_denied">Permissions denied.</string>
+    <string name="action_grant">Grant</string>
+    <string name="presets">Presets</string>
+    <string name="custom">Custom</string>
+    <string name="done">Done</string>
+    <string name="back">Back</string>
+    <string name="primary_color_desc_title">Choose main color</string>
+    <string name="accent_color_desc_title">Choose accent color</string>
+    <string name="pref_header_colors">Colors</string>
+
+    <string name="primary_color">Main color</string>
+    <string name="accent_color">Accent color</string>
+    <string name="primary_color_desc">Set the main theme color.</string>
+    <string name="accent_color_desc">Set the accent color.</string>
+
+    <string name="pref_title_opening">Choose opening</string>
+    <string name="pref_title_remember_last_search">Auto search</string>
+    <string name="pref_summary_remember_last_search">Search latest automatically.</string>
+    <string name="pref_title_delete_history">Delete search history</string>
+    <string name="pref_summary_delete_history">Delete whole search history.</string>
+    <string name="pref_delete_history_dialog_content">All search history will be permanently remove.This process do not include backup of the search history.\nDo you confirm?</string>
+
+    <string name="copytoclipboard">Copy to clipboard</string>
+    <string name="copy_question">What would you like to copy?</string>
+    <string name="copy_song_infos" translatable="false">copy_song_infos</string>
+    <string name="copy_to_clipboard"><![CDATA[&quot;<b>%1$s</b>&quot; copied to the clipboard.]]></string>
+    <string name="searchhint">Search song</string>
+    <string name="setasringtone">Set as ringtone</string>
+    <string name="queryhintyerel">Search song&#8230;</string>
+    <string name="x_has_been_set_as_ringtone"><![CDATA[<b>%1$s</b> successfully set as ringtone.]]></string>
+    <string name="deleted_x_songs">%1$d song deleted.</string>
+    <string name="delete_song_content">will remove permanently.\nDo you confirm?</string>
+    <string name="share_audio_file">Song file</string>
+    <string name="sharequestion">What would you like to share?</string>
+    <string name="share_song_info_plain"><![CDATA[&quot;<b>%1$s</b>&quot;"]]></string>
+    <string name="share_song_info_wartist"><![CDATA[&quot;<b>%1$s</b> - <b>%2$s</b>&quot;]]></string>
+    <string name="share_name_ofsong">Share name of song</string>
+    <string name="rename">Rename</string>
+    <string name="create_new_playlist">Create new playlist</string>
+    <string name="add_to_playlist">Add to playlist</string>
+    <string name="number_song_add_playlist"><![CDATA[<b>%1$s</b> added to <b>%2$s</b> playlist.]]></string>
+    <string name="playlist_name">Enter the name of playlist</string>
+    <string name="create">Create</string>
+    <string name="create_playlist_fail">An error occurred while creating new playlist.</string>
+    <string name="create_playlist_success">Playlist successfully created</string>
+    <string name="pref_summary_change_delete_history">Delete whole search history.</string>
+    <string name="change">Change</string>
+    <string name="rename_playlist_success">Name of playlist successfully changed</string>
+    <string name="delete_playlist">"playlist will permanently remove.\nDo you confirm?"</string>
+    <string name="delete_playlist_success">Playlist successfully removed.</string>
+    <string name="removefromplaylist">Remove from playlist</string>
+    <string name="search_history_removed">Search history successfully removed.</string>
+    <string name="rate">Rate, Share</string>
+    <string name="like_dialog_title">What would you like to do?</string>
+    <string name="share_the_app">Share the app</string>
+    <string name="removefromqueue">Remove from playing queue</string>
+    <string name="nowplaying">Now Playing</string>
+    <string name="set_ringtone_message_first"><![CDATA[<b>%1$s</b> is required to use  \'modify system settings\' permission.\n\nPlease try again after you granted the permission for set as ringtone.]]></string>
+    <string name="ok">Ok</string>
+    <string name="search_info">Use search button for search songs.</string>
+    <string name="empty_queue">Playing queue is empty.</string>
+
+    <string name="pref_summary_change_backup_history">Save backup file of search history to the device.</string>
+    <string name="pref_title_backup_history">Backup search history</string>
+    <string name="pref_backup_history_dialog_content">All search history will be saved to \"wolcano/Search History\" folder. If you already saved it will overwritten. Therefore you may lose your old search history.\n Do you confirm?</string>
+
+    <string name="pref_title_import_history">Import search history</string>
+    <string name="pref_backup_import_dialog_content">The existing search history in the app will be removed and replaced with the previously saved search history.\nDo you confirm?</string>
+    <string name="backup_success">Search history backed up successfully</string>
+    <string name="backup_fail">An error occurred while backing up the search history.</string>
+    <string name="elapsed_time_short_format_mm_ss">%1$02d:%2$02d</string>
+    <string name="elapsed_time_short_format_h_mm_ss">%1$d:%2$02d:%3$02d</string>
+    <string name="no_song">No Song</string>
+    <string name="no_playlist">No Playlist</string>
+    <string name="no_genre">No Genre</string>
+    <string name="no_album">No Album</string>
+    <string name="no_artist">No Artist</string>
+    <string name="no_result">No Results</string>
+    <string name="no_queue">Playing Queue Is Empty</string>
+    <string name="artist_notification">Artist: </string>
+    <string name="notification">Notification</string>
+    <string name="action_play_pause">Play/Pause</string>
+    <string name="action_previous">Previous</string>
+    <string name="action_next">Next</string>
+    <string name="question_remove_history">Remove from search history?</string>
+    <string name="queue_act">queue</string>
+    <string name="cancelU">CANCEL</string>
+    <string name="removeU">REMOVE</string>
+
+    <string name="colors">Colors</string>
+    <string name="pref_title_rate">Rate the app on Google Play</string>
+    <string name="cannot_play">Song cannot be played</string>
+    <string name="sponsored">Sponsored</string>
+    <string name="first_title">Important Notice</string>
+    <string name="close">Close</string>
+    <string name="first_dec"> - For search a song you must press the search icon which will be displayed on the keyboard after you type the search text.\n\n - When you uninstall the app all the saved files will be removed from your device. For prevent this issue you must move the saved files to an another folder.\n\n - Sleep timer is tend to use for stop currently playing song after some time later.\n\n - You can remove old search from search history if you hold on search text.\n\n Wolcano Music</string>
+    <string name="first_dec_old"> - For search a song you must press the search icon which will be displayed on the keyboard after you type the search text.\n\n - Sleep timer is tend to use for stop currently playing song after some time later.\n\n - You can remove old search from search history if you hold on search text.\n\n Wolcano Music</string>
+    <string name="sleeptimer">Sleep Timer</string>
+    <string name="action_set">Set</string>
+    <string name="sleep_timer_set"><![CDATA[Sleep timer set for <b>%1$d minutes</b> from now.]]></string>
+    <string name="sleep_timer_set_one"><![CDATA[Sleep timer set for <b>%1$d minute</b> from now.]]></string>
+
+    <string name="sleep_timer_canceled">Sleep timer canceled.</string>
+    <string name="cancel_current_timer">Cancel current timer</string>
+    <string name="settings_sleeptimer_pause">Pause playing song</string>
+    <string name="settings_sleeptimer_stop">Stop playing song</string>
+    <string name="base_path_prefix">_(mp3.pm)</string>
+    <string name="pref_title_sleeptimer">Sleep timer behavior</string>
+    <string name="pref_summary_sleeptimer">Change the sleep timer behavior.</string>
+    <string name="sleeptimer_set_pause"><![CDATA[Sleep timer behavior set to &quot;<b>Pause playing song</b>&quot;.]]></string>
+    <string name="sleeptimer_set_stop"><![CDATA[Sleep timer behavior set to &quot;<b>Stop playing song</b>&quot;.]]></string>
+
+    <string name="sleeptimerstopped_stop">Sleep timer and playing song is stopped. You can change this behavior from the settings.</string>
+    <string name="sleeptimerstopped_pause">Sleep timer is stopped. Playing song is paused. You can change this behavior from the settings.</string>
+
+    <string name="sleeptimerstopped_plain">Sleep timer is stopped.</string>
+
+    <string name="sleeptimer_min">min</string>
+    <string name="search_history_import_success">Search history successfully imported.</string>
+    <string name="cannot_found_file">File not found.</string>
+    <string name="rating_title">How was your experience with us?</string>
+    <string name="rating_submit">Submit</string>
+    <string name="form_title">Feedback</string>
+    <string name="notnow">Not Now</string>
+    <string name="rating_cancel">Cancel</string>
+    <string name="form_hint">Tell us where we can improve</string>
+    <string name="form_later">Maybe Later</string>
+    <string name="form_never">Never</string>
+    <string name="feedback_submit">Thanks for your feedback!</string>
+    <string name="errorinter">An error occurred while loading ad. Please try again later.</string>
+    <string name="please">Playing queue is empty.</string>
+    <string name="http_error">HTTP error fetching URL</string>
+    <string name="email_us_title">Copyright Notice</string>
+    <string name="email_us_via">Send Email</string>
+    <string name="pref_summary_thefirst">Learn how to use Wolcano Music.</string>
+    <string name="pref_title_thefirst">How to Use?</string>
+    <string name="pref_title_email_us">Copyright notice</string>
+    <string name="pref_email_us_dialog_content">- Wolcano Music, does not use its own server or provider and it only provide access to other
+services and all these services have no relation with Wolcano Music.\n
+- Wolcano Music is an Android music player which has comprehensive search engine and
+it is focused on user interface and easy to use.\n
+- Wolcano Music respects the intellectual property rights and help removal of the content from
+the search engine as quickly as possible. If you are a copyright owner or a representative send us
+an email with your name and we will get back to you as soon as possible then we will perform filtering
+process on the search engine. Please do not send false notice.
+In an emergency, the process may take a while. Thank you for your understanding.\n
+You can press yes if you want to send email to us.</string>
+    <string name="playing_notification_description">The playing notification provides actions for play/pause etc.</string>
+
+    <string name="pref_title_rate_app">Rate App</string>
+    <string name="pref_title_share_app">Share App</string>
+    <string name="pref_summary_rate_app">Rate the app on Google Play.</string>
+    <string name="pref_summary_share_app">Share this app to your friends.</string>
+    <string name="pref_header_other_2">Other</string>
+    <string name="no_perm_save_file">Song cannot save because required permissions are not setted.</string>
+    <string name="sharefile">Share Song</string>
+
+</resources>

@@ -1,0 +1,7 @@
+<resources>
+
+	<dimen name="gif_size">15dp</dimen>
+	<dimen name="not_old_button_size">32dp</dimen>
+	<dimen name="not_old_button_size_close">26dp</dimen>
+
+</resources>
