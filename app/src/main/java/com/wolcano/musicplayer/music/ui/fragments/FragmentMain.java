@@ -129,8 +129,11 @@ public class FragmentMain extends BaseFragment implements SetSearchQuery, Adapte
     private ArrayAdapter<String> adtDuration;
     public ArrayList<String> arrayArtistList;
 
+<<<<<<< HEAD:app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/FragmentMain.java
     // Mopub
     private MoPubView moPubView;
+=======
+>>>>>>> backup:app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/FragmentOnline.java
     private ArrayAdapter<String> adtArtist;
     private MoPubRecyclerAdapter myMoPubAdapter;
     // Disposable

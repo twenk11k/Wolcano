@@ -43,7 +43,6 @@ import com.wolcano.musicplayer.music.utils.Utils;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -162,11 +161,16 @@ public class SettingsActivity extends BaseActivitySettings implements ColorChoos
 
         @Override
         public void onCreatePreferences(Bundle bundle, String s) {
+<<<<<<< HEAD
             if(Locale.getDefault().getLanguage().equals("tr") || Locale.getDefault().getLanguage().equals("es") || Locale.getDefault().getLanguage().equals("pt") || Locale.getDefault().getLanguage().equals("th") && Utils.isItTrue(getContext())){
                 addPreferencesFromResource(R.xml.pref_library);
             } else {
                 addPreferencesFromResource(R.xml.pref_library_2);
             }
+=======
+            addPreferencesFromResource(R.xml.pref_general);
+
+>>>>>>> backup
             addPreferencesFromResource(R.xml.pref_colors);
             if (Locale.getDefault().getLanguage().equals("tr") || Locale.getDefault().getLanguage().equals("es") || Locale.getDefault().getLanguage().equals("pt") || Locale.getDefault().getLanguage().equals("th") && Utils.isItTrue(getContext()))
                 addPreferencesFromResource(R.xml.pref_others);
@@ -227,8 +231,8 @@ public class SettingsActivity extends BaseActivitySettings implements ColorChoos
                 }
                 return true;
             });
-            final com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreference thefirst = (com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreference) findPreference("thefirst");
-            thefirst.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            final com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreference howtouse = (com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreference) findPreference("howtouse");
+            howtouse.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     String content;
@@ -238,7 +242,7 @@ public class SettingsActivity extends BaseActivitySettings implements ColorChoos
                         content = getString(R.string.first_dec_old);
                     }
                     new MaterialDialog.Builder(getContext())
-                            .title(R.string.pref_title_thefirst)
+                            .title(R.string.pref_title_howtouse)
                             .content(content)
                             .theme(Theme.DARK)
                             .positiveText(R.string.close)

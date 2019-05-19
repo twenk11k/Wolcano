@@ -63,7 +63,7 @@ import com.wolcano.musicplayer.music.ui.dialog.Dialogs;
 import com.wolcano.musicplayer.music.utils.SongUtils;
 import com.wolcano.musicplayer.music.utils.ToastMsgUtils;
 import com.wolcano.musicplayer.music.utils.Utils;
-import com.wolcano.musicplayer.music.widgets.RotateFabBehav;
+import com.wolcano.musicplayer.music.widgets.RotateFabBehavior;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -382,7 +382,7 @@ public class AlbumDetailFragment extends Fragment implements AdapterClickListene
     public void onResume() {
         super.onResume();
         if (Build.VERSION.SDK_INT >= 21) {
-            RotateFabBehav.show(fabPlay, accentColor, true);
+            RotateFabBehavior.show(fabPlay, accentColor, true);
         }
 
         toolbar.setBackgroundColor(Color.TRANSPARENT);

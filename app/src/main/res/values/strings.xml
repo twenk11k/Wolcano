@@ -188,11 +188,37 @@
     <string name="errorinter">An error occurred while loading ad. Please try again later.</string>
     <string name="please">Playing queue is empty.</string>
     <string name="http_error">HTTP error fetching URL</string>
+<<<<<<< HEAD
     <string name="email_us_title">Email Us Title</string>
     <string name="email_us_via">Email Us</string>
     <string name="pref_summary_thefirst">Learn how to use Wolcano.</string>
     <string name="pref_title_thefirst">How to Use?</string>
+=======
+    <string name="email_us_title">Copyright Notice</string>
+    <string name="email_us_via">Send Email</string>
+    <string name="pref_summary_howtouse">Learn how to use Wolcano Music.</string>
+    <string name="pref_title_howtouse">How to Use?</string>
+    <string name="pref_title_email_us">Copyright notice</string>
+    <string name="pref_email_us_dialog_content">- Wolcano Music, does not use its own server or provider and it only provide access to other
+services and all these services have no relation with Wolcano Music.\n
+- Wolcano Music is an Android music player which has comprehensive search engine and
+it is focused on user interface and easy to use.\n
+- Wolcano Music respects the intellectual property rights and help removal of the content from
+the search engine as quickly as possible. If you are a copyright owner or a representative send us
+an email with your name and we will get back to you as soon as possible then we will perform filtering
+process on the search engine. Please do not send false notice.
+In an emergency, the process may take a while. Thank you for your understanding.\n
+You can press yes if you want to send email to us.</string>
+    <string name="playing_notification_description">The playing notification provides actions for play/pause etc.</string>
+
+    <string name="pref_title_rate_app">Rate App</string>
+    <string name="pref_title_share_app">Share App</string>
+    <string name="pref_summary_rate_app">Rate the app on Google Play.</string>
+    <string name="pref_summary_share_app">Share this app to your friends.</string>
+    <string name="pref_header_other_2">Other</string>
+>>>>>>> backup
     <string name="no_perm_save_file">Song cannot save because required permissions are not setted.</string>
     <string name="sharefile">Share Song</string>
+    <string name="pref_header_online">Online Player</string>
 
 </resources>

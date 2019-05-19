@@ -31,7 +31,7 @@
     <string name="artists">ศิลปิน</string>
     <string name="genres">ประเภท</string>
 
-    <string name="sharewolcano">หุ้น "Musique Player V2"</string>
+    <string name="sharewolcano">หุ้น "Wolcano"</string>
     <string name="net_mobile">net_mobile</string>
     <string name="warning">การเตือน</string>
 
@@ -151,8 +151,8 @@
     <string name="sponsored">ผู้สนับสนุน</string>
     <string name="first_title">ข้อมูลสำคัญ</string>
     <string name="close">ปิด</string>
-    <string name="first_dec"> - คุณต้องกดปุ่มค้นหาซึ่งจะอยู่บนแป้นพิมพ์เพื่อหาเพลง.\n\n - ระวังเครื่องเล่นออนไลน์อาจไม่ทำงานเนื่องจากใช้เครือข่าย VPN.\n\n - เมื่อถอนการติดตั้งแอปพลิเคชัน ไฟล์ที่บันทึกไว้ทั้งหมดจะถูกลบออกจากอุปกรณ์. ควรระวังขณะใช้แอพนี. ถ้าคุณต้องการถอนการติดตั้ง เราขอแนะนำให้คุณเซฟไฟล์ทั้งหมดไปไว้ที่ไฟล์อื่น เพื่อป้องกันปัญหานี้\n\n - คุณสามารถลบคำค้นหาเก่าออกได้ในช่องการค้นหา.\n\n Musique Player V2</string>
-    <string name="first_dec_old"> - คุณต้องกดปุ่มค้นหาซึ่งจะอยู่บนแป้นพิมพ์เพื่อหาเพลง.\n\n - ระวังเครื่องเล่นออนไลน์อาจไม่ทำงานเนื่องจากใช้เครือข่าย VPN.\n\n - คุณสามารถลบคำค้นหาเก่าออกได้ในช่องการค้นหา.\n\n Musique Player V2</string>
+    <string name="first_dec"> - คุณต้องกดปุ่มค้นหาซึ่งจะอยู่บนแป้นพิมพ์เพื่อหาเพลง.\n\n - ระวังเครื่องเล่นออนไลน์อาจไม่ทำงานเนื่องจากใช้เครือข่าย VPN.\n\n - เมื่อถอนการติดตั้งแอปพลิเคชัน ไฟล์ที่บันทึกไว้ทั้งหมดจะถูกลบออกจากอุปกรณ์. ควรระวังขณะใช้แอพนี. ถ้าคุณต้องการถอนการติดตั้ง เราขอแนะนำให้คุณเซฟไฟล์ทั้งหมดไปไว้ที่ไฟล์อื่น เพื่อป้องกันปัญหานี้\n\n - คุณสามารถลบคำค้นหาเก่าออกได้ในช่องการค้นหา.\n\n Wolcano</string>
+    <string name="first_dec_old"> - คุณต้องกดปุ่มค้นหาซึ่งจะอยู่บนแป้นพิมพ์เพื่อหาเพลง.\n\n - ระวังเครื่องเล่นออนไลน์อาจไม่ทำงานเนื่องจากใช้เครือข่าย VPN.\n\n - คุณสามารถลบคำค้นหาเก่าออกได้ในช่องการค้นหา.\n\n Wolcano</string>
     <string name="sleeptimer">ตั้งเวลาปิดเครื่อง</string>
     <string name="action_set">ตั้งค่า</string>
     <string name="sleep_timer_set"><![CDATA[ตั้งเวลาปิดไว้สำหรับ <b>%1$d นาที</b> ณ ปัจจุบัน.]]></string>
@@ -191,12 +191,25 @@
     <string name="email_us_title">ประกาศเกี่ยวกับลิขสิทธิ์</string>
     <string name="email_us_via">ส่งอีเมล์</string>
     <string name="pref_title_email_us">ประกาศเกี่ยวกับลิขสิทธิ์</string>
-    <string name="pref_title_thefirst">วิธีการใช้งาน?</string>
-    <string name="pref_summary_thefirst">เรียนรู้วิธีการใช้ Musique Player V2.</string>
+    <string name="pref_title_howtouse">วิธีการใช้งาน?</string>
+    <string name="pref_summary_howtouse">เรียนรู้วิธีการใช้ Wolcano.</string>
 
-    <string name="pref_email_us_dialog_content">Musique Player V2 ไม่ได้ใช้เซิร์ฟเวอร์หรือผู้ให้บริการของตัวเองและให้บริการเฉพาะกับบริการอื่น ๆ เท่านั้นและบริการเหล่านี้ไม่มีส่วนเกี่ยวข้องกับ Musique Player V2.\n
-Musique Player V2 เป็นแอพลิเคชั่นเล่นเพลงประเภทหนึ่งสำหรับแอนดรอยด์ ซึ่งสะดวกในการค้นหาเพลงและง่ายต่อการใช้งาน.\n
+    <string name="pref_email_us_dialog_content">Wolcano ไม่ได้ใช้เซิร์ฟเวอร์หรือผู้ให้บริการของตัวเองและให้บริการเฉพาะกับบริการอื่น ๆ เท่านั้นและบริการเหล่านี้ไม่มีส่วนเกี่ยวข้องกับ Wolcano.\n
+Wolcano เป็นแอพลิเคชั่นเล่นเพลงประเภทหนึ่งสำหรับแอนดรอยด์ ซึ่งสะดวกในการค้นหาเพลงและง่ายต่อการใช้งาน.\n
 Musique  Player V2 เคารพสิทธิ์ในทรัพย์สินทางปัญญาและยังช่วยกำจัดเนื้อหาออกจากเครื่องมือการค้นหาโดยเร็วที่สุด. ถ้าคุณเป็นเจ้าของลิขสิทธิ์ หรือตัวแทน กรุณาส่งชื่อของคุณกลับมาผ่านอีเมล์ และในทันทีที่ได้รับ เราจะทำการดำเนินการคัดกรองในโปรแกรมการค้นหา. กรุณาอย่าส่งข้อความที่ผิดพลาด.
 ในกรณีฉุกเฉินกระบวนการทำงานอาจใช้เวลาสักครู่. ขอบคุณในความเข้าใจ.\n
 คุณสามารถกดปุ่ม ใช่ หากคุณต้องการส่งอีเมลถึงเรา.</string>
+<<<<<<< HEAD
+=======
+
+
+
+    <string name="pref_title_rate_app">ราคาแอพพลิเคชัน</string>
+    <string name="pref_title_share_app">แชร์แอป</string>
+    <string name="pref_summary_rate_app">ให้คะแนนแอปบน Google Play.</string>
+    <string name="pref_summary_share_app">แชร์แอปนี้บน Google Play.</string>
+    <string name="pref_header_other_2">อื่น ๆ</string>
+    <string name="pref_header_online">ผู้เล่นออนไลน์</string>
+
+>>>>>>> backup
 </resources>
