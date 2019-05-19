@@ -3,7 +3,7 @@ package com.wolcano.musicplayer.music.ui.filter;
 import android.widget.Filter;
 
 import com.wolcano.musicplayer.music.mvp.models.Song;
-import com.wolcano.musicplayer.music.ui.fragments.innerfragment.FragmentSongs;
+import com.wolcano.musicplayer.music.ui.fragments.library.FragmentSongs;
 
 import java.util.ArrayList;
 import java.util.List;

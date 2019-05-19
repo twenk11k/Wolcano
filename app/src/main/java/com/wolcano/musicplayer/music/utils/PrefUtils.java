@@ -3,7 +3,7 @@ package com.wolcano.musicplayer.music.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public class PrefUtils {
 

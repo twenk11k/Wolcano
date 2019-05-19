@@ -4,9 +4,10 @@ import android.Manifest;
 import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -15,20 +16,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-
 import com.wolcano.musicplayer.music.R;
-import com.wolcano.musicplayer.music.mvp.listener.AdapterClickListener;
-import com.wolcano.musicplayer.music.mvp.listener.InterstitialListener;
 import com.wolcano.musicplayer.music.mvp.models.Model1;
 import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.provider.RemotePlay;
-import com.wolcano.musicplayer.music.mvp.other.PlayModel1;
+import com.wolcano.musicplayer.music.mvp.other.PlayModelLocal;
 import com.wolcano.musicplayer.music.utils.Perms;
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs;
 import com.wolcano.musicplayer.music.utils.SongUtils;
-import com.wolcano.musicplayer.music.utils.ToastMsgUtils;
+import com.wolcano.musicplayer.music.utils.ToastUtils;
 import com.wolcano.musicplayer.music.utils.Utils;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,11 +35,9 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<Model1> arraylist;
     private AppCompatActivity context;
     private boolean showLoader;
-    private AdapterClickListener listener;
-    private InterstitialListener listener1;
     private int dCount = 0;
 
-    public MainAdapter(AppCompatActivity context, ArrayList<Model1> arraylist, AdapterClickListener listener, InterstitialListener listener1) {
+    public MainAdapter(AppCompatActivity context, ArrayList<Model1> arraylist) {
         if (arraylist == null) {
             this.arraylist = new ArrayList<>();
         } else {
@@ -50,8 +45,6 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         }
         this.context = context;
-        this.listener = listener;
-        this.listener1 = listener1;
 
     }
 
@@ -79,15 +72,12 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                                             @Override
                                             public void onPermGranted() {
                                                 dCount++;
-                                                if(dCount!=2 && dCount%2==1  || dCount ==1){
-                                                    listener1.showInterstitial();
-                                                }
                                                 SongUtils.downPerform(context,arraylist.get(pos));
                                             }
 
                                             @Override
                                             public void onPermUnapproved() {
-                                                ToastMsgUtils.show(context.getApplicationContext(),R.string.no_perm_save_file);
+                                                ToastUtils.show(context.getApplicationContext(),R.string.no_perm_save_file);
                                             }
                                         })
                                         .reqPerm();
@@ -213,7 +203,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public void onClick(View v) {
             Utils.hideKeyboard(context);
             final Handler handler = new Handler();
-            handler.postDelayed(() -> new PlayModel1(context, arraylist) {
+            handler.postDelayed(() -> new PlayModelLocal(context, arraylist) {
                 @Override
                 public void onPrepare() {
                 }
@@ -221,12 +211,12 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 @Override
                 public void onTaskDone(List<Song> alist) {
                     if(getAdapterPosition()!=-1)
-                    RemotePlay.get().playAdd(context,alist, alist.get(listener.getOriginalPosition(getAdapterPosition())));
+                    RemotePlay.get().playAdd(context,alist, alist.get(getAdapterPosition()));
                 }
 
                 @Override
                 public void onTaskFail(Exception e) {
-                    ToastMsgUtils.show(context.getApplicationContext(),R.string.cannot_play);
+                    ToastUtils.show(context.getApplicationContext(),R.string.cannot_play);
                 }
             }.onTask(), 100);
 

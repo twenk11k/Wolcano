@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/statusBarCustom">
 
-        <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -30,20 +30,14 @@
 
             />
 
-        <com.wolcano.musicplayer.music.ui.fragments.folder.foldersearch.MaterialSearchLast
+        <com.wolcano.musicplayer.music.ui.fragments.online.search.MaterialSearchLast
             android:id="@+id/search_view_miguel"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 
             />
     </FrameLayout>
-    <com.mopub.mobileads.MoPubView
-        android:id="@+id/adview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar_container"
 
-        />
     <ViewStub
         android:id="@+id/view_empty"
         android:layout="@layout/layout_emptyview"
@@ -59,7 +53,7 @@
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/adview"
+        android:layout_below="@+id/toolbar_container"
         android:layout_marginBottom="@dimen/mini_player_height"
         android:background="@color/darkbg1"        android:layoutAnimation="@anim/layout_animation_fall_down"
 

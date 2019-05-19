@@ -19,15 +19,17 @@ import android.os.Build;
 import android.provider.BaseColumns;
 import android.provider.MediaStore;
 import android.provider.Settings;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.graphics.Palette;
-import android.telephony.TelephonyManager;
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.palette.graphics.Palette;
+
 import android.text.Html;
+import android.transition.Slide;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -41,10 +43,10 @@ import com.wolcano.musicplayer.music.App;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.widgets.StatusBarView;
-import com.wolcano.musicplayer.music.ui.fragments.innerfragment.detail.AlbumDetailFragment;
-import com.wolcano.musicplayer.music.ui.fragments.innerfragment.detail.ArtistDetailFragment;
-import com.wolcano.musicplayer.music.ui.fragments.innerfragment.detail.GenreDetailFragment;
-import com.wolcano.musicplayer.music.ui.fragments.innerfragment.detail.PlaylistDetailFragment;
+import com.wolcano.musicplayer.music.ui.fragments.library.detail.AlbumDetailFragment;
+import com.wolcano.musicplayer.music.ui.fragments.library.detail.ArtistDetailFragment;
+import com.wolcano.musicplayer.music.ui.fragments.library.detail.GenreDetailFragment;
+import com.wolcano.musicplayer.music.ui.fragments.library.detail.PlaylistDetailFragment;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.io.File;
@@ -111,18 +113,7 @@ public class Utils {
         settings.edit().putInt("app_opening", pos).apply();
 
     }
-    public static int getOpeningVal2(Context context) {
 
-        settings = context.getSharedPreferences("VALUES", Context.MODE_PRIVATE);
-        return settings.getInt("app_opening_2", 4);
-
-    }
-    public static void setOpeningVal2(Context context, int pos) {
-
-        settings = context.getSharedPreferences("VALUES", Context.MODE_PRIVATE);
-        settings.edit().putInt("app_opening_2", pos).apply();
-
-    }
     public static boolean getMobileInteret(Context context) {
         settings = context.getSharedPreferences("VALUES", Context.MODE_PRIVATE);
         return settings.getBoolean("app_mobile_interet", false);
@@ -134,18 +125,6 @@ public class Utils {
     }
 
 
-    public static boolean getIsMopubInitDone(Context context) {
-
-        settings = context.getSharedPreferences("VALUES", Context.MODE_PRIVATE);
-        return settings.getBoolean("app_is_mopub_init_done", false);
-
-    }
-    public static void setIsMopubInitDone(Context context, boolean val) {
-
-        settings = context.getSharedPreferences("VALUES", Context.MODE_PRIVATE);
-        settings.edit().putBoolean("app_is_mopub_init_done", val).apply();
-
-    }
     public static int getPlaylistPos(Context context) {
         settings = context.getSharedPreferences("VALUES", Context.MODE_PRIVATE);
         return settings.getInt("app_playlist_pos", 0);
@@ -174,13 +153,13 @@ public class Utils {
     public static void setFirst(Context context, boolean val) {
 
         settings = context.getSharedPreferences("VALUES", Context.MODE_PRIVATE);
-        settings.edit().putBoolean("app_howtouse", val).apply();
+        settings.edit().putBoolean("app_thefirst", val).apply();
 
     }
     public static boolean getFirst(Context context) {
 
         settings = context.getSharedPreferences("VALUES", Context.MODE_PRIVATE);
-        return settings.getBoolean("app_howtouse", true);
+        return settings.getBoolean("app_thefirst", true);
 
     }
 
@@ -517,14 +496,13 @@ public class Utils {
     @TargetApi(21)
     public static void navigateToAlbum(Activity context, long albumID, String albumName) {
         FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
-        Fragment fragment;
-
+               Fragment fragment;
         fragment = AlbumDetailFragment.newInstance(albumID, albumName   );
-
+        fragment.setEnterTransition(new Slide(Gravity.RIGHT));
+        fragment.setExitTransition(new Slide(Gravity.LEFT));
         transaction.hide(((AppCompatActivity) context).getSupportFragmentManager().findFragmentById(R.id.fragment));
         transaction.add(R.id.fragment, fragment);
-
-        transaction.addToBackStack(null).commit();
+         transaction.addToBackStack(null).commit();
 
     }
     @TargetApi(21)
@@ -533,7 +511,8 @@ public class Utils {
         Fragment fragment;
 
         fragment = ArtistDetailFragment.newInstance(artistID, artistName);
-
+        fragment.setEnterTransition(new Slide(Gravity.RIGHT));
+        fragment.setExitTransition(new Slide(Gravity.LEFT));
         transaction.hide(((AppCompatActivity) context).getSupportFragmentManager().findFragmentById(R.id.fragment));
         transaction.add(R.id.fragment, fragment);
         transaction.addToBackStack(null).commit();
@@ -545,6 +524,8 @@ public class Utils {
         Fragment fragment;
 
         fragment = GenreDetailFragment.newInstance(genreID, genreName);
+        fragment.setEnterTransition(new Slide(Gravity.RIGHT));
+        fragment.setExitTransition(new Slide(Gravity.LEFT));
 
         transaction.hide(((AppCompatActivity) context).getSupportFragmentManager().findFragmentById(R.id.fragment));
         transaction.add(R.id.fragment, fragment);
@@ -557,6 +538,8 @@ public class Utils {
         Fragment fragment;
 
         fragment = PlaylistDetailFragment.newInstance(playlistID, playlistName);
+        fragment.setEnterTransition(new Slide(Gravity.RIGHT));
+        fragment.setExitTransition(new Slide(Gravity.LEFT));
 
         transaction.hide(((AppCompatActivity) context).getSupportFragmentManager().findFragmentById(R.id.fragment));
         transaction.add(R.id.fragment, fragment);
@@ -677,15 +660,7 @@ public class Utils {
             sElapsedFormatHMMSS = context.getString(R.string.elapsed_time_short_format_h_mm_ss);
         }
     }
-    public static boolean isItTrue(Context context){
-        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-        String countryCode = tm.getSimCountryIso();
-        if(countryCode.equals("jp")){
-            return false;
-        } else {
-            return true;
-        }
-    }
+
     public static String getDura(long durationLong) {
         long hours = durationLong / 3600;
         long minutes = (durationLong % 3600) / 60;
@@ -708,7 +683,15 @@ public class Utils {
         return (int) Math.ceil(App.dens * value);
     }
 
+    public static void setServiceDestroy(Context context,final boolean val){
+        settings = context.getSharedPreferences("VALUES", Context.MODE_PRIVATE);
+        settings.edit().putBoolean("app_service_destroy", val).apply();
+    }
+    public static boolean getServiceDestroy(Context context) {
+        settings = context.getSharedPreferences("VALUES", Context.MODE_PRIVATE);
 
+        return settings.getBoolean("app_service_destroy", false);
+    }
 
 
 

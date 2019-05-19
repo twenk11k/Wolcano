@@ -11,9 +11,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import com.kabouzeid.appthemehelper.ATH;
 import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.wolcano.musicplayer.music.content.Binder;
 import com.wolcano.musicplayer.music.provider.MusicService;
+import com.wolcano.musicplayer.music.utils.Utils;
 import com.wolcano.musicplayer.music.widgets.StatusBarView;
 import com.wolcano.musicplayer.music.utils.Perms;
 
@@ -79,8 +81,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     private void setView() {
         Binder.bindIt(this);
 
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getActionBar() != null) {
+            getActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }
 
@@ -89,12 +91,20 @@ public abstract class BaseActivity extends AppCompatActivity {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             musicService = ((MusicService.ServiceInit) service).getMusicService();
-            onServiceCon();
-            handleListener();
+
+            if(!Utils.getServiceDestroy(getApplicationContext())){
+                onServiceCon();
+                handleListener();
+            } else {
+                Utils.setServiceDestroy(getApplicationContext(),false);
+
+            }
+
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
+            Utils.setServiceDestroy(getApplicationContext(),true);
         }
     }
 
@@ -130,12 +140,20 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         Perms.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
-
     @Override
     protected void onDestroy() {
         if (srvConnection != null) {
             unbindService(srvConnection);
         }
+      /*  if(!RemotePlay.get().isPlaying()){
+            Intent intent = new Intent(this, MusicService.class);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                getApplicationContext().startForegroundService(intent);
+            } else {
+                getApplicationContext().stopService(intent);
+            }
+        }
+        */
         if (receiverRegistered) {
             receiverRegistered = false;
         }
@@ -144,6 +162,22 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         super.onDestroy();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(Utils.getServiceDestroy(this)){
+            Intent intent = new Intent();
+            intent.setClass(this, MusicService.class);
+            if(srvConnection!=null){
+                bindService(intent, srvConnection, Context.BIND_AUTO_CREATE);
+            } else {
+                srvConnection = new RemoteServiceConn();
+                bindService(intent, srvConnection, Context.BIND_AUTO_CREATE);
+            }
+        }
+    }
+
     protected void handleListener() {
     }
 

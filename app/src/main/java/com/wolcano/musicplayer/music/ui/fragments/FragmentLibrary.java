@@ -5,35 +5,36 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.tabs.TabLayout;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 import com.kabouzeid.appthemehelper.util.TintHelper;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
-import com.mopub.mobileads.MoPubView;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
 import com.wolcano.musicplayer.music.utils.Perms;
 import com.wolcano.musicplayer.music.widgets.StatusBarView;
 import com.wolcano.musicplayer.music.ui.adapter.LibraryFragmentPagerAdapter;
-import com.wolcano.musicplayer.music.ui.fragments.innerfragment.FragmentAlbums;
-import com.wolcano.musicplayer.music.ui.fragments.innerfragment.FragmentArtists;
-import com.wolcano.musicplayer.music.ui.fragments.innerfragment.FragmentGenres;
-import com.wolcano.musicplayer.music.ui.fragments.innerfragment.FragmentSongs;
+import com.wolcano.musicplayer.music.ui.fragments.library.FragmentAlbums;
+import com.wolcano.musicplayer.music.ui.fragments.library.FragmentArtists;
+import com.wolcano.musicplayer.music.ui.fragments.library.FragmentGenres;
+import com.wolcano.musicplayer.music.ui.fragments.library.FragmentSongs;
 import com.wolcano.musicplayer.music.utils.Utils;
 
 public class FragmentLibrary extends BaseFragment {
@@ -41,10 +42,7 @@ public class FragmentLibrary extends BaseFragment {
     StatusBarView statusBarView;
     Toolbar toolbar;
     private boolean isHidden = false;
-    private MoPubView moPubView;
     public ViewPager viewPager;
-    private Handler handlerInit;
-    private Runnable runnableInit;
     private Context context;
     AppBarLayout appBarLayout;
 
@@ -55,29 +53,7 @@ public class FragmentLibrary extends BaseFragment {
         setHasOptionsMenu(true);
         context = getContext();
         appBarLayout = view.findViewById(R.id.appbar);
-        if (Utils.getIsMopubInitDone(context.getApplicationContext())) {
-            moPubView = (MoPubView) view.findViewById(R.id.adview);
-            moPubView.setAdUnitId("f3b55e3961424c73bbf04175a179fe6b"); // Enter your Ad Unit ID from www.mopub.com
-            moPubView.loadAd();
 
-        } else {
-            handlerInit = new Handler();
-            runnableInit = new Runnable() {
-                @Override
-                public void run() {
-                    if (Utils.getIsMopubInitDone(context.getApplicationContext())) {
-                        moPubView = (MoPubView) view.findViewById(R.id.adview);
-                        moPubView.setAdUnitId("f3b55e3961424c73bbf04175a179fe6b"); // Enter your Ad Unit ID from www.mopub.com
-                        moPubView.loadAd();
-                    } else {
-                        handlerInit.postDelayed(this::run, 500);
-                    }
-
-
-                }
-            };
-            handlerInit.postDelayed(runnableInit, 500);
-        }
 
 
         toolbar = view.findViewById(R.id.toolbar);
@@ -210,17 +186,11 @@ public class FragmentLibrary extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (moPubView != null) {
-            moPubView.destroy();
-        }
         viewPager.removeAllViews();
         viewPager.destroyDrawingCache();
         viewPager = null;
         statusBarView = null;
         toolbar = null;
-        if (handlerInit != null && runnableInit != null) {
-            handlerInit.removeCallbacks(runnableInit);
-        }
         DisposableManager.dispose();
 
     }

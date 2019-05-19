@@ -7,13 +7,15 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceActivity;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.preference.Preference;
-import android.support.v7.preference.TwoStatePreference;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.DialogFragment;
+import androidx.preference.ListPreference;
+import androidx.preference.Preference;
+import androidx.preference.TwoStatePreference;
+
 import android.text.Html;
 import android.text.Spanned;
 import android.view.Menu;
@@ -37,7 +39,7 @@ import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.widgets.StatusBarView;
-import com.wolcano.musicplayer.music.utils.DosyaUtils;
+import com.wolcano.musicplayer.music.utils.FileUtils;
 import com.wolcano.musicplayer.music.utils.PrefUtils;
 import com.wolcano.musicplayer.music.utils.Utils;
 
@@ -147,8 +149,8 @@ public class SettingsActivity extends BaseActivitySettings implements ColorChoos
 
         private static void setSummary(Preference preference, @NonNull Object value) {
             String stringValue = value.toString();
-            if (preference instanceof android.support.v7.preference.ListPreference) {
-                android.support.v7.preference.ListPreference listPreference = (android.support.v7.preference.ListPreference) preference;
+            if (preference instanceof ListPreference) {
+                ListPreference listPreference = (ListPreference) preference;
                 int index = listPreference.findIndexOfValue(stringValue);
                 preference.setSummary(
                         index >= 0
@@ -161,19 +163,14 @@ public class SettingsActivity extends BaseActivitySettings implements ColorChoos
 
         @Override
         public void onCreatePreferences(Bundle bundle, String s) {
-<<<<<<< HEAD
-            if(Locale.getDefault().getLanguage().equals("tr") || Locale.getDefault().getLanguage().equals("es") || Locale.getDefault().getLanguage().equals("pt") || Locale.getDefault().getLanguage().equals("th") && Utils.isItTrue(getContext())){
-                addPreferencesFromResource(R.xml.pref_library);
-            } else {
-                addPreferencesFromResource(R.xml.pref_library_2);
-            }
-=======
             addPreferencesFromResource(R.xml.pref_general);
 
->>>>>>> backup
             addPreferencesFromResource(R.xml.pref_colors);
-            if (Locale.getDefault().getLanguage().equals("tr") || Locale.getDefault().getLanguage().equals("es") || Locale.getDefault().getLanguage().equals("pt") || Locale.getDefault().getLanguage().equals("th") && Utils.isItTrue(getContext()))
-                addPreferencesFromResource(R.xml.pref_others);
+
+            addPreferencesFromResource(R.xml.pref_others);
+
+
+            addPreferencesFromResource(R.xml.pref_others_2);
 
         }
 
@@ -198,41 +195,44 @@ public class SettingsActivity extends BaseActivitySettings implements ColorChoos
         }
 
         private void invalidateSettings() {
-            if (Locale.getDefault().getLanguage().equals("tr")  || Locale.getDefault().getLanguage().equals("es") || Locale.getDefault().getLanguage().equals("pt") || Locale.getDefault().getLanguage().equals("th")&& Utils.isItTrue(getContext()))
-            {
-               handleGeneralSettings2();  
-            } else {
-                handleGeneralSettings();
-            }
-
+            handleGeneralSettings();
             handleColorSettings();
-            if (Locale.getDefault().getLanguage().equals("tr")  || Locale.getDefault().getLanguage().equals("es") || Locale.getDefault().getLanguage().equals("pt") || Locale.getDefault().getLanguage().equals("th")&& Utils.isItTrue(getContext()))
-                handleFolderSettings();
-
+            handleFolderSettings();
+            handleOthers();
         }
 
-        private void handleGeneralSettings2() {
-            final ATEListPreference opening = (ATEListPreference) findPreference("opening");
-            if(Locale.getDefault().getLanguage().equals("tr") || Locale.getDefault().getLanguage().equals("es") || Locale.getDefault().getLanguage().equals("pt") || Locale.getDefault().getLanguage().equals("th")){
-                opening.setValueIndex(Utils.getOpeningVal(getContext()));
-                setSummary(opening, Utils.getOpeningVal(getContext()));
+        private void handleOthers() {
+            final com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreference rateApp = (com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreference) findPreference("rate_app");
+            rateApp.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Utils.rateWolcano(getContext());
+                    return true;
+                }
+            });
+            final com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreference shareApp = (com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreference) findPreference("share_app");
+            shareApp.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Utils.shareWolcano(getContext());
+                    return true;
+                }
+            });
+        }
 
-            } else {
-                opening.setValueIndex(Utils.getOpeningVal2(getContext())-4);
-                setSummary(opening, Utils.getOpeningVal2(getContext()));
-            }
+        private void handleGeneralSettings() {
+            final ATEListPreference opening = (ATEListPreference) findPreference("opening");
+            opening.setValueIndex(Utils.getOpeningVal(getContext()));
+            setSummary(opening, Utils.getOpeningVal(getContext()));
+
             opening.setOnPreferenceChangeListener((preference, o) -> {
                 setSummary(opening, o);
-                if(Locale.getDefault().getLanguage().equals("tr") || Locale.getDefault().getLanguage().equals("es") || Locale.getDefault().getLanguage().equals("pt") || Locale.getDefault().getLanguage().equals("th")){
-                    Utils.setOpeningVal(getContext(), Integer.valueOf(o.toString()));
-                } else {
-                    Utils.setOpeningVal2(getContext(), Integer.valueOf(o.toString()));
+                Utils.setOpeningVal(getContext(), Integer.valueOf(o.toString()));
 
-                }
                 return true;
             });
-            final com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreference howtouse = (com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreference) findPreference("howtouse");
-            howtouse.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            final com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreference thefirst = (com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreference) findPreference("thefirst");
+            thefirst.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     String content;
@@ -380,12 +380,12 @@ public class SettingsActivity extends BaseActivitySettings implements ColorChoos
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
 
                                     boolean isSuccessful = false;
-                                    if (DosyaUtils.writeToFile(getContext(), Utils.getSearchQuery(getContext()), getContext().getString(R.string.backup_search_history_file_name))) {
+                                    if (FileUtils.writeToFile(getContext(), Utils.getSearchQuery(getContext()), getContext().getString(R.string.backup_search_history_file_name))) {
                                         isSuccessful = true;
                                     } else {
                                         isSuccessful = false;
                                     }
-                                    if (DosyaUtils.writeToFile(getContext(), Utils.getLastSearch(getContext()), getString(R.string.backup_last_searches_file_name))) {
+                                    if (FileUtils.writeToFile(getContext(), Utils.getLastSearch(getContext()), getString(R.string.backup_last_searches_file_name))) {
                                         isSuccessful = true;
                                     } else {
                                         isSuccessful = false;
@@ -436,7 +436,7 @@ public class SettingsActivity extends BaseActivitySettings implements ColorChoos
 
                                     try {
 
-                                        DosyaUtils.readFileData(getContext(), directoryPath1, directoryPath2);
+                                        FileUtils.readFileData(getContext(), directoryPath1, directoryPath2);
 
                                     } catch (IOException e) {
                                         e.printStackTrace();
@@ -449,7 +449,7 @@ public class SettingsActivity extends BaseActivitySettings implements ColorChoos
                     return true;
                 }
             });
-            final TwoStatePreference autoSearch = (TwoStatePreference) findPreference("remember_last_search");
+            final androidx.preference.TwoStatePreference autoSearch = (TwoStatePreference) findPreference("remember_last_search");
             autoSearch.setChecked(Utils.getAutoSearch(getContext()));
             autoSearch.setOnPreferenceChangeListener((preference, newValue) -> {
                 Utils.setAutoSearch(getContext(), (boolean) newValue);
@@ -459,34 +459,7 @@ public class SettingsActivity extends BaseActivitySettings implements ColorChoos
         }
 
 
-        private void handleGeneralSettings() {
-            final ATEListPreference opening = (ATEListPreference) findPreference("opening");
-            if(Locale.getDefault().getLanguage().equals("tr") || Locale.getDefault().getLanguage().equals("es") || Locale.getDefault().getLanguage().equals("pt") || Locale.getDefault().getLanguage().equals("th")){
-                opening.setValueIndex(Utils.getOpeningVal(getContext()));
-                setSummary(opening, Utils.getOpeningVal(getContext()));
 
-            } else {
-                opening.setValueIndex(Utils.getOpeningVal2(getContext())-4);
-                setSummary(opening, Utils.getOpeningVal2(getContext()));
-            }
-            opening.setOnPreferenceChangeListener((preference, o) -> {
-                setSummary(opening, o);
-                if(Locale.getDefault().getLanguage().equals("tr") || Locale.getDefault().getLanguage().equals("es") || Locale.getDefault().getLanguage().equals("pt") || Locale.getDefault().getLanguage().equals("th")){
-                    Utils.setOpeningVal(getContext(), Integer.valueOf(o.toString()));
-                } else {
-                    Utils.setOpeningVal2(getContext(), Integer.valueOf(o.toString()));
-
-                }
-                return true;
-            });
-            final com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEListPreference sleeptimer = (com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEListPreference) findPreference("sleeptimerbehav");
-            sleeptimer.setValueIndex(Utils.getOpeningValSleep(getContext()));
-            sleeptimer.setOnPreferenceChangeListener((preference, o) -> {
-                Utils.setOpeningValSleep(getContext(), Integer.valueOf(o.toString()));
-                Toast.makeText(getContext(),getSleepTimerStr(Integer.parseInt(o.toString())),Toast.LENGTH_SHORT).show();
-                return true;
-            });
-        }
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 

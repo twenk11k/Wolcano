@@ -1,6 +1,6 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <string name="appname">Musique Player V2</string>
+    <string name="appname">Wolcano</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="settings">Configuración</string>
 
@@ -31,7 +31,7 @@
     <string name="artists">Artistas</string>
     <string name="genres">Géneros</string>
 
-    <string name="sharewolcano">Compartir "Wolcano"</string>
+    <string name="sharewolcano">Compartir "Musique Player V2"</string>
     <string name="net_mobile">net_mobile</string>
     <string name="warning">Advertencia</string>
 
@@ -150,8 +150,8 @@
     <string name="sponsored">Patrocinado</string>
     <string name="first_title">Información Importante</string>
     <string name="close">Cerca</string>
-    <string name="first_dec"> - Para buscar una canción, debes presionar el ícono de búsqueda que aparecerá en el teclado.\n\n - Tenga en cuenta que el reproductor en línea puede no funcionar debido al uso de cualquier red VPN.\n\n - Cuando la aplicación se desinstala del dispositivo, todos los archivos guardados se eliminarán por completo del dispositivo. Tenga esto en cuenta mientras usar esta aplicación. Si desea desinstalarlo, le sugerimos mover los archivos guardados a otro archivo para evitar esto. - Puedes eliminar fácilmente las búsquedas antiguas del historial de búsqueda al mantenerlo presionado.\n\n Wolcano</string>
-    <string name="first_dec_old"> - Para buscar una canción, debes presionar el ícono de búsqueda que aparecerá en el teclado.\n\n - Tenga en cuenta que el reproductor en línea puede no funcionar debido al uso de cualquier red VPN.\n\n- Puedes eliminar fácilmente las búsquedas antiguas del historial de búsqueda al mantenerlo presionado.\n\n Wolcano</string>
+    <string name="first_dec"> - Para buscar una canción, debes presionar el ícono de búsqueda que aparecerá en el teclado.\n\n - Tenga en cuenta que el reproductor en línea puede no funcionar debido al uso de cualquier red VPN.\n\n - Cuando la aplicación se desinstala del dispositivo, todos los archivos guardados se eliminarán por completo del dispositivo. Tenga esto en cuenta mientras usar esta aplicación. Si desea desinstalarlo, le sugerimos mover los archivos guardados a otro archivo para evitar esto. - Puedes eliminar fácilmente las búsquedas antiguas del historial de búsqueda al mantenerlo presionado.\n\n Musique Player V2</string>
+    <string name="first_dec_old"> - Para buscar una canción, debes presionar el ícono de búsqueda que aparecerá en el teclado.\n\n - Tenga en cuenta que el reproductor en línea puede no funcionar debido al uso de cualquier red VPN.\n\n- Puedes eliminar fácilmente las búsquedas antiguas del historial de búsqueda al mantenerlo presionado.\n\n Musique Player V2</string>
     <string name="sleeptimer">Temporizador</string>
     <string name="action_set">Conjunto</string>
     <string name="sleep_timer_set"><![CDATA[Temporizador para dormir configurado para <b>%1$d minutos</b> desde ahora.]]></string>
@@ -188,14 +188,12 @@
     <string name="please">La cola de reproducción está vacía.</string>
     <string name="http_error">HTTP error fetching URL</string>
     <string name="pref_title_howtouse">Cómo Utilizar?</string>
-    <string name="pref_summary_howtouse">Aprende cómo usar Wolcano.</string>
+    <string name="pref_summary_howtouse">Aprende cómo usar Musique Player V2.</string>
     <string name="pref_title_email_us">Aviso de copyright</string>
     <string name="email_us_title">Aviso De Copyright</string>
     <string name="email_us_via">Enviar correo electrónico</string>
-    <string name="pref_email_us_dialog_content">- Wolcano, no utiliza su propio servidor o proveedor y sólo proporciona acceso a otros servicios y todos estos servicios no tienen nada que ver con Wolcano.\n- Wolcano es un reproductor de música que tiene un potente motor de búsqueda y se centra en la interfaz de usuario y fácil de usar.\n- Wolcano respeta los derechos de propiedad intelectual y ayuda a eliminar el contenido de el motor de búsqueda lo más rápido posible.Si usted es un propietario o agente de derechos de autor, envíenos un correo electrónico con su nombre y nos comunicaremos con usted lo antes posible, luego realizaremos un proceso de filtrado en el motor de búsqueda. Por favor no envíe ningún aviso falso.En una emergencia, el proceso puede tomar un tiempo. Gracias por su comprensión.\n Puede presionar yes si desea enviarnos un correo electrónico.</string>
+    <string name="pref_email_us_dialog_content">- Musique Player V2, no utiliza su propio servidor o proveedor y sólo proporciona acceso a otros servicios y todos estos servicios no tienen nada que ver con Musique Player V2.\n- Musique Player V2 es un reproductor de música que tiene un potente motor de búsqueda y se centra en la interfaz de usuario y fácil de usar.\n- Musique Player V2 respeta los derechos de propiedad intelectual y ayuda a eliminar el contenido de el motor de búsqueda lo más rápido posible.Si usted es un propietario o agente de derechos de autor, envíenos un correo electrónico con su nombre y nos comunicaremos con usted lo antes posible, luego realizaremos un proceso de filtrado en el motor de búsqueda. Por favor no envíe ningún aviso falso.En una emergencia, el proceso puede tomar un tiempo. Gracias por su comprensión.\n Puede presionar yes si desea enviarnos un correo electrónico.</string>
 
-<<<<<<< HEAD
-=======
     <string name="pref_title_rate_app">Calificar Aplicación</string>
     <string name="pref_title_share_app">Compartir Aplicación</string>
     <string name="pref_summary_rate_app">Califica la aplicación en Google Play.</string>
@@ -203,5 +201,4 @@
     <string name="pref_header_other_2">Otro</string>
     <string name="pref_header_online">Jugador en linea</string>
 
->>>>>>> backup
 </resources>

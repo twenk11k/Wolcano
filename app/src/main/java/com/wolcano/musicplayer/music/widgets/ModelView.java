@@ -14,7 +14,7 @@ import android.view.View;
 
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.utils.SongCover;
-import com.wolcano.musicplayer.music.utils.ResimUtils;
+import com.wolcano.musicplayer.music.utils.ImageUtils;
 
 
 public class ModelView extends View implements ValueAnimator.AnimatorUpdateListener {
@@ -119,9 +119,9 @@ public class ModelView extends View implements ValueAnimator.AnimatorUpdateListe
 
         int unit = Math.min(getWidth(), getHeight()) / 8;
         SongCover.get().setOvalLength(unit * 4);
-        dicsBitmap = ResimUtils.chgImage(dicsBitmap, unit * 6, unit * 6);
-        modelBitmap = ResimUtils.chgImage(modelBitmap, unit * 4, unit * 4);
-        helperBitmap = ResimUtils.chgImage(helperBitmap, unit * 2, unit * 3);
+        dicsBitmap = ImageUtils.chgImage(dicsBitmap, unit * 6, unit * 6);
+        modelBitmap = ImageUtils.chgImage(modelBitmap, unit * 4, unit * 4);
+        helperBitmap = ImageUtils.chgImage(helperBitmap, unit * 2, unit * 3);
 
         int discOffsetY = helperBitmap.getHeight() / 2;
         dicsPnt.x = (getWidth() - dicsBitmap.getWidth()) / 2;

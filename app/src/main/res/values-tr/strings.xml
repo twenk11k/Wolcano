@@ -149,8 +149,8 @@
     <string name="cancelU">İPTAL</string>
     <string name="removeU">KALDIR</string>
 
-    <string name="pref_summary_howtouse">Uygulamanın nasıl kullanıldığını öğrenin.</string>
-    <string name="pref_title_howtouse">Nasıl Kullanılır?</string>
+    <string name="pref_summary_thefirst">Uygulamanın nasıl kullanıldığını öğrenin.</string>
+    <string name="pref_title_thefirst">Nasıl Kullanılır?</string>
     <string name="nosonuc">Sonuç bulunamadı</string>
 
     <string name="sleeptimer">Uyku Zamanlayıcı</string>
@@ -185,8 +185,6 @@
     <string name="pref_email_us_dialog_content">- TRMüzik, kendi sunucusunu ya da sağlayıcısını kullanmaz ve tamamen başka sunucu servislerine erişim sağlar ve bu sunucuların TRMüzik ile hiçbir alakası yoktur.\n- TRMüzik, güçlü bir arama motoruna sahip kullanıcı arayüzüne ve kolay kullanıma odaklanmış bir müzik çalardır.\n- TRMüzik, fikri mülkiyet haklarına saygı duyar ve en hızlı şekilde telif hakkı sahibine veya temsilcisine geri dönüş yapar. Eğer telif hakkı sahibi ya da temsilcisi iseniz bize adınızı yazdığınız bir email atarsanız size en kısa sürede dönüş yapıp arama motorunda filtreleme işlemini gerçekleştiririz. Lütfen yanlış bildiri göndermeyiniz. Acil durumlarda işlem biraz uzayabilir. Anlayışınız için teşekkür ederiz.\nBildiri atmak istiyorsanız Evet butonuna basabilirsiniz.</string>
     <string name="email_us_title">Telif Hakkı Bildir</string>
     <string name="email_us_via">Email Gönder</string>
-<<<<<<< HEAD
-=======
     <string name="pref_title_rate_app">Oy Ver</string>
     <string name="pref_summary_rate_app">Uygulamaya Google Play üzerinden oy verin.</string>
     <string name="pref_summary_share_app">Uygulamayı arkadaşlarınızla paylaşın.</string>
@@ -194,5 +192,4 @@
     <string name="pref_header_other_2">Diğer</string>
     <string name="pref_header_online">Çevrimiçi Oynatıcı</string>
 
->>>>>>> backup
 </resources>

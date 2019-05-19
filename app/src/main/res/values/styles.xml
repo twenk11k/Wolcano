@@ -12,6 +12,7 @@
         <item name="android:colorForeground">@color/black_u2</item>
         <!-- Navigation Drawer Arrow Style. -->
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+        <item name="colorSwitchThumbNormal">@color/md_grey_200</item>
 
         <!-- Overflow Button Style. -->
         <item name="actionOverflowButtonStyle">@style/OverflowStyle</item>

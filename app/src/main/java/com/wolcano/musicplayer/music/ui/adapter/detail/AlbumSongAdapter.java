@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.ContextThemeWrapper;
@@ -16,11 +15,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.PopupMenu;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.wolcano.musicplayer.music.R;
-import com.wolcano.musicplayer.music.mvp.listener.AdapterClickListener;
 import com.wolcano.musicplayer.music.mvp.listener.GetDisposable;
 import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.provider.RemotePlay;
@@ -34,14 +35,12 @@ public class AlbumSongAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     private List<Song> arraylist;
     private Context context;
-    private AdapterClickListener listener;
     private GetDisposable getDisposable;
 
-    public AlbumSongAdapter(Context context, List<Song> arraylist, AdapterClickListener listener,GetDisposable getDisposable) {
+    public AlbumSongAdapter(Context context, List<Song> arraylist,GetDisposable getDisposable) {
 
         this.context = context;
         this.arraylist = arraylist;
-        this.listener = listener;
         this.getDisposable = getDisposable;
     }
 
@@ -83,7 +82,7 @@ public class AlbumSongAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             try {
                 ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(v.getContext(), R.style.PopupMenuToolbar);
 
-                android.support.v7.widget.PopupMenu popup = new android.support.v7.widget.PopupMenu(contextThemeWrapper, v);
+                PopupMenu popup = new PopupMenu(contextThemeWrapper, v);
                 popup.getMenuInflater().inflate(R.menu.menu_song, popup.getMenu());
                 popup.show();
                 popup.setOnMenuItemClickListener(item -> {
@@ -192,7 +191,7 @@ public class AlbumSongAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         @Override
         public void onClick(View v) {
-            Song song = arraylist.get(listener.getOriginalPosition(getAdapterPosition()));
+            Song song = arraylist.get(getAdapterPosition());
             RemotePlay.get().playAdd(context,arraylist,song);
         }
     }
