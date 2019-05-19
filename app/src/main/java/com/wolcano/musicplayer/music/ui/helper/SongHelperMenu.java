@@ -7,26 +7,26 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.PopupMenu;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.ContextThemeWrapper;
 import android.view.MenuItem;
 import android.view.View;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.PopupMenu;
-
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.mvp.listener.GetDisposable;
+import com.wolcano.musicplayer.music.mvp.listener.InterstitialListener;
 import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.provider.RemotePlay;
 import com.wolcano.musicplayer.music.utils.Perms;
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs;
 import com.wolcano.musicplayer.music.utils.SongUtils;
-import com.wolcano.musicplayer.music.utils.ToastUtils;
+import com.wolcano.musicplayer.music.utils.ToastMsgUtils;
 import com.wolcano.musicplayer.music.utils.Utils;
 
 import java.util.ArrayList;
@@ -125,7 +125,7 @@ public class SongHelperMenu {
 
     }
 
-    public static void handleMenuFolder(AppCompatActivity context, View v, Song song) {
+    public static void handleMenuFolder(AppCompatActivity context, View v, Song song, InterstitialListener listener) {
         try {
             ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(v.getContext(), R.style.PopupMenuToolbar);
 
@@ -145,12 +145,15 @@ public class SongHelperMenu {
                                     @Override
                                     public void onPermGranted() {
                                         dCount++;
+                                        if (dCount % 2 == 1 && dCount != 2 || dCount == 1) {
+                                            listener.showInterstitial();
+                                        }
                                         SongUtils.downPerform(context, song);
                                     }
 
                                     @Override
                                     public void onPermUnapproved() {
-                                        ToastUtils.show(context.getApplicationContext(), R.string.no_perm_save_file);
+                                        ToastMsgUtils.show(context.getApplicationContext(), R.string.no_perm_save_file);
                                     }
                                 })
                                 .reqPerm();

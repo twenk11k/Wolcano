@@ -1,11 +1,11 @@
 package com.wolcano.musicplayer.music.ui.adapter;
 
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.wolcano.musicplayer.music.R;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

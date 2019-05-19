@@ -9,9 +9,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.SystemClock;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
-
+import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
 import android.text.Html;
 import android.widget.FrameLayout;
 import android.widget.TextView;

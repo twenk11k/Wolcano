@@ -1,18 +1,18 @@
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     >
 
-    <com.google.android.material.appbar.AppBarLayout
+    <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
+        <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsingtoolbar"
             android:layout_width="match_parent"
             android:layout_height="270dp"
@@ -40,7 +40,7 @@
                 android:background="@drawable/gradient"
                 android:fitsSystemWindows="true" />
 
-            <androidx.appcompat.widget.Toolbar
+            <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
 
                 android:layout_width="match_parent"
@@ -49,11 +49,11 @@
 
                 app:popupTheme="?ttPopupMenuStyle" />
 
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </android.support.design.widget.CollapsingToolbarLayout>
 
-    </com.google.android.material.appbar.AppBarLayout>
+    </android.support.design.widget.AppBarLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabPlay"
         style="@style/FabStyle"
         android:layout_width="wrap_content"
@@ -68,7 +68,7 @@
         app:layout_anchorGravity="bottom|right|end"
         app:layout_behavior="com.wolcano.musicplayer.music.widgets.RotateFabBehav" />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -79,4 +79,4 @@
         android:layout_marginBottom="@dimen/mini_player_height"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</android.support.design.widget.CoordinatorLayout>

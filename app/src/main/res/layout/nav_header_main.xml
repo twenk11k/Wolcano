@@ -42,9 +42,8 @@
         >
     <ImageView
         android:id="@+id/nav_header_image"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:contentDescription="@string/nav_header_desc"
         app:srcCompat="@mipmap/ic_launcher" />
 
@@ -53,10 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="1"
-            android:layout_gravity="center_vertical"
-            android:layout_marginBottom="15dp"
             android:layout_marginLeft="6dp"
-            android:textSize="18sp"
             android:text="@string/appname"
             android:layout_marginTop="13dp"
             />

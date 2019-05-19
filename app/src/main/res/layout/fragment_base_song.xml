@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark" />
 
-    <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -22,8 +22,14 @@
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         >
 
-    </androidx.appcompat.widget.Toolbar>
+    </android.support.v7.widget.Toolbar>
 
+    <com.mopub.mobileads.MoPubView
+        android:id="@+id/adview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        />
 
     <TextView
         android:id="@android:id/empty"
@@ -44,7 +50,7 @@
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"
+        android:layout_below="@+id/adview"
         android:layoutAnimation="@anim/layout_animation_fall_down"
         android:layout_marginBottom="@dimen/mini_player_height"
         app:fastScrollAutoHide="true"

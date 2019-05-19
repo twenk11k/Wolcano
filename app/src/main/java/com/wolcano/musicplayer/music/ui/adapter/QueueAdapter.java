@@ -6,11 +6,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.PopupMenu;
-import androidx.recyclerview.widget.RecyclerView;
-
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.PopupMenu;
+import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.ContextThemeWrapper;
@@ -23,13 +22,15 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.wolcano.musicplayer.music.R;
+import com.wolcano.musicplayer.music.mvp.listener.AdapterClickListener;
 import com.wolcano.musicplayer.music.mvp.listener.GetDisposable;
+import com.wolcano.musicplayer.music.mvp.listener.InterstitialQueueListener;
 import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.provider.RemotePlay;
 import com.wolcano.musicplayer.music.utils.Perms;
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs;
 import com.wolcano.musicplayer.music.utils.SongUtils;
-import com.wolcano.musicplayer.music.utils.ToastUtils;
+import com.wolcano.musicplayer.music.utils.ToastMsgUtils;
 import com.wolcano.musicplayer.music.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,12 +40,16 @@ public class QueueAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private List<Song> arraylist;
     private AppCompatActivity context;
     private boolean isPlaying = false;
+    private AdapterClickListener listener;
+    private InterstitialQueueListener listener1;
     private int dCount = 0;
     private GetDisposable getDisposable;
 
-    public QueueAdapter(AppCompatActivity activity, List<Song> arraylist,GetDisposable getDisposable) {
+    public QueueAdapter(AppCompatActivity activity, List<Song> arraylist, AdapterClickListener listener, InterstitialQueueListener listener1,GetDisposable getDisposable) {
         this.context = activity;
         this.arraylist = arraylist;
+        this.listener = listener;
+        this.listener1 = listener1;
         this.getDisposable = getDisposable;
     }
 
@@ -214,12 +219,15 @@ public class QueueAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                                         @Override
                                         public void onPermGranted() {
                                             dCount++;
+                                            if (dCount % 2 == 1 && dCount != 2 || dCount == 1){
+                                                listener1.showInterstitial();
+                                            }
                                             SongUtils.downPerform(context, arraylist.get(position));
                                         }
 
                                         @Override
                                         public void onPermUnapproved() {
-                                            ToastUtils.show(context.getApplicationContext(),R.string.no_perm_save_file);
+                                            ToastMsgUtils.show(context.getApplicationContext(),R.string.no_perm_save_file);
                                         }
                                     })
                                     .reqPerm();
@@ -259,7 +267,7 @@ public class QueueAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         @Override
         public void onClick(View v) {
-            RemotePlay.get().playSong(context,getAdapterPosition());
+            RemotePlay.get().playSong(context,listener.getOriginalPosition(getAdapterPosition()));
         }
     }
 }

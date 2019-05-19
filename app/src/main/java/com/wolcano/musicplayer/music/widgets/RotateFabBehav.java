@@ -10,18 +10,18 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import androidx.annotation.NonNull;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.view.ViewCompat;
-import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
+import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.utils.Utils;
 
@@ -46,13 +46,12 @@ public  class RotateFabBehav extends CoordinatorLayout.Behavior<FloatingActionBu
     public RotateFabBehav(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray a = context.obtainStyledAttributes(attrs,
-                com.google.android.material.R.styleable.FloatingActionButton_Behavior_Layout);
+                android.support.design.R.styleable.FloatingActionButton_Behavior_Layout);
         mAutoHideEnabled = a.getBoolean(
-                com.google.android.material.R.styleable.FloatingActionButton_Behavior_Layout_behavior_autoHide,
+                android.support.design.R.styleable.FloatingActionButton_Behavior_Layout_behavior_autoHide,
                 AUTO_HIDE_DEFAULT);
         a.recycle();
     }
-
 
     @Override
     public void onAttachedToLayoutParams(@NonNull CoordinatorLayout.LayoutParams lp) {
@@ -232,7 +231,7 @@ public  class RotateFabBehav extends CoordinatorLayout.Behavior<FloatingActionBu
         ViewGroupUtilsHoneycomb.offsetDescendantRect(parent, descendant, out);
     }
 
-    public static void show(final FloatingActionButton floatingActionButton, int color, boolean fromUser) {
+    public static void show(final FloatingActionButton floatingActionButton,int color,boolean fromUser) {
         if(fromUser){
             floatingActionButton.setBackgroundTintList(ColorStateList.valueOf(color));
             if(!Utils.isColorLight(color)){

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wolcano.musicplayer.music">
-
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -11,19 +10,14 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <application
         android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/appname"
-        android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <service
-            android:name=".provider.MusicService"
-            android:enabled="true"
-             />
+        <service android:name=".provider.MusicService" />
 
         <receiver android:name=".broadcasts.base.RemoteBroadcast">
             <intent-filter>
@@ -53,25 +47,25 @@
                 <category android:name="android.intent.category.MULTIWINDOW_LAUNCHER" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
 
-                <data android:scheme="content" />
-                <data android:mimeType="audio/*" />
-                <data android:mimeType="application/ogg" />
-                <data android:mimeType="application/x-ogg" />
-                <data android:mimeType="application/itunes" />
+                <data android:scheme="content"/>
+                <data android:mimeType="audio/*"/>
+                <data android:mimeType="application/ogg"/>
+                <data android:mimeType="application/x-ogg"/>
+                <data android:mimeType="application/itunes"/>
             </intent-filter>
 
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
 
-                <data android:scheme="file" />
-                <data android:mimeType="audio/*" />
-                <data android:mimeType="application/ogg" />
-                <data android:mimeType="application/x-ogg" />
-                <data android:mimeType="application/itunes" />
+                <data android:scheme="file"/>
+                <data android:mimeType="audio/*"/>
+                <data android:mimeType="application/ogg"/>
+                <data android:mimeType="application/x-ogg"/>
+                <data android:mimeType="application/itunes"/>
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -108,7 +102,11 @@
                 <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
             </intent-filter>
         </receiver>
+        <!-- This part is inside the application -->
 
+        <activity
+            android:name="com.facebook.ads.AudienceNetworkActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
             android:name=".ui.activities.QueueActivity"
             android:label="@string/queue_act"
@@ -117,6 +115,61 @@
             android:name=".ui.activities.SettingsActivity"
 
             android:label="@string/title_activity_settings"></activity>
+        <meta-data
+            android:name="com.bugsnag.android.API_KEY"
+            android:value="e2d6fc6d8d8130e0ee70b35ecf1b46b4"/>
+        <!-- MoPub's consent dialog -->
+        <activity android:name="com.mopub.common.privacy.ConsentDialogActivity" android:configChanges="keyboardHidden|orientation|screenSize"/>
 
-        </application>
+        <!-- All ad formats -->
+        <activity android:name="com.mopub.common.MoPubBrowser" android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity android:name="com.mopub.mobileads.MraidVideoPlayerActivity" android:configChanges="keyboardHidden|orientation|screenSize" />
+        <!-- Interstitials -->
+        <activity android:name="com.mopub.mobileads.MoPubActivity" android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity android:name="com.mopub.mobileads.MraidActivity" android:configChanges="keyboardHidden|orientation|screenSize"/>
+          <!-- Flurry sdk initialization -->
+        <activity
+            android:name="com.flurry.android.FlurryFullscreenTakeoverActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize">
+        </activity>
+        <meta-data android:name="applovin.sdk.key"
+            android:value="zruM26NHWTCcGMJxpEnsqymgT3uJxQTuFQFIWca25nfM8zIyB3o0_ThSbZnW_KPFleTGG7JLvzh1x--72n81Jq"  />
+        <activity android:name="com.applovin.adview.AppLovinInterstitialActivity" android:configChanges="orientation|screenSize"/>
+        <activity android:name="com.applovin.adview.AppLovinConfirmationActivity" android:configChanges="orientation|screenSize"/>
+        <activity android:name="com.startapp.android.publish.ads.list3d.List3DActivity"
+            android:theme="@android:style/Theme" />
+        <activity android:name="com.startapp.android.publish.adsCommon.activities.OverlayActivity"
+            android:theme="@android:style/Theme.Translucent"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+
+        <activity android:name="com.startapp.android.publish.adsCommon.activities.FullScreenActivity"
+            android:theme="@android:style/Theme"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+        <service android:name="com.startapp.android.publish.common.metaData.PeriodicMetaDataService" />
+        <service android:name="com.startapp.android.publish.common.metaData.InfoEventService" />
+        <service android:name="com.startapp.android.publish.common.metaData.PeriodicJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <receiver android:name="com.startapp.android.publish.common.metaData.BootCompleteListener" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <activity
+            android:name="com.ironsource.sdk.controller.ControllerActivity"
+            android:configChanges="orientation|screenSize"
+            android:hardwareAccelerated="true" />
+        <activity
+            android:name="com.ironsource.sdk.controller.InterstitialActivity"
+            android:configChanges="orientation|screenSize"
+            android:hardwareAccelerated="true"
+            android:theme="@android:style/Theme.Translucent" />
+        <activity
+            android:name="com.ironsource.sdk.controller.OpenUrlActivity"
+            android:configChanges="orientation|screenSize"
+            android:hardwareAccelerated="true"
+            android:theme="@android:style/Theme.Translucent" />
+        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
+        <activity android:name="com.google.android.gms.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
+    </application>
 </manifest>

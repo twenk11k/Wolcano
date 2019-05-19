@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: com.appnext.sdk.adapters:mopub-native-ads:2.4.5.472@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/mopub-native-ads-2.4.5.472.aar/8b0a47b551106968de4630a401db7219/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/mopub-native-ads-2.4.5.472.aar/8b0a47b551106968de4630a401db7219/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

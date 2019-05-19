@@ -1,9 +1,8 @@
 package com.wolcano.musicplayer.music.ui.adapter.other;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +38,7 @@ public class CopyItemAdapter extends RecyclerView.Adapter<CopyItemAdapter.ViewHo
 
         holder.text.setText(items.get(position).text);
         if (items.get(position).icon == 0)
-            holder.icon.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_music_note_white_24));
+            holder.icon.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_song));
         if (items.get(position).icon == 1)
             holder.icon.setImageDrawable(context.getResources().getDrawable(R.drawable.account_circle_white));
         if (items.get(position).icon == 2)

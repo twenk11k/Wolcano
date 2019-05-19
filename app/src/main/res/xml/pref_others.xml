@@ -1,6 +1,6 @@
-<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.wolcano.musicplayer.music.prefs.CustomPreferenceCategory
+    <com.wolcano.musicplayer.music.prefs.CusPrefCateg
         android:title="@string/pref_header_other"
         >
 
@@ -28,6 +28,6 @@
             android:persistent="false"
             android:title="@string/pref_title_email_us"
             />
-    </com.wolcano.musicplayer.music.prefs.CustomPreferenceCategory>
+    </com.wolcano.musicplayer.music.prefs.CusPrefCateg>
 
-</androidx.preference.PreferenceScreen>
+</android.support.v7.preference.PreferenceScreen>

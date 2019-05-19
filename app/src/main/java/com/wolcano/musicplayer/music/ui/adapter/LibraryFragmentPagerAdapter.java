@@ -1,16 +1,15 @@
 package com.wolcano.musicplayer.music.ui.adapter;
 
 import android.content.Context;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.wolcano.musicplayer.music.R;
-import com.wolcano.musicplayer.music.ui.fragments.library.FragmentAlbums;
-import com.wolcano.musicplayer.music.ui.fragments.library.FragmentArtists;
-import com.wolcano.musicplayer.music.ui.fragments.library.FragmentGenres;
-import com.wolcano.musicplayer.music.ui.fragments.library.FragmentSongs;
+import com.wolcano.musicplayer.music.ui.fragments.innerfragment.FragmentAlbums;
+import com.wolcano.musicplayer.music.ui.fragments.innerfragment.FragmentArtists;
+import com.wolcano.musicplayer.music.ui.fragments.innerfragment.FragmentGenres;
+import com.wolcano.musicplayer.music.ui.fragments.innerfragment.FragmentSongs;
 
 
 public class LibraryFragmentPagerAdapter extends FragmentStatePagerAdapter {

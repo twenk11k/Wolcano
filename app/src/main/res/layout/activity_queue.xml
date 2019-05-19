@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/statusBarCustom"
         android:background="@color/colorPrimaryDark"/>
-    <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/toolbar"
         android:layout_below="@id/statusBarCustom"
         android:layout_width="match_parent"
@@ -20,12 +20,19 @@
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
 
         />
+    <com.mopub.mobileads.MoPubView
+        android:id="@+id/adview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+
+        />
 
     <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"
+        android:layout_below="@+id/adview"
         app:fastScrollAutoHide="true"
         app:fastScrollPopupTextColor="@android:color/primary_text_dark"
         app:fastScrollThumbColor="@color/colorAccent"

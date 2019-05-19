@@ -1,11 +1,10 @@
 package com.wolcano.musicplayer.music.ui.adapter;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.PopupMenu;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.RecyclerView;
-
+import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.PopupMenu;
+import android.support.v7.widget.RecyclerView;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.wolcano.musicplayer.music.R;
+import com.wolcano.musicplayer.music.mvp.listener.AdapterClickListener;
 import com.wolcano.musicplayer.music.mvp.models.Playlist;
 import com.wolcano.musicplayer.music.utils.SongUtils;
 import com.wolcano.musicplayer.music.utils.Utils;
@@ -25,10 +25,12 @@ public class PlaylistAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     private List<Playlist> arraylist;
     private Context context;
+    private AdapterClickListener listener;
 
-    public PlaylistAdapter(Context context, List<Playlist> arraylist){
+    public PlaylistAdapter(Context context, List<Playlist> arraylist, AdapterClickListener listener){
         this.context = context;
         this.arraylist = arraylist;
+        this.listener = listener;
     }
 
     @NonNull
@@ -92,9 +94,9 @@ public class PlaylistAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHold
                                     .negativeColor(Utils.getAccentColor(context))
                                     .onPositive((dialog, which) -> {
                                         SongUtils.deletePlaylists(context,arraylist.get(position).id);
-                                        arraylist.remove(holder.getAdapterPosition());
-                                        notifyItemRemoved(holder.getAdapterPosition());
-                                        notifyItemRangeChanged(holder.getAdapterPosition(), getItemCount() - holder.getAdapterPosition());
+                                        arraylist.remove(listener.getOriginalPosition(holder.getAdapterPosition()));
+                                        notifyItemRemoved(listener.getOriginalPosition(holder.getAdapterPosition()));
+                                        notifyItemRangeChanged(listener.getOriginalPosition(holder.getAdapterPosition()), getItemCount() - listener.getOriginalPosition(holder.getAdapterPosition()));
 
                                         Toast.makeText(context, R.string.delete_playlist_success, Toast.LENGTH_SHORT).show();
                                     })
@@ -130,7 +132,7 @@ public class PlaylistAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         @Override
         public void onClick(View v) {
-            Playlist playlist = arraylist.get(getAdapterPosition());
+            Playlist playlist = arraylist.get(listener.getOriginalPosition(getAdapterPosition()));
                 long playlistID = playlist.id;
                 String playlistName = playlist.name;
                 Utils.navigateToPlaylist(context, playlistID,

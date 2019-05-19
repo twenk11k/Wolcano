@@ -3,12 +3,10 @@ package com.wolcano.musicplayer.music;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-
-import androidx.multidex.MultiDex;
-
-import com.wolcano.musicplayer.music.content.AppHandler;
-import com.wolcano.musicplayer.music.mvp.db.DatabaseManager;
+import android.support.multidex.MultiDex;
 import com.wolcano.musicplayer.music.provider.MusicService;
+import com.wolcano.musicplayer.music.content.AppHandlerO;
+import com.wolcano.musicplayer.music.mvp.db.DatabaseManager;
 
 
 public class App extends Application {
@@ -20,16 +18,13 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
-
         dens = context.getResources().getDisplayMetrics().density;
-
         GeneralCache.get().initializeCache(this);
-        AppHandler.setCallbacks(this);
+        AppHandlerO.setCallbacks(this);
         DatabaseManager.get().init(this);
 
         Intent intent = new Intent(this, MusicService.class);
         startService(intent);
-
     }
 
 

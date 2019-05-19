@@ -1,18 +1,19 @@
 package com.wolcano.musicplayer.music.ui.adapter;
 
 import android.app.Activity;
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.PopupMenu;
-import androidx.recyclerview.widget.RecyclerView;
-
+import android.support.annotation.NonNull;
+import android.support.v7.widget.PopupMenu;
+import android.support.v7.widget.RecyclerView;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.wolcano.musicplayer.music.R;
+import com.wolcano.musicplayer.music.mvp.listener.AdapterClickListener;
 import com.wolcano.musicplayer.music.mvp.models.Album;
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs;
 import com.wolcano.musicplayer.music.utils.Utils;
@@ -22,10 +23,12 @@ public class AlbumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     private List<Album> arraylist;
     private Activity context;
+    private AdapterClickListener listener;
 
-    public AlbumAdapter(Activity context, List<Album> arraylist) {
+    public AlbumAdapter(Activity context, List<Album> arraylist,AdapterClickListener listener) {
         this.context = context;
         this.arraylist = arraylist;
+        this.listener = listener;
     }
 
     @NonNull
@@ -99,7 +102,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         public void onClick(View view) {
             try {
 
-                Album album = arraylist.get(getAdapterPosition());
+                Album album = arraylist.get(listener.getOriginalPosition(getAdapterPosition()));
                 Utils.navigateToAlbum(context, album.id,
                         album.name);
 

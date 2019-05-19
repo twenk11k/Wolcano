@@ -2,24 +2,27 @@ package com.wolcano.musicplayer.music.ui.fragments;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -28,18 +31,30 @@ import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
+import com.mopub.mobileads.MoPubView;
+import com.mopub.nativeads.FacebookAdRenderer;
+import com.mopub.nativeads.FlurryCustomEventNative;
+import com.mopub.nativeads.FlurryNativeAdRenderer;
+import com.mopub.nativeads.FlurryViewBinder;
+import com.mopub.nativeads.MoPubRecyclerAdapter;
+import com.mopub.nativeads.MoPubStaticNativeAdRenderer;
+import com.mopub.nativeads.ViewBinder;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
+import com.wolcano.musicplayer.music.mvp.listener.AdapterClickListener;
 import com.wolcano.musicplayer.music.mvp.models.Playlist;
 import com.wolcano.musicplayer.music.widgets.StatusBarView;
 import com.wolcano.musicplayer.music.utils.Perms;
+import com.wolcano.musicplayer.music.ui.activities.MainActivity;
 import com.wolcano.musicplayer.music.ui.adapter.PlaylistAdapter;
 import com.wolcano.musicplayer.music.utils.SongUtils;
-import com.wolcano.musicplayer.music.utils.ToastUtils;
+import com.wolcano.musicplayer.music.utils.ToastMsgUtils;
 import com.wolcano.musicplayer.music.utils.Utils;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -51,8 +66,7 @@ import io.reactivex.schedulers.Schedulers;
 import pl.droidsonroids.gif.GifImageView;
 import static com.wolcano.musicplayer.music.Constants.SONG_LIBRARY;
 
-public class FragmentPlaylist extends BaseFragment  {
-
+public class FragmentPlaylist extends BaseFragment implements AdapterClickListener {
     @BindView(R.id.recyclerview)
     FastScrollRecyclerView recyclerView;
     private PlaylistAdapter mAdapter;
@@ -63,9 +77,12 @@ public class FragmentPlaylist extends BaseFragment  {
     private int color;
     @BindView(android.R.id.empty)
     TextView empty;
+    private MoPubRecyclerAdapter myMoPubAdapter;
     private Activity activity;
+    private MoPubView moPubView;
     private Disposable playlistSubscription;
-
+    private Handler handlerInit,handlerInit2;
+    private Runnable runnableInit,runnableInit2;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -95,6 +112,53 @@ public class FragmentPlaylist extends BaseFragment  {
         ab.setTitle(R.string.playlists);
         setHasOptionsMenu(true);
 
+    }
+    private void initNativeAd(){
+        ViewBinder viewBinder = new ViewBinder.Builder(R.layout.native_ad_layout)
+                .iconImageId(R.id.native_icon_image)
+                .titleId(R.id.native_ad_title)
+
+                .privacyInformationIconImageId(R.id.native_ad_privacy_information_icon_image)
+                .callToActionId(R.id.native_cta)
+                .build();
+        FacebookAdRenderer.FacebookViewBinder facebookViewBinder = new FacebookAdRenderer.FacebookViewBinder.Builder(R.layout.native_ad_layout_fan)
+                .adIconViewId(R.id.native_icon_image)
+                .titleId(R.id.native_ad_title)
+                .adChoicesRelativeLayoutId(R.id.native_ad_privacy_information_icon_image)
+                .callToActionId(R.id.native_cta)
+                .build();
+        FacebookAdRenderer facebookAdRenderer = new FacebookAdRenderer(facebookViewBinder);
+        Map<String, Integer> extraToResourceMap = new HashMap<>(1);
+        extraToResourceMap.put(FlurryCustomEventNative.EXTRA_SEC_BRANDING_LOGO, R.id.native_ad_privacy_information_icon_image);
+
+        FlurryViewBinder flurryBinder = new FlurryViewBinder.Builder(new ViewBinder.Builder(R.layout.native_ad_layout)
+                .iconImageId(R.id.native_icon_image)
+                .titleId(R.id.native_ad_title)
+                .callToActionId(R.id.native_cta)
+                .addExtras(extraToResourceMap)// <-- adding the extras to your Binder
+                .build())
+                .build();
+        FlurryNativeAdRenderer flurryNativeAdRenderer = new FlurryNativeAdRenderer(flurryBinder);
+
+        MoPubStaticNativeAdRenderer myRenderer = new MoPubStaticNativeAdRenderer(viewBinder);
+        myMoPubAdapter.registerAdRenderer(facebookAdRenderer);
+        myMoPubAdapter.registerAdRenderer(flurryNativeAdRenderer);
+        myMoPubAdapter.registerAdRenderer(myRenderer);
+        recyclerView.setAdapter(myMoPubAdapter);
+        myMoPubAdapter.loadAds("66bc095167b04b84925ae859dacb917b");
+
+        mAdapter.notifyDataSetChanged();
+        runLayoutAnimation(recyclerView);
+
+    }
+    private void runLayoutAnimation(final RecyclerView recyclerView) {
+        final Context context = recyclerView.getContext();
+        final LayoutAnimationController controller =
+                AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fall_down);
+
+        recyclerView.setLayoutAnimation(controller);
+        recyclerView.getAdapter().notifyDataSetChanged();
+        recyclerView.scheduleLayoutAnimation();
     }
 
     @Override
@@ -129,7 +193,7 @@ public class FragmentPlaylist extends BaseFragment  {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtils.show(getContext(),"Gif icon is clicked!");
+                ((MainActivity) getActivity()).showInterstitialGif();
             }
         });
     }
@@ -146,7 +210,28 @@ public class FragmentPlaylist extends BaseFragment  {
         View rootview = inflater.inflate(R.layout.fragment_base_song, container, false);
         ButterKnife.bind(this, rootview);
         setHasOptionsMenu(true);
+        if (Utils.getIsMopubInitDone(activity.getApplicationContext())) {
+            moPubView = (MoPubView) rootview.findViewById(R.id.adview);
+            moPubView.setAdUnitId("f3b55e3961424c73bbf04175a179fe6b"); // Enter your Ad Unit ID from www.mopub.com
+            moPubView.loadAd();
 
+        } else {
+            handlerInit = new Handler();
+            runnableInit = new Runnable() {
+                @Override
+                public void run() {
+                    if (Utils.getIsMopubInitDone(activity.getApplicationContext())) {
+                        moPubView = (MoPubView) rootview.findViewById(R.id.adview);
+                        moPubView.setAdUnitId("f3b55e3961424c73bbf04175a179fe6b"); // Enter your Ad Unit ID from www.mopub.com
+                        moPubView.loadAd();
+                    } else {
+                        handlerInit.postDelayed(this::run, 1000);
+                    }
+
+                }
+            };
+            handlerInit.postDelayed(runnableInit, 1000);
+        }
 
         Utils.setUpFastScrollRecyclerViewColor(recyclerView, Utils.getAccentColor(getContext()));
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -177,19 +262,18 @@ public class FragmentPlaylist extends BaseFragment  {
                     @Override
                     public void onPermUnapproved() {
                         controlIfEmpty();
-                        ToastUtils.show(activity.getApplicationContext(), R.string.no_perm_storage);
+                        ToastMsgUtils.show(activity.getApplicationContext(), R.string.no_perm_storage);
                     }
                 })
                 .reqPerm();
     }
-    private void applyList(List<Playlist> playlistList) {
+    private void setMopubAdapter(List<Playlist> playlistList) {
         if (playlistList.size() <= 30) {
             recyclerView.setThumbEnabled(false);
         } else {
             recyclerView.setThumbEnabled(true);
         }
-        mAdapter = new PlaylistAdapter(getActivity(), playlistList);
-        recyclerView.setAdapter(mAdapter);
+        mAdapter = new PlaylistAdapter((MainActivity) getActivity(), playlistList, FragmentPlaylist.this);
         controlIfEmpty();
         mAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
@@ -198,11 +282,29 @@ public class FragmentPlaylist extends BaseFragment  {
                 controlIfEmpty();
             }
         });
+        myMoPubAdapter = new MoPubRecyclerAdapter(activity, mAdapter);
+        initNativeAd();
     }
     private void displayPlaylists(List<Playlist> playlistList) {
+        if(Utils.getIsMopubInitDone(activity.getApplicationContext())){
+            setMopubAdapter(playlistList);
 
-        applyList(playlistList);
+        } else {
+            handlerInit2 = new Handler();
+            runnableInit2 = new Runnable() {
+                @Override
+                public void run() {
+                    if (Utils.getIsMopubInitDone(activity.getApplicationContext())) {
+                        setMopubAdapter(playlistList);
+                    } else {
+                        handlerInit2.postDelayed(this::run, 500);
+                    }
 
+
+                }
+            };
+            handlerInit2.postDelayed(runnableInit2, 500);
+        }
     }
 
     private void controlIfEmpty() {
@@ -215,15 +317,33 @@ public class FragmentPlaylist extends BaseFragment  {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
+        if (moPubView != null) {
+            moPubView.destroy();
+        }
+        if (myMoPubAdapter != null) {
+            myMoPubAdapter.destroy();
+        }
         if (playlistSubscription != null && !playlistSubscription.isDisposed()) {
             playlistSubscription.dispose();
         }
-
+        if(handlerInit!=null && runnableInit!=null){
+            handlerInit.removeCallbacks(runnableInit);
+        }
+        if(handlerInit2!=null && runnableInit2!=null){
+            handlerInit2.removeCallbacks(runnableInit2);
+        }
         DisposableManager.dispose();
 
     }
 
 
+    @Override
+    public int getOriginalPosition(int oldposition) {
+        if(myMoPubAdapter!=null){
+            return myMoPubAdapter.getOriginalPosition(oldposition);
+        } else {
+            return oldposition;
+        }
+    }
 
 }

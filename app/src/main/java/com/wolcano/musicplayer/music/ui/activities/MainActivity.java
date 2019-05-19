@@ -10,16 +10,16 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.design.internal.NavigationMenuView;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
@@ -32,26 +32,40 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.afollestad.materialdialogs.GravityEnum;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
-import com.google.android.material.internal.NavigationMenuView;
-import com.google.android.material.navigation.NavigationView;
+import com.applovin.sdk.AppLovinSdk;
+import com.facebook.ads.AdSettings;
 import com.kabouzeid.appthemehelper.ATH;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.kabouzeid.appthemehelper.util.NavigationViewUtil;
+import com.mopub.common.MoPub;
+import com.mopub.common.SdkConfiguration;
+import com.mopub.common.SdkInitializationListener;
+import com.mopub.common.logging.MoPubLog;
+import com.mopub.common.privacy.ConsentDialogListener;
+import com.mopub.common.privacy.ConsentStatus;
+import com.mopub.common.privacy.ConsentStatusChangeListener;
+import com.mopub.common.privacy.PersonalInfoManager;
+import com.mopub.mobileads.GooglePlayServicesBanner;
+import com.mopub.mobileads.GooglePlayServicesInterstitial;
+import com.mopub.mobileads.MoPubErrorCode;
+import com.mopub.mobileads.MoPubInterstitial;
 import com.squareup.picasso.Picasso;
+import com.startapp.android.publish.adsCommon.StartAppAd;
+import com.startapp.android.publish.adsCommon.StartAppSDK;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
 import com.wolcano.musicplayer.music.mvp.listener.GetDisposable;
+import com.wolcano.musicplayer.music.mvp.listener.InterstitialListener;
 import com.wolcano.musicplayer.music.mvp.listener.OnServiceListener;
 import com.wolcano.musicplayer.music.mvp.models.ModelBitmap;
 import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.provider.RemotePlay;
-import com.wolcano.musicplayer.music.content.slidingpanel.SlidingPanel;
-import com.wolcano.musicplayer.music.content.PlayerEnum;
+import com.wolcano.musicplayer.music.content.slidingpanel.SlidingPanel1;
+import com.wolcano.musicplayer.music.content.LeftButtonEnumVals;
 import com.wolcano.musicplayer.music.ui.dialog.RatingDialogV2;
 import com.wolcano.musicplayer.music.utils.SongCover;
 import com.wolcano.musicplayer.music.utils.Perms;
@@ -60,21 +74,20 @@ import com.wolcano.musicplayer.music.ui.dialog.Dialogs;
 import com.wolcano.musicplayer.music.ui.dialog.SleepTimerDialog;
 import com.wolcano.musicplayer.music.ui.fragments.FragmentRecently;
 import com.wolcano.musicplayer.music.ui.fragments.FragmentLibrary;
-import com.wolcano.musicplayer.music.ui.fragments.FragmentOnline;
+import com.wolcano.musicplayer.music.ui.fragments.FragmentMain;
 import com.wolcano.musicplayer.music.ui.fragments.FragmentPlaylist;
 import com.wolcano.musicplayer.music.ui.helper.SongHelperMenu;
 import com.wolcano.musicplayer.music.utils.SongUtils;
-import com.wolcano.musicplayer.music.utils.ToastUtils;
+import com.wolcano.musicplayer.music.utils.ToastMsgUtils;
 import com.wolcano.musicplayer.music.utils.UriFilesUtils;
 import com.wolcano.musicplayer.music.utils.Utils;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.Observable;
@@ -82,7 +95,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, SeekBar.OnSeekBarChangeListener, OnServiceListener, GetDisposable {
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, SeekBar.OnSeekBarChangeListener, OnServiceListener, InterstitialListener, GetDisposable {
 
     @BindView(R.id.child2linear)
     LinearLayout child2linear;
@@ -127,7 +140,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
 
     private boolean isDragging;
-    SlidingPanel slidingPanel;
+    SlidingPanel1 slidingPanel1;
 
     ImageView imageHeaderBg;
     private TextView navHeaderTitle, navHeaderArtist, navHeaderAppName;
@@ -139,28 +152,221 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private Context context;
     private boolean lightStatusbar;
     private boolean mIsResumed = true;
+    private MoPubInterstitial mInterstitial;
+    private MoPubInterstitial mInterstitialGif;
     private Activity activity;
     private Disposable mainActDisposable;
     private Drawable placeholder;
-    private Handler handlerD, handlerCollapse;
-    private Runnable runnableD;
+    private int interFailCGif = 0;
+    private boolean isRunnableDoneGif = false;
+    private boolean isRunnableDone = false;
+    private int interFailC = 0;
+    private Handler interFailHandler, interFailHandlerGif, handlerD, handlerCollapse;
+    private Runnable interFailRunnable, interFailRunnableGif, runnableD;
     private int currentFrag;
-    private Handler handlerNavigate;
+    private boolean isInterstitialCalledGif = false;
+    private boolean isInterstitialCalled = false;
+
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        AdSettings.addTestDevice("d53e3e13-bdd5-45c5-b84a-1c347bafc009");
+        if(!MoPub.isSdkInitialized()){
+            Utils.setIsMopubInitDone(this.getApplicationContext(), false);
+        } else {
+            Utils.setIsMopubInitDone(this.getApplicationContext(), true);
+        }
         context = this;
         activity = this;
         ButterKnife.bind(this);
         setDrawerOptions();
+        initMopub();
         initViews();
         displayDialog();
         handleRateDialog();
     }
 
+    private SdkInitializationListener initSdkListener() {
+        return () -> {
+            Utils.setIsMopubInitDone(context, true);
+
+       /* MoPub SDK initialized.
+       Check if you should show the consent dialog here, and make your ad requests. */
+            PersonalInfoManager mPersonalInfoManager = MoPub.getPersonalInformationManager();
+            ConsentDialogListener consentDialogListener = new ConsentDialogListener() {
+
+                @Override
+                public void onConsentDialogLoaded() {
+                    if (mPersonalInfoManager != null) {
+                        mPersonalInfoManager.showConsentDialog();
+                    }
+                    mPersonalInfoManager.subscribeConsentStatusChangeListener(new ConsentStatusChangeListener() {
+                        @Override
+                        public void onConsentStateChange(@NonNull ConsentStatus oldConsentStatus, @NonNull ConsentStatus newConsentStatus, boolean canCollectPersonalInformation) {
+                            StartAppSDK.setUserConsent(MainActivity.this,
+                                    "pas",
+                                    System.currentTimeMillis(),
+                                    canCollectPersonalInformation);
+
+                        }
+                    });
+                }
+
+                @Override
+                public void onConsentDialogLoadFailed(@NonNull MoPubErrorCode moPubErrorCode) {
+                    MoPubLog.i("Consent dialog failed to load.");
+                }
+            };
+
+            if (mPersonalInfoManager.shouldShowConsentDialog()) {
+                mPersonalInfoManager.loadConsentDialog(consentDialogListener);
+            } else {
+                initStartapp();
+                initApplovin();
+                initInterstitial();
+
+            }
+
+        };
+    }
+
+    private void initMopub() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Bundle extras = new Bundle();
+                extras.putString("npa", "1");
+
+                List<String> networksToInit = new ArrayList();
+                networksToInit.add("com.mopub.mobileads.FacebookBanner");
+                networksToInit.add("com.mopub.mobileads.FacebookInterstitial");
+                networksToInit.add("com.mopub.mobileads.StartAppCustomEventMedium");
+                networksToInit.add("com.mopub.mobileads.StartAppCustomEventBanner");
+                networksToInit.add("com.mopub.mobileads.StartAppCustomEventInterstitial");
+                networksToInit.add("com.mopub.mobileads.AppLovinBanner");
+                networksToInit.add("com.mopub.mobileads.AppLovinInterstitial");
+                networksToInit.add("com.mopub.mobileads.IronSourceInterstitial");
+                networksToInit.add("com.mopub.mobileads.GooglePlayServicesBanner");
+                networksToInit.add("com.mopub.mobileads.GooglePlayServicesInterstitial");
+                networksToInit.add("com.mopub.mobileads.FlurryAgentWrapper");
+                networksToInit.add("com.mopub.mobileads.FacebookAdvancedBidder");
+                SdkConfiguration sdkConfiguration = new SdkConfiguration.Builder("19571a07c85d430299f931d646c19296")
+                        .withMediationSettings(new GooglePlayServicesBanner.GooglePlayServicesMediationSettings(extras),
+                                new GooglePlayServicesInterstitial.GooglePlayServicesMediationSettings(extras))
+                        .withNetworksToInit(networksToInit)
+                        .build();
+
+                MoPub.initializeSdk(MainActivity.this, sdkConfiguration, initSdkListener());
+            }
+        });
+
+
+    }
+
+    public void initInterstitial() {
+
+        interFailHandler = new Handler();
+        interFailHandlerGif = new Handler();
+        mInterstitial = new MoPubInterstitial(this, "e1e9074c144044319655625e72525696");
+        mInterstitial.setInterstitialAdListener(new MoPubInterstitial.InterstitialAdListener() {
+            @Override
+            public void onInterstitialLoaded(MoPubInterstitial interstitial) {
+                if (isInterstitialCalled && !isRunnableDone) {
+                    mInterstitial.show();
+                }
+                isInterstitialCalled = false;
+                isRunnableDone = false;
+            }
+
+            @Override
+            public void onInterstitialFailed(MoPubInterstitial interstitial, MoPubErrorCode errorCode) {
+                if (interFailC >= 0 && interFailC < 2) {
+                     mInterstitial.load();
+                } else {
+                    interFailRunnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            isRunnableDone = true;
+                            mInterstitial.load();
+                            interFailC = 1;
+                            return;
+                        }
+                    };
+                    interFailHandler.postDelayed(interFailRunnable, 5 * 60 * 1000);
+                }
+                interFailC++;
+            }
+
+            @Override
+            public void onInterstitialShown(MoPubInterstitial interstitial) {
+            }
+
+            @Override
+            public void onInterstitialClicked(MoPubInterstitial interstitial) {
+
+            }
+
+            @Override
+            public void onInterstitialDismissed(MoPubInterstitial interstitial) {
+                mInterstitial.load();
+
+            }
+        });
+        mInterstitial.load();
+
+        mInterstitialGif = new MoPubInterstitial(this, "4d9cda056ed849e1a6c3cc4b917ac154");
+        mInterstitialGif.setInterstitialAdListener(new MoPubInterstitial.InterstitialAdListener() {
+            @Override
+            public void onInterstitialLoaded(MoPubInterstitial interstitial) {
+                if (isInterstitialCalledGif && !isRunnableDoneGif) {
+                    mInterstitialGif.show();
+                }
+                isInterstitialCalledGif = false;
+                isRunnableDoneGif = false;
+            }
+
+            @Override
+            public void onInterstitialFailed(MoPubInterstitial interstitial, MoPubErrorCode errorCode) {
+                if (interFailCGif >= 0 && interFailCGif < 2) {
+                    mInterstitialGif.load();
+                } else {
+                    if (isInterstitialCalledGif) {
+                        Toast.makeText(MainActivity.this, getString(R.string.errorinter), Toast.LENGTH_LONG).show();
+                        isInterstitialCalledGif = false;
+                    }
+                    interFailRunnableGif = new Runnable() {
+                        @Override
+                        public void run() {
+                            isRunnableDoneGif = true;
+                            mInterstitialGif.load();
+                            interFailCGif = 1;
+                            return;
+                        }
+                    };
+                    interFailHandlerGif.postDelayed(interFailRunnableGif, 5 * 60 * 1000);
+                }
+                interFailCGif++;
+
+            }
+
+            @Override
+            public void onInterstitialShown(MoPubInterstitial interstitial) {
+            }
+
+            @Override
+            public void onInterstitialClicked(MoPubInterstitial interstitial) {
+            }
+
+            @Override
+            public void onInterstitialDismissed(MoPubInterstitial interstitial) {
+                mInterstitialGif.load();
+            }
+        });
+        mInterstitialGif.load();
+    }
 
     private void handleRateDialog() {
         final RatingDialogV2 ratingDialog = new RatingDialogV2.Builder(this)
@@ -179,6 +385,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     }
 
+    public void initStartapp() {
+        StartAppSDK.init(activity, "205611346", false);
+        StartAppAd.disableSplash();
+    }
 
     public Toolbar getToolbar() {
         return findViewById(R.id.toolbar);
@@ -186,24 +396,33 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     private void displayDialog() {
         boolean first = Utils.getFirst(context);
-        if (first) {
-            String str;
-            if (Build.VERSION.SDK_INT >= 23) {
-                str = getString(R.string.first_dec);
-            } else {
-                str = getString(R.string.first_dec_old);
+        if (Locale.getDefault().getLanguage().equals("tr") || Locale.getDefault().getLanguage().equals("es") || Locale.getDefault().getLanguage().equals("pt") || Locale.getDefault().getLanguage().equals("th") && Utils.isItTrue(context)) {
+            if (first) {
+                String str;
+                if (Build.VERSION.SDK_INT >= 23) {
+                    str = getString(R.string.first_dec);
+                } else {
+                    str = getString(R.string.first_dec_old);
+                }
+                new MaterialDialog.Builder(this)
+                        .title(R.string.first_title)
+                        .content(str)
+                        .theme(Theme.DARK)
+                        .btnStackedGravity(GravityEnum.END)
+                        .positiveText(R.string.close)
+                        .canceledOnTouchOutside(false)
+                        .show();
+                Utils.setFirst(context, false);
             }
-            new MaterialDialog.Builder(this)
-                    .title(R.string.first_title)
-                    .content(str)
-                    .theme(Theme.DARK)
-                    .btnStackedGravity(GravityEnum.END)
-                    .positiveText(R.string.close)
-                    .canceledOnTouchOutside(false)
-                    .show();
+        } else {
             Utils.setFirst(context, false);
         }
+    }
 
+    private void initApplovin() {
+        AppLovinSdk.initializeSdk(this);
+        final AppLovinSdk sdk = AppLovinSdk.getInstance(context);
+        sdk.getSettings().setTestAdsEnabled(true);
     }
 
     @Override
@@ -215,11 +434,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
         return super.onOptionsItemSelected(item);
     }
-
     private void prev() {
         RemotePlay.get().prev(context);
     }
-
     private void disableNavigationViewScrollbars(NavigationView navigationView) {
         if (navigationView != null) {
             NavigationMenuView navigationMenuView = (NavigationMenuView) navigationView.getChildAt(0);
@@ -228,10 +445,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
         }
     }
-
     private void setDrawerOptions() {
-        handlerNavigate = new Handler();
-
+        if (!Locale.getDefault().getLanguage().equals("tr") && !Locale.getDefault().getLanguage().equals("es") && !Locale.getDefault().getLanguage().equals("pt") && !Locale.getDefault().getLanguage().equals("th")) {
+          navigationView.getMenu().clear();
+            navigationView.inflateMenu(R.menu.activity_main_drawer_2);
+        }
         recentlyAddedMenu = navigationView.getMenu().findItem(R.id.nav_recentlyadded);
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
             Utils.setStatusBarTranslucent(getWindow());
@@ -302,18 +520,17 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         sColored.setSpan(new ForegroundColorSpan(Utils.getAccentColor(this)), s.length() - 3, s.length(), 0);
         recentlyAddedMenu.setTitle(sColored);
     }
-
     private void setLeftButtonMode() {
-        PlayerEnum mode = PlayerEnum.valueOf(Utils.getPlaylistId(context));
+        LeftButtonEnumVals mode = LeftButtonEnumVals.valueOf(Utils.getPlaylistId(context));
         switch (mode) {
-            case NORMAL:
-                mode = PlayerEnum.SHUFFLE;
+            case DUZ:
+                mode = LeftButtonEnumVals.KARISIK;
                 break;
-            case SHUFFLE:
-                mode = PlayerEnum.REPEAT;
+            case KARISIK:
+                mode = LeftButtonEnumVals.TEK;
                 break;
-            case REPEAT:
-                mode = PlayerEnum.NORMAL;
+            case TEK:
+                mode = LeftButtonEnumVals.DUZ;
                 break;
         }
         Utils.setPlaylistId(context, mode.getVal());
@@ -347,8 +564,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     protected void onServiceCon() {
-        slidingPanel = new SlidingPanel(frameTopOne, this);
-        RemotePlay.get().onListener(slidingPanel);
+        slidingPanel1 = new SlidingPanel1(frameTopOne, this);
+        RemotePlay.get().onListener(slidingPanel1);
         handleIntent();
         showPlayView();
 
@@ -405,11 +622,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         setSlidingPanelLayout();
         int openingVal;
 
-        openingVal = Utils.getOpeningVal(MainActivity.this);
-        Utils.setFirstFrag(this.getApplicationContext(), true);
-        setFragment(openingVal);
-        navigationView.getMenu().getItem(openingVal).setChecked(true);
-
+        if (Locale.getDefault().getLanguage().equals("tr") || Locale.getDefault().getLanguage().equals("es") || Locale.getDefault().getLanguage().equals("pt") || Locale.getDefault().getLanguage().equals("th")) {
+            openingVal = Utils.getOpeningVal(MainActivity.this);
+            Utils.setFirstFrag(this.getApplicationContext(),true);
+            setFragment(openingVal);
+            navigationView.getMenu().getItem(openingVal).setChecked(true);
+        } else {
+            openingVal = Utils.getOpeningVal2(MainActivity.this);
+            setFragment(openingVal);
+            navigationView.getMenu().getItem(openingVal - 4).setChecked(true);
+        }
         initViews2();
     }
 
@@ -419,7 +641,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             current.setText(Utils.getDuraStr(progress / 1000, this));
         }
     }
-
     private void initViews2() {
         NavigationViewUtil.setItemIconColors(navigationView, ATHUtil.resolveColor(this, R.attr.iconColor, ThemeStore.textColorSecondary(this)), Utils.getAccentColor(this));
         NavigationViewUtil.setItemTextColors(navigationView, ThemeStore.textColorPrimary(this), Utils.getAccentColor(this));
@@ -440,7 +661,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         placeholder = getResources().getDrawable(R.drawable.album_default);
         placeholder.setColorFilter(Utils.getPrimaryColor(this), PorterDuff.Mode.MULTIPLY);
     }
-
     @Override
     protected void handleListener() {
         back.setOnClickListener(this);
@@ -452,6 +672,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         next.setOnClickListener(this);
         queue.setOnClickListener(this);
         theSeekbar.setOnSeekBarChangeListener(this);
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        MoPub.onStop(this);
     }
 
     @Override
@@ -467,20 +692,21 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             updateUiSettings();
         }
         mIsResumed = true;
+        MoPub.onResume(this);
     }
 
     private void updateUiSettings() {
-        slidingPanel.setViews();
+        slidingPanel1.setViews();
         mIsResumed = true;
         setFragment(currentFrag);
         initViews2();
         onChangeSong(RemotePlay.get().getPlayMusic(this));
     }
-
     @Override
     protected void onPause() {
         super.onPause();
         mIsResumed = false;
+        MoPub.onPause(this);
     }
 
     @Override
@@ -549,42 +775,57 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     protected void onDestroy() {
+
         RemotePlay.get().removeListener(this);
 
+        if (mInterstitial != null) {
+            mInterstitial.destroy();
+        }
+        if (mInterstitialGif != null) {
+            mInterstitialGif.destroy();
+        }
         if (mainActDisposable != null && !mainActDisposable.isDisposed()) {
             mainActDisposable.dispose();
         }
-        if (slidingPanel.bitmapSubscription != null && !slidingPanel.bitmapSubscription.isDisposed()) {
-            slidingPanel.bitmapSubscription.dispose();
+        if (slidingPanel1.bitmapSubscription != null && !slidingPanel1.bitmapSubscription.isDisposed()) {
+            slidingPanel1.bitmapSubscription.dispose();
         }
-
+        if (interFailHandler != null) {
+            interFailHandler.removeCallbacks(interFailRunnable);
+        }
+        if (interFailHandlerGif != null) {
+            interFailHandlerGif.removeCallbacks(interFailRunnableGif);
+        }
         if (handlerD != null) {
             handlerD.removeCallbacks(runnableD);
         }
 
+        MoPub.onDestroy(this);
         DisposableManager.dispose();
 
         super.onDestroy();
     }
 
     public void setNavigationDrawer() {
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navView);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    public boolean onNavigationItemSelected(MenuItem item) {
         // Hide keyboard
         Utils.hideKeyboard(this);
         int id = item.getItemId();
-
-        handlerNavigate.postDelayed(new Runnable() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 mSlidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-                Utils.setFirstFrag(MainActivity.this, false);
+                Utils.setFirstFrag(MainActivity.this,false);
 
-                if (id == R.id.nav_onlineplayer) {
+                if (id == R.id.nav_folders) {
                     setFragment(0);
                 } else if (id == R.id.nav_recentlyadded) {
                     Utils.setCountSave(MainActivity.this, 0);
@@ -610,7 +851,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
                                 @Override
                                 public void onPermUnapproved() {
-                                    ToastUtils.show(getApplicationContext(), R.string.no_perm_open_settings);
+                                    ToastMsgUtils.show(getApplicationContext(), R.string.no_perm_open_settings);
                                 }
                             })
                             .reqPerm();
@@ -624,19 +865,17 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
         if (seekBar == theSeekbar) {
             isDragging = true;
         }
     }
-
     public boolean getIfMainVisible() {
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment);
-        if (fragment instanceof FragmentOnline) {
-            if (((FragmentOnline) fragment).isSearchOpen()) {
-                ((FragmentOnline) fragment).closeSearch();
+        if (fragment instanceof FragmentMain) {
+            if (((FragmentMain) fragment).isSearchOpen()) {
+                ((FragmentMain) fragment).closeSearch();
                 return true;
             } else {
                 return false;
@@ -644,7 +883,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
         return false;
     }
-
     public void setFragment(int position) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -653,7 +891,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             if (mIsResumed)
                 getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
-            Fragment fragmentMain = new FragmentOnline();
+            Fragment fragmentMain = new FragmentMain();
             fragmentTransaction.replace(R.id.fragment, fragmentMain);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
@@ -662,7 +900,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             if (mIsResumed)
                 getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
-            Fragment fragmentRecently = new FragmentRecently();
+            Fragment fragmentRecently= new FragmentRecently();
             fragmentTransaction.replace(R.id.fragment, fragmentRecently);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
@@ -742,7 +980,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     if (RemotePlay.get().getPlayMusic(context).getTip() == Song.Tip.MODEL0) {
                         SongHelperMenu.handleMenuLocal(this, v, RemotePlay.get().getPlayMusic(context), this::handlePlaylistDialog);
                     } else {
-                        SongHelperMenu.handleMenuFolder(this, v, RemotePlay.get().getPlayMusic(context));
+                        SongHelperMenu.handleMenuFolder(this, v, RemotePlay.get().getPlayMusic(context), this);
                     }
                 }
                 break;
@@ -881,6 +1119,29 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     }
 
+
+    public void showInterstitial() {
+        if (mInterstitial != null) {
+            if (mInterstitial.isReady()) {
+                mInterstitial.show();
+            } else {
+                isInterstitialCalled = true;
+                mInterstitial.load();
+            }
+        }
+
+    }
+
+ public void showInterstitialGif() {
+        if (mInterstitialGif != null) {
+            if (mInterstitialGif.isReady()) {
+                mInterstitialGif.show();
+            } else {
+                isInterstitialCalledGif = true;
+                mInterstitialGif.load();
+            }
+        }
+    }
 
     @Override
     public void handlePlaylistDialog(Song song) {

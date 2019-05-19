@@ -1,14 +1,15 @@
 package com.wolcano.musicplayer.music.ui.adapter;
 
 import android.app.Activity;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.wolcano.musicplayer.music.R;
+import com.wolcano.musicplayer.music.mvp.listener.AdapterClickListener;
 import com.wolcano.musicplayer.music.mvp.models.Artist;
 import com.wolcano.musicplayer.music.utils.Utils;
 
@@ -18,9 +19,11 @@ public class ArtistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     private List<Artist> arraylist;
     private Activity context;
-    public ArtistAdapter(Activity context, List<Artist> arraylist){
+    private AdapterClickListener listener;
+    public ArtistAdapter(Activity context, List<Artist> arraylist, AdapterClickListener listener){
         this.context = context;
         this.arraylist = arraylist;
+        this.listener = listener;
     }
 
     @NonNull
@@ -63,7 +66,7 @@ public class ArtistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         @Override
         public void onClick(View v) {
 
-            Artist artist = arraylist.get(getAdapterPosition());
+            Artist artist = arraylist.get(listener.getOriginalPosition(getAdapterPosition()));
             long artistId = artist.id;
             String artistName = artist.name;
             Utils.navigateToArtist(context, artistId, artistName);

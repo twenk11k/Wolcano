@@ -1,14 +1,15 @@
 package com.wolcano.musicplayer.music.ui.adapter;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.wolcano.musicplayer.music.R;
+import com.wolcano.musicplayer.music.mvp.listener.AdapterClickListener;
 import com.wolcano.musicplayer.music.mvp.models.Genre;
 import com.wolcano.musicplayer.music.utils.Utils;
 
@@ -18,10 +19,12 @@ public class GenreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     private List<Genre> arraylist;
     private Context context;
+    private AdapterClickListener listener;
 
-    public GenreAdapter(Context context, List<Genre> arraylist){
+    public GenreAdapter(Context context, List<Genre> arraylist, AdapterClickListener listener){
         this.context = context;
         this.arraylist = arraylist;
+        this.listener = listener;
     }
 
     @NonNull
@@ -64,7 +67,7 @@ public class GenreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         @Override
         public void onClick(View v) {
 
-           Genre genre = arraylist.get(getAdapterPosition());
+           Genre genre = arraylist.get(listener.getOriginalPosition(getAdapterPosition()));
            long genreId = genre.id;
            String genreName = genre.name;
            Utils.navigateToGenre(context, genreId, genreName);

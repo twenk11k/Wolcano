@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: com.appnext.sdk:core:2.4.5.472@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/core-2.4.5.472.aar/bc238024a3571066a5e877cb6b019ca5/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/core-2.4.5.472.aar/bc238024a3571066a5e877cb6b019ca5/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

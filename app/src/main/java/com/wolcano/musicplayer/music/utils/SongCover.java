@@ -6,7 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
-import androidx.collection.LruCache;
+import android.support.v4.util.LruCache;
 import android.text.TextUtils;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.mvp.models.ModelBitmap;
@@ -177,11 +177,11 @@ public class SongCover {
     public Bitmap getMainModel(Context context,Tip tip) {
         switch (tip) {
             case BLURRED:
-                Bitmap bitmap1 = ImageUtils.tintBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.album_default), Utils.getPrimaryColor(context));
+                Bitmap bitmap1 = ResimUtils.tintBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.album_default), Utils.getPrimaryColor(context));
                 return bitmap1;
             case OVAL:
                 Bitmap bm = BitmapFactory.decodeResource(context.getResources(), R.drawable.album_art_round);
-                bm = ImageUtils.chgImage(bm, ovalSize, ovalSize);
+                bm = ResimUtils.chgImage(bm, ovalSize, ovalSize);
                 return bm;
             default:
                 return BitmapFactory.decodeResource(context.getResources(), R.drawable.album_art);
@@ -198,10 +198,10 @@ public class SongCover {
         }
         switch (tip) {
             case BLURRED:
-                return ImageUtils.blur(bm);
+                return ResimUtils.blur(bm);
             case OVAL:
-                bm = ImageUtils.chgImage(bm, ovalSize, ovalSize);
-                return ImageUtils.appendOvalImg(bm);
+                bm = ResimUtils.chgImage(bm, ovalSize, ovalSize);
+                return ResimUtils.appendOvalImg(bm);
             default:
                 return bm;
         }
