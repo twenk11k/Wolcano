@@ -10,7 +10,6 @@ import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
-
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.content.PlayerEnum;
 import com.wolcano.musicplayer.music.content.managers.SessionManager;
@@ -20,11 +19,11 @@ import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.mvp.db.DatabaseManager;
 import com.wolcano.musicplayer.music.utils.ToastUtils;
 import com.wolcano.musicplayer.music.utils.Utils;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
 
 
 public class RemotePlay {
@@ -33,7 +32,6 @@ public class RemotePlay {
     private MediaPlayer mediaPlayer;
     private IntentFilter intentFilter;
     private List<Song> arrayList;
-    //private SoundBroadcast soundReceiver;
 
     private final List<OnServiceListener> listenerList = new ArrayList<>();
     private static final int IDLE = 0;
@@ -65,7 +63,6 @@ public class RemotePlay {
         mediaPlayer = new MediaPlayer();
         mHandler = new Handler(Looper.getMainLooper());
         bindService(context);
-       // soundReceiver = new SoundBroadcast();
         intentFilter = new IntentFilter(AudioManager.ACTION_AUDIO_BECOMING_NOISY);
 
         mediaPlayer.setOnCompletionListener(mp -> next(context,true));
@@ -255,7 +252,6 @@ public class RemotePlay {
 
             musicService.notification.update(getPlayMusic(context));
             SessionManager.get().updateSessionPlaybackState();
-          //  context.getApplicationContext().registerReceiver(soundReceiver, intentFilter);
 
             for (OnServiceListener listener : listenerList) {
                 listener.onPlayStart();
@@ -278,7 +274,6 @@ public class RemotePlay {
 
         musicService.notification.update(getPlayMusic(context));
         SessionManager.get().updateSessionPlaybackState();
-      //  context.getApplicationContext().unregisterReceiver(soundReceiver);
         if (abSoundFocus) {
             soundManager.abSoundFocus();
         }

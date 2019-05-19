@@ -117,7 +117,6 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
     private ArrayAdapter<String> adtDuration;
     public ArrayList<String> arrayArtistList;
 
-    // Mopub
     private ArrayAdapter<String> adtArtist;
     // Disposable
     private Disposable mainSubscription;

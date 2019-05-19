@@ -190,8 +190,8 @@
     <string name="http_error">HTTP error fetching URL</string>
     <string name="email_us_title">Copyright Notice</string>
     <string name="email_us_via">Send Email</string>
-    <string name="pref_summary_thefirst">Learn how to use Wolcano Music.</string>
-    <string name="pref_title_thefirst">How to Use?</string>
+    <string name="pref_summary_howtouse">Learn how to use Wolcano Music.</string>
+    <string name="pref_title_howtouse">How to Use?</string>
     <string name="pref_title_email_us">Copyright notice</string>
     <string name="pref_email_us_dialog_content">- Wolcano Music, does not use its own server or provider and it only provide access to other
 services and all these services have no relation with Wolcano Music.\n
@@ -212,5 +212,6 @@ You can press yes if you want to send email to us.</string>
     <string name="pref_header_other_2">Other</string>
     <string name="no_perm_save_file">Song cannot save because required permissions are not setted.</string>
     <string name="sharefile">Share Song</string>
+    <string name="pref_header_online">Online Player</string>
 
 </resources>

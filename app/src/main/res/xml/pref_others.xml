@@ -1,7 +1,7 @@
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <com.wolcano.musicplayer.music.prefs.CustomPreferenceCategory
-        android:title="@string/pref_header_other"
+        android:title="@string/pref_header_online"
         >
 
         <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreference

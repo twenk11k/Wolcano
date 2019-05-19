@@ -30,7 +30,7 @@
     <string name="artists">ARTISTAS</string>
     <string name="genres">GÊNEROS</string>
 
-    <string name="sharewolcano">Compartilhar "Musique Player V2"</string>
+    <string name="sharewolcano">Compartilhar "Wolcano"</string>
     <string name="net_mobile">net_mobile</string>
     <string name="warning">Atenção</string>
 
@@ -150,8 +150,8 @@
     <string name="sponsored">Patrocinadas</string>
     <string name="first_title">Informação Importante</string>
     <string name="close">Perto</string>
-    <string name="first_dec"> - Para pesquisar uma música, você deve pressionar o botão de pesquisa que será exibido no teclado.\n\n - Esteja ciente de que o player on-line pode não funcionar devido ao uso de qualquer rede VPN.\n\n - Quando o app é desinstalado todos os arquivos salvos serão completamente removidos do dispositivo. Se você quiser desinstalá-lo, sugerimos para mover arquivos salvos para outro arquivo, a fim de evitar este problema.\n\n - Você pode facilmente remover pesquisas antigas enquanto segura nele.\n\n Musique Player V2</string>
-    <string name="first_dec_old"> - Para pesquisar uma música, você deve pressionar o botão de pesquisa que será exibido no teclado.\n\n - Esteja ciente de que o player on-line pode não funcionar devido ao uso de qualquer rede VPN.\n\n- Você pode facilmente remover pesquisas antigas enquanto segura nele.\n\n Musique Player V2</string>
+    <string name="first_dec"> - Para pesquisar uma música, você deve pressionar o botão de pesquisa que será exibido no teclado.\n\n - Esteja ciente de que o player on-line pode não funcionar devido ao uso de qualquer rede VPN.\n\n - Quando o app é desinstalado todos os arquivos salvos serão completamente removidos do dispositivo. Se você quiser desinstalá-lo, sugerimos para mover arquivos salvos para outro arquivo, a fim de evitar este problema.\n\n - Você pode facilmente remover pesquisas antigas enquanto segura nele.\n\n Wolcano</string>
+    <string name="first_dec_old"> - Para pesquisar uma música, você deve pressionar o botão de pesquisa que será exibido no teclado.\n\n - Esteja ciente de que o player on-line pode não funcionar devido ao uso de qualquer rede VPN.\n\n- Você pode facilmente remover pesquisas antigas enquanto segura nele.\n\n Wolcano</string>
     <string name="sleeptimer">Temporizador Do Sono</string>
     <string name="action_set">Conjunto</string>
     <string name="sleep_timer_set"><![CDATA[Temporizador do sono ajustado para <b>%1$d minutos</b> a partir de agora.]]></string>
@@ -187,16 +187,17 @@
     <string name="errorinter">Ocorreu um erro ao carregar o anúncio. Por favor, tente novamente mais tarde.</string>
     <string name="please">A fila está vazia.</string>
     <string name="http_error">HTTP error fetching URL</string>
-    <string name="pref_title_thefirst">Como Usar?</string>
-    <string name="pref_summary_thefirst">Aprenda a usar o aplicativo.</string>
+    <string name="pref_title_howtouse">Como Usar?</string>
+    <string name="pref_summary_howtouse">Aprenda a usar o aplicativo.</string>
     <string name="email_us_title">Aviso De Direitos Autorais</string>
     <string name="email_us_via">Enviar email</string>
     <string name="pref_title_email_us">Aviso de direitos autorais</string>
-    <string name="pref_email_us_dialog_content">- Musique Player V2, não usa seu próprio servidor ou provedor e apenas fornece acesso a outros serviços e todos esses serviços não têm relação com o Musique Player V2\n- Musique Player V2 é um tocador de música Android que possui mecanismo de busca abrangente e Ele é focado na interface do usuário e fácil de usar.\n- O Musique Player V2 respeita os direitos de propriedade intelectual e ajuda a remover o conteúdo de o mecanismo de busca o mais rápido possível. Se você é proprietário de direitos autorais ou agente, envie-nos um e-mail com seu nome e nós entraremos em contato com você o mais breve possível e, em seguida, executaremos o processo de filtragem no mecanismo de pesquisa. Por favor, não envie qualquer aviso falso. Em uma emergência, o processo pode demorar um pouco. Obrigado pela sua compreensão.\n Você pode pressionar sim se você quiser enviar um email para nós.</string>
+    <string name="pref_email_us_dialog_content">- Wolcano, não usa seu próprio servidor ou provedor e apenas fornece acesso a outros serviços e todos esses serviços não têm relação com o Wolcano\n- Wolcano é um tocador de música Android que possui mecanismo de busca abrangente e Ele é focado na interface do usuário e fácil de usar.\n- O Wolcano respeita os direitos de propriedade intelectual e ajuda a remover o conteúdo de o mecanismo de busca o mais rápido possível. Se você é proprietário de direitos autorais ou agente, envie-nos um e-mail com seu nome e nós entraremos em contato com você o mais breve possível e, em seguida, executaremos o processo de filtragem no mecanismo de pesquisa. Por favor, não envie qualquer aviso falso. Em uma emergência, o processo pode demorar um pouco. Obrigado pela sua compreensão.\n Você pode pressionar sim se você quiser enviar um email para nós.</string>
     <string name="pref_title_rate_app">Taxa de aplicativo</string>
     <string name="pref_title_share_app">Compartilhamento de aplicativos</string>
     <string name="pref_summary_rate_app">Avalie o aplicativo no Google Play.</string>
     <string name="pref_summary_share_app">Compartilhe o aplicativo com seus amigos.</string>
     <string name="pref_header_other_2">Outros</string>
+    <string name="pref_header_online">Jogador online</string>
 
 </resources>
