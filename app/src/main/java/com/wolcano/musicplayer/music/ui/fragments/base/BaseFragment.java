@@ -1,4 +1,4 @@
-package com.wolcano.musicplayer.music.ui.fragments;
+package com.wolcano.musicplayer.music.ui.fragments.base;
 
 import android.os.Build;
 import android.os.Bundle;

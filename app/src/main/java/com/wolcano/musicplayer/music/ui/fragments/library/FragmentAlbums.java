@@ -35,7 +35,7 @@ import com.wolcano.musicplayer.music.ui.fragments.FragmentLibrary;
 import com.wolcano.musicplayer.music.utils.Perms;
 import com.wolcano.musicplayer.music.ui.activities.MainActivity;
 import com.wolcano.musicplayer.music.ui.adapter.AlbumAdapter;
-import com.wolcano.musicplayer.music.ui.fragments.BaseFragment;
+import com.wolcano.musicplayer.music.ui.fragments.base.BaseFragment;
 import com.wolcano.musicplayer.music.utils.SongUtils;
 import com.wolcano.musicplayer.music.utils.ToastUtils;
 import com.wolcano.musicplayer.music.utils.Utils;

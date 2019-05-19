@@ -38,6 +38,7 @@ import com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceFragment
 import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.wolcano.musicplayer.music.R;
+import com.wolcano.musicplayer.music.ui.activities.base.BaseActivitySettings;
 import com.wolcano.musicplayer.music.widgets.StatusBarView;
 import com.wolcano.musicplayer.music.utils.FileUtils;
 import com.wolcano.musicplayer.music.utils.PrefUtils;
@@ -164,13 +165,9 @@ public class SettingsActivity extends BaseActivitySettings implements ColorChoos
         @Override
         public void onCreatePreferences(Bundle bundle, String s) {
             addPreferencesFromResource(R.xml.pref_general);
-
             addPreferencesFromResource(R.xml.pref_colors);
-
+            addPreferencesFromResource(R.xml.pref_onlineplayer);
             addPreferencesFromResource(R.xml.pref_others);
-
-
-            addPreferencesFromResource(R.xml.pref_others_2);
 
         }
 
@@ -221,6 +218,7 @@ public class SettingsActivity extends BaseActivitySettings implements ColorChoos
         }
 
         private void handleGeneralSettings() {
+
             final ATEListPreference opening = (ATEListPreference) findPreference("opening");
             opening.setValueIndex(Utils.getOpeningVal(getContext()));
             setSummary(opening, Utils.getOpeningVal(getContext()));
@@ -231,8 +229,8 @@ public class SettingsActivity extends BaseActivitySettings implements ColorChoos
 
                 return true;
             });
-            final com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreference thefirst = (com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreference) findPreference("thefirst");
-            thefirst.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            final com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreference howtouse = (com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreference) findPreference("howtouse");
+            howtouse.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     String content;
@@ -289,7 +287,6 @@ public class SettingsActivity extends BaseActivitySettings implements ColorChoos
 
                 return true;
             });
-
             final ATEColorPreference accentColorPref = (ATEColorPreference) findPreference("accent_color");
             final int accentColor = Utils.getAccentColor(getContext());
             accentColorPref.setColor(accentColor, ColorUtil.darkenColor(accentColor));

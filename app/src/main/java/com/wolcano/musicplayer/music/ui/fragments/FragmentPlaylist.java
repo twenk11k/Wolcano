@@ -31,6 +31,7 @@ import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
 import com.wolcano.musicplayer.music.mvp.models.Playlist;
+import com.wolcano.musicplayer.music.ui.fragments.base.BaseFragment;
 import com.wolcano.musicplayer.music.widgets.StatusBarView;
 import com.wolcano.musicplayer.music.utils.Perms;
 import com.wolcano.musicplayer.music.ui.adapter.PlaylistAdapter;
@@ -51,7 +52,7 @@ import io.reactivex.schedulers.Schedulers;
 import pl.droidsonroids.gif.GifImageView;
 import static com.wolcano.musicplayer.music.Constants.SONG_LIBRARY;
 
-public class FragmentPlaylist extends BaseFragment  {
+public class FragmentPlaylist extends BaseFragment {
 
     @BindView(R.id.recyclerview)
     FastScrollRecyclerView recyclerView;

@@ -2,7 +2,7 @@ package com.wolcano.musicplayer.music.ui.activities;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -23,6 +23,7 @@ import com.wolcano.musicplayer.music.mvp.listener.GetDisposable;
 import com.wolcano.musicplayer.music.mvp.listener.OnServiceListener;
 import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.provider.RemotePlay;
+import com.wolcano.musicplayer.music.ui.activities.base.BaseActivity;
 import com.wolcano.musicplayer.music.utils.ToastUtils;
 import com.wolcano.musicplayer.music.widgets.StatusBarView;
 import com.wolcano.musicplayer.music.ui.adapter.QueueAdapter;

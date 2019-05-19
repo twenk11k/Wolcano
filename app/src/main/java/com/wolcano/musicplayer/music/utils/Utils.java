@@ -153,13 +153,13 @@ public class Utils {
     public static void setFirst(Context context, boolean val) {
 
         settings = context.getSharedPreferences("VALUES", Context.MODE_PRIVATE);
-        settings.edit().putBoolean("app_thefirst", val).apply();
+        settings.edit().putBoolean("app_howtouse", val).apply();
 
     }
     public static boolean getFirst(Context context) {
 
         settings = context.getSharedPreferences("VALUES", Context.MODE_PRIVATE);
-        return settings.getBoolean("app_thefirst", true);
+        return settings.getBoolean("app_howtouse", true);
 
     }
 

@@ -5,16 +5,17 @@
     <string name="settings">Configurações</string>
 
     <string name="recentlyadded">Último Adicionado</string>
+    <string name="onlineplayer">Jogador online</string>
     <string name="library">Biblioteca</string>
     <string name="songs">Músicas</string>
     <string name="playlists">Listas de Reprodução</string>
     <string name="folders">Jogador Online</string>
 
-    <string name="folder_name">Musique</string>
+    <string name="folder_name">Wolcano</string>
     <string name="folder_search_history">Histórico De Busca</string>
 
-    <string name="backup_search_history_file_name">musique_all_searches</string>
-    <string name="backup_last_searches_file_name">musique_last_searches</string>
+    <string name="backup_search_history_file_name">wolcano_all_searches</string>
+    <string name="backup_last_searches_file_name">wolcano_last_searches</string>
 
     <string name="search">Pesquisa</string>
     <string name="save">Salve</string>
@@ -30,7 +31,7 @@
     <string name="artists">ARTISTAS</string>
     <string name="genres">GÊNEROS</string>
 
-    <string name="sharewolcano">Compartilhar "Musique Player V2"</string>
+    <string name="sharewolcano">Compartilhar "Wolcano"</string>
     <string name="net_mobile">net_mobile</string>
     <string name="warning">Atenção</string>
 
@@ -119,7 +120,7 @@
 
     <string name="pref_summary_change_backup_history">Salve o arquivo de backup do histórico de pesquisa no dispositivo.</string>
     <string name="pref_title_backup_history">Histórico de pesquisa de backup</string>
-    <string name="pref_backup_history_dialog_content">Todo o histórico de pesquisa será salvo para \"Musique/Histórico De Busca\" pasta. Se você já se registrou, será sobrescrito.Portanto, você pode perder o histórico de pesquisa antigo.\n Você confirma?</string>
+    <string name="pref_backup_history_dialog_content">Todo o histórico de pesquisa será salvo para \"Wolcano/Histórico De Busca\" pasta. Se você já se registrou, será sobrescrito.Portanto, você pode perder o histórico de pesquisa antigo.\n Você confirma?</string>
 
     <string name="pref_title_import_history">Importar histórico de pesquisa</string>
     <string name="pref_backup_import_dialog_content">A história existente da busca no app será removida e substituída com a história previamente salvar da busca.\nVocê confirma?</string>
@@ -150,8 +151,8 @@
     <string name="sponsored">Patrocinadas</string>
     <string name="first_title">Informação Importante</string>
     <string name="close">Perto</string>
-    <string name="first_dec"> - Para pesquisar uma música, você deve pressionar o botão de pesquisa que será exibido no teclado.\n\n - Esteja ciente de que o player on-line pode não funcionar devido ao uso de qualquer rede VPN.\n\n - Quando o app é desinstalado todos os arquivos salvos serão completamente removidos do dispositivo. Se você quiser desinstalá-lo, sugerimos para mover arquivos salvos para outro arquivo, a fim de evitar este problema.\n\n - Você pode facilmente remover pesquisas antigas enquanto segura nele.\n\n Musique Player V2</string>
-    <string name="first_dec_old"> - Para pesquisar uma música, você deve pressionar o botão de pesquisa que será exibido no teclado.\n\n - Esteja ciente de que o player on-line pode não funcionar devido ao uso de qualquer rede VPN.\n\n- Você pode facilmente remover pesquisas antigas enquanto segura nele.\n\n Musique Player V2</string>
+    <string name="first_dec"> - Para pesquisar uma música, você deve pressionar o botão de pesquisa que será exibido no teclado.\n\n - Esteja ciente de que o player on-line pode não funcionar devido ao uso de qualquer rede VPN.\n\n - Quando o app é desinstalado todos os arquivos salvos serão completamente removidos do dispositivo. Se você quiser desinstalá-lo, sugerimos para mover arquivos salvos para outro arquivo, a fim de evitar este problema.\n\n - Você pode facilmente remover pesquisas antigas enquanto segura nele.\n\n Wolcano</string>
+    <string name="first_dec_old"> - Para pesquisar uma música, você deve pressionar o botão de pesquisa que será exibido no teclado.\n\n - Esteja ciente de que o player on-line pode não funcionar devido ao uso de qualquer rede VPN.\n\n- Você pode facilmente remover pesquisas antigas enquanto segura nele.\n\n Wolcano</string>
     <string name="sleeptimer">Temporizador Do Sono</string>
     <string name="action_set">Conjunto</string>
     <string name="sleep_timer_set"><![CDATA[Temporizador do sono ajustado para <b>%1$d minutos</b> a partir de agora.]]></string>
@@ -192,7 +193,7 @@
     <string name="email_us_title">Aviso De Direitos Autorais</string>
     <string name="email_us_via">Enviar email</string>
     <string name="pref_title_email_us">Aviso de direitos autorais</string>
-    <string name="pref_email_us_dialog_content">- Musique Player V2, não usa seu próprio servidor ou provedor e apenas fornece acesso a outros serviços e todos esses serviços não têm relação com o Musique Player V2\n- Musique Player V2 é um tocador de música Android que possui mecanismo de busca abrangente e Ele é focado na interface do usuário e fácil de usar.\n- O Musique Player V2 respeita os direitos de propriedade intelectual e ajuda a remover o conteúdo de o mecanismo de busca o mais rápido possível. Se você é proprietário de direitos autorais ou agente, envie-nos um e-mail com seu nome e nós entraremos em contato com você o mais breve possível e, em seguida, executaremos o processo de filtragem no mecanismo de pesquisa. Por favor, não envie qualquer aviso falso. Em uma emergência, o processo pode demorar um pouco. Obrigado pela sua compreensão.\n Você pode pressionar sim se você quiser enviar um email para nós.</string>
+    <string name="pref_email_us_dialog_content">- Wolcano, não usa seu próprio servidor ou provedor e apenas fornece acesso a outros serviços e todos esses serviços não têm relação com o Wolcano\n- Wolcano é um tocador de música Android que possui mecanismo de busca abrangente e Ele é focado na interface do usuário e fácil de usar.\n- O Wolcano respeita os direitos de propriedade intelectual e ajuda a remover o conteúdo de o mecanismo de busca o mais rápido possível. Se você é proprietário de direitos autorais ou agente, envie-nos um e-mail com seu nome e nós entraremos em contato com você o mais breve possível e, em seguida, executaremos o processo de filtragem no mecanismo de pesquisa. Por favor, não envie qualquer aviso falso. Em uma emergência, o processo pode demorar um pouco. Obrigado pela sua compreensão.\n Você pode pressionar sim se você quiser enviar um email para nós.</string>
     <string name="pref_title_rate_app">Taxa de aplicativo</string>
     <string name="pref_title_share_app">Compartilhamento de aplicativos</string>
     <string name="pref_summary_rate_app">Avalie o aplicativo no Google Play.</string>

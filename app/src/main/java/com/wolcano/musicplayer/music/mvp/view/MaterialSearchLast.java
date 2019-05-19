@@ -1,4 +1,4 @@
-package com.wolcano.musicplayer.music.ui.fragments.online.search;
+package com.wolcano.musicplayer.music.mvp.view;
 
 
 
@@ -35,7 +35,8 @@ import android.widget.TextView;
 
 import com.miguelcatalan.materialsearchview.utils.AnimationUtil;
 import com.wolcano.musicplayer.music.R;
-import com.wolcano.musicplayer.music.ui.fragments.online.SetSearchQuery;
+import com.wolcano.musicplayer.music.ui.adapter.SearchAdapterLast;
+import com.wolcano.musicplayer.music.mvp.listener.SetSearchQuery;
 
 import java.lang.reflect.Field;
 import java.util.List;

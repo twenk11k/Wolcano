@@ -31,19 +31,19 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 
-public  class RotateFabBehav extends CoordinatorLayout.Behavior<FloatingActionButton> {
+public  class RotateFabBehavior extends CoordinatorLayout.Behavior<FloatingActionButton> {
     private static final boolean AUTO_HIDE_DEFAULT = true;
 
     private Rect mTmpRect;
     private FloatingActionButton.OnVisibilityChangedListener mInternalAutoHideListener;
     private boolean mAutoHideEnabled;
     private static boolean isAnimate;
-    public RotateFabBehav() {
+    public RotateFabBehavior() {
         super();
         mAutoHideEnabled = AUTO_HIDE_DEFAULT;
     }
 
-    public RotateFabBehav(Context context, AttributeSet attrs) {
+    public RotateFabBehavior(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray a = context.obtainStyledAttributes(attrs,
                 com.google.android.material.R.styleable.FloatingActionButton_Behavior_Layout);

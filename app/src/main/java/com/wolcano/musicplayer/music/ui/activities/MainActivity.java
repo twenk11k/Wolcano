@@ -52,6 +52,7 @@ import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.provider.RemotePlay;
 import com.wolcano.musicplayer.music.content.slidingpanel.SlidingPanel;
 import com.wolcano.musicplayer.music.content.PlayerEnum;
+import com.wolcano.musicplayer.music.ui.activities.base.BaseActivity;
 import com.wolcano.musicplayer.music.ui.dialog.RatingDialogV2;
 import com.wolcano.musicplayer.music.utils.SongCover;
 import com.wolcano.musicplayer.music.utils.Perms;

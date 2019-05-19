@@ -40,10 +40,11 @@ import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
 import com.wolcano.musicplayer.music.mvp.listener.RecyclerViewScrollListener;
 import com.wolcano.musicplayer.music.mvp.models.Model1;
+import com.wolcano.musicplayer.music.ui.fragments.base.BaseFragment;
 import com.wolcano.musicplayer.music.widgets.StatusBarView;
 import com.wolcano.musicplayer.music.ui.adapter.MainAdapter;
-import com.wolcano.musicplayer.music.ui.fragments.online.SetSearchQuery;
-import com.wolcano.musicplayer.music.ui.fragments.online.search.MaterialSearchLast;
+import com.wolcano.musicplayer.music.mvp.listener.SetSearchQuery;
+import com.wolcano.musicplayer.music.mvp.view.MaterialSearchLast;
 import com.wolcano.musicplayer.music.utils.Utils;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 

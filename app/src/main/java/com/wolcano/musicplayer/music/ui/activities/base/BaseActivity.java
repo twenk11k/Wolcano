@@ -1,4 +1,4 @@
-package com.wolcano.musicplayer.music.ui.activities;
+package com.wolcano.musicplayer.music.ui.activities.base;
 
 import android.content.ComponentName;
 import android.content.Context;

@@ -28,7 +28,7 @@
 
             />
 
-        <com.wolcano.musicplayer.music.ui.fragments.online.search.MaterialSearchLast
+        <com.wolcano.musicplayer.music.mvp.view.MaterialSearchLast
             android:id="@+id/search_view_miguel"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

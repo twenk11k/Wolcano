@@ -1,4 +1,4 @@
-package com.wolcano.musicplayer.music.ui.fragments.online;
+package com.wolcano.musicplayer.music.mvp.listener;
 
 
 public interface SetSearchQuery {

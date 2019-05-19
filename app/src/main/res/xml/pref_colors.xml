@@ -1,4 +1,5 @@
-<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.wolcano.musicplayer.music.prefs.CustomPreferenceCategory
         android:title="@string/pref_header_colors"
@@ -7,12 +8,16 @@
             android:key="primary_color"
             android:persistent="false"
             android:summary="@string/primary_color_desc"
+            app:allowDividerAbove="false"
+            app:allowDividerBelow="false"
             android:title="@string/primary_color" />
 
         <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEColorPreference
             android:key="accent_color"
             android:persistent="false"
             android:summary="@string/accent_color_desc"
+            app:allowDividerAbove="false"
+            app:allowDividerBelow="true"
             android:title="@string/accent_color" />
 
 

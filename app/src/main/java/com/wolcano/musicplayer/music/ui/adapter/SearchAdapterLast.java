@@ -1,4 +1,4 @@
-package com.wolcano.musicplayer.music.ui.fragments.online.search;
+package com.wolcano.musicplayer.music.ui.adapter;
 
 
 import android.content.Context;
@@ -18,7 +18,8 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.wolcano.musicplayer.music.R;
-import com.wolcano.musicplayer.music.ui.fragments.online.SetSearchQuery;
+import com.wolcano.musicplayer.music.mvp.listener.SetSearchQuery;
+import com.wolcano.musicplayer.music.mvp.view.MaterialSearchLast;
 import com.wolcano.musicplayer.music.utils.Utils;
 
 import java.util.ArrayList;

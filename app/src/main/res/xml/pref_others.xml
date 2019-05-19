@@ -1,33 +1,19 @@
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <com.wolcano.musicplayer.music.prefs.CustomPreferenceCategory
-        android:title="@string/pref_header_online"
+        android:title="@string/pref_header_other_2"
         >
 
         <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreference
-            android:key="delete_history"
+            android:key="rate_app"
             android:persistent="false"
-            android:summary="@string/pref_summary_change_delete_history"
-            android:title="@string/pref_title_delete_history" />
-        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-            android:defaultValue="true"
-            android:key="remember_last_search"
-            android:summary="@string/pref_summary_remember_last_search"
-            android:title="@string/pref_title_remember_last_search" />
+            android:summary="@string/pref_summary_rate_app"
+            android:title="@string/pref_title_rate_app" />
         <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreference
-            android:key="backup_history"
+            android:key="share_app"
             android:persistent="false"
-            android:summary="@string/pref_summary_change_backup_history"
-            android:title="@string/pref_title_backup_history" />
-        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreference
-            android:key="import_history"
-            android:persistent="false"
-            android:title="@string/pref_title_import_history" />
-        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreference
-            android:key="email_us"
-            android:persistent="false"
-            android:title="@string/pref_title_email_us"
-            />
+            android:summary="@string/pref_summary_share_app"
+            android:title="@string/pref_title_share_app" />
     </com.wolcano.musicplayer.music.prefs.CustomPreferenceCategory>
 
 </androidx.preference.PreferenceScreen>
