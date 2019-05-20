@@ -19,7 +19,7 @@ import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.mvp.models.Album;
 import com.wolcano.musicplayer.music.mvp.models.Artist;
 import com.wolcano.musicplayer.music.mvp.models.Genre;
-import com.wolcano.musicplayer.music.mvp.models.Model1;
+import com.wolcano.musicplayer.music.mvp.models.SongOnline;
 import com.wolcano.musicplayer.music.mvp.models.Playlist;
 import com.wolcano.musicplayer.music.mvp.models.Song;
 
@@ -599,9 +599,9 @@ public class SongUtils {
         }
     }
 
-    public static void downPerform(Context context, Model1 model1) {
+    public static void downPerform(Context context, SongOnline songOnline) {
         Toast.makeText(context.getApplicationContext(), R.string.itsstart, Toast.LENGTH_SHORT).show();
-        String path = model1.getPath();
+        String path = songOnline.getPath();
         File file = new File(Environment.getExternalStorageDirectory()
                 + "/" + context.getString(R.string.folder_name));
         if (!file.exists()) {
@@ -609,8 +609,8 @@ public class SongUtils {
         }
         DownloadManager loadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
         DownloadManager.Request loadRequest = new DownloadManager.Request(Uri.parse(path));
-        loadRequest.setTitle(model1.getTitle());
-        loadRequest.setDescription(context.getString(R.string.artist_notification) + model1.getArtistName());
+        loadRequest.setTitle(songOnline.getTitle());
+        loadRequest.setDescription(context.getString(R.string.artist_notification) + songOnline.getArtistName());
         loadRequest.allowScanningByMediaScanner();
         loadRequest.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         String fileStr = URLUtil.guessFileName(path, null, MimeTypeMap.getFileExtensionFromUrl(path));

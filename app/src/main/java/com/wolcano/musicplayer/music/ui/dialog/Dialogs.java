@@ -23,7 +23,7 @@ import com.squareup.picasso.Target;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.content.Share;
 import com.wolcano.musicplayer.music.mvp.models.Copy;
-import com.wolcano.musicplayer.music.mvp.models.Model1;
+import com.wolcano.musicplayer.music.mvp.models.SongOnline;
 import com.wolcano.musicplayer.music.mvp.models.Playlist;
 import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.ui.adapter.other.CopyItemAdapter;
@@ -93,7 +93,7 @@ public class Dialogs {
         adapter.setCallback(itemIndex -> showToastCopy(context, copylist.get(itemIndex).text, dialog));
 
     }
-    public static void copyDialog(Context context, Model1 song) {
+    public static void copyDialog(Context context, SongOnline song) {
         ArrayList<Copy> copylist = new ArrayList<>();
         if (!song.getTitle().equals("<unknown>") && !song.getTitle().equals(""))
             copylist.add(new Copy(song.getTitle(), 0));

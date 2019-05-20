@@ -17,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import com.wolcano.musicplayer.music.R;
-import com.wolcano.musicplayer.music.mvp.models.Model1;
+import com.wolcano.musicplayer.music.mvp.models.SongOnline;
 import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.provider.RemotePlay;
 import com.wolcano.musicplayer.music.mvp.other.PlayModelLocal;
@@ -32,12 +32,12 @@ import java.util.List;
 
 public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private ArrayList<Model1> arraylist;
+    private ArrayList<SongOnline> arraylist;
     private AppCompatActivity context;
     private boolean showLoader;
     private int dCount = 0;
 
-    public MainAdapter(AppCompatActivity context, ArrayList<Model1> arraylist) {
+    public MainAdapter(AppCompatActivity context, ArrayList<SongOnline> arraylist) {
         if (arraylist == null) {
             this.arraylist = new ArrayList<>();
         } else {
@@ -139,7 +139,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             ViewHolder viewHolder = (ViewHolder) holder;
 
-            Model1 localItem;
+            SongOnline localItem;
 
             localItem = arraylist.get(position);
 

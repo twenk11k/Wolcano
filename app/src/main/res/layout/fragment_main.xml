@@ -31,7 +31,7 @@
             />
 
         <com.wolcano.musicplayer.music.widgets.MaterialSearchLast
-            android:id="@+id/search_view_miguel"
+            android:id="@+id/material_search_last"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 

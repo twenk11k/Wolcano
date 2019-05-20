@@ -1,7 +1,6 @@
 
 package com.wolcano.musicplayer.music.ui.fragments.library;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
