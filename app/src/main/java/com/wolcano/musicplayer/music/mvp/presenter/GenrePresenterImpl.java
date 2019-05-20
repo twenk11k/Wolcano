@@ -14,7 +14,11 @@ import java.util.List;
 
 import io.reactivex.disposables.Disposable;
 
+<<<<<<< HEAD
 public class GenrePresenterImpl implements GenrePresenter, GenreInteractor.OnGetGenreListener {
+=======
+public class GenrePresenterImpl implements GenrePresenter, GenreInteractor.OnGenreListener {
+>>>>>>> 88390bf391eb92b417823436dc215e2c14b0fd4a
 
     private Fragment fragment;
     private Activity activity;
