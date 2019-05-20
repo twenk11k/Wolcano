@@ -40,12 +40,12 @@ import com.wolcano.musicplayer.music.utils.Utils;
 
 public class FragmentLibrary extends BaseFragment {
 
-    StatusBarView statusBarView;
-    Toolbar toolbar;
+    private StatusBarView statusBarView;
+    private Toolbar toolbar;
     private boolean isHidden = false;
     public ViewPager viewPager;
     private Context context;
-    AppBarLayout appBarLayout;
+    private AppBarLayout appBarLayout;
 
     @Nullable
     @Override
@@ -66,13 +66,8 @@ public class FragmentLibrary extends BaseFragment {
             view.findViewById(R.id.statusBarCustom).setVisibility(View.GONE);
             if (Build.VERSION.SDK_INT >= 19) {
                 int statusBarHeight = Utils.getStatHeight(getContext());
-               // FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) toolbar.getLayoutParams();
-                //toolbar.setPadding(0, statusBarHeight, 0, 0);
-
-              //  toolbar.setLayoutParams(layoutParams);
                 AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
                 params.setMargins(0, statusBarHeight, 0, 0);
-
                 params.setScrollFlags(0);
                 toolbar.setLayoutParams(params);
 
@@ -100,7 +95,6 @@ public class FragmentLibrary extends BaseFragment {
 
         LibraryFragmentPagerAdapter adapter = new LibraryFragmentPagerAdapter(getContext(), getChildFragmentManager());
         viewPager.setAdapter(adapter);
-        //   viewPager.setOffscreenPageLimit(4);
         viewPager.setSaveFromParentEnabled(false);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -141,7 +135,6 @@ public class FragmentLibrary extends BaseFragment {
         });
 
         viewPager.removeAllViews();
-        //  checkPerm(adapter);
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setBackgroundColor(color);
@@ -209,7 +202,6 @@ public class FragmentLibrary extends BaseFragment {
         super.onCreateOptionsMenu(menu, inflater);
         menu.clear();
         ToolbarContentTintHelper.handleOnCreateOptionsMenu(getActivity(), toolbar, menu, ATHToolbarActivity.getToolbarBackgroundColor(toolbar));
-
     }
 
 }

@@ -1,6 +1,5 @@
 package com.wolcano.musicplayer.music.ui.fragments;
 
-import android.Manifest;
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,37 +22,25 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.hwangjr.rxbus.annotation.Subscribe;
-import com.hwangjr.rxbus.annotation.Tag;
 import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
 import com.wolcano.musicplayer.music.mvp.interactor.PlaylistInteractorImpl;
 import com.wolcano.musicplayer.music.mvp.models.Playlist;
-import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.mvp.presenter.PlaylistPresenterImpl;
 import com.wolcano.musicplayer.music.mvp.presenter.interfaces.PlaylistPresenter;
 import com.wolcano.musicplayer.music.mvp.view.PlaylistView;
 import com.wolcano.musicplayer.music.ui.fragments.base.BaseFragment;
 import com.wolcano.musicplayer.music.widgets.StatusBarView;
-import com.wolcano.musicplayer.music.utils.Perms;
 import com.wolcano.musicplayer.music.ui.adapter.PlaylistAdapter;
-import com.wolcano.musicplayer.music.utils.SongUtils;
 import com.wolcano.musicplayer.music.utils.ToastUtils;
 import com.wolcano.musicplayer.music.utils.Utils;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
-
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 import pl.droidsonroids.gif.GifImageView;
 
 public class FragmentPlaylist extends BaseFragment implements PlaylistView {

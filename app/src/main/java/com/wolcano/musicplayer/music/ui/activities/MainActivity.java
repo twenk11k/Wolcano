@@ -743,7 +743,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     if (RemotePlay.get().getPlayMusic(context).getTip() == Song.Tip.MODEL0) {
                         SongHelperMenu.handleMenuLocal(this, v, RemotePlay.get().getPlayMusic(context), this::handlePlaylistDialog);
                     } else {
-                        SongHelperMenu.handleMenuFolder(this, v, RemotePlay.get().getPlayMusic(context));
+                        SongHelperMenu.handleMenuOnline(this, v, RemotePlay.get().getPlayMusic(context));
                     }
                 }
                 break;

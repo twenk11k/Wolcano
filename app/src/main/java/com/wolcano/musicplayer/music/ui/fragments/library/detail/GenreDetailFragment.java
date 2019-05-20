@@ -26,18 +26,19 @@ import android.view.animation.LayoutAnimationController;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import com.hwangjr.rxbus.annotation.Subscribe;
-import com.hwangjr.rxbus.annotation.Tag;
 import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.wolcano.musicplayer.music.Constants;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
+import com.wolcano.musicplayer.music.mvp.interactor.SongInteractorImpl;
 import com.wolcano.musicplayer.music.mvp.listener.GetDisposable;
 import com.wolcano.musicplayer.music.mvp.models.Playlist;
 import com.wolcano.musicplayer.music.mvp.models.Song;
+import com.wolcano.musicplayer.music.mvp.presenter.SongPresenterImpl;
+import com.wolcano.musicplayer.music.mvp.presenter.interfaces.SongPresenter;
+import com.wolcano.musicplayer.music.mvp.view.SongView;
 import com.wolcano.musicplayer.music.widgets.StatusBarView;
-import com.wolcano.musicplayer.music.utils.Perms;
 import com.wolcano.musicplayer.music.ui.activities.MainActivity;
 import com.wolcano.musicplayer.music.ui.adapter.RecentlyAddedAdapter;
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs;
@@ -46,11 +47,8 @@ import com.wolcano.musicplayer.music.utils.SongUtils;
 import com.wolcano.musicplayer.music.utils.ToastUtils;
 import com.wolcano.musicplayer.music.utils.Utils;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
-
 import java.util.List;
 import java.util.concurrent.Callable;
-import java.util.concurrent.TimeUnit;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.Observable;
@@ -59,9 +57,9 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import pl.droidsonroids.gif.GifImageView;
-import static com.wolcano.musicplayer.music.Constants.SONG_LIBRARY;
 
-public class GenreDetailFragment extends BaseFragment implements GetDisposable {
+
+public class GenreDetailFragment extends BaseFragment implements SongView,GetDisposable {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -77,7 +75,9 @@ public class GenreDetailFragment extends BaseFragment implements GetDisposable {
     private String genreName;
     private int primaryColor = -1;
     private Activity activity;
-    private Disposable genreDetailSubscription;
+    private Disposable disposable;
+    private SongPresenter songPresenter;
+
 
     public static GenreDetailFragment newInstance(long id, String name) {
         GenreDetailFragment fragment = new GenreDetailFragment();
@@ -169,55 +169,12 @@ public class GenreDetailFragment extends BaseFragment implements GetDisposable {
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),
                 DividerItemDecoration.VERTICAL));
         String sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
-        setRecyclerView(sort);
+
+        songPresenter = new SongPresenterImpl(this,activity,disposable,sort,genreID,new SongInteractorImpl());
+        songPresenter.getGenreSongs();
         setupToolbar();
     }
 
-    @Subscribe(tags = {@Tag(SONG_LIBRARY)})
-    public void setRecyclerView(String sort) {
-        Perms.with(this)
-                .permissions(Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .result(new Perms.PermInterface() {
-                    @Override
-                    public void onPermGranted() {
-                        Observable<List<Song>> observable =
-                                Observable.fromCallable(() -> SongUtils.scanSongsforGenre(getContext(), sort, genreID)).throttleFirst(500, TimeUnit.MILLISECONDS);
-
-                        genreDetailSubscription = observable.
-                                subscribeOn(Schedulers.io()).
-                                observeOn(AndroidSchedulers.mainThread()).
-                                subscribe(alist -> displayArrayList(alist));
-                    }
-
-                    @Override
-                    public void onPermUnapproved() {
-                        ToastUtils.show(context.getApplicationContext(), R.string.no_perm_storage);
-                    }
-                })
-                .reqPerm();
-    }
-    private void setList(List<Song> alist){
-        if (alist.size() <= 30) {
-            recyclerView.setThumbEnabled(false);
-        } else {
-            recyclerView.setThumbEnabled(true);
-        }
-        mAdapter = new RecentlyAddedAdapter((MainActivity) getActivity(), alist, GenreDetailFragment.this);
-        controlIfEmpty();
-        mAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-            @Override
-            public void onItemRangeRemoved(int positionStart, int itemCount) {
-                super.onItemRangeRemoved(positionStart, itemCount);
-                controlIfEmpty();
-            }
-        });
-
-
-        recyclerView.setAdapter(mAdapter);
-        runLayoutAnimation(recyclerView);
-
-    }
     private void runLayoutAnimation(final RecyclerView recyclerView) {
         final Context context = recyclerView.getContext();
         final LayoutAnimationController controller =
@@ -227,12 +184,9 @@ public class GenreDetailFragment extends BaseFragment implements GetDisposable {
         recyclerView.getAdapter().notifyDataSetChanged();
         recyclerView.scheduleLayoutAnimation();
     }
-    private void displayArrayList(List<Song> alist) {
-        setList(alist);
 
-    }
 
-    private void controlIfEmpty() {
+    public void controlIfEmpty() {
         if (empty != null) {
             empty.setText(R.string.no_song);
             empty.setVisibility(mAdapter == null || mAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
@@ -243,8 +197,8 @@ public class GenreDetailFragment extends BaseFragment implements GetDisposable {
     public void onDestroyView() {
         super.onDestroyView();
 
-        if (genreDetailSubscription != null && !genreDetailSubscription.isDisposed()) {
-            genreDetailSubscription.dispose();
+        if (disposable != null && !disposable.isDisposed()) {
+            disposable.dispose();
         }
 
         DisposableManager.dispose();
@@ -267,7 +221,7 @@ public class GenreDetailFragment extends BaseFragment implements GetDisposable {
 
     @Override
     public void handlePlaylistDialog(Song song) {
-        genreDetailSubscription = Observable.fromCallable(new Callable<List<Playlist>>() {
+        disposable = Observable.fromCallable(new Callable<List<Playlist>>() {
             @Override
             public List<Playlist> call() throws Exception {
                 return SongUtils.scanPlaylist(activity);
@@ -282,5 +236,27 @@ public class GenreDetailFragment extends BaseFragment implements GetDisposable {
                         Dialogs.addPlaylistDialog(activity, song, playlists);
                     }
                 });
+    }
+
+    @Override
+    public void setSongList(List<Song> songList) {
+        if (songList.size() <= 30) {
+            recyclerView.setThumbEnabled(false);
+        } else {
+            recyclerView.setThumbEnabled(true);
+        }
+        mAdapter = new RecentlyAddedAdapter((MainActivity) getActivity(), songList, GenreDetailFragment.this);
+        controlIfEmpty();
+        mAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onItemRangeRemoved(int positionStart, int itemCount) {
+                super.onItemRangeRemoved(positionStart, itemCount);
+                controlIfEmpty();
+            }
+        });
+
+
+        recyclerView.setAdapter(mAdapter);
+        runLayoutAnimation(recyclerView);
     }
 }
