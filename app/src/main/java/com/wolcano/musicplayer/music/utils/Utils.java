@@ -483,10 +483,11 @@ public class Utils {
 
 
     public static void hideKeyboard(Activity activity) {
-        InputMethodManager inputMethodManager = (InputMethodManager)
-                activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
-
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) activity.getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(
+                activity.getWindow().getDecorView().getRootView().getWindowToken(), 0);
     }
 
     public static boolean isLollipop() {
