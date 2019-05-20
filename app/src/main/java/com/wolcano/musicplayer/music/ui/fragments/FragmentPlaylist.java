@@ -30,7 +30,12 @@ import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
+import com.wolcano.musicplayer.music.mvp.interactor.PlaylistInteractorImpl;
 import com.wolcano.musicplayer.music.mvp.models.Playlist;
+import com.wolcano.musicplayer.music.mvp.models.Song;
+import com.wolcano.musicplayer.music.mvp.presenter.PlaylistPresenterImpl;
+import com.wolcano.musicplayer.music.mvp.presenter.interfaces.PlaylistPresenter;
+import com.wolcano.musicplayer.music.mvp.view.PlaylistView;
 import com.wolcano.musicplayer.music.ui.fragments.base.BaseFragment;
 import com.wolcano.musicplayer.music.widgets.StatusBarView;
 import com.wolcano.musicplayer.music.utils.Perms;
@@ -50,9 +55,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import pl.droidsonroids.gif.GifImageView;
-import static com.wolcano.musicplayer.music.Constants.SONG_LIBRARY;
 
-public class FragmentPlaylist extends BaseFragment {
+public class FragmentPlaylist extends BaseFragment implements PlaylistView {
 
     @BindView(R.id.recyclerview)
     FastScrollRecyclerView recyclerView;
@@ -65,8 +69,8 @@ public class FragmentPlaylist extends BaseFragment {
     @BindView(android.R.id.empty)
     TextView empty;
     private Activity activity;
-    private Disposable playlistSubscription;
-
+    private Disposable disposable;
+    private PlaylistPresenter playlistPresenter;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -154,36 +158,34 @@ public class FragmentPlaylist extends BaseFragment {
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),
                 DividerItemDecoration.VERTICAL));
         String sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
-        setRecyclerView(sort);
+        playlistPresenter = new PlaylistPresenterImpl(this,activity,disposable,sort,new PlaylistInteractorImpl());
+        playlistPresenter.getPlaylists();
         return rootview;
     }
 
-    @Subscribe(tags = {@Tag(SONG_LIBRARY)})
-    public void setRecyclerView(String sort) {
-        Perms.with(this)
-                .permissions(Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .result(new Perms.PermInterface() {
-                    @Override
-                    public void onPermGranted() {
-                        Observable<List<Playlist>> observable =
-                                Observable.fromCallable(() -> SongUtils.scanPlaylist(getContext())).throttleFirst(500, TimeUnit.MILLISECONDS);
 
-                        playlistSubscription = observable.
-                                subscribeOn(Schedulers.io()).
-                                observeOn(AndroidSchedulers.mainThread()).
-                                subscribe(playlists -> displayPlaylists(playlists));
-                    }
-
-                    @Override
-                    public void onPermUnapproved() {
-                        controlIfEmpty();
-                        ToastUtils.show(activity.getApplicationContext(), R.string.no_perm_storage);
-                    }
-                })
-                .reqPerm();
+    public void controlIfEmpty() {
+        if (empty != null) {
+            empty.setText(R.string.no_playlist);
+            empty.setVisibility(mAdapter == null || mAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
+        }
     }
-    private void applyList(List<Playlist> playlistList) {
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        if (disposable != null && !disposable.isDisposed()) {
+            disposable.dispose();
+        }
+
+        DisposableManager.dispose();
+
+    }
+
+
+    @Override
+    public void setPlaylistList(List<Playlist> playlistList) {
         if (playlistList.size() <= 30) {
             recyclerView.setThumbEnabled(false);
         } else {
@@ -200,31 +202,4 @@ public class FragmentPlaylist extends BaseFragment {
             }
         });
     }
-    private void displayPlaylists(List<Playlist> playlistList) {
-
-        applyList(playlistList);
-
-    }
-
-    private void controlIfEmpty() {
-        if (empty != null) {
-            empty.setText(R.string.no_playlist);
-            empty.setVisibility(mAdapter == null || mAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
-        }
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-
-        if (playlistSubscription != null && !playlistSubscription.isDisposed()) {
-            playlistSubscription.dispose();
-        }
-
-        DisposableManager.dispose();
-
-    }
-
-
-
 }

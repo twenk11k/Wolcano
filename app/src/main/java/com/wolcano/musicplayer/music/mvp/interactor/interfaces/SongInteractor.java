@@ -10,11 +10,13 @@ import io.reactivex.disposables.Disposable;
 
 public interface SongInteractor {
 
-    void getSongs(Activity activity, Disposable disposable,String sort, OnGetSongListener onGetSongListener);
-
     interface OnGetSongListener{
         void sendSongs(List<Song> songList);
         void controlIfEmpty();
     }
+
+    void getSongs(Activity activity, Disposable disposable,String sort, OnGetSongListener onGetSongListener);
+    void getPlaylistSongs(Activity activity,Disposable disposable,String sort,long playlistID,OnGetSongListener onGetSongListener);
+
 
 }

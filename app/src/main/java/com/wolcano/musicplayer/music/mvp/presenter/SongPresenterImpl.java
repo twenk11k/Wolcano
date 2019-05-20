@@ -10,6 +10,7 @@ import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.mvp.presenter.interfaces.SongPresenter;
 import com.wolcano.musicplayer.music.ui.fragments.FragmentRecently;
 import com.wolcano.musicplayer.music.ui.fragments.library.FragmentSongs;
+import com.wolcano.musicplayer.music.ui.fragments.library.detail.PlaylistDetailFragment;
 
 import java.util.List;
 import io.reactivex.disposables.Disposable;
@@ -21,6 +22,7 @@ public class SongPresenterImpl implements SongPresenter, SongInteractor.OnGetSon
     private String sort;
     private Disposable disposable;
     private Activity activity;
+    private long playlistID;
 
     public SongPresenterImpl(Fragment fragment,Activity activity, Disposable disposable, String sort, SongInteractorImpl songInteractor){
 
@@ -32,9 +34,25 @@ public class SongPresenterImpl implements SongPresenter, SongInteractor.OnGetSon
 
     }
 
+    public SongPresenterImpl(Fragment fragment,Activity activity, Disposable disposable, String sort,long playlisID, SongInteractorImpl songInteractor){
+
+        this.fragment = fragment;
+        this.songInteractor = songInteractor;
+        this.sort = sort;
+        this.disposable = disposable;
+        this.activity = activity;
+        this.playlistID = playlisID;
+
+    }
+
     @Override
     public void getSongs() {
         songInteractor.getSongs(activity,disposable,sort,this);
+    }
+
+    @Override
+    public void getPlaylistSongs() {
+        songInteractor.getPlaylistSongs(activity,disposable,sort,playlistID,this);
     }
 
     @Override
@@ -45,6 +63,9 @@ public class SongPresenterImpl implements SongPresenter, SongInteractor.OnGetSon
         } else if(fragment instanceof FragmentSongs){
             FragmentSongs fragmentSongs = (FragmentSongs) fragment;
             fragmentSongs.setSongList(songList);
+        } else if(fragment instanceof PlaylistDetailFragment){
+            PlaylistDetailFragment playlistDetailFragment = (PlaylistDetailFragment) fragment;
+            playlistDetailFragment.setSongList(songList);
         }
 
     }
@@ -57,6 +78,9 @@ public class SongPresenterImpl implements SongPresenter, SongInteractor.OnGetSon
         } else if(fragment instanceof FragmentSongs){
             FragmentSongs fragmentSongs = (FragmentSongs) fragment;
             fragmentSongs.controlIfEmpty();
+        } else if(fragment instanceof PlaylistDetailFragment){
+            PlaylistDetailFragment playlistDetailFragment = (PlaylistDetailFragment) fragment;
+            playlistDetailFragment.controlIfEmpty();
         }
     }
 }

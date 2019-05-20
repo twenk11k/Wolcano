@@ -60,4 +60,40 @@ public class SongInteractorImpl implements SongInteractor {
 
     }
 
+    @Subscribe(tags = {@Tag(SONG_LIBRARY)})
+    @Override
+    public void getPlaylistSongs(Activity activity,Disposable disposable,String sort,long playlistID,OnGetSongListener onGetSongListener) {
+
+        disposable1 = disposable;
+
+        Perms.with(activity)
+                .permissions(Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .result(new Perms.PermInterface() {
+                    @Override
+                    public void onPermGranted() {
+
+                        Observable<List<Song>> observable =
+                                Observable.fromCallable(() -> SongUtils.scanSongsforPlaylist(activity, sort, playlistID)).throttleFirst(500, TimeUnit.MILLISECONDS);
+
+                        disposable1 = observable.
+                                subscribeOn(Schedulers.io()).
+                                observeOn(AndroidSchedulers.mainThread()).
+                                subscribe(songsList -> onGetSongListener.sendSongs(songsList));
+
+                    }
+
+                    @Override
+                    public void onPermUnapproved() {
+
+                        onGetSongListener.controlIfEmpty();
+                        ToastUtils.show(activity.getApplicationContext(), R.string.no_perm_storage);
+
+                    }
+
+                })
+                .reqPerm();
+
+    }
+
 }
