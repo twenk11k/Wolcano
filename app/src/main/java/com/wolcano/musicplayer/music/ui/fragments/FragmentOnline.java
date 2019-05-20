@@ -1,6 +1,7 @@
 
 package com.wolcano.musicplayer.music.ui.fragments;
 
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -11,7 +12,6 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -19,7 +19,6 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -47,18 +46,15 @@ import com.wolcano.musicplayer.music.mvp.listener.SetSearchQuery;
 import com.wolcano.musicplayer.music.widgets.MaterialSearchLast;
 import com.wolcano.musicplayer.music.utils.Utils;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.Callable;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.Observable;
@@ -66,13 +62,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
-
 import static com.wolcano.musicplayer.music.Constants.MAIN_BASE_URL;
 import static com.wolcano.musicplayer.music.Constants.MAIN_BASE_URL_2;
 
-/**
- * Class for handle  main tasks
- */
+
+
 public class FragmentOnline extends BaseFragment implements SetSearchQuery {
 
     //  Butterknife bindings...
@@ -117,8 +111,6 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
 
     private ArrayAdapter<String> adtDuration;
     public ArrayList<String> arrayArtistList;
-
-    // Mopub
     private ArrayAdapter<String> adtArtist;
     // Disposable
     private Disposable mainSubscription;
@@ -134,10 +126,8 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
     private View footerView;
     private List<String> lastSearch;
     private ArrayList<String> lastSearches;
-    // arraylists
     public ArrayList<String> arrayList2;
 
-    // general
     private Activity activity;
     private Context context;
     private int color;

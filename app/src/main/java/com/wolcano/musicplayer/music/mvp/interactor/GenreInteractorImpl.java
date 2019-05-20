@@ -26,11 +26,7 @@ public class GenreInteractorImpl implements GenreInteractor {
 
     @Subscribe(tags = {@Tag(SONG_LIBRARY)})
     @Override
-<<<<<<< HEAD
-    public void getGenres(Activity activity, Disposable disposable, String sort, OnGetGenreListener OnGetGenreListener) {
-=======
-    public void getGenres(Activity activity, Disposable disposable, String sort, OnGenreListener onGenreListener) {
->>>>>>> 88390bf391eb92b417823436dc215e2c14b0fd4a
+    public void getGenres(Activity activity, Disposable disposable, String sort, OnGetGenreListener onGetGenreListener) {
 
         disposable1 = disposable;
 
@@ -45,20 +41,11 @@ public class GenreInteractorImpl implements GenreInteractor {
                         disposable1 = observable.
                                 subscribeOn(Schedulers.io()).
                                 observeOn(AndroidSchedulers.mainThread()).
-<<<<<<< HEAD
-                                subscribe(genreList -> OnGetGenreListener.sendGenres(genreList));
-=======
-                                subscribe(genreList -> onGenreListener.sendGenres(genreList));
->>>>>>> 88390bf391eb92b417823436dc215e2c14b0fd4a
+                                subscribe(genreList -> onGetGenreListener.sendGenres(genreList));
                     }
-
                     @Override
                     public void onPermUnapproved() {
-<<<<<<< HEAD
-                        OnGetGenreListener.controlIfEmpty();
-=======
-                        onGenreListener.controlIfEmpty();
->>>>>>> 88390bf391eb92b417823436dc215e2c14b0fd4a
+                        onGetGenreListener.controlIfEmpty();
                         ToastUtils.show(activity.getApplicationContext(), R.string.no_perm_storage);
                     }
                 })
