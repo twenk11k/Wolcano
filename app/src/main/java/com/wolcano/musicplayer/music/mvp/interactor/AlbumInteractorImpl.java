@@ -6,13 +6,15 @@ import android.app.Activity;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.wolcano.musicplayer.music.R;
-import com.wolcano.musicplayer.music.mvp.interactor.interfaces.PlaylistInteractor;
-import com.wolcano.musicplayer.music.mvp.models.Playlist;
+import com.wolcano.musicplayer.music.mvp.interactor.interfaces.AlbumInteractor;
+import com.wolcano.musicplayer.music.mvp.models.Album;
 import com.wolcano.musicplayer.music.utils.Perms;
 import com.wolcano.musicplayer.music.utils.SongUtils;
 import com.wolcano.musicplayer.music.utils.ToastUtils;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -20,14 +22,13 @@ import io.reactivex.schedulers.Schedulers;
 
 import static com.wolcano.musicplayer.music.Constants.SONG_LIBRARY;
 
-public class PlaylistInteractorImpl implements PlaylistInteractor {
+public class AlbumInteractorImpl implements AlbumInteractor {
 
     private Disposable disposable1;
 
     @Subscribe(tags = {@Tag(SONG_LIBRARY)})
     @Override
-    public void getPlaylists(Activity activity, Disposable disposable, String sort, OnGetPlaylistListener onGetPlaylistListener) {
-
+    public void getAlbum(Activity activity, Disposable disposable, String sort,OnGetAlbumListener onGetAlbumListener) {
         disposable1 = disposable;
 
         Perms.with(activity)
@@ -36,23 +37,21 @@ public class PlaylistInteractorImpl implements PlaylistInteractor {
                 .result(new Perms.PermInterface() {
                     @Override
                     public void onPermGranted() {
-                        Observable<List<Playlist>> observable =
-                                Observable.fromCallable(() -> SongUtils.scanPlaylist(activity)).throttleFirst(500, TimeUnit.MILLISECONDS);
+                        Observable<List<Album>> observable =
+                                Observable.fromCallable(() -> SongUtils.scanAlbums(activity)).throttleFirst(500, TimeUnit.MILLISECONDS);
 
                         disposable1 = observable.
                                 subscribeOn(Schedulers.io()).
                                 observeOn(AndroidSchedulers.mainThread()).
-                                subscribe(playlists -> onGetPlaylistListener.sendPlaylists(playlists));
+                                subscribe(albumList -> onGetAlbumListener.sendAlbum(albumList));
                     }
 
                     @Override
                     public void onPermUnapproved() {
-                        onGetPlaylistListener.controlIfEmpty();
+                        onGetAlbumListener.controlIfEmpty();
                         ToastUtils.show(activity.getApplicationContext(), R.string.no_perm_storage);
                     }
                 })
                 .reqPerm();
-
-
     }
 }

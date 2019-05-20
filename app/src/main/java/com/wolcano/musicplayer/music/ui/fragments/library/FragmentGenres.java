@@ -1,6 +1,5 @@
 package com.wolcano.musicplayer.music.ui.fragments.library;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -23,44 +22,35 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-
 import com.google.android.material.appbar.AppBarLayout;
-import com.hwangjr.rxbus.annotation.Subscribe;
-import com.hwangjr.rxbus.annotation.Tag;
 import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
+import com.wolcano.musicplayer.music.mvp.interactor.GenreInteractorImpl;
 import com.wolcano.musicplayer.music.mvp.models.Genre;
+import com.wolcano.musicplayer.music.mvp.presenter.GenrePresenterImpl;
+import com.wolcano.musicplayer.music.mvp.presenter.interfaces.GenrePresenter;
+import com.wolcano.musicplayer.music.mvp.view.GenreView;
 import com.wolcano.musicplayer.music.ui.fragments.FragmentLibrary;
-import com.wolcano.musicplayer.music.utils.Perms;
 import com.wolcano.musicplayer.music.ui.activities.MainActivity;
 import com.wolcano.musicplayer.music.ui.adapter.GenreAdapter;
 import com.wolcano.musicplayer.music.ui.fragments.base.BaseFragment;
-import com.wolcano.musicplayer.music.utils.SongUtils;
 import com.wolcano.musicplayer.music.utils.ToastUtils;
 import com.wolcano.musicplayer.music.utils.Utils;
-
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 import pl.droidsonroids.gif.GifImageView;
 
-import static com.wolcano.musicplayer.music.Constants.SONG_LIBRARY;
-
-public class FragmentGenres extends BaseFragment implements AppBarLayout.OnOffsetChangedListener {
+public class FragmentGenres extends BaseFragment implements GenreView,AppBarLayout.OnOffsetChangedListener {
 
     private com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView recyclerView;
     private GenreAdapter adapter;
     private Activity activity;
     private TextView empty;
-    private Disposable genreSubscription;
+    private Disposable disposable;
     private View v;
-
+    private GenrePresenter genrePresenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -125,54 +115,11 @@ public class FragmentGenres extends BaseFragment implements AppBarLayout.OnOffse
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),
                 DividerItemDecoration.VERTICAL));
         String sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
-        setRecyclerView(sort);
+        genrePresenter = new GenrePresenterImpl(this,activity,disposable,sort,new GenreInteractorImpl());
+        genrePresenter.getGenres();
     }
 
-    @Subscribe(tags = {@Tag(SONG_LIBRARY)})
-    public void setRecyclerView(String sort) {
-        Perms.with(this)
-                .permissions(Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .result(new Perms.PermInterface() {
-                    @Override
-                    public void onPermGranted() {
-                        Observable<List<Genre>> observable =
-                                Observable.fromCallable(() -> SongUtils.scanGenre(getContext())).throttleFirst(500, TimeUnit.MILLISECONDS);
-                        genreSubscription = observable.
-                                subscribeOn(Schedulers.io()).
-                                observeOn(AndroidSchedulers.mainThread()).
-                                subscribe(genres -> displayGenres(genres));
-                    }
 
-                    @Override
-                    public void onPermUnapproved() {
-                        controlIfEmpty();
-                        ToastUtils.show(activity.getApplicationContext(), R.string.no_perm_storage);
-                    }
-                })
-                .reqPerm();
-    }
-
-    private void setList(List<Genre> genreList) {
-        if (genreList.size() <= 30) {
-            recyclerView.setThumbEnabled(false);
-        } else {
-            recyclerView.setThumbEnabled(true);
-        }
-        adapter = new GenreAdapter((MainActivity) getActivity(), genreList);
-        controlIfEmpty();
-        adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-            @Override
-            public void onItemRangeRemoved(int positionStart, int itemCount) {
-                super.onItemRangeRemoved(positionStart, itemCount);
-                controlIfEmpty();
-            }
-        });
-
-        recyclerView.setAdapter(adapter);
-        runLayoutAnimation(recyclerView);
-
-    }
 
     private void runLayoutAnimation(final RecyclerView recyclerView) {
         final Context context = recyclerView.getContext();
@@ -184,14 +131,7 @@ public class FragmentGenres extends BaseFragment implements AppBarLayout.OnOffse
         recyclerView.scheduleLayoutAnimation();
     }
 
-    private void displayGenres(List<Genre> genreList) {
-
-        setList(genreList);
-
-
-    }
-
-    private void controlIfEmpty() {
+    public void controlIfEmpty() {
         if (empty != null) {
             empty.setText(R.string.no_genre);
             empty.setVisibility(adapter == null || adapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
@@ -202,13 +142,9 @@ public class FragmentGenres extends BaseFragment implements AppBarLayout.OnOffse
     public void onDestroyView() {
         super.onDestroyView();
 
-        if (genreSubscription != null && !genreSubscription.isDisposed()) {
-            genreSubscription.dispose();
+        if (disposable != null && !disposable.isDisposed()) {
+            disposable.dispose();
         }
-        recyclerView = null;
-        adapter = null;
-        genreSubscription = null;
-        empty = null;
 
         DisposableManager.dispose();
         getLibraryFragment().removeOnAppBarOffsetChangedListener(this);
@@ -230,5 +166,26 @@ public class FragmentGenres extends BaseFragment implements AppBarLayout.OnOffse
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
         v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), getLibraryFragment().getTotalAppBarScrollingRange() + verticalOffset);
 
+    }
+
+    @Override
+    public void setGenreList(List<Genre> genreList) {
+        if (genreList.size() <= 30) {
+            recyclerView.setThumbEnabled(false);
+        } else {
+            recyclerView.setThumbEnabled(true);
+        }
+        adapter = new GenreAdapter((MainActivity) getActivity(), genreList);
+        controlIfEmpty();
+        adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onItemRangeRemoved(int positionStart, int itemCount) {
+                super.onItemRangeRemoved(positionStart, itemCount);
+                controlIfEmpty();
+            }
+        });
+
+        recyclerView.setAdapter(adapter);
+        runLayoutAnimation(recyclerView);
     }
 }

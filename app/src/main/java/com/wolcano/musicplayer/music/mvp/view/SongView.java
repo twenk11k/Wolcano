@@ -8,5 +8,4 @@ public interface SongView {
 
     void setSongList(List<Song> songList);
 
-
 }

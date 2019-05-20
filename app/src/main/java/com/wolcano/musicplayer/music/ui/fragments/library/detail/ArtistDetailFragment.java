@@ -14,7 +14,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,7 +25,6 @@ import android.view.animation.LayoutAnimationController;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
@@ -34,9 +32,13 @@ import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.wolcano.musicplayer.music.Constants;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
+import com.wolcano.musicplayer.music.mvp.interactor.SongInteractorImpl;
 import com.wolcano.musicplayer.music.mvp.listener.GetDisposable;
 import com.wolcano.musicplayer.music.mvp.models.Playlist;
 import com.wolcano.musicplayer.music.mvp.models.Song;
+import com.wolcano.musicplayer.music.mvp.presenter.SongPresenterImpl;
+import com.wolcano.musicplayer.music.mvp.presenter.interfaces.SongPresenter;
+import com.wolcano.musicplayer.music.mvp.view.SongView;
 import com.wolcano.musicplayer.music.widgets.StatusBarView;
 import com.wolcano.musicplayer.music.utils.Perms;
 import com.wolcano.musicplayer.music.ui.adapter.detail.AlbumSongAdapter;
@@ -46,11 +48,9 @@ import com.wolcano.musicplayer.music.utils.SongUtils;
 import com.wolcano.musicplayer.music.utils.ToastUtils;
 import com.wolcano.musicplayer.music.utils.Utils;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
-
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.Observable;
@@ -62,7 +62,8 @@ import pl.droidsonroids.gif.GifImageView;
 
 import static com.wolcano.musicplayer.music.Constants.SONG_LIBRARY;
 
-public class ArtistDetailFragment extends BaseFragment implements GetDisposable {
+public class ArtistDetailFragment extends BaseFragment implements SongView,GetDisposable {
+
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -78,7 +79,9 @@ public class ArtistDetailFragment extends BaseFragment implements GetDisposable 
     private String artistName;
     private int primaryColor = -1;
     private Activity activity;
-    private Disposable artistDetailSubscription;
+    private Disposable disposable;
+    private SongPresenter songPresenter;
+
 
     public static ArtistDetailFragment newInstance(long id, String name) {
         ArtistDetailFragment fragment = new ArtistDetailFragment();
@@ -171,56 +174,12 @@ public class ArtistDetailFragment extends BaseFragment implements GetDisposable 
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),
                 DividerItemDecoration.VERTICAL));
         String sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
-        setRecyclerView(sort);
+        songPresenter = new SongPresenterImpl(this,activity,disposable,sort,artistId,new SongInteractorImpl());
+        songPresenter.getArtistSongs();
         setupToolbar();
     }
 
-    @Subscribe(tags = {@Tag(SONG_LIBRARY)})
-    public void setRecyclerView(String sort) {
-        Perms.with(this)
-                .permissions(Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .result(new Perms.PermInterface() {
-                    @Override
-                    public void onPermGranted() {
-                        Observable<List<Song>> observable =
-                                Observable.fromCallable(() -> SongUtils.scanSongsforArtist(context, sort, artistId)).throttleFirst(500, TimeUnit.MILLISECONDS);
 
-                        artistDetailSubscription = observable.
-                                subscribeOn(Schedulers.io()).
-                                observeOn(AndroidSchedulers.mainThread()).
-                                subscribe(alist -> displayArrayList(alist));
-
-                    }
-
-                    @Override
-                    public void onPermUnapproved() {
-                        ToastUtils.show(context.getApplicationContext(), R.string.no_perm_storage);
-                    }
-                })
-                .reqPerm();
-    }
-    private void setList(List<Song> alist){
-
-        if (alist.size() <= 30) {
-            recyclerView.setThumbEnabled(false);
-        } else {
-            recyclerView.setThumbEnabled(true);
-        }
-        mAdapter = new AlbumSongAdapter(getActivity(), alist, ArtistDetailFragment.this);
-        controlIfEmpty();
-        mAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-            @Override
-            public void onItemRangeRemoved(int positionStart, int itemCount) {
-                super.onItemRangeRemoved(positionStart, itemCount);
-                controlIfEmpty();
-            }
-        });
-
-        recyclerView.setAdapter(mAdapter);
-        runLayoutAnimation(recyclerView);
-
-    }
     private void runLayoutAnimation(final RecyclerView recyclerView) {
         final Context context = recyclerView.getContext();
         final LayoutAnimationController controller =
@@ -230,24 +189,19 @@ public class ArtistDetailFragment extends BaseFragment implements GetDisposable 
         recyclerView.getAdapter().notifyDataSetChanged();
         recyclerView.scheduleLayoutAnimation();
     }
-    private void displayArrayList(List<Song> alist) {
-        setList(alist);
-
-
-    }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (artistDetailSubscription != null && !artistDetailSubscription.isDisposed()) {
-            artistDetailSubscription.dispose();
+        if (disposable != null && !disposable.isDisposed()) {
+            disposable.dispose();
         }
 
         DisposableManager.dispose();
 
     }
 
-    private void controlIfEmpty() {
+    public void controlIfEmpty() {
         if (empty != null) {
             empty.setText(R.string.no_song);
             empty.setVisibility(mAdapter == null || mAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
@@ -271,7 +225,7 @@ public class ArtistDetailFragment extends BaseFragment implements GetDisposable 
 
     @Override
     public void handlePlaylistDialog(Song song) {
-        artistDetailSubscription = Observable.fromCallable(new Callable<List<Playlist>>() {
+        disposable = Observable.fromCallable(new Callable<List<Playlist>>() {
             @Override
             public List<Playlist> call() throws Exception {
                 return SongUtils.scanPlaylist(activity);
@@ -286,5 +240,26 @@ public class ArtistDetailFragment extends BaseFragment implements GetDisposable 
                         Dialogs.addPlaylistDialog(activity, song, playlists);
                     }
                 });
+    }
+
+    @Override
+    public void setSongList(List<Song> songList) {
+        if (songList.size() <= 30) {
+            recyclerView.setThumbEnabled(false);
+        } else {
+            recyclerView.setThumbEnabled(true);
+        }
+        mAdapter = new AlbumSongAdapter(getActivity(), songList, ArtistDetailFragment.this);
+        controlIfEmpty();
+        mAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onItemRangeRemoved(int positionStart, int itemCount) {
+                super.onItemRangeRemoved(positionStart, itemCount);
+                controlIfEmpty();
+            }
+        });
+
+        recyclerView.setAdapter(mAdapter);
+        runLayoutAnimation(recyclerView);
     }
 }

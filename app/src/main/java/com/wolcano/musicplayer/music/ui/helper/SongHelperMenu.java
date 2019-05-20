@@ -125,7 +125,7 @@ public class SongHelperMenu {
 
     }
 
-    public static void handleMenuFolder(AppCompatActivity context, View v, Song song) {
+    public static void handleMenuOnline(AppCompatActivity context, View v, Song song) {
         try {
             ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(v.getContext(), R.style.PopupMenuToolbar);
 

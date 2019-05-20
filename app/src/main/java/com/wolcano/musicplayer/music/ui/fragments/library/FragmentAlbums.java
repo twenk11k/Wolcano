@@ -1,6 +1,5 @@
 package com.wolcano.musicplayer.music.ui.fragments.library;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -11,7 +10,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,43 +20,35 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-
 import com.google.android.material.appbar.AppBarLayout;
-import com.hwangjr.rxbus.annotation.Subscribe;
-import com.hwangjr.rxbus.annotation.Tag;
 import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
+import com.wolcano.musicplayer.music.mvp.interactor.AlbumInteractorImpl;
 import com.wolcano.musicplayer.music.mvp.models.Album;
+import com.wolcano.musicplayer.music.mvp.presenter.AlbumPresenterImpl;
+import com.wolcano.musicplayer.music.mvp.presenter.interfaces.AlbumPresenter;
+import com.wolcano.musicplayer.music.mvp.view.AlbumView;
 import com.wolcano.musicplayer.music.ui.fragments.FragmentLibrary;
-import com.wolcano.musicplayer.music.utils.Perms;
 import com.wolcano.musicplayer.music.ui.activities.MainActivity;
 import com.wolcano.musicplayer.music.ui.adapter.AlbumAdapter;
 import com.wolcano.musicplayer.music.ui.fragments.base.BaseFragment;
-import com.wolcano.musicplayer.music.utils.SongUtils;
 import com.wolcano.musicplayer.music.utils.ToastUtils;
 import com.wolcano.musicplayer.music.utils.Utils;
-
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 import pl.droidsonroids.gif.GifImageView;
-import static com.wolcano.musicplayer.music.Constants.SONG_LIBRARY;
 
-public class FragmentAlbums extends BaseFragment implements AppBarLayout.OnOffsetChangedListener {
+public class FragmentAlbums extends BaseFragment implements AlbumView,AppBarLayout.OnOffsetChangedListener {
 
     private com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView recyclerView;
     private AlbumAdapter adapter;
     private Activity activity;
     private TextView empty;
-    private Disposable genreSubscription;
+    private Disposable disposable;
     private View v;
-
+    private AlbumPresenter albumPresenter;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,37 +113,55 @@ public class FragmentAlbums extends BaseFragment implements AppBarLayout.OnOffse
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),
                 DividerItemDecoration.VERTICAL));
         String sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
-        setRecyclerView(sort);
+        albumPresenter = new AlbumPresenterImpl(this,activity,disposable,sort,new AlbumInteractorImpl());
+        albumPresenter.getAlbums();
 
     }
 
-    @Subscribe(tags = {@Tag(SONG_LIBRARY)})
-    public void setRecyclerView(String sort) {
-        Perms.with(this)
-                .permissions(Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .result(new Perms.PermInterface() {
-                    @Override
-                    public void onPermGranted() {
-                        Observable<List<Album>> observable =
-                                Observable.fromCallable(() -> SongUtils.scanAlbums(getContext())).throttleFirst(500, TimeUnit.MILLISECONDS);
 
-                        genreSubscription = observable.
-                                subscribeOn(Schedulers.io()).
-                                observeOn(AndroidSchedulers.mainThread()).
-                                subscribe(albums -> displayAlbums(albums));
-                    }
+    private void runLayoutAnimation(final RecyclerView recyclerView) {
+        final Context context = recyclerView.getContext();
+        final LayoutAnimationController controller =
+                AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fall_down);
 
-                    @Override
-                    public void onPermUnapproved() {
-                        controlIfEmpty();
-                        ToastUtils.show(activity.getApplicationContext(), R.string.no_perm_storage);
-                    }
-                })
-                .reqPerm();
+        recyclerView.setLayoutAnimation(controller);
+        recyclerView.getAdapter().notifyDataSetChanged();
+        recyclerView.scheduleLayoutAnimation();
+    }
+    public void controlIfEmpty() {
+        if (empty != null) {
+            empty.setText(R.string.no_album);
+            empty.setVisibility(adapter == null || adapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
+        }
     }
 
-    private void displayAlbums(List<Album> albumList) {
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        getLibraryFragment().addOnAppBarOffsetChangedListener(this);
+
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (disposable != null && !disposable.isDisposed()) {
+            disposable.dispose();
+        }
+        DisposableManager.dispose();
+        getLibraryFragment().removeOnAppBarOffsetChangedListener(this);
+
+    }
+    private FragmentLibrary getLibraryFragment() {
+        return (FragmentLibrary) getParentFragment();
+    }
+    @Override
+    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+        v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), getLibraryFragment().getTotalAppBarScrollingRange() + verticalOffset);
+    }
+
+    @Override
+    public void setAlbumList(List<Album> albumList) {
         if (albumList.size() <= 30) {
             recyclerView.setThumbEnabled(false);
         } else {
@@ -173,50 +181,4 @@ public class FragmentAlbums extends BaseFragment implements AppBarLayout.OnOffse
         adapter.notifyDataSetChanged();
         runLayoutAnimation(recyclerView);
     }
-
-    private void runLayoutAnimation(final RecyclerView recyclerView) {
-        final Context context = recyclerView.getContext();
-        final LayoutAnimationController controller =
-                AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fall_down);
-
-        recyclerView.setLayoutAnimation(controller);
-        recyclerView.getAdapter().notifyDataSetChanged();
-        recyclerView.scheduleLayoutAnimation();
-    }
-    private void controlIfEmpty() {
-        if (empty != null) {
-            empty.setText(R.string.no_album);
-            empty.setVisibility(adapter == null || adapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
-        }
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        getLibraryFragment().addOnAppBarOffsetChangedListener(this);
-
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (genreSubscription != null && !genreSubscription.isDisposed()) {
-            genreSubscription.dispose();
-        }
-        recyclerView = null;
-        adapter = null;
-        genreSubscription = null;
-        empty = null;
-        DisposableManager.dispose();
-        getLibraryFragment().removeOnAppBarOffsetChangedListener(this);
-
-    }
-    private FragmentLibrary getLibraryFragment() {
-        return (FragmentLibrary) getParentFragment();
-    }
-    @Override
-    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-        v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), getLibraryFragment().getTotalAppBarScrollingRange() + verticalOffset);
-    }
-
 }

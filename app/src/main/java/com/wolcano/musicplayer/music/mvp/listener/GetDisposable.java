@@ -5,5 +5,4 @@ import com.wolcano.musicplayer.music.mvp.models.Song;
 
 public interface GetDisposable {
     void handlePlaylistDialog(Song song);
-
 }

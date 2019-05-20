@@ -43,7 +43,7 @@ public class SongInteractorImpl implements SongInteractor {
                         disposable1 = observable.
                                 subscribeOn(Schedulers.io()).
                                 observeOn(AndroidSchedulers.mainThread()).
-                                subscribe(songsList -> onGetSongListener.sendSongs(songsList));
+                                subscribe(songsList -> onGetSongListener.sendSongList(songsList));
 
                     }
 
@@ -79,7 +79,7 @@ public class SongInteractorImpl implements SongInteractor {
                         disposable1 = observable.
                                 subscribeOn(Schedulers.io()).
                                 observeOn(AndroidSchedulers.mainThread()).
-                                subscribe(songsList -> onGetSongListener.sendSongs(songsList));
+                                subscribe(songsList -> onGetSongListener.sendSongList(songsList));
 
                     }
 
@@ -94,6 +94,95 @@ public class SongInteractorImpl implements SongInteractor {
                 })
                 .reqPerm();
 
+    }
+    @Subscribe(tags = {@Tag(SONG_LIBRARY)})
+    @Override
+    public void getAlbumSongs(Activity activity, Disposable disposable, String sort,long albumID, OnGetSongListener onGetSongListener) {
+        disposable1 = disposable;
+        Perms.with(activity)
+                .permissions(Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .result(new Perms.PermInterface() {
+                    @Override
+                    public void onPermGranted() {
+                        Observable<List<Song>> observable =
+                                Observable.fromCallable(() -> SongUtils.scanSongsforAlbum(activity, sort, albumID)).throttleFirst(500, TimeUnit.MILLISECONDS);
+
+                        disposable1 = observable.
+                                subscribeOn(Schedulers.io()).
+                                observeOn(AndroidSchedulers.mainThread()).
+                                subscribe(songList -> onGetSongListener.sendSongList(songList));
+
+                    }
+
+                    @Override
+                    public void onPermUnapproved() {
+                        onGetSongListener.controlIfEmpty();
+                        ToastUtils.show(activity.getApplicationContext(),R.string.no_perm_storage);
+                    }
+                })
+                .reqPerm();
+    }
+
+    @Subscribe(tags = {@Tag(SONG_LIBRARY)})
+    @Override
+    public void getArtistSongs(Activity activity, Disposable disposable, String sort, long artistID, OnGetSongListener onGetSongListener) {
+
+        disposable1 = disposable;
+
+        Perms.with(activity)
+                .permissions(Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .result(new Perms.PermInterface() {
+                    @Override
+                    public void onPermGranted() {
+                        Observable<List<Song>> observable =
+                                Observable.fromCallable(() -> SongUtils.scanSongsforArtist(activity, sort, artistID)).throttleFirst(500, TimeUnit.MILLISECONDS);
+
+                        disposable1 = observable.
+                                subscribeOn(Schedulers.io()).
+                                observeOn(AndroidSchedulers.mainThread()).
+                                subscribe(songList -> onGetSongListener.sendSongList(songList));
+
+                    }
+
+                    @Override
+                    public void onPermUnapproved() {
+                        onGetSongListener.controlIfEmpty();
+                        ToastUtils.show(activity.getApplicationContext(), R.string.no_perm_storage);
+                    }
+                })
+                .reqPerm();
+    }
+
+    @Subscribe(tags = {@Tag(SONG_LIBRARY)})
+    @Override
+    public void getGenreSongs(Activity activity, Disposable disposable, String sort, long genreID, OnGetSongListener onGetSongListener) {
+
+      disposable1 = disposable;
+
+        Perms.with(activity)
+                .permissions(Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .result(new Perms.PermInterface() {
+                    @Override
+                    public void onPermGranted() {
+                        Observable<List<Song>> observable =
+                                Observable.fromCallable(() -> SongUtils.scanSongsforGenre(activity, sort, genreID)).throttleFirst(500, TimeUnit.MILLISECONDS);
+
+                        disposable1 = observable.
+                                subscribeOn(Schedulers.io()).
+                                observeOn(AndroidSchedulers.mainThread()).
+                                subscribe(songList -> onGetSongListener.sendSongList(songList));
+                    }
+
+                    @Override
+                    public void onPermUnapproved() {
+                        onGetSongListener.controlIfEmpty();
+                        ToastUtils.show(activity.getApplicationContext(), R.string.no_perm_storage);
+                    }
+                })
+                .reqPerm();
     }
 
 }
