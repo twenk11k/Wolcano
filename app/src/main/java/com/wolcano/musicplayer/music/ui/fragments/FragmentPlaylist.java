@@ -166,10 +166,10 @@ public class FragmentPlaylist extends BaseFragment {
                 .result(new Perms.PermInterface() {
                     @Override
                     public void onPermGranted() {
-                        Observable<List<Playlist>> booksObservable =
+                        Observable<List<Playlist>> observable =
                                 Observable.fromCallable(() -> SongUtils.scanPlaylist(getContext())).throttleFirst(500, TimeUnit.MILLISECONDS);
 
-                        playlistSubscription = booksObservable.
+                        playlistSubscription = observable.
                                 subscribeOn(Schedulers.io()).
                                 observeOn(AndroidSchedulers.mainThread()).
                                 subscribe(playlists -> displayPlaylists(playlists));

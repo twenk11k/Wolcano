@@ -142,10 +142,10 @@ public class FragmentArtists extends BaseFragment implements  AppBarLayout.OnOff
                 .result(new Perms.PermInterface() {
                     @Override
                     public void onPermGranted() {
-                        Observable<List<Artist>> booksObservable =
+                        Observable<List<Artist>> observable =
                                 Observable.fromCallable(() -> SongUtils.scanArtists(getContext())).throttleFirst(500, TimeUnit.MILLISECONDS);
 
-                        genreSubscription = booksObservable.
+                        genreSubscription = observable.
                                 subscribeOn(Schedulers.io()).
                                 observeOn(AndroidSchedulers.mainThread()).
                                 subscribe(artists -> displayArtists(artists));

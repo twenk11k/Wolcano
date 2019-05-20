@@ -1,4 +1,4 @@
-package com.wolcano.musicplayer.music.mvp.view;
+package com.wolcano.musicplayer.music.widgets;
 
 
 

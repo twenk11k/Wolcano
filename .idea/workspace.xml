@@ -33,7 +33,11 @@
       <change afterPath="$PROJECT_DIR$/../../wolcano/app/src/main/java/com/wolcano/musicplayer/music/utils/ImageUtils.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../wolcano/app/src/main/java/com/wolcano/musicplayer/music/utils/NetworkUtils.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../wolcano/app/src/main/res/menu/activity_main_drawer.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/ate_preference_custom_support.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/mvp/interactor/SongInteractorImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/mvp/interactor/interfaces/SongInteractor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/mvp/presenter/SongPresenterImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/mvp/presenter/interfaces/SongPresenter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/mvp/view/SongView.java" afterDir="false" />
       <change afterPath="C:/wolcano/app/.gitignore" afterDir="false" />
       <change afterPath="C:/wolcano/app/app.iml" afterDir="false" />
       <change afterPath="C:/wolcano/app/build.gradle" afterDir="false" />
@@ -394,53 +398,15 @@
       <change afterPath="C:/wolcano/app/src/main/res/xml/pref_others.xml" afterDir="false" />
       <change afterPath="C:/wolcano/app/src/test/java/com/wolcano/musicplayer/music/ExampleUnitTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_retrofit2_retrofit_2_3_0_jar.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/activities/BaseActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/activities/base/BaseActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/activities/BaseActivitySettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/activities/base/BaseActivitySettings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/activities/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/activities/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/activities/QueueActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/activities/QueueActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/activities/SettingsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/activities/SettingsActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/BaseFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/base/BaseFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/FragmentLibrary.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/FragmentLibrary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/mvp/view/MaterialSearchLast.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/widgets/MaterialSearchLast.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/adapter/SearchAdapterLast.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/adapter/SearchAdapterLast.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/FragmentOnline.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/FragmentOnline.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/FragmentPlaylist.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/FragmentPlaylist.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/FragmentRecently.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/FragmentRecently.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/library/FragmentAlbums.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/library/FragmentAlbums.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/library/FragmentArtists.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/library/FragmentArtists.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/library/FragmentGenres.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/library/FragmentGenres.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/library/FragmentSongs.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/library/FragmentSongs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/library/detail/AlbumDetailFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/library/detail/AlbumDetailFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/library/detail/ArtistDetailFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/library/detail/ArtistDetailFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/library/detail/GenreDetailFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/library/detail/GenreDetailFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/library/detail/PlaylistDetailFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/library/detail/PlaylistDetailFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/online/SetSearchQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/mvp/listener/SetSearchQuery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/online/search/MaterialSearchLast.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/mvp/view/MaterialSearchLast.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/online/search/SearchAdapterLast.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/adapter/SearchAdapterLast.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/utils/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/utils/Utils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/widgets/RotateFabBehav.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/widgets/RotateFabBehavior.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/album_detail.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/album_detail.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_main.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_main_19.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_main_19.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-es/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-es/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-es/strings_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-pt/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-pt/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-pt/strings_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-th/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-th/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-th/strings_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-tr/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-tr/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-tr/strings_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/xml/pref_colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/xml/pref_colors.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/xml/pref_general.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/xml/pref_general.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/xml/pref_library.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/xml/pref_others.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/xml/pref_onlineplayer.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/xml/pref_others_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/xml/pref_others.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -463,95 +429,111 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="7" column="18" selection-start-line="7" selection-end-line="8" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values-es/strings.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="303">
-              <caret line="203" column="4" selection-start-line="203" selection-start-column="4" selection-end-line="203" selection-end-column="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values-th/strings.xml">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/FragmentRecently.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="171">
-              <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
+              <caret line="156" column="8" selection-start-line="156" selection-start-column="8" selection-end-line="156" selection-end-column="8" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#5830#5831#0" expanded="true" />
+                <element signature="e#5914#5915#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values-pt/strings.xml">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/library/FragmentGenres.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="10" column="31" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
+            <state relative-caret-position="76">
+              <caret line="54" column="13" selection-start-line="54" selection-start-column="13" selection-end-line="54" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/xml/pref_general.xml">
-          <provider editor-type-id="android-designer2" />
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/library/FragmentSongs.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="9" column="33" lean-forward="true" selection-start-line="9" selection-start-column="33" selection-end-line="9" selection-end-column="33" />
+            <state relative-caret-position="95">
+              <caret line="66" selection-start-line="66" selection-end-line="66" />
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values-tr/strings.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="12" column="28" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings_settings.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="57">
-              <caret line="3" column="26" selection-start-line="3" selection-start-column="26" selection-end-line="3" selection-end-column="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/dimens.xml">
-          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/xml/pref_colors.xml">
-          <provider editor-type-id="android-designer2" />
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/mvp/presenter/SongPresenterImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="19" column="35" selection-start-line="19" selection-end-line="20" />
+            <state relative-caret-position="477">
+              <caret line="56" column="51" selection-start-line="56" selection-start-column="51" selection-end-line="56" selection-end-column="51" />
               <folding>
-                <element signature="e#650#677#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#782#783#0" expanded="true" />
+                <element signature="e#811#812#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/activities/SettingsActivity.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/Constants.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="912">
-              <caret line="168" selection-start-line="168" selection-end-line="168" />
+            <state relative-caret-position="401">
+              <caret line="29" column="69" selection-start-line="29" selection-start-column="69" selection-end-line="29" selection-end-column="69" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/mvp/view/SongView.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="114">
+              <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/mvp/presenter/interfaces/SongPresenter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="76">
+              <caret line="4" column="20" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/mvp/interactor/interfaces/SongInteractor.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/mvp/interactor/SongInteractorImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="361">
+              <caret line="43" column="61" selection-start-line="43" selection-start-column="61" selection-end-line="43" selection-end-column="61" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2089#2113#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/FragmentPlaylist.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1520">
+              <caret line="66" column="29" selection-start-line="66" selection-start-column="28" selection-end-line="66" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -562,12 +544,13 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="layoutResourceFile_vertical" />
+        <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>navigationView.inflateMenu</find>
       <find>&quot;th&quot;</find>
       <find>floating</find>
       <find>rotatefa</find>
@@ -597,6 +580,7 @@
       <find>pref_choose_opening_titles1</find>
       <find>Musique Player V2</find>
       <find>musique</find>
+      <find>setsonglist</find>
     </findStrings>
     <replaceStrings>
       <replace>androidx.appcompat.widget.Toolbar</replace>
@@ -625,14 +609,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/mvp/other/PlayModelOnline.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/mvp/other/PlayModelLocal.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/provider/MusicService.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/activities/BaseActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/activities/MainActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/menu/activity_main_drawer.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/innerfragment/detail/AlbumDetailFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/widgets/RotateFabBehav.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/content/AppHandler.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/content/PlayerEnum.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/online/foldersearch/MaterialSearchLast.java" />
@@ -640,7 +616,6 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/online/search/MaterialSearchLast.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/FragmentMain.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/FragmentOnline.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/library/FragmentSongs.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/library/detail/AlbumDetailFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/utils/Utils.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/FragmentPlaylist.java" />
@@ -662,8 +637,6 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/adapter/SearchAdapterLast.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/mvp/view/MaterialSearchLast.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/mvp/listener/SetSearchQuery.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/FragmentRecently.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/activities/SettingsActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings_settings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values-es/strings_settings.xml" />
@@ -674,8 +647,19 @@
         <option value="$PROJECT_DIR$/app/src/main/res/values-tr/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values-th/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values-es/strings.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/xml/pref_colors.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/xml/pref_general.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/xml/pref_colors.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/activities/SettingsActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/widgets/MaterialSearchLast.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/mvp/view/SongView.java" />
+        <option value="$APPLICATION_CONFIG_DIR$/studio64.exe.vmoptions" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/mvp/presenter/interfaces/SongPresenter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/mvp/interactor/interfaces/SongInteractor.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/Constants.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/mvp/interactor/SongInteractorImpl.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/FragmentRecently.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/library/FragmentSongs.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/mvp/presenter/SongPresenterImpl.java" />
       </list>
     </option>
   </component>
@@ -692,6 +676,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="ProjectPane" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -742,48 +727,6 @@
               <item name="wolcano" type="462c0819:PsiDirectoryNode" />
               <item name="musicplayer" type="462c0819:PsiDirectoryNode" />
               <item name="music" type="462c0819:PsiDirectoryNode" />
-              <item name="broadcasts" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="wolcano" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="com" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="wolcano" type="462c0819:PsiDirectoryNode" />
-              <item name="musicplayer" type="462c0819:PsiDirectoryNode" />
-              <item name="music" type="462c0819:PsiDirectoryNode" />
-              <item name="broadcasts" type="462c0819:PsiDirectoryNode" />
-              <item name="base" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="wolcano" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="com" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="wolcano" type="462c0819:PsiDirectoryNode" />
-              <item name="musicplayer" type="462c0819:PsiDirectoryNode" />
-              <item name="music" type="462c0819:PsiDirectoryNode" />
-              <item name="broadcasts" type="462c0819:PsiDirectoryNode" />
-              <item name="other" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="wolcano" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="com" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="wolcano" type="462c0819:PsiDirectoryNode" />
-              <item name="musicplayer" type="462c0819:PsiDirectoryNode" />
-              <item name="music" type="462c0819:PsiDirectoryNode" />
-              <item name="content" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="wolcano" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="com" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="wolcano" type="462c0819:PsiDirectoryNode" />
-              <item name="musicplayer" type="462c0819:PsiDirectoryNode" />
-              <item name="music" type="462c0819:PsiDirectoryNode" />
               <item name="mvp" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -794,7 +737,8 @@
               <item name="wolcano" type="462c0819:PsiDirectoryNode" />
               <item name="musicplayer" type="462c0819:PsiDirectoryNode" />
               <item name="music" type="462c0819:PsiDirectoryNode" />
-              <item name="prefs" type="462c0819:PsiDirectoryNode" />
+              <item name="mvp" type="462c0819:PsiDirectoryNode" />
+              <item name="interactor" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="wolcano" type="1abcf292:AndroidViewProjectNode" />
@@ -804,7 +748,9 @@
               <item name="wolcano" type="462c0819:PsiDirectoryNode" />
               <item name="musicplayer" type="462c0819:PsiDirectoryNode" />
               <item name="music" type="462c0819:PsiDirectoryNode" />
-              <item name="provider" type="462c0819:PsiDirectoryNode" />
+              <item name="mvp" type="462c0819:PsiDirectoryNode" />
+              <item name="interactor" type="462c0819:PsiDirectoryNode" />
+              <item name="interfaces" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="wolcano" type="1abcf292:AndroidViewProjectNode" />
@@ -814,7 +760,8 @@
               <item name="wolcano" type="462c0819:PsiDirectoryNode" />
               <item name="musicplayer" type="462c0819:PsiDirectoryNode" />
               <item name="music" type="462c0819:PsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
+              <item name="mvp" type="462c0819:PsiDirectoryNode" />
+              <item name="presenter" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="wolcano" type="1abcf292:AndroidViewProjectNode" />
@@ -824,31 +771,9 @@
               <item name="wolcano" type="462c0819:PsiDirectoryNode" />
               <item name="musicplayer" type="462c0819:PsiDirectoryNode" />
               <item name="music" type="462c0819:PsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-              <item name="activities" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="wolcano" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="com" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="wolcano" type="462c0819:PsiDirectoryNode" />
-              <item name="musicplayer" type="462c0819:PsiDirectoryNode" />
-              <item name="music" type="462c0819:PsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-              <item name="activities" type="462c0819:PsiDirectoryNode" />
-              <item name="base" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="wolcano" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="com" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="wolcano" type="462c0819:PsiDirectoryNode" />
-              <item name="musicplayer" type="462c0819:PsiDirectoryNode" />
-              <item name="music" type="462c0819:PsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-              <item name="adapter" type="462c0819:PsiDirectoryNode" />
+              <item name="mvp" type="462c0819:PsiDirectoryNode" />
+              <item name="presenter" type="462c0819:PsiDirectoryNode" />
+              <item name="interfaces" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="wolcano" type="1abcf292:AndroidViewProjectNode" />
@@ -859,42 +784,6 @@
               <item name="musicplayer" type="462c0819:PsiDirectoryNode" />
               <item name="music" type="462c0819:PsiDirectoryNode" />
               <item name="ui" type="462c0819:PsiDirectoryNode" />
-              <item name="adapter" type="462c0819:PsiDirectoryNode" />
-              <item name="detail" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="wolcano" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="com" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="wolcano" type="462c0819:PsiDirectoryNode" />
-              <item name="musicplayer" type="462c0819:PsiDirectoryNode" />
-              <item name="music" type="462c0819:PsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-              <item name="adapter" type="462c0819:PsiDirectoryNode" />
-              <item name="other" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="wolcano" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="com" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="wolcano" type="462c0819:PsiDirectoryNode" />
-              <item name="musicplayer" type="462c0819:PsiDirectoryNode" />
-              <item name="music" type="462c0819:PsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-              <item name="dialog" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="wolcano" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="com" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="wolcano" type="462c0819:PsiDirectoryNode" />
-              <item name="musicplayer" type="462c0819:PsiDirectoryNode" />
-              <item name="music" type="462c0819:PsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-              <item name="filter" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="wolcano" type="1abcf292:AndroidViewProjectNode" />
@@ -906,18 +795,6 @@
               <item name="music" type="462c0819:PsiDirectoryNode" />
               <item name="ui" type="462c0819:PsiDirectoryNode" />
               <item name="fragments" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="wolcano" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="com" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="wolcano" type="462c0819:PsiDirectoryNode" />
-              <item name="musicplayer" type="462c0819:PsiDirectoryNode" />
-              <item name="music" type="462c0819:PsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-              <item name="fragments" type="462c0819:PsiDirectoryNode" />
-              <item name="base" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="wolcano" type="1abcf292:AndroidViewProjectNode" />
@@ -933,71 +810,12 @@
             </path>
             <path>
               <item name="wolcano" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="com" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="wolcano" type="462c0819:PsiDirectoryNode" />
-              <item name="musicplayer" type="462c0819:PsiDirectoryNode" />
-              <item name="music" type="462c0819:PsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-              <item name="helper" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="wolcano" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="com" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="wolcano" type="462c0819:PsiDirectoryNode" />
-              <item name="musicplayer" type="462c0819:PsiDirectoryNode" />
-              <item name="music" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="wolcano" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-            </path>
-            <path>
-              <item name="wolcano" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
-            </path>
-            <path>
-              <item name="wolcano" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="values" type="ddeffd01:AndroidResFolderTypeNode" />
-            </path>
-            <path>
-              <item name="wolcano" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="values" type="ddeffd01:AndroidResFolderTypeNode" />
-              <item name="strings" type="c431d0b8:AndroidResGroupNode" />
-            </path>
-            <path>
-              <item name="wolcano" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="values" type="ddeffd01:AndroidResFolderTypeNode" />
-              <item name="styles" type="c431d0b8:AndroidResGroupNode" />
-            </path>
-            <path>
-              <item name="wolcano" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="xml" type="ddeffd01:AndroidResFolderTypeNode" />
-            </path>
-            <path>
-              <item name="wolcano" type="1abcf292:AndroidViewProjectNode" />
               <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="ProjectPane" />
       <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
@@ -1117,10 +935,11 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="1" />
-      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.30445343" />
+      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.28825912" />
       <window_info id="Structure" order="3" side_tool="true" />
       <window_info id="Favorites" order="4" side_tool="true" />
       <window_info id="Build Variants" order="5" side_tool="true" />
@@ -1132,109 +951,22 @@
       <window_info anchor="bottom" id="TODO" order="2" weight="0.3285968" />
       <window_info anchor="bottom" id="Statistic" order="3" weight="0.3285968" />
       <window_info anchor="bottom" id="Find" order="4" weight="0.27886322" />
-      <window_info anchor="bottom" id="Terminal" order="5" weight="0.69627" />
+      <window_info anchor="bottom" id="Terminal" order="5" weight="0.6660746" />
       <window_info anchor="bottom" id="Event Log" order="6" sideWeight="0.50040483" side_tool="true" weight="0.651865" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.3285968" />
       <window_info anchor="bottom" id="Debug" order="8" />
       <window_info anchor="bottom" id="Logcat" order="9" weight="0.5666075" />
       <window_info anchor="bottom" id="Android Profiler" order="10" weight="0.3285968" />
-      <window_info anchor="right" x="0" y="0" width="273" height="495" id="Documentation" side_tool="true" weight="0.32955465" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" weight="0.32955465" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="right" id="Theme Preview" order="2" />
       <window_info anchor="right" id="Gradle" order="3" />
       <window_info anchor="right" id="Palette&#9;" order="4" />
       <window_info anchor="right" id="Preview" order="5" />
+      <window_info anchor="right" x="0" y="0" width="273" height="495" id="Documentation" order="6" side_tool="true" weight="0.32955465" />
     </layout>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider editor-type-id="android-manifest" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-741" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/widgets/RotateFabBehavior.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1463">
-          <caret line="41" column="16" selection-start-line="41" selection-start-column="16" selection-end-line="41" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/broadcasts/base/RemoteBroadcast.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="15" column="24" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/broadcasts/base/SoundBroadcast.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="17" column="21" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#416#417#0" expanded="true" />
-            <element signature="e#469#470#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/provider/MusicService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1589">
-          <caret line="42" column="13" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/provider/RemotePlay.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="55" column="5" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/provider/notifications/Notification.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="14" column="22" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/content/PlayerEnum.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/activities/base/BaseActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="32" column="22" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/activities/base/BaseActivitySettings.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/activities/AppCompatPreferenceActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="20" column="18" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/activities/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="76">
@@ -1250,16 +982,16 @@
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/92ac58ed3e0ca89eaa3c279780d6d35f/res/layout/ate_preference_custom_support.xml">
-      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
           <caret line="59" column="30" selection-end-line="72" selection-end-column="107" />
         </state>
       </provider>
+      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/92ac58ed3e0ca89eaa3c279780d6d35f/res/layout/ate_preference_category.xml">
-      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor" />
+      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/prefs/CustomPreferenceCategory.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1269,15 +1001,14 @@
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/92ac58ed3e0ca89eaa3c279780d6d35f/res/layout/ate_preference_color.xml">
-      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret selection-end-line="5" selection-end-column="34" />
         </state>
       </provider>
+      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/ate_preference_custom_support.xml">
-      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-740">
           <caret line="14" column="14" selection-start-line="14" selection-start-column="14" selection-end-line="14" selection-end-column="14" />
@@ -1291,17 +1022,9 @@
           </folding>
         </state>
       </provider>
+      <provider editor-type-id="android-designer2" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/prefs/ATEColorPreference.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="38" column="48" selection-start-line="38" selection-start-column="48" selection-end-line="38" selection-end-column="48" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/prefs/ATEColorPreference.java" />
     <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="710">
@@ -1313,13 +1036,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
           <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/mvp/view/MaterialSearchLast.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="44" column="13" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -1341,18 +1057,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
           <caret line="75" column="13" selection-start-line="75" selection-start-column="13" selection-end-line="75" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/FragmentRecently.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
-          <caret line="136" column="41" selection-start-line="136" selection-start-column="41" selection-end-line="136" selection-end-column="41" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#5505#5506#0" expanded="true" />
-            <element signature="e#5589#5590#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1395,32 +1099,22 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/xml/pref_onlineplayer.xml">
-      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="38">
           <caret line="2" column="28" selection-start-line="2" selection-start-column="28" selection-end-line="2" selection-end-column="28" />
         </state>
       </provider>
+      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/xml/pref_others.xml">
-      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
           <caret line="10" column="19" lean-forward="true" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/xml/pref_library.xml">
       <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="28" selection-start-line="28" selection-end-line="31" />
-          <folding>
-            <element signature="e#187#216#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/xml/pref_library.xml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1432,34 +1126,10 @@
         <state relative-caret-position="-240" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values-th/strings_settings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="3" column="34" selection-start-line="3" selection-start-column="34" selection-end-line="3" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values-tr/strings_settings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="14" column="12" lean-forward="true" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values-pt/strings_settings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="3" column="34" selection-start-line="3" selection-start-column="34" selection-end-line="3" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values-es/strings_settings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="9" column="22" lean-forward="true" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values-th/strings_settings.xml" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values-tr/strings_settings.xml" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values-pt/strings_settings.xml" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values-es/strings_settings.xml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
@@ -1498,15 +1168,13 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/dimens.xml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/activities/SettingsActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/xml/pref_general.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="912">
-          <caret line="168" selection-start-line="168" selection-end-line="168" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="171">
+          <caret line="9" column="33" selection-start-line="9" selection-start-column="33" selection-end-line="9" selection-end-column="33" />
         </state>
       </provider>
+      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings_settings.xml">
       <provider selected="true" editor-type-id="text-editor">
@@ -1515,21 +1183,131 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/xml/pref_general.xml">
-      <provider editor-type-id="android-designer2" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/xml/pref_colors.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="9" column="33" lean-forward="true" selection-start-line="9" selection-start-column="33" selection-end-line="9" selection-end-column="33" />
+        <state relative-caret-position="266">
+          <caret line="14" column="79" selection-start-line="14" selection-start-column="79" selection-end-line="14" selection-end-column="79" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/activities/SettingsActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4579">
+          <caret line="289" column="56" selection-start-line="289" selection-start-column="56" selection-end-line="289" selection-end-column="56" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/xml/pref_colors.xml">
-      <provider editor-type-id="android-designer2" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/widgets/MaterialSearchLast.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="19" column="35" selection-start-line="19" selection-end-line="20" />
+        <state relative-caret-position="133">
+          <caret line="44" column="13" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/studio64.exe.vmoptions">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/widgets/ModelView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="401">
+          <caret line="29" column="69" selection-start-line="29" selection-start-column="69" selection-end-line="29" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/mvp/presenter/interfaces/SongPresenter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="20" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/mvp/interactor/interfaces/SongInteractor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
           <folding>
-            <element signature="e#650#677#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/mvp/view/SongView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/mvp/interactor/SongInteractorImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="43" column="61" selection-start-line="43" selection-start-column="61" selection-end-line="43" selection-end-column="61" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2089#2113#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/FragmentPlaylist.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1520">
+          <caret line="66" column="29" selection-start-line="66" selection-start-column="28" selection-end-line="66" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/FragmentRecently.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="156" column="8" selection-start-line="156" selection-start-column="8" selection-end-line="156" selection-end-column="8" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#5830#5831#0" expanded="true" />
+            <element signature="e#5914#5915#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/library/FragmentGenres.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="54" column="13" selection-start-line="54" selection-start-column="13" selection-end-line="54" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/ui/fragments/library/FragmentSongs.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="66" selection-start-line="66" selection-end-line="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/wolcano/musicplayer/music/mvp/presenter/SongPresenterImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="477">
+          <caret line="56" column="51" selection-start-line="56" selection-start-column="51" selection-end-line="56" selection-end-column="51" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#782#783#0" expanded="true" />
+            <element signature="e#811#812#0" expanded="true" />
           </folding>
         </state>
       </provider>

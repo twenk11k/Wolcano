@@ -39,41 +39,39 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.android.material.appbar.AppBarLayout;
-import com.hwangjr.rxbus.annotation.Subscribe;
-import com.hwangjr.rxbus.annotation.Tag;
 import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
+import com.wolcano.musicplayer.music.mvp.interactor.SongInteractorImpl;
 import com.wolcano.musicplayer.music.mvp.listener.FilterListener;
 import com.wolcano.musicplayer.music.mvp.models.Playlist;
 import com.wolcano.musicplayer.music.mvp.models.Song;
+import com.wolcano.musicplayer.music.mvp.presenter.SongPresenterImpl;
+import com.wolcano.musicplayer.music.mvp.presenter.interfaces.SongPresenter;
+import com.wolcano.musicplayer.music.mvp.view.SongView;
 import com.wolcano.musicplayer.music.provider.RemotePlay;
 import com.wolcano.musicplayer.music.ui.fragments.FragmentLibrary;
-import com.wolcano.musicplayer.music.utils.Perms;
 import com.wolcano.musicplayer.music.ui.activities.MainActivity;
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs;
 import com.wolcano.musicplayer.music.ui.fragments.base.BaseFragment;
 import com.wolcano.musicplayer.music.ui.filter.SongFilter;
 import com.wolcano.musicplayer.music.utils.SongUtils;
-import com.wolcano.musicplayer.music.utils.ToastUtils;
 import com.wolcano.musicplayer.music.utils.Utils;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
-import java.util.concurrent.TimeUnit;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import static com.wolcano.musicplayer.music.Constants.SONG_LIBRARY;
 
-public class FragmentSongs extends BaseFragment implements FilterListener, AppBarLayout.OnOffsetChangedListener {
+public class FragmentSongs extends BaseFragment implements SongView,FilterListener, AppBarLayout.OnOffsetChangedListener {
+
 
     private SongsAdapter mAdapter;
     private FastScrollRecyclerView recyclerView;
@@ -84,6 +82,8 @@ public class FragmentSongs extends BaseFragment implements FilterListener, AppBa
     private Disposable disposable;
     private String text;
     private View v;
+    private SongPresenter songPresenter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -101,39 +101,15 @@ public class FragmentSongs extends BaseFragment implements FilterListener, AppBa
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),
                 DividerItemDecoration.VERTICAL));
         String sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
-        setRecyclerView(sort);
+        songPresenter = new SongPresenterImpl(this,activity,disposable,sort,new SongInteractorImpl());
+        songPresenter.getSongs();
+
         return v;
     }
     private FragmentLibrary getLibraryFragment() {
         return (FragmentLibrary) getParentFragment();
     }
-    @Subscribe(tags = {@Tag(SONG_LIBRARY)})
-    public void setRecyclerView(String sort) {
-        Perms.with(this)
-                .permissions(Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .result(new Perms.PermInterface() {
-                    @Override
-                    public void onPermGranted() {
 
-                        Observable<List<Song>> booksObservable =
-                                Observable.fromCallable(() -> SongUtils.scanSongs(activity, sort)).throttleFirst(500, TimeUnit.MILLISECONDS);
-
-                        disposable = booksObservable.
-                                subscribeOn(Schedulers.io()).
-                                observeOn(AndroidSchedulers.mainThread()).
-                                subscribe(alist -> displayArrayList(alist));
-
-                    }
-
-                    @Override
-                    public void onPermUnapproved() {
-                        controlIfEmpty();
-                        ToastUtils.show(context.getApplicationContext(), R.string.no_perm_storage);
-                    }
-                })
-                .reqPerm();
-    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -142,13 +118,15 @@ public class FragmentSongs extends BaseFragment implements FilterListener, AppBa
 
     }
 
-    private void setList(List<Song> alist){
-        mAdapter = new FragmentSongs.SongsAdapter((MainActivity) getActivity(), alist, FragmentSongs.this::setFastScrollIndexer);
+    @Override
+    public void setSongList(List<Song> songList) {
 
+        mAdapter = new FragmentSongs.SongsAdapter((MainActivity) getActivity(), songList, FragmentSongs.this::setFastScrollIndexer);
         recyclerView.setAdapter(mAdapter);
         runLayoutAnimation(recyclerView);
 
     }
+
 
     private void runLayoutAnimation(final RecyclerView recyclerView) {
         final Context context = recyclerView.getContext();
@@ -158,10 +136,6 @@ public class FragmentSongs extends BaseFragment implements FilterListener, AppBa
         recyclerView.setLayoutAnimation(controller);
         recyclerView.getAdapter().notifyDataSetChanged();
         recyclerView.scheduleLayoutAnimation();
-    }
-    private void displayArrayList(List<Song> alist) {
-        setList(alist);
-
     }
 
     public void controlIfEmpty() {
@@ -248,6 +222,7 @@ public class FragmentSongs extends BaseFragment implements FilterListener, AppBa
     public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
         v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), getLibraryFragment().getTotalAppBarScrollingRange() + i);
     }
+
 
 
     public class SongsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements Filterable {

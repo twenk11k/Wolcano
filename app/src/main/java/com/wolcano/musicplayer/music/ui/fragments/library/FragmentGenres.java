@@ -136,9 +136,9 @@ public class FragmentGenres extends BaseFragment implements AppBarLayout.OnOffse
                 .result(new Perms.PermInterface() {
                     @Override
                     public void onPermGranted() {
-                        Observable<List<Genre>> booksObservable =
+                        Observable<List<Genre>> observable =
                                 Observable.fromCallable(() -> SongUtils.scanGenre(getContext())).throttleFirst(500, TimeUnit.MILLISECONDS);
-                        genreSubscription = booksObservable.
+                        genreSubscription = observable.
                                 subscribeOn(Schedulers.io()).
                                 observeOn(AndroidSchedulers.mainThread()).
                                 subscribe(genres -> displayGenres(genres));

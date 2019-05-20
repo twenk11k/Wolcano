@@ -19,7 +19,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.mvp.listener.SetSearchQuery;
-import com.wolcano.musicplayer.music.mvp.view.MaterialSearchLast;
+import com.wolcano.musicplayer.music.widgets.MaterialSearchLast;
 import com.wolcano.musicplayer.music.utils.Utils;
 
 import java.util.ArrayList;

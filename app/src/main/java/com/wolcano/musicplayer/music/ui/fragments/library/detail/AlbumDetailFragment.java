@@ -253,10 +253,10 @@ public class AlbumDetailFragment extends Fragment implements GetDisposable {
                 .result(new Perms.PermInterface() {
                     @Override
                     public void onPermGranted() {
-                        Observable<List<Song>> booksObservable =
+                        Observable<List<Song>> observable =
                                 Observable.fromCallable(() -> SongUtils.scanSongsforAlbum(context, sort, albumID)).throttleFirst(500, TimeUnit.MILLISECONDS);
 
-                        albumDetailSubscription = booksObservable.
+                        albumDetailSubscription = observable.
                                 subscribeOn(Schedulers.io()).
                                 observeOn(AndroidSchedulers.mainThread()).
                                 subscribe(alist -> displayArrayList(alist));

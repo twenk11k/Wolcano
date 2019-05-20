@@ -25,5 +25,7 @@ public class Constants {
     public static final String ACTION_QUIT = PACKAGE_NAME + ".quitservice";
     public static final String ACTION_PAUSE = PACKAGE_NAME + ".pause";
     public static final String ACTION_STOP_SLEEP = PACKAGE_NAME + ".stopsleep";
-
+    public static final String FRAGMENT_RECENTLY = "fragment_recently";
+    public static final String FRAGMENT_ONLINE = "fragment_online";
+    public static final String FRAGMENT_LIBRARY = "fragment_library";
 }
