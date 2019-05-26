@@ -1,4 +1,7 @@
 # Wolcano
+
+Currently in development..
+
 Music player with detailed search options for Android
 <div>
 <img src="https://user-images.githubusercontent.com/9631474/58082660-1ce1ad00-7bc0-11e9-8662-524d7418d9eb.png" height="400" />
