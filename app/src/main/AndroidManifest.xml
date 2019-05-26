@@ -26,7 +26,7 @@
             android:enabled="true"
              />
 
-        <receiver android:name=".broadcasts.base.RemoteBroadcast">
+        <receiver android:name=".broadcasts.RemoteBroadcast">
             <intent-filter>
                 <action android:name="android.intent.action.MEDIA_BUTTON" />
             </intent-filter>
@@ -38,7 +38,7 @@
         </receiver>
 
         <activity
-            android:name=".ui.activities.MainActivity"
+            android:name=".ui.activity.MainActivity"
             android:label="@string/appname"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -103,7 +103,7 @@
 
 
         <receiver
-            android:name=".broadcasts.other.CheckIsSaveDone"
+            android:name=".broadcasts.DownloadCompleteBroadcast"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
@@ -111,12 +111,13 @@
         </receiver>
 
         <activity
-            android:name=".ui.activities.QueueActivity"
+            android:name=".ui.activity.QueueActivity"
             android:label="@string/queue_act"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activities.SettingsActivity"
+            android:name=".ui.activity.SettingsActivity"
             android:label="@string/title_activity_settings" />
 
+        <meta-data android:name="com.bugsnag.android.API_KEY" android:value="76c92798a7ab34aea588445b73d45b99"/>
         </application>
 </manifest>

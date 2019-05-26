@@ -10,7 +10,6 @@
 
     <string name="songs">Canciones</string>
     <string name="playlists">Listas De Reproducción</string>
-    <string name="folders">Jugador En Línea</string>
 
     <string name="folder_name">Wolcano</string>
     <string name="folder_search_history">Buscar Historia</string>
@@ -202,5 +201,5 @@
     <string name="pref_summary_share_app">Comparte la aplicación a tus amigos.</string>
     <string name="pref_header_other_2">Otro</string>
     <string name="pref_header_online">Jugador en linea</string>
-
+    <string name="lastadded">Última incorporacion</string>
 </resources>

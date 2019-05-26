@@ -87,7 +87,7 @@ public class PlaylistSongAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(v.getContext(), R.style.PopupMenuToolbar);
 
                     PopupMenu popup = new PopupMenu(contextThemeWrapper, v);
-                    popup.getMenuInflater().inflate(R.menu.menu_playlist_song, popup.getMenu());
+                    popup.getMenuInflater().inflate(R.menu.popup_menu_playlist_song, popup.getMenu());
                     popup.show();
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override

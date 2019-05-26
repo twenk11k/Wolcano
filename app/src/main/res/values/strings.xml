@@ -9,7 +9,6 @@
     <string name="library">Library</string>
     <string name="songs">Songs</string>
     <string name="playlists">Playlists</string>
-    <string name="folders">Online Player</string>
 
     <string name="folder_name">wolcanomusic</string>
     <string name="folder_search_history">Search History</string>
@@ -214,5 +213,6 @@ You can press yes if you want to send email to us.</string>
     <string name="no_perm_save_file">Song cannot save because required permissions are not setted.</string>
     <string name="sharefile">Share Song</string>
     <string name="pref_header_online">Online Player</string>
+    <string name="lastadded">Last Added</string>
 
 </resources>

@@ -83,7 +83,7 @@ public class AlbumSongAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(v.getContext(), R.style.PopupMenuToolbar);
 
                 PopupMenu popup = new PopupMenu(contextThemeWrapper, v);
-                popup.getMenuInflater().inflate(R.menu.menu_song, popup.getMenu());
+                popup.getMenuInflater().inflate(R.menu.popup_menu_song, popup.getMenu());
                 popup.show();
                 popup.setOnMenuItemClickListener(item -> {
 

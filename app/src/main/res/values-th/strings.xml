@@ -10,7 +10,6 @@
     <string name="onlineplayer">ผู้เล่นออนไลน์</string>
 
     <string name="playlists">เพลย์ลิส</string>
-    <string name="folders">โฟลเดอร์</string>
 
     <string name="folder_name">Wolcano</string>
     <string name="folder_search_history">ประวัติการค้นหา</string>
@@ -210,5 +209,6 @@ Wolcano เคารพสิทธิ์ในทรัพย์สินทา
     <string name="pref_summary_share_app">แชร์แอปนี้บน Google Play.</string>
     <string name="pref_header_other_2">อื่น ๆ</string>
     <string name="pref_header_online">ผู้เล่นออนไลน์</string>
+    <string name="lastadded">เพิ่มล่าสุด</string>
 
 </resources>

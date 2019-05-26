@@ -43,10 +43,10 @@ import com.wolcano.musicplayer.music.App;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.widgets.StatusBarView;
-import com.wolcano.musicplayer.music.ui.fragments.library.detail.AlbumDetailFragment;
-import com.wolcano.musicplayer.music.ui.fragments.library.detail.ArtistDetailFragment;
-import com.wolcano.musicplayer.music.ui.fragments.library.detail.GenreDetailFragment;
-import com.wolcano.musicplayer.music.ui.fragments.library.detail.PlaylistDetailFragment;
+import com.wolcano.musicplayer.music.ui.fragment.library.detail.AlbumDetailFragment;
+import com.wolcano.musicplayer.music.ui.fragment.library.detail.ArtistDetailFragment;
+import com.wolcano.musicplayer.music.ui.fragment.library.detail.GenreDetailFragment;
+import com.wolcano.musicplayer.music.ui.fragment.library.detail.PlaylistDetailFragment;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.io.File;

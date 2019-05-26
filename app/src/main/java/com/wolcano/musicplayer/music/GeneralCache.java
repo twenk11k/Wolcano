@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 import com.wolcano.musicplayer.music.mvp.models.Song;
-import com.wolcano.musicplayer.music.utils.SongCover;
+import com.wolcano.musicplayer.music.widgets.SongCover;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -7,12 +7,12 @@ import com.wolcano.musicplayer.music.mvp.interactor.SongInteractorImpl;
 import com.wolcano.musicplayer.music.mvp.interactor.interfaces.SongInteractor;
 import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.mvp.presenter.interfaces.SongPresenter;
-import com.wolcano.musicplayer.music.ui.fragments.FragmentRecently;
-import com.wolcano.musicplayer.music.ui.fragments.library.FragmentSongs;
-import com.wolcano.musicplayer.music.ui.fragments.library.detail.AlbumDetailFragment;
-import com.wolcano.musicplayer.music.ui.fragments.library.detail.ArtistDetailFragment;
-import com.wolcano.musicplayer.music.ui.fragments.library.detail.GenreDetailFragment;
-import com.wolcano.musicplayer.music.ui.fragments.library.detail.PlaylistDetailFragment;
+import com.wolcano.musicplayer.music.ui.fragment.FragmentRecently;
+import com.wolcano.musicplayer.music.ui.fragment.library.FragmentSongs;
+import com.wolcano.musicplayer.music.ui.fragment.library.detail.AlbumDetailFragment;
+import com.wolcano.musicplayer.music.ui.fragment.library.detail.ArtistDetailFragment;
+import com.wolcano.musicplayer.music.ui.fragment.library.detail.GenreDetailFragment;
+import com.wolcano.musicplayer.music.ui.fragment.library.detail.PlaylistDetailFragment;
 import java.util.List;
 import io.reactivex.disposables.Disposable;
 

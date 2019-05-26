@@ -7,7 +7,7 @@ import com.hwangjr.rxbus.annotation.Tag;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.mvp.interactor.interfaces.SongInteractor;
 import com.wolcano.musicplayer.music.mvp.models.Song;
-import com.wolcano.musicplayer.music.utils.Perms;
+import com.wolcano.musicplayer.music.utils.PermissionUtils;
 import com.wolcano.musicplayer.music.utils.SongUtils;
 import com.wolcano.musicplayer.music.utils.ToastUtils;
 import java.util.List;
@@ -30,10 +30,10 @@ public class SongInteractorImpl implements SongInteractor {
 
         disposable1 = disposable;
 
-        Perms.with(activity)
+        PermissionUtils.with(activity)
                 .permissions(Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .result(new Perms.PermInterface() {
+                .result(new PermissionUtils.PermInterface() {
                     @Override
                     public void onPermGranted() {
 
@@ -66,10 +66,10 @@ public class SongInteractorImpl implements SongInteractor {
 
         disposable1 = disposable;
 
-        Perms.with(activity)
+        PermissionUtils.with(activity)
                 .permissions(Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .result(new Perms.PermInterface() {
+                .result(new PermissionUtils.PermInterface() {
                     @Override
                     public void onPermGranted() {
 
@@ -99,10 +99,10 @@ public class SongInteractorImpl implements SongInteractor {
     @Override
     public void getAlbumSongs(Activity activity, Disposable disposable, String sort,long albumID, OnGetSongListener onGetSongListener) {
         disposable1 = disposable;
-        Perms.with(activity)
+        PermissionUtils.with(activity)
                 .permissions(Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .result(new Perms.PermInterface() {
+                .result(new PermissionUtils.PermInterface() {
                     @Override
                     public void onPermGranted() {
                         Observable<List<Song>> observable =
@@ -130,10 +130,10 @@ public class SongInteractorImpl implements SongInteractor {
 
         disposable1 = disposable;
 
-        Perms.with(activity)
+        PermissionUtils.with(activity)
                 .permissions(Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .result(new Perms.PermInterface() {
+                .result(new PermissionUtils.PermInterface() {
                     @Override
                     public void onPermGranted() {
                         Observable<List<Song>> observable =
@@ -161,10 +161,10 @@ public class SongInteractorImpl implements SongInteractor {
 
       disposable1 = disposable;
 
-        Perms.with(activity)
+        PermissionUtils.with(activity)
                 .permissions(Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .result(new Perms.PermInterface() {
+                .result(new PermissionUtils.PermInterface() {
                     @Override
                     public void onPermGranted() {
                         Observable<List<Song>> observable =

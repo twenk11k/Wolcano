@@ -18,9 +18,9 @@ import com.wolcano.musicplayer.music.mvp.listener.OnServiceListener;
 import com.wolcano.musicplayer.music.mvp.listener.OnSwipeTouchListener;
 import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.provider.RemotePlay;
-import com.wolcano.musicplayer.music.utils.SongCover;
+import com.wolcano.musicplayer.music.widgets.SongCover;
 import com.wolcano.musicplayer.music.mvp.listener.Bind;
-import com.wolcano.musicplayer.music.ui.activities.MainActivity;
+import com.wolcano.musicplayer.music.ui.activity.MainActivity;
 import com.wolcano.musicplayer.music.utils.Utils;
 
 import java.util.concurrent.TimeUnit;
@@ -35,11 +35,13 @@ import io.reactivex.schedulers.Schedulers;
 public class SlidingPanel implements OnServiceListener,View.OnClickListener {
 
 
-    @Bind(R.id.progressTop1)
-    private ProgressBar progressBar;
+
     public Disposable bitmapSubscription;
     private Drawable placeholder;
     private Activity activity;
+
+    @Bind(R.id.progressTop1)
+    private ProgressBar progressBar;
     @Bind(R.id.line1)
     private TextView line1;
     @Bind(R.id.play)
@@ -50,6 +52,7 @@ public class SlidingPanel implements OnServiceListener,View.OnClickListener {
     private ImageView panelTop1;
     @Bind(R.id.model_imageview)
     private ImageView modelImage;
+
     public SlidingPanel(View view, Activity activity) {
         Binder.bindIt(this, view);
         this.activity = activity;
@@ -61,6 +64,9 @@ public class SlidingPanel implements OnServiceListener,View.OnClickListener {
         line1.setSelected(true);
 
         play.setColorFilter(Utils.getAccentColor(activity));
+
+
+
         if(RemotePlay.get().getPlayMusic(activity.getApplicationContext())!=null){
             String contentURI = "content://media/external/audio/media/" + RemotePlay.get().getPlayMusic(activity.getApplicationContext()).getSongId() + "/albumart";
             Picasso.get()
@@ -163,7 +169,7 @@ public class SlidingPanel implements OnServiceListener,View.OnClickListener {
         line2.setText(song.getArtist());
         play.setSelected(RemotePlay.get().isPlaying() || RemotePlay.get().isPreparing());
         progressBar.setMax((int) song.getDura());
-        progressBar.setProgress((int) RemotePlay.get().getSoundPos());
+        progressBar.setProgress((int) RemotePlay.get().getPlayerCurrentPosition());
 
     }
 

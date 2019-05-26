@@ -8,8 +8,7 @@ import com.wolcano.musicplayer.music.mvp.interactor.AlbumInteractorImpl;
 import com.wolcano.musicplayer.music.mvp.interactor.interfaces.AlbumInteractor;
 import com.wolcano.musicplayer.music.mvp.models.Album;
 import com.wolcano.musicplayer.music.mvp.presenter.interfaces.AlbumPresenter;
-import com.wolcano.musicplayer.music.ui.fragments.library.FragmentAlbums;
-import com.wolcano.musicplayer.music.ui.fragments.library.FragmentArtists;
+import com.wolcano.musicplayer.music.ui.fragment.library.FragmentAlbums;
 
 import java.util.List;
 

@@ -26,7 +26,7 @@ import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.mvp.listener.GetDisposable;
 import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.provider.RemotePlay;
-import com.wolcano.musicplayer.music.utils.Perms;
+import com.wolcano.musicplayer.music.utils.PermissionUtils;
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs;
 import com.wolcano.musicplayer.music.utils.SongUtils;
 import com.wolcano.musicplayer.music.utils.ToastUtils;
@@ -97,7 +97,7 @@ public class QueueAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(v.getContext(), R.style.PopupMenuToolbar);
 
                 PopupMenu popup = new PopupMenu(contextThemeWrapper, v);
-                popup.getMenuInflater().inflate(R.menu.menu_option_queue, popup.getMenu());
+                popup.getMenuInflater().inflate(R.menu.popup_menu_option_queue, popup.getMenu());
                 popup.show();
                 popup.setOnMenuItemClickListener(item -> {
 
@@ -194,7 +194,7 @@ public class QueueAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(v.getContext(), R.style.PopupMenuToolbar);
 
                 PopupMenu popup = new PopupMenu(contextThemeWrapper, v);
-                popup.getMenuInflater().inflate(R.menu.menu_main_queue, popup.getMenu());
+                popup.getMenuInflater().inflate(R.menu.popup_menu_online_queue, popup.getMenu());
                 popup.show();
                 popup.setOnMenuItemClickListener(item -> {
                     switch (item.getItemId()) {
@@ -207,10 +207,10 @@ public class QueueAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                             Dialogs.copyDialog(context, arraylist.get(position));
                             break;
                         case R.id.action_down:
-                            Perms.with(context)
+                            PermissionUtils.with(context)
                                     .permissions(Manifest.permission.READ_EXTERNAL_STORAGE,
                                             Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                                    .result(new Perms.PermInterface() {
+                                    .result(new PermissionUtils.PermInterface() {
                                         @Override
                                         public void onPermGranted() {
                                             dCount++;

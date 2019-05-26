@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.widget.Toast;
 
@@ -42,6 +43,8 @@ public class Share {
                 Intent share = new Intent(Intent.ACTION_SEND);
                 share.setType("audio/*");
                 share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(songFile));
+                StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+                StrictMode.setVmPolicy(builder.build());
                 ctx.startActivity(Intent.createChooser(share, ctx.getString(R.string.sharefile)));
             }
         } catch (ActivityNotFoundException ex) {

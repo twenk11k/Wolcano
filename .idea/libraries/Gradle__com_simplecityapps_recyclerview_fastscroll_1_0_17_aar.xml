@@ -1,11 +1,11 @@
 <component name="libraryTable">
   <library name="Gradle: com.simplecityapps:recyclerview-fastscroll:1.0.17@aar">
     <ANNOTATIONS>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/dc826ef981679b37db9cfc76016e4175/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9afe985863cbd905edfd9058504687bf/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/dc826ef981679b37db9cfc76016e4175/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/dc826ef981679b37db9cfc76016e4175/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9afe985863cbd905edfd9058504687bf/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9afe985863cbd905edfd9058504687bf/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

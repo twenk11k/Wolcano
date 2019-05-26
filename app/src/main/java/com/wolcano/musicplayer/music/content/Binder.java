@@ -13,9 +13,9 @@ public class Binder {
         bindIt(activity, activity.getWindow().getDecorView());
     }
     public static void bindIt(Object target, View source) {
-        Field[] fieldList = target.getClass().getDeclaredFields();
-        if (fieldList.length > 0 && fieldList != null) {
-            for (Field f : fieldList) {
+        Field[] fieldArr = target.getClass().getDeclaredFields();
+        if (fieldArr.length > 0 && fieldArr != null) {
+            for (Field f : fieldArr) {
                 try {
                     f.setAccessible(true);
                     if (f.get(target) != null) {

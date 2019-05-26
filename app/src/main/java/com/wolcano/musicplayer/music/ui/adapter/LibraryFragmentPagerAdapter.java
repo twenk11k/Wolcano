@@ -7,10 +7,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.wolcano.musicplayer.music.R;
-import com.wolcano.musicplayer.music.ui.fragments.library.FragmentAlbums;
-import com.wolcano.musicplayer.music.ui.fragments.library.FragmentArtists;
-import com.wolcano.musicplayer.music.ui.fragments.library.FragmentGenres;
-import com.wolcano.musicplayer.music.ui.fragments.library.FragmentSongs;
+import com.wolcano.musicplayer.music.ui.fragment.library.FragmentAlbums;
+import com.wolcano.musicplayer.music.ui.fragment.library.FragmentArtists;
+import com.wolcano.musicplayer.music.ui.fragment.library.FragmentGenres;
+import com.wolcano.musicplayer.music.ui.fragment.library.FragmentSongs;
 
 
 public class LibraryFragmentPagerAdapter extends FragmentStatePagerAdapter {

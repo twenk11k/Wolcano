@@ -18,7 +18,7 @@ public abstract class PlayModelLocal extends PlayModelOnline {
         this.songOnlineList = songOnlineList;
     }
     @Override
-    protected void setModel1() {
+    protected void setPlayModel() {
 
         songList = new ArrayList<>();
         for(int i = 0; i< songOnlineList.size(); i++){

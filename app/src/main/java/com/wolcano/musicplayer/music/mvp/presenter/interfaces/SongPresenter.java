@@ -7,4 +7,5 @@ public interface SongPresenter {
     void getAlbumSongs();
     void getArtistSongs();
     void getGenreSongs();
+
 }

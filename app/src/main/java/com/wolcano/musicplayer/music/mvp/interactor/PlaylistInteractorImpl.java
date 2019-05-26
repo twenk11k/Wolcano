@@ -8,7 +8,7 @@ import com.hwangjr.rxbus.annotation.Tag;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.mvp.interactor.interfaces.PlaylistInteractor;
 import com.wolcano.musicplayer.music.mvp.models.Playlist;
-import com.wolcano.musicplayer.music.utils.Perms;
+import com.wolcano.musicplayer.music.utils.PermissionUtils;
 import com.wolcano.musicplayer.music.utils.SongUtils;
 import com.wolcano.musicplayer.music.utils.ToastUtils;
 import java.util.List;
@@ -30,10 +30,10 @@ public class PlaylistInteractorImpl implements PlaylistInteractor {
 
         disposable1 = disposable;
 
-        Perms.with(activity)
+        PermissionUtils.with(activity)
                 .permissions(Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .result(new Perms.PermInterface() {
+                .result(new PermissionUtils.PermInterface() {
                     @Override
                     public void onPermGranted() {
                         Observable<List<Playlist>> observable =

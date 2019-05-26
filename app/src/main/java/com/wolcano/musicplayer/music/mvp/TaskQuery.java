@@ -8,7 +8,7 @@ import android.net.Uri;
 public class TaskQuery {
 
 	private final String[] projection;
-	private final String[] selection_args;
+	private final String[] selectionArgs;
 	private final String selection;
 	public Uri uri;
 
@@ -21,7 +21,7 @@ public class TaskQuery {
 		this.uri = uri;
 		this.projection = projection;
 		this.selection = selection;
-		this.selection_args = selectionArgs;
+		this.selectionArgs = selectionArgs;
 		this.sort_order = sortOrder;
 	}
 	private static Cursor queryResolver(ContentResolver resolver, Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder)
@@ -36,6 +36,6 @@ public class TaskQuery {
 	}
 	public Cursor runQuery(ContentResolver resolver)
 	{
-			return queryResolver(resolver, uri, projection, selection, selection_args, sort_order);
+			return queryResolver(resolver, uri, projection, selection, selectionArgs, sort_order);
 	}
 }

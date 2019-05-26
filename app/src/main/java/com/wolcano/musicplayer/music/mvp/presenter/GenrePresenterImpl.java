@@ -8,7 +8,7 @@ import com.wolcano.musicplayer.music.mvp.interactor.GenreInteractorImpl;
 import com.wolcano.musicplayer.music.mvp.interactor.interfaces.GenreInteractor;
 import com.wolcano.musicplayer.music.mvp.models.Genre;
 import com.wolcano.musicplayer.music.mvp.presenter.interfaces.GenrePresenter;
-import com.wolcano.musicplayer.music.ui.fragments.library.FragmentGenres;
+import com.wolcano.musicplayer.music.ui.fragment.library.FragmentGenres;
 
 import java.util.List;
 

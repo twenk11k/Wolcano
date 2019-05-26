@@ -59,7 +59,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(v.getContext(), R.style.PopupMenuToolbar);
 
                 PopupMenu popup = new PopupMenu(contextThemeWrapper, v);
-                popup.getMenuInflater().inflate(R.menu.menu_album, popup.getMenu());
+                popup.getMenuInflater().inflate(R.menu.popup_menu_libary_albums, popup.getMenu());
                 popup.show();
                 popup.setOnMenuItemClickListener(item -> {
 

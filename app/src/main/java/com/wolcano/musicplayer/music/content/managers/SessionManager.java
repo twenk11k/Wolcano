@@ -49,7 +49,7 @@ public class SessionManager {
         mediaSessionCompat.setPlaybackState(
                 new PlaybackStateCompat.Builder()
                         .setActions(MEDIA_SESSION_ACTIONS)
-                        .setState(state, RemotePlay.get().getSoundPos(), 1)
+                        .setState(state, RemotePlay.get().getPlayerCurrentPosition(), 1)
                         .build());
     }
     private void initMedia() {

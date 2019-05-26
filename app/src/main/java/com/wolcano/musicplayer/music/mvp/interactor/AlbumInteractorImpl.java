@@ -8,7 +8,7 @@ import com.hwangjr.rxbus.annotation.Tag;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.mvp.interactor.interfaces.AlbumInteractor;
 import com.wolcano.musicplayer.music.mvp.models.Album;
-import com.wolcano.musicplayer.music.utils.Perms;
+import com.wolcano.musicplayer.music.utils.PermissionUtils;
 import com.wolcano.musicplayer.music.utils.SongUtils;
 import com.wolcano.musicplayer.music.utils.ToastUtils;
 
@@ -31,10 +31,10 @@ public class AlbumInteractorImpl implements AlbumInteractor {
     public void getAlbum(Activity activity, Disposable disposable, String sort,OnGetAlbumListener onGetAlbumListener) {
         disposable1 = disposable;
 
-        Perms.with(activity)
+        PermissionUtils.with(activity)
                 .permissions(Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .result(new Perms.PermInterface() {
+                .result(new PermissionUtils.PermInterface() {
                     @Override
                     public void onPermGranted() {
                         Observable<List<Album>> observable =

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_onlineplayer"
+            android:icon="@drawable/baseline_public_white_24"
+            android:title="@string/onlineplayer" />
+        <item
+            android:id="@+id/nav_recentlyadded"
+            android:icon="@drawable/baseline_vertical_align_center_white_36"
+            android:title="@string/lastadded" />
+
+        <item
+            android:id="@+id/nav_library"
+            android:icon="@drawable/baseline_library_music_black_36"
+            android:title="@string/library" />
+        <item
+            android:id="@+id/nav_playlists"
+            android:icon="@drawable/baseline_queue_music_white_36"
+            android:title="@string/playlists" />
+
+
+
+    </group>
+
+    <group android:id="@+id/ids">
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/settings" />
+
+    </group>
+
+</menu>

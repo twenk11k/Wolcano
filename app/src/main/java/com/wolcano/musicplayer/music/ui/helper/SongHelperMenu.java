@@ -23,7 +23,7 @@ import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.mvp.listener.GetDisposable;
 import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.provider.RemotePlay;
-import com.wolcano.musicplayer.music.utils.Perms;
+import com.wolcano.musicplayer.music.utils.PermissionUtils;
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs;
 import com.wolcano.musicplayer.music.utils.SongUtils;
 import com.wolcano.musicplayer.music.utils.ToastUtils;
@@ -40,7 +40,7 @@ public class SongHelperMenu {
             ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(context, R.style.PopupMenuToolbar);
 
             PopupMenu popup = new PopupMenu(contextThemeWrapper, v);
-            popup.getMenuInflater().inflate(R.menu.menu_song, popup.getMenu());
+            popup.getMenuInflater().inflate(R.menu.popup_menu_song, popup.getMenu());
             popup.show();
             popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                 @Override
@@ -130,7 +130,7 @@ public class SongHelperMenu {
             ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(v.getContext(), R.style.PopupMenuToolbar);
 
             android.widget.PopupMenu popup = new android.widget.PopupMenu(contextThemeWrapper, v);
-            popup.getMenuInflater().inflate(R.menu.menu_main, popup.getMenu());
+            popup.getMenuInflater().inflate(R.menu.popup_menu_main, popup.getMenu());
             popup.show();
             popup.setOnMenuItemClickListener(item -> {
                 switch (item.getItemId()) {
@@ -138,10 +138,10 @@ public class SongHelperMenu {
                         Dialogs.copyDialog(context, song);
                         break;
                     case R.id.action_down:
-                        Perms.with(context)
+                        PermissionUtils.with(context)
                                 .permissions(Manifest.permission.READ_EXTERNAL_STORAGE,
                                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                                .result(new Perms.PermInterface() {
+                                .result(new PermissionUtils.PermInterface() {
                                     @Override
                                     public void onPermGranted() {
                                         dCount++;

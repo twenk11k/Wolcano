@@ -12,9 +12,6 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
-        <!-- Navigation Drawer Arrow Style. -->
-        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
-
         <!-- Overflow Button Style. -->
         <item name="actionOverflowButtonStyle">@style/OverflowStyle</item>
         <!-- Album and Artist Listener -->

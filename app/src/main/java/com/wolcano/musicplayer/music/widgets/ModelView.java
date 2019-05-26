@@ -13,7 +13,6 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.wolcano.musicplayer.music.R;
-import com.wolcano.musicplayer.music.utils.SongCover;
 import com.wolcano.musicplayer.music.utils.ImageUtils;
 
 
@@ -77,7 +76,7 @@ public class ModelView extends View implements ValueAnimator.AnimatorUpdateListe
         modelB = getResources().getDrawable(R.drawable.play_border);
         dicsBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.album_dics);
         modelBitmap = SongCover.get().loadOval(getContext(),null);
-        helperBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.the_helper);
+        helperBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.grip);
         cizgiHeight = dpDenPx(1);
         modelBWidth = dpDenPx(1);
 

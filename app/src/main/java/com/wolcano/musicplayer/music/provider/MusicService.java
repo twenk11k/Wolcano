@@ -92,7 +92,6 @@ public class MusicService extends Service {
     public static void startCommand(Context context, String action) {
 
         Intent intent = new Intent(context, MusicService.class);
-
         intent.setAction(action);
         context.startService(intent);
     }

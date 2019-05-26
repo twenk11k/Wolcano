@@ -7,7 +7,6 @@
     <string name="settings">Ayarlar</string>
     <string name="songs">Şarkılar</string>
     <string name="playlists">Çalma Listeleri</string>
-    <string name="folders">Çevrimiçi Oynatıcı</string>
     <string name="onlineplayer">Çevrimiçi Oynatıcı</string>
 
     <string name="folder_name">trmuzik</string>
@@ -192,5 +191,6 @@
     <string name="pref_title_share_app">Paylaş</string>
     <string name="pref_header_other_2">Diğer</string>
     <string name="pref_header_online">Çevrimiçi Oynatıcı</string>
+    <string name="lastadded">Son Eklenenler</string>
 
 </resources>

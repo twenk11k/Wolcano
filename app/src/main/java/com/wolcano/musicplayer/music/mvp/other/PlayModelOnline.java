@@ -19,23 +19,24 @@ public abstract class PlayModelOnline implements TaskInterface<Song> {
     protected Song song;
     private Activity activity;
     protected List<Song> songList;
+
     public PlayModelOnline(Activity activity) {
         this.activity = activity;
     }
 
     @Override
     public void onTask() {
-        controlInteret();
+        checkMobileConnection();
     }
 
-    private void getModel1Impl() {
+    private void getPlayModelImpl() {
         onPrepare();
-        setModel1();
+        setPlayModel();
     }
 
-    protected abstract void setModel1();
+    protected abstract void setPlayModel();
 
-    private void controlInteret() {
+    private void checkMobileConnection() {
         boolean isMobileNet = Utils.getMobileInteret(activity.getApplicationContext());
         if (NetworkUtils.isMobileActive(activity) && !isMobileNet) {
             AlertDialog.Builder builder = new AlertDialog.Builder(activity);
@@ -43,14 +44,14 @@ public abstract class PlayModelOnline implements TaskInterface<Song> {
             builder.setMessage(R.string.control_inter_message);
             builder.setNegativeButton(R.string.no, null);
             builder.setPositiveButton(R.string.yes, (dialog, which) -> {
-                Utils.setMobileInteret(activity.getApplicationContext(),true);
-                getModel1Impl();
+                Utils.setMobileInteret(activity.getApplicationContext(), true);
+                getPlayModelImpl();
             });
             Dialog mobileDialog = builder.create();
             mobileDialog.setCanceledOnTouchOutside(false);
             mobileDialog.show();
         } else {
-            getModel1Impl();
+            getPlayModelImpl();
         }
     }
 

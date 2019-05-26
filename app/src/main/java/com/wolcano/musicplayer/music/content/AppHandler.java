@@ -13,8 +13,8 @@ import java.util.List;
 
 public class AppHandler implements Application.ActivityLifecycleCallbacks {
 
-    private List<Observer> obsList;
-    private int remoactCount;
+    private List<Observer> observerList;
+    private int activityCount;
     private Handler handler;
     private static final long HANDLER_VAL = 500;
     private boolean isChecked;
@@ -44,7 +44,7 @@ public class AppHandler implements Application.ActivityLifecycleCallbacks {
     public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
     }
     private AppHandler() {
-        obsList = Collections.synchronizedList(new ArrayList<Observer>());
+        observerList = Collections.synchronizedList(new ArrayList<Observer>());
         handler = new Handler(Looper.getMainLooper());
     }
     @Override
@@ -61,15 +61,15 @@ public class AppHandler implements Application.ActivityLifecycleCallbacks {
     }
     @Override
     public void onActivityResumed(Activity activity) {
-        remoactCount++;
-        if (!isChecked && remoactCount > 0) {
+        activityCount++;
+        if (!isChecked && activityCount > 0) {
             isChecked = true;
             notify(activity, true);
         }
     }
 
     private void notify(Activity activity, boolean foreground) {
-        for (Observer observer : obsList) {
+        for (Observer observer : observerList) {
             if (foreground) {
                 observer.onForeground(activity);
             } else {
@@ -79,11 +79,11 @@ public class AppHandler implements Application.ActivityLifecycleCallbacks {
     }
     @Override
     public void onActivityPaused(final Activity activity) {
-        remoactCount--;
+        activityCount--;
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (isChecked && remoactCount == 0) {
+                if (isChecked && activityCount == 0) {
                     isChecked = false;
                     AppHandler.this.notify(activity, false);
                 }
