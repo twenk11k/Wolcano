@@ -20,7 +20,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.wolcano.musicplayer.music.R;
-import com.wolcano.musicplayer.music.mvp.listener.GetDisposable;
+import com.wolcano.musicplayer.music.mvp.listener.PlaylistListener;
 import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.provider.RemotePlay;
 import com.wolcano.musicplayer.music.utils.PermissionUtils;
@@ -35,7 +35,7 @@ import java.util.List;
 public class SongHelperMenu {
     private static int dCount = 0;
 
-    public static void handleMenuLocal(Context context, View v, Song song, GetDisposable getDisposable) {
+    public static void handleMenuLocal(Context context, View v, Song song, PlaylistListener PlaylistListener) {
         try {
             ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(context, R.style.PopupMenuToolbar);
 
@@ -107,7 +107,7 @@ public class SongHelperMenu {
                             Utils.setRingtone(context, song.getSongId());
                             break;
                         case R.id.add_to_playlist:
-                            getDisposable.handlePlaylistDialog(song);
+                            PlaylistListener.handlePlaylistDialog(song);
                             break;
                         case R.id.share:
                             Dialogs.shareDialog(context, song, false);

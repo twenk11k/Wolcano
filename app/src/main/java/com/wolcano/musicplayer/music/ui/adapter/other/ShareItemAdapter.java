@@ -1,80 +1,75 @@
 package com.wolcano.musicplayer.music.ui.adapter.other;
 
 import android.content.Context;
+
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.wolcano.musicplayer.music.R;
+import com.wolcano.musicplayer.music.databinding.ItemCopyBinding;
+import com.wolcano.musicplayer.music.mvp.listener.ItemCallback;
 import com.wolcano.musicplayer.music.mvp.models.Copy;
 
 import java.util.ArrayList;
 
 public class ShareItemAdapter extends RecyclerView.Adapter<ShareItemAdapter.ViewHolder> {
 
-    private final ArrayList<Copy> items;
+    private final ArrayList<Copy> shareList;
     private final Context context;
-    public ShareItemAdapter.ItemCallback itemCallback;
+    private ItemCallback itemCallback;
 
-    public ShareItemAdapter(Context context, ArrayList<Copy> items) {
+    public ShareItemAdapter(Context context, ArrayList<Copy> shareList) {
         this.context = context;
-        this.items = items;
+        this.shareList = shareList;
     }
 
     @NonNull
     @Override
     public ShareItemAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.copy_item, parent, false);
-        return new ShareItemAdapter.ViewHolder(view, this);
+        ItemCopyBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_copy, parent, false);
+        return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ShareItemAdapter.ViewHolder holder, int position) {
-
-        holder.text.setText(items.get(position).getText());
-        if (items.get(position).getIcon() == 0)
-            holder.icon.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_insert_drive_file_white_24));
-        if (items.get(position).getIcon() == 1)
-            holder.icon.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_text_format_white_24));
+        holder.binding.setCopy(shareList.get(position));
+        holder.binding.executePendingBindings();
+        Copy share = holder.binding.getCopy();
+        holder.binding.text.setText(share.getText());
+        if (share.getIcon() == 0)
+            holder.binding.icon.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_insert_drive_file_white_24));
+        if (share.getIcon() == 1)
+            holder.binding.icon.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_text_format_white_24));
 
     }
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return shareList.size();
     }
 
-    public void setCallback(ShareItemAdapter.ItemCallback callback) {
+    public void setCallback(ItemCallback callback) {
         this.itemCallback = callback;
     }
 
-    public interface ItemCallback {
 
-        void onItemClicked(int itemIndex);
-    }
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private ItemCopyBinding binding;
 
-        private TextView text;
-        private ImageView icon;
-        final ShareItemAdapter adapter;
-
-        ViewHolder(View itemView, ShareItemAdapter adapter) {
-            super(itemView);
-            text = itemView.findViewById(R.id.text);
-            icon = itemView.findViewById(R.id.icon);
-            this.adapter = adapter;
-            itemView.setOnClickListener(this);
+        ViewHolder(ItemCopyBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+            this.binding.getRoot().setOnClickListener(this::onClick);
         }
 
         @Override
         public void onClick(View v) {
-            adapter.itemCallback.onItemClicked(getAdapterPosition());
+            itemCallback.onItemClicked(getAdapterPosition());
         }
     }
 }

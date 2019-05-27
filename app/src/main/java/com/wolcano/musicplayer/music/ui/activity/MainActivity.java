@@ -18,9 +18,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.RelativeSizeSpan;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewPropertyAnimator;
@@ -38,12 +35,11 @@ import com.afollestad.materialdialogs.Theme;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.kabouzeid.appthemehelper.ATH;
-import com.kabouzeid.appthemehelper.ThemeStore;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
-import com.wolcano.musicplayer.music.mvp.listener.GetDisposable;
 import com.wolcano.musicplayer.music.mvp.listener.OnServiceListener;
 import com.wolcano.musicplayer.music.mvp.listener.OnSwipeTouchListener;
+import com.wolcano.musicplayer.music.mvp.listener.PlaylistListener;
 import com.wolcano.musicplayer.music.mvp.models.ModelBitmap;
 import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.provider.RemotePlay;
@@ -81,7 +77,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class MainActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemSelectedListener,View.OnClickListener, SeekBar.OnSeekBarChangeListener, OnServiceListener, GetDisposable {
+public class MainActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemSelectedListener,View.OnClickListener, SeekBar.OnSeekBarChangeListener, OnServiceListener, PlaylistListener {
 
     @BindView(R.id.child2linear)
     LinearLayout child2linear;
@@ -619,7 +615,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
                 break;
             case R.id.menu:
                 if (RemotePlay.get().getPlayMusic(context) != null) {
-                    if (RemotePlay.get().getPlayMusic(context).getTip() == Song.Tip.MODEL0) {
+                    if (RemotePlay.get().getPlayMusic(context).getType() == Song.Tip.MODEL0) {
                         SongHelperMenu.handleMenuLocal(this, v, RemotePlay.get().getPlayMusic(context), this::handlePlaylistDialog);
                     } else {
                         SongHelperMenu.handleMenuOnline(this, v, RemotePlay.get().getPlayMusic(context));
@@ -723,9 +719,9 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
         artist.setText(song.getArtist());
         theSeekbar.setProgress((int) RemotePlay.get().getPlayerCurrentPosition());
         theSeekbar.setSecondaryProgress(0);
-        theSeekbar.setMax((int) song.getDura());
+        theSeekbar.setMax((int) song.getDuration());
         current.setText(R.string.start);
-        total.setText(Utils.getDuraStr(song.getDura() / 1000, this));
+        total.setText(Utils.getDuraStr(song.getDuration() / 1000, this));
         setAlbumCover(song);
         if (RemotePlay.get().isPlaying() || RemotePlay.get().isPreparing()) {
             play.setSelected(true);

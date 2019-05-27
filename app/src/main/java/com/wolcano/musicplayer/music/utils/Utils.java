@@ -662,7 +662,7 @@ public class Utils {
         }
     }
 
-    public static String getDura(long durationLong) {
+    public static String getDuration(long durationLong) {
         long hours = durationLong / 3600;
         long minutes = (durationLong % 3600) / 60;
         long seconds = durationLong % 60;

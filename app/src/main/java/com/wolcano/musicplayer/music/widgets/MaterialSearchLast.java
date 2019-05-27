@@ -35,13 +35,11 @@ import android.widget.TextView;
 
 import com.miguelcatalan.materialsearchview.utils.AnimationUtil;
 import com.wolcano.musicplayer.music.R;
-import com.wolcano.musicplayer.music.ui.adapter.SearchAdapterLast;
+import com.wolcano.musicplayer.music.ui.adapter.SearchAdapter;
 import com.wolcano.musicplayer.music.mvp.listener.SetSearchQuery;
 
 import java.lang.reflect.Field;
 import java.util.List;
-
-import javax.inject.Inject;
 
 
 public class MaterialSearchLast extends FrameLayout implements Filter.FilterListener {
@@ -67,7 +65,7 @@ public class MaterialSearchLast extends FrameLayout implements Filter.FilterList
     private OnQueryTextListener onQueryChangeListener;
     private SearchViewListener searchViewListener;
 
-    private SearchAdapterLast searchAdapterLast;
+    private SearchAdapter searchAdapter;
 
     private SavedState mSavedState;
     private boolean submit = false;
@@ -206,8 +204,8 @@ public class MaterialSearchLast extends FrameLayout implements Filter.FilterList
     }
 
     public void startFilter(CharSequence s) {
-        if (searchAdapterLast != null && searchAdapterLast instanceof Filterable) {
-            ((Filterable) searchAdapterLast).getFilter().filter(s, this);
+        if (searchAdapter != null && searchAdapter instanceof Filterable) {
+            ((Filterable) searchAdapter).getFilter().filter(s, this);
         }
     }
 
@@ -235,7 +233,7 @@ public class MaterialSearchLast extends FrameLayout implements Filter.FilterList
         if (hasText) {
             emptyBtn.setVisibility(VISIBLE);
             onQueryChangeListener.onQueryTextChange(newText.toString());
-            //SearchAdapterLast.isFirst = false;
+            //SearchAdapter.isFirst = false;
 
         } else {
             emptyBtn.setVisibility(GONE);
@@ -377,7 +375,7 @@ public class MaterialSearchLast extends FrameLayout implements Filter.FilterList
 
 
     public void showSuggestions() {
-        if (searchAdapterLast != null && searchAdapterLast.getCount() > 0 && suggestionListView.getVisibility() == GONE) {
+        if (searchAdapter != null && searchAdapter.getCount() > 0 && suggestionListView.getVisibility() == GONE) {
             suggestionListView.setVisibility(VISIBLE);
         }
     }
@@ -410,8 +408,8 @@ public class MaterialSearchLast extends FrameLayout implements Filter.FilterList
      *
      * @param adapter
      */
-    public void setAdapter(SearchAdapterLast adapter) {
-        searchAdapterLast = adapter;
+    public void setAdapter(SearchAdapter adapter) {
+        searchAdapter = adapter;
         suggestionListView.setAdapter(adapter);
         startFilter(searchSrcTextView.getText());
 
@@ -425,7 +423,7 @@ public class MaterialSearchLast extends FrameLayout implements Filter.FilterList
     public void setSuggestions(String[] suggestions, String[] lastSearches, boolean isFirst, SetSearchQuery callback, int textColor) {
         if (suggestions != null && suggestions.length > 0) {
             tintView.setVisibility(VISIBLE);
-            final SearchAdapterLast adapter = new SearchAdapterLast(context, suggestions, suggestionIcon, suggestionSend, ellipsize, lastSearches, isFirst, callback,textColor,this);
+            final SearchAdapter adapter = new SearchAdapter(context, suggestions, suggestionIcon, suggestionSend, ellipsize, lastSearches, isFirst, callback,textColor,this);
             setAdapter(adapter);
 
             tintView.setVisibility(GONE);

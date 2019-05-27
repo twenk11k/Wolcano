@@ -22,7 +22,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
-import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -31,7 +30,7 @@ import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
 import com.wolcano.musicplayer.music.mvp.interactor.SongInteractorImpl;
-import com.wolcano.musicplayer.music.mvp.listener.GetDisposable;
+import com.wolcano.musicplayer.music.mvp.listener.PlaylistListener;
 import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.mvp.presenter.SongPresenterImpl;
 import com.wolcano.musicplayer.music.mvp.presenter.interfaces.SongPresenter;
@@ -42,7 +41,6 @@ import com.wolcano.musicplayer.music.widgets.StatusBarView;
 import com.wolcano.musicplayer.music.ui.adapter.RecentlyAddedAdapter;
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs;
 import com.wolcano.musicplayer.music.utils.SongUtils;
-import com.wolcano.musicplayer.music.utils.ToastUtils;
 import com.wolcano.musicplayer.music.utils.Utils;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 import java.util.List;
@@ -53,7 +51,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class FragmentRecently extends BaseFragment implements SongView,GetDisposable {
+public class FragmentRecently extends BaseFragment implements SongView, PlaylistListener {
 
     @BindView(R.id.recyclerview)
     FastScrollRecyclerView recyclerView;

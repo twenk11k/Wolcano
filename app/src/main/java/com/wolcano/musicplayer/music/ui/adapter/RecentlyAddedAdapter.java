@@ -8,75 +8,73 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.wolcano.musicplayer.music.R;
-import com.wolcano.musicplayer.music.mvp.listener.GetDisposable;
+import com.wolcano.musicplayer.music.databinding.ItemSongBinding;
+import com.wolcano.musicplayer.music.mvp.listener.PlaylistListener;
 import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.provider.RemotePlay;
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs;
 import com.wolcano.musicplayer.music.utils.Utils;
-
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class RecentlyAddedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class RecentlyAddedAdapter extends RecyclerView.Adapter<RecentlyAddedAdapter.ViewHolder> {
 
-    private List<Song> arraylist;
+    private List<Song> songList;
     private Context context;
-    private GetDisposable getDisposable;
-    private int i=0,j=0,z=0;
-    public RecentlyAddedAdapter(Context context, List<Song> arraylist,GetDisposable getDisposable){
+    private PlaylistListener playlistListener;
+
+    public RecentlyAddedAdapter(Context context, List<Song> songList, PlaylistListener playlistListener){
         this.context = context;
-        this.arraylist = arraylist;
-        this.getDisposable = getDisposable;
+        this.songList = songList;
+        this.playlistListener = playlistListener;
     }
+
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        RecyclerView.ViewHolder viewHolder;
-        View v;
-        v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_song, parent, false);
-        viewHolder = new RecentlyAddedAdapter.ViewHolder(v);
-        return viewHolder;
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        ItemSongBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),R.layout.item_song,parent,false);
+        return new ViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ViewHolder viewHolder = (ViewHolder) holder;
-        Song song = arraylist.get(position);
-        String dura = "";
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
+        holder.binding.setSong(songList.get(position));
+        holder.binding.executePendingBindings();
+        Song song = holder.binding.getSong();
+        String duration = "";
         try {
-            dura = Utils.getDura(song.getDura() / 1000);
+            duration = Utils.getDuration(song.getDuration() / 1000);
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
-        viewHolder.line2.setText((dura.isEmpty() ? "" : dura + " | ") + arraylist.get(position).getArtist());
-        viewHolder.line1.setText(song.getTitle());
+        holder.binding.line2.setText((duration.isEmpty() ? "" : duration + " | ") + songList.get(position).getArtist());
+        holder.binding.line1.setText(song.getTitle());
         String albumUri = "content://media/external/audio/media/" + song.getSongId() + "/albumart";
         Picasso.get()
                 .load(albumUri)
                 .placeholder(R.drawable.album_art)
-                .into(viewHolder.albumArt);
+                .into(holder.binding.albumArt);
 
-        setOnPopupMenuListener(viewHolder, position);
+        setOnPopupMenuListener(holder, position);
 
     }
 
     private void setOnPopupMenuListener(ViewHolder holder, final int position) {
-        holder.more.setOnClickListener(v -> {
+        holder.binding.more.setOnClickListener(v -> {
             try {
                 ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(v.getContext(), R.style.PopupMenuToolbar);
 
@@ -87,10 +85,10 @@ public class RecentlyAddedAdapter extends RecyclerView.Adapter<RecyclerView.View
 
                     switch (item.getItemId()) {
                         case R.id.copy_to_clipboard:
-                            Dialogs.copyDialog(context, arraylist.get(position));
+                            Dialogs.copyDialog(context, songList.get(position));
                             break;
                         case R.id.delete:
-                            Song song = arraylist.get(position);
+                            Song song = songList.get(position);
                             CharSequence title, artist;
                             int content;
                             title = song.getTitle();
@@ -129,11 +127,11 @@ public class RecentlyAddedAdapter extends RecyclerView.Adapter<RecyclerView.View
                                             .onPositive((dialog, which) -> {
                                                 if (context == null)
                                                     return;
-                                                RemotePlay.get().deleteFromRemotePlay(context, arraylist.size(), position, song);
+                                                RemotePlay.get().deleteFromRemotePlay(context, songList.size(), position, song);
                                                 List<Song> alist = new ArrayList<>();
                                                 alist.add(song);
                                                 Utils.deleteTracks(context, alist);
-                                                arraylist.remove(position);
+                                                songList.remove(position);
                                                 notifyItemRemoved(position);
                                                 notifyItemRangeChanged(position, getItemCount());
                                             })
@@ -144,13 +142,13 @@ public class RecentlyAddedAdapter extends RecyclerView.Adapter<RecyclerView.View
                             });
                             break;
                         case R.id.set_as_ringtone:
-                            Utils.setRingtone(context, arraylist.get(position).getSongId());
+                            Utils.setRingtone(context, songList.get(position).getSongId());
                             break;
                         case R.id.add_to_playlist:
-                            getDisposable.handlePlaylistDialog(arraylist.get(position));
+                            playlistListener.handlePlaylistDialog(songList.get(position));
                             break;
                         case R.id.share:
-                            Dialogs.shareDialog(context, arraylist.get(position), false);
+                            Dialogs.shareDialog(context, songList.get(position), false);
                             break;
                         default:
                             break;
@@ -165,27 +163,23 @@ public class RecentlyAddedAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
     @Override
     public int getItemCount() {
-        return (null != arraylist ? arraylist.size() : 0);
+        return (null != songList ? songList.size() : 0);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView line1;
-        TextView line2;
-        ImageView albumArt, more;
 
-        public ViewHolder(View view) {
-            super(view);
-            this.line1 =  view.findViewById(R.id.line1);
-            this.line2 =  view.findViewById(R.id.line2);
-            this.albumArt =  view.findViewById(R.id.albumArt);
-            this.more = view.findViewById(R.id.more);
-            view.setOnClickListener(this);
+        private ItemSongBinding binding;
+
+        public ViewHolder(ItemSongBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+            this.binding.getRoot().findViewById(R.id.item_relative).setOnClickListener(this::onClick);
         }
 
         @Override
         public void onClick(View v) {
-            Song song = arraylist.get(getAdapterPosition());
-            RemotePlay.get().playAdd(context,arraylist,song);
+            Song song = songList.get(getAdapterPosition());
+            RemotePlay.get().playAdd(context,songList,song);
         }
     }
 }

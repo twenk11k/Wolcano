@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.provider.MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI;
-import static com.wolcano.musicplayer.music.Constants.SONG_ONLY_SELECTION;
+import static com.wolcano.musicplayer.music.constants.Constants.SONG_ONLY_SELECTION;
 
 
 public class SongUtils {
@@ -79,12 +79,12 @@ public class SongUtils {
 
                 Song song = new Song();
                 song.setSongId(id);
-                song.setTip(Song.Tip.MODEL0);
+                song.setType(Song.Tip.MODEL0);
                 song.setTitle(title);
                 song.setArtist(artist);
                 song.setAlbum(album);
                 song.setAlbumId(albumId);
-                song.setDura(duration);
+                song.setDuration(duration);
                 song.setPath(path);
                 song.setDosName(fileName);
                 song.setDosSize(fileSize);
@@ -126,12 +126,12 @@ public class SongUtils {
 
                 Song song = new Song();
                 song.setSongId(id);
-                song.setTip(Song.Tip.MODEL0);
+                song.setType(Song.Tip.MODEL0);
                 song.setTitle(title);
                 song.setArtist(artist);
                 song.setAlbum(album);
                 song.setAlbumId(albumId);
-                song.setDura(duration);
+                song.setDuration(duration);
                 song.setPath(path);
                 song.setDosName(fileName);
                 song.setDosSize(fileSize);
@@ -190,12 +190,12 @@ public class SongUtils {
 
                 Song song = new Song();
                 song.setSongId(id);
-                song.setTip(Song.Tip.MODEL0);
+                song.setType(Song.Tip.MODEL0);
                 song.setTitle(title);
                 song.setArtist(artist);
                 song.setAlbum(album);
                 song.setAlbumId(albumId);
-                song.setDura(duration);
+                song.setDuration(duration);
                 song.setPath(path);
                 song.setDosName(fileName);
                 song.setDosSize(fileSize);
@@ -253,12 +253,12 @@ public class SongUtils {
 
                 Song song = new Song();
                 song.setSongId(id);
-                song.setTip(Song.Tip.MODEL0);
+                song.setType(Song.Tip.MODEL0);
                 song.setTitle(title);
                 song.setArtist(artist);
                 song.setAlbum(album);
                 song.setAlbumId(albumId);
-                song.setDura(duration);
+                song.setDuration(duration);
                 song.setPath(path);
                 song.setDosName(fileName);
                 song.setDosSize(fileSize);
@@ -317,12 +317,12 @@ public class SongUtils {
 
                     Song song = new Song();
                     song.setSongId(id);
-                    song.setTip(Song.Tip.MODEL0);
+                    song.setType(Song.Tip.MODEL0);
                     song.setTitle(title);
                     song.setArtist(artist);
                     song.setAlbum(album);
                     song.setAlbumId(albumId);
-                    song.setDura(duration);
+                    song.setDuration(duration);
                     song.setPath(path);
                     song.setDosName(fileName);
                     song.setDosSize(fileSize);
@@ -386,12 +386,12 @@ public class SongUtils {
 
                 Song song = new Song();
                 song.setSongId(id);
-                song.setTip(Song.Tip.MODEL0);
+                song.setType(Song.Tip.MODEL0);
                 song.setTitle(title);
                 song.setArtist(artist);
                 song.setAlbum(album);
                 song.setAlbumId(albumId);
-                song.setDura(duration);
+                song.setDuration(duration);
                 song.setPath(path);
                 song.setDosName(fileName);
                 song.setDosSize(fileSize);
@@ -820,12 +820,12 @@ public class SongUtils {
 
                 Song song = new Song();
                 song.setSongId(id);
-                song.setTip(Song.Tip.MODEL0);
+                song.setType(Song.Tip.MODEL0);
                 song.setTitle(title);
                 song.setArtist(artist);
                 song.setAlbum(album);
                 song.setAlbumId(albumId);
-                song.setDura(duration);
+                song.setDuration(duration);
                 song.setPath(path);
                 song.setDosName(fileName);
                 song.setDosSize(fileSize);

@@ -21,29 +21,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
-import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
-import com.wolcano.musicplayer.music.Constants;
+import com.wolcano.musicplayer.music.constants.Constants;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
 import com.wolcano.musicplayer.music.mvp.interactor.SongInteractorImpl;
-import com.wolcano.musicplayer.music.mvp.listener.GetDisposable;
+import com.wolcano.musicplayer.music.mvp.listener.PlaylistListener;
 import com.wolcano.musicplayer.music.mvp.models.Playlist;
 import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.mvp.presenter.SongPresenterImpl;
 import com.wolcano.musicplayer.music.mvp.presenter.interfaces.SongPresenter;
 import com.wolcano.musicplayer.music.mvp.view.SongView;
 import com.wolcano.musicplayer.music.ui.dialog.SleepTimerDialog;
+import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragment;
 import com.wolcano.musicplayer.music.widgets.StatusBarView;
 import com.wolcano.musicplayer.music.ui.activity.MainActivity;
 import com.wolcano.musicplayer.music.ui.adapter.detail.PlaylistSongAdapter;
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs;
-import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragment;
 import com.wolcano.musicplayer.music.utils.SongUtils;
-import com.wolcano.musicplayer.music.utils.ToastUtils;
 import com.wolcano.musicplayer.music.utils.Utils;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 import java.util.List;
@@ -56,7 +54,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class PlaylistDetailFragment extends BaseFragment implements SongView,GetDisposable {
+public class PlaylistDetailFragment extends BaseFragment implements SongView, PlaylistListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;

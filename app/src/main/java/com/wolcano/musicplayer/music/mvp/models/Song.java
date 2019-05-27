@@ -31,7 +31,7 @@ public class Song implements Serializable,Parcelable {
     private int tip;
     @NotNull
     @Property(nameInDb = "duration")
-    private long dura;
+    private long duration;
     @NotNull
     @Property(nameInDb = "path")
     private String path;
@@ -62,13 +62,13 @@ public class Song implements Serializable,Parcelable {
         album = in.readString();
         albumId = in.readLong();
         covPath = in.readString();
-        dura = in.readLong();
+        duration = in.readLong();
         path = in.readString();
         dosName = in.readString();
         dosSize = in.readLong();
     }
     public Song(Long id, int tip, long songId, String title, String artist,
-                String album, long albumId, String covPath, long dura,
+                String album, long albumId, String covPath, long duration,
                 @NotNull String path, String dosName, long dosSize) {
         this.id = id;
         this.tip = tip;
@@ -78,7 +78,7 @@ public class Song implements Serializable,Parcelable {
         this.album = album;
         this.albumId = albumId;
         this.covPath = covPath;
-        this.dura = dura;
+        this.duration = duration;
         this.path = path;
         this.dosName = dosName;
         this.dosSize = dosSize;
@@ -111,22 +111,22 @@ public class Song implements Serializable,Parcelable {
         this.covPath = covPath;
     }
 
-    public long getDura() {
-        return dura;
+    public long getDuration() {
+        return duration;
     }
 
-    public void setDura(long dura) {
-        this.dura = dura;
+    public void setDuration(long duration) {
+        this.duration = duration;
     }
 
     public String getPath() {
         return path;
     }
-    public int getTip() {
+    public int getType() {
         return tip;
     }
 
-    public void setTip(int tip) {
+    public void setType(int tip) {
         this.tip = tip;
     }
 
@@ -189,7 +189,7 @@ public class Song implements Serializable,Parcelable {
         dest.writeString(this.album);
         dest.writeLong(this.albumId);
         dest.writeString(this.covPath);
-        dest.writeLong(this.dura);
+        dest.writeLong(this.duration);
         dest.writeString(this.path);
         dest.writeString(this.dosName);
         dest.writeLong(this.dosSize);
@@ -207,7 +207,7 @@ public class Song implements Serializable,Parcelable {
         if (TextUtils.equals(song.title, this.title)
                 && TextUtils.equals(song.artist, this.artist)
                 && TextUtils.equals(song.album, this.album)
-                && song.dura == this.dura) {
+                && song.duration == this.duration) {
             return true;
         }
         return false;

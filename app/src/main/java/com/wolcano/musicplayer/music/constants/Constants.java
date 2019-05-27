@@ -1,7 +1,10 @@
-package com.wolcano.musicplayer.music;
+package com.wolcano.musicplayer.music.constants;
 
 import android.provider.MediaStore;
+import javax.inject.Singleton;
 
+
+@Singleton
 public class Constants {
 
     public static final String ALBUM_ID = "album_id";
@@ -25,4 +28,6 @@ public class Constants {
     public static final String ACTION_QUIT = PACKAGE_NAME + ".quitservice";
     public static final String ACTION_PAUSE = PACKAGE_NAME + ".pause";
     public static final String ACTION_STOP_SLEEP = PACKAGE_NAME + ".stopsleep";
+
+
 }

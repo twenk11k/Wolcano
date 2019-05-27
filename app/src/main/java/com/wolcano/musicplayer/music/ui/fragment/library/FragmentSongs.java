@@ -17,7 +17,6 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -49,16 +48,19 @@ import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
 import com.wolcano.musicplayer.music.mvp.interactor.SongInteractorImpl;
 import com.wolcano.musicplayer.music.mvp.listener.FilterListener;
+import com.wolcano.musicplayer.music.mvp.listener.PlaylistListener;
 import com.wolcano.musicplayer.music.mvp.models.Playlist;
 import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.mvp.presenter.SongPresenterImpl;
 import com.wolcano.musicplayer.music.mvp.presenter.interfaces.SongPresenter;
 import com.wolcano.musicplayer.music.mvp.view.SongView;
 import com.wolcano.musicplayer.music.provider.RemotePlay;
+import com.wolcano.musicplayer.music.ui.adapter.SongAdapter;
 import com.wolcano.musicplayer.music.ui.fragment.FragmentLibrary;
 import com.wolcano.musicplayer.music.ui.activity.MainActivity;
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs;
 import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragment;
+import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragment2;
 import com.wolcano.musicplayer.music.ui.filter.SongFilter;
 import com.wolcano.musicplayer.music.ui.viewmodel.SongsViewModel;
 import com.wolcano.musicplayer.music.utils.SongUtils;
@@ -73,15 +75,15 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class FragmentSongs extends BaseFragment implements SongView,FilterListener, AppBarLayout.OnOffsetChangedListener {
+public class FragmentSongs extends BaseFragment implements SongView,FilterListener, AppBarLayout.OnOffsetChangedListener, PlaylistListener {
 
 
-    private SongsAdapter mAdapter;
+    private SongAdapter mAdapter;
     private FastScrollRecyclerView recyclerView;
     private Context context;
     private Activity activity;
     private int searchC = 0;
-    TextView empty;
+    private TextView empty;
     private Disposable disposable;
     private String text;
     private View v;
@@ -127,7 +129,7 @@ public class FragmentSongs extends BaseFragment implements SongView,FilterListen
     @Override
     public void setSongList(List<Song> songList) {
 
-        mAdapter = new FragmentSongs.SongsAdapter((MainActivity) getActivity(), songList, FragmentSongs.this::setFastScrollIndexer);
+        mAdapter = new SongAdapter((MainActivity) getActivity(), songList, FragmentSongs.this::setFastScrollIndexer,this);
         recyclerView.setAdapter(mAdapter);
         runLayoutAnimation(recyclerView);
 
@@ -230,200 +232,21 @@ public class FragmentSongs extends BaseFragment implements SongView,FilterListen
     }
 
 
-
-    public class SongsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements Filterable {
-        public List<Song> arrayList;
-        AppCompatActivity context;
-        SongFilter filter;
-        List<Song> fList;
-        FilterListener fListener;
-
-        private SongsAdapter(AppCompatActivity context, List<Song> arrayList, FilterListener fListener) {
-            this.context = context;
-            this.arrayList = arrayList;
-            this.fList = arrayList;
-            this.fListener = fListener;
-        }
-
-        @NonNull
-        @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            RecyclerView.ViewHolder viewHolder = null;
-            View v;
-            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_song, parent, false);
-            viewHolder = new SongsAdapter.ViewHolder(v);
-            return viewHolder;
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-            SongsAdapter.ViewHolder viewHolder = (SongsAdapter.ViewHolder) holder;
-            Song song = arrayList.get(position);
-            String dura = "";
-            try {
-                dura = Utils.getDura(song.getDura() / 1000);
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
-            }
-
-            viewHolder.line2.setText((dura.isEmpty() ? "" : dura + " | ") + arrayList.get(position).getArtist());
-            viewHolder.line1.setText(song.getTitle());
-            String contentURI = "content://media/external/audio/media/" + song.getSongId() + "/albumart";
-            Picasso.get()
-                    .load(contentURI)
-                    .placeholder(R.drawable.album_art)
-                    .into(viewHolder.albumArt);
-            setOnPopupMenuListener(viewHolder, position);
-        }
-
-        private void setOnPopupMenuListener(SongsAdapter.ViewHolder holder, final int position) {
-            holder.more.setOnClickListener(v -> {
-                try {
-                    ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(v.getContext(), R.style.PopupMenuToolbar);
-
-                    PopupMenu popup = new PopupMenu(contextThemeWrapper, v);
-                    popup.getMenuInflater().inflate(R.menu.popup_menu_song, popup.getMenu());
-                    popup.show();
-                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(MenuItem item) {
-
-                            switch (item.getItemId()) {
-                                case R.id.add_to_playlist:
-                                    disposable = Observable.fromCallable(new Callable<List<Playlist>>() {
-                                        @Override
-                                        public List<Playlist> call() throws Exception {
-                                            return SongUtils.scanPlaylist(activity);
-                                        }
-                                    }).
-                                            subscribeOn(Schedulers.io()).
-                                            observeOn(AndroidSchedulers.mainThread()).
-                                            subscribe(new Consumer<List<Playlist>>() {
-                                                @Override
-                                                public void accept(List<Playlist> playlists) throws Exception {
-                                                    Dialogs.addPlaylistDialog(activity, arrayList.get(position), playlists);
-                                                }
-                                            });
-                                    break;
-                                case R.id.copy_to_clipboard:
-                                    Dialogs.copyDialog(context, arrayList.get(position));
-                                    break;
-                                case R.id.set_as_ringtone:
-                                    Utils.setRingtone(context, arrayList.get(position).getSongId());
-                                    break;
-                                case R.id.delete:
-
-                                    Song song = arrayList.get(position);
-                                    CharSequence title, artist;
-                                    int content;
-                                    title = song.getTitle();
-                                    artist = song.getArtist();
-                                    content = R.string.delete_song_content;
-                                    Uri contentURI = Uri.parse("content://media/external/audio/media/" + song.getSongId() + "/albumart");
-                                    Picasso.get().load(contentURI).into(new Target() {
-                                        @Override
-                                        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                                            update(bitmap);
-                                        }
-
-                                        @Override
-                                        public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-                                            update(null);
-                                        }
-
-                                        @Override
-                                        public void onPrepareLoad(Drawable placeHolderDrawable) {
-                                        }
-
-                                        private void update(Bitmap bitmap) {
-                                            if (bitmap == null) {
-                                                bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.album_art);
-                                            }
-                                            Drawable albumart = new BitmapDrawable(getResources(), bitmap);
-                                            String wholeStr = title + "\n" + artist;
-                                            SpannableString spanTitle = new SpannableString(wholeStr);
-                                            spanTitle.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.grey0)), (title + "\n").length(), wholeStr.length(), 0);
-
-                                            new MaterialDialog.Builder(context)
-                                                    .title(spanTitle)
-                                                    .content(content)
-                                                    .positiveText(R.string.yes)
-                                                    .negativeText(R.string.no)
-                                                    .positiveColor(Utils.getAccentColor(context))
-                                                    .negativeColor(Utils.getAccentColor(context))
-                                                    .onPositive((dialog, which) -> {
-                                                        if (context == null)
-                                                            return;
-                                                        RemotePlay.get().deleteFromRemotePlay(context, arrayList.size(), position, song);
-                                                        List<Song> alist = new ArrayList<>();
-                                                        alist.add(song);
-                                                        Utils.deleteTracks(context, alist);
-                                                        arrayList.remove(position);
-                                                        notifyItemRemoved(position);
-                                                        notifyItemRangeChanged(position, getItemCount());
-                                                    })
-                                                    .icon(albumart)
-                                                    .limitIconToDefaultSize()
-                                                    .show();
-                                        }
-                                    });
-
-                                    break;
-                                case R.id.share:
-                                    Dialogs.shareDialog(context, arrayList.get(position), false);
-                                    break;
-                                default:
-                                    break;
-                            }
-
-                            return true;
-                        }
-                    });
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
-        }
-
-        @Override
-        public int getItemCount() {
-            if (arrayList.size() <= 30) {
-                fListener.setFastScrollIndexer(false);
-            } else {
-                fListener.setFastScrollIndexer(true);
-            }
-            return (null != arrayList ? arrayList.size() : 0);
-        }
-
-        @Override
-        public Filter getFilter() {
-            if (filter == null) {
-                filter = new SongFilter(fList, this);
-            }
-            return filter;
-        }
-
-        class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-            TextView line1;
-            TextView line2;
-            ImageView albumArt, more;
-            public ViewHolder(View view) {
-                super(view);
-                this.line1 = view.findViewById(R.id.line1);
-                this.line2 = view.findViewById(R.id.line2);
-                this.albumArt = view.findViewById(R.id.albumArt);
-                this.more = view.findViewById(R.id.more);
-                view.setOnClickListener(this);
-            }
+    @Override
+    public void handlePlaylistDialog(Song song) {
+        disposable = Observable.fromCallable(new Callable<List<Playlist>>() {
             @Override
-            public void onClick(View v) {
-                Utils.hideKeyboard(context);
-                Song song = arrayList.get(getAdapterPosition());
-                RemotePlay.get().playAdd(context, arrayList, song);
+            public List<Playlist> call() throws Exception {
+                return SongUtils.scanPlaylist(context);
             }
-        }
-
-
+        }).
+                subscribeOn(Schedulers.io()).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(new Consumer<List<Playlist>>() {
+                    @Override
+                    public void accept(List<Playlist> playlists) throws Exception {
+                        Dialogs.addPlaylistDialog(context, song, playlists);
+                    }
+                });
     }
-
 }

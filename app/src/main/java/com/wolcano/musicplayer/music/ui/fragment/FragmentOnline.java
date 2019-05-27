@@ -62,8 +62,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
-import static com.wolcano.musicplayer.music.Constants.MAIN_BASE_URL;
-import static com.wolcano.musicplayer.music.Constants.MAIN_BASE_URL_2;
+import static com.wolcano.musicplayer.music.constants.Constants.MAIN_BASE_URL;
+import static com.wolcano.musicplayer.music.constants.Constants.MAIN_BASE_URL_2;
 
 
 
@@ -76,7 +76,7 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
     StatusBarView statusBarView;
     @BindView(R.id.progressBar)
     MaterialProgressBar progressBar;
-    @BindView(android.R.id.empty)
+    @BindView(R.id.emptyText)
     TextView empty;
     @BindView(R.id.toolbar_container)
     FrameLayout toolbarContainer;
@@ -147,9 +147,9 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
 
         View rootview;
         if (Build.VERSION.SDK_INT >= 21) {
-            rootview = inflater.inflate(R.layout.fragment_main, container, false);
+            rootview = inflater.inflate(R.layout.fragment_online, container, false);
         } else {
-            rootview = inflater.inflate(R.layout.fragment_main_19, container, false);
+            rootview = inflater.inflate(R.layout.fragment_online_19, container, false);
 
         }
         setHasOptionsMenu(true);
@@ -224,8 +224,7 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
 
         emptyView.setVisibility(View.VISIBLE);
         setSearchView();
-        TextView textEmpty = rootview.findViewById(R.id.text_empty_title);
-        textEmpty.setText(context.getResources().getString(R.string.search_info));
+        empty.setText(context.getResources().getString(R.string.search_info));
         recyclerView.setVisibility(View.GONE);
 
 

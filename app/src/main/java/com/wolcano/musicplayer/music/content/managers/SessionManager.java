@@ -123,7 +123,7 @@ public class SessionManager {
                         .putString(MediaMetadataCompat.METADATA_KEY_ARTIST, song.getArtist())
                         .putString(MediaMetadataCompat.METADATA_KEY_ALBUM, song.getAlbum())
                         .putString(MediaMetadataCompat.METADATA_KEY_ALBUM_ARTIST, song.getArtist())
-                        .putLong(MediaMetadataCompat.METADATA_KEY_DURATION, song.getDura())
+                        .putLong(MediaMetadataCompat.METADATA_KEY_DURATION, song.getDuration())
                         .putBitmap(MediaMetadataCompat.METADATA_KEY_ALBUM_ART, bitmap);
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

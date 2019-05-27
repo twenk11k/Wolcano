@@ -25,9 +25,9 @@ import com.wolcano.musicplayer.music.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchAdapterLast extends BaseAdapter implements Filterable {
+public class SearchAdapter extends BaseAdapter implements Filterable {
 
-    private ArrayList<String> data;
+    private ArrayList<String> searchList;
     private String[] suggestions,lastSearches;
     private Drawable suggestionIcon,suggestionSend;
     private LayoutInflater inflater;
@@ -40,10 +40,10 @@ public class SearchAdapterLast extends BaseAdapter implements Filterable {
     private SetSearchQuery callback;
 
 
-    public SearchAdapterLast(Context context, String[] suggestions, Drawable suggestionIcon, Drawable suggestionSend, boolean ellipsize, String[] lastSearches, boolean isFirst, SetSearchQuery callback, int textColor, MaterialSearchLast materialSearchLast) {
+    public SearchAdapter(Context context, String[] suggestions, Drawable suggestionIcon, Drawable suggestionSend, boolean ellipsize, String[] lastSearches, boolean isFirst, SetSearchQuery callback, int textColor, MaterialSearchLast materialSearchLast) {
 
         inflater = LayoutInflater.from(context);
-        data = new ArrayList<>();
+        this.searchList = new ArrayList<>();
         this.suggestions = suggestions;
         this.suggestionIcon = suggestionIcon;
         this.ellipsize = ellipsize;
@@ -93,7 +93,7 @@ public class SearchAdapterLast extends BaseAdapter implements Filterable {
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 if (results.values != null) {
-                    data = (ArrayList<String>) results.values;
+                    searchList = (ArrayList<String>) results.values;
                     notifyDataSetChanged();
                 }
             }
@@ -103,12 +103,12 @@ public class SearchAdapterLast extends BaseAdapter implements Filterable {
 
     @Override
     public int getCount() {
-        return data.size();
+        return searchList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return data.get(position);
+        return searchList.get(position);
     }
 
     @Override
@@ -116,8 +116,8 @@ public class SearchAdapterLast extends BaseAdapter implements Filterable {
         return position;
     }
     private void removeItem(int position){
-        if(position<data.size()){
-            data.remove(position);
+        if(position<searchList.size()){
+            searchList.remove(position);
             notifyDataSetChanged();
         }
     }
@@ -136,7 +136,7 @@ public class SearchAdapterLast extends BaseAdapter implements Filterable {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(data.size()>0)
+                if(searchList.size()>0)
                 callback.onSearchQuery(position,true);
 
             }

@@ -18,7 +18,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-import static com.wolcano.musicplayer.music.Constants.SONG_LIBRARY;
+import static com.wolcano.musicplayer.music.constants.Constants.SONG_LIBRARY;
 
 public class GenreInteractorImpl implements GenreInteractor {
 

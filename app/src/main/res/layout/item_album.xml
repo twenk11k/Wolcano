@@ -1,44 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
-
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-
-        <variable
-            name="song"
-            type="com.wolcano.musicplayer.music.mvp.models.Song" />
+        <variable name="album"
+            type="com.wolcano.musicplayer.music.mvp.models.Album"/>
     </data>
 
-
     <RelativeLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/relative_queue"
+        android:id="@+id/item_relative"
         android:layout_width="match_parent"
         android:layout_height="@dimen/adapter_item_height"
-        android:layout_marginTop="1dp"
         android:background="?android:attr/selectableItemBackground">
 
         <LinearLayout
-            android:id="@+id/linear_queue"
+            android:id="@+id/item_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="1dp"
             android:orientation="horizontal">
 
-            <View
-                android:id="@+id/indicator"
-                android:layout_width="3dp"
-                android:layout_height="46dp"
-                android:background="@color/red"
-                android:contentDescription="@null"
-                android:visibility="visible" />
 
             <ImageView
                 android:id="@+id/albumArt"
                 android:layout_width="46dp"
                 android:layout_height="46dp"
-                android:layout_marginLeft="15dp"
-                android:scaleType="centerCrop"
+                android:layout_marginLeft="10dp"
                 android:src="@drawable/album_art"
+                android:scaleType="centerCrop"
 
                 />
 
@@ -55,17 +45,17 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="10dp"
                     android:background="@drawable/btn_selector_wht"
                     android:clickable="true"
-                    android:padding="8dp"
-                    android:paddingTop="8dp"
-
-                    android:paddingBottom="8dp"
-                    android:scaleType="centerInside"
                     android:textSize="12sp"
+                    android:paddingBottom="8dp"
+                    android:layout_marginRight="10dp"
+                    android:paddingTop="8dp"
+                    android:padding="8dp"
+                    android:scaleType="centerInside"
                     android:tint="@color/grey0"
-                    app:srcCompat="@drawable/menu_overflow" />
+                    app:srcCompat="@drawable/menu_overflow"
+                    />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -79,8 +69,8 @@
                         android:id="@+id/line1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
                         android:singleLine="true"
+                        android:layout_marginTop="2dp"
 
                         android:textColor="@color/md_white_1000"
                         android:textSize="16sp" />
@@ -89,8 +79,9 @@
                         android:id="@+id/line2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="2dp"
+                        android:layout_marginTop="1dp"
                         android:singleLine="true"
+
                         android:textColor="@color/grey0"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -102,4 +93,5 @@
 
 
     </RelativeLayout>
+
 </layout>

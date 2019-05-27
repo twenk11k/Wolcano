@@ -37,11 +37,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.kabouzeid.appthemehelper.ATH;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.squareup.picasso.Picasso;
-import com.wolcano.musicplayer.music.Constants;
+import com.wolcano.musicplayer.music.constants.Constants;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
 import com.wolcano.musicplayer.music.mvp.interactor.SongInteractorImpl;
-import com.wolcano.musicplayer.music.mvp.listener.GetDisposable;
+import com.wolcano.musicplayer.music.mvp.listener.PlaylistListener;
 import com.wolcano.musicplayer.music.mvp.models.Playlist;
 import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.mvp.presenter.SongPresenterImpl;
@@ -70,7 +70,7 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AlbumDetailFragment extends Fragment implements SongView,GetDisposable {
+public class AlbumDetailFragment extends Fragment implements SongView, PlaylistListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -313,10 +313,10 @@ public class AlbumDetailFragment extends Fragment implements SongView,GetDisposa
             @Override
             public void run() {
                 if(mAdapter!=null){
-                    if(mAdapter.getArraylist()!=null){
-                        if (mAdapter.getArraylist().size() != 0) {
-                            Song song = mAdapter.getArraylist().get(0);
-                            RemotePlay.get().playAdd(context,mAdapter.getArraylist(), song);
+                    if(mAdapter.getSongList()!=null){
+                        if (mAdapter.getSongList().size() != 0) {
+                            Song song = mAdapter.getSongList().get(0);
+                            RemotePlay.get().playAdd(context,mAdapter.getSongList(), song);
                         }
                     }
                 }

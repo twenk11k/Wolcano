@@ -9,21 +9,20 @@ import android.net.Uri;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.wolcano.musicplayer.music.R;
-import com.wolcano.musicplayer.music.mvp.listener.GetDisposable;
+import com.wolcano.musicplayer.music.databinding.QueueAdapterItemBinding;
+import com.wolcano.musicplayer.music.mvp.listener.PlaylistListener;
 import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.provider.RemotePlay;
 import com.wolcano.musicplayer.music.utils.PermissionUtils;
@@ -34,55 +33,53 @@ import com.wolcano.musicplayer.music.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QueueAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class QueueAdapter extends RecyclerView.Adapter<QueueAdapter.ViewHolder> {
 
-    private List<Song> arraylist;
-    private AppCompatActivity context;
+    private List<Song> songList;
+    private AppCompatActivity activity;
     private boolean isPlaying = false;
-    private int dCount = 0;
-    private GetDisposable getDisposable;
+    private int downloadCount = 0;
+    private PlaylistListener playlistListener;
 
-    public QueueAdapter(AppCompatActivity activity, List<Song> arraylist,GetDisposable getDisposable) {
-        this.context = activity;
-        this.arraylist = arraylist;
-        this.getDisposable = getDisposable;
+    public QueueAdapter(AppCompatActivity activity, List<Song> songList,PlaylistListener playlistListener) {
+        this.activity = activity;
+        this.songList = songList;
+        this.playlistListener = playlistListener;
     }
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        RecyclerView.ViewHolder viewHolder;
-        View v;
-        v = LayoutInflater.from(parent.getContext()).inflate(R.layout.queue_adapter_item, parent, false);
-        viewHolder = new QueueAdapter.ViewHolder(v);
-        return viewHolder;
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        QueueAdapterItemBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),R.layout.queue_adapter_item,parent,false);
+        return new ViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        QueueAdapter.ViewHolder viewHolder = (QueueAdapter.ViewHolder) holder;
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        Song song = arraylist.get(position);
-        String dura = "";
+        holder.binding.setSong(songList.get(position));
+        holder.binding.executePendingBindings();
+        Song song = holder.binding.getSong();
+        String duration = "";
         try {
-            dura = Utils.getDura(song.getDura() / 1000);
+            duration = Utils.getDuration(song.getDuration() / 1000);
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
-        viewHolder.indicatorView.setVisibility((isPlaying && position == RemotePlay.get().getRemotePlayPos(context)) ? View.VISIBLE : View.INVISIBLE);
-        viewHolder.indicatorView.setBackgroundColor(Utils.getAccentColor(context));
-        viewHolder.line1.setText(song.getTitle());
-        viewHolder.line2.setText((dura.isEmpty() ? "" : dura + " | ") + arraylist.get(position).getArtist());
+        holder.binding.indicator.setVisibility((isPlaying && position == RemotePlay.get().getRemotePlayPos(activity)) ? View.VISIBLE : View.INVISIBLE);
+        holder.binding.indicator.setBackgroundColor(Utils.getAccentColor(activity.getApplicationContext()));
+        holder.binding.line1.setText(song.getTitle());
+        holder.binding.line2.setText((duration.isEmpty() ? "" : duration + " | ") + songList.get(position).getArtist());
         String albumUri = "content://media/external/audio/media/" + song.getSongId() + "/albumart";
         Picasso.get()
                 .load(albumUri)
                 .placeholder(R.drawable.album_art)
-                .into(viewHolder.albumArt);
+                .into(holder.binding.albumArt);
         
-        if (song.getTip() == Song.Tip.MODEL0)
-            setOnSongPopupMenuListener(viewHolder, position);
+        if (song.getType() == Song.Tip.MODEL0)
+            setOnSongPopupMenuListener(holder, position);
         else
-            setOnModel1PopupMenuListener(viewHolder, position);
+            setOnOnlinePopupMenuListener(holder, position);
 
 
     }
@@ -92,7 +89,7 @@ public class QueueAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     private void setOnSongPopupMenuListener(QueueAdapter.ViewHolder holder, final int position) {
-        holder.more.setOnClickListener(v -> {
+        holder.binding.more.setOnClickListener(v -> {
             try {
                 ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(v.getContext(), R.style.PopupMenuToolbar);
 
@@ -103,16 +100,16 @@ public class QueueAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
                     switch (item.getItemId()) {
                         case R.id.action_remove_from_queue:
-                            RemotePlay.get().deleteFromRemotePlay(context,arraylist.size(), position, arraylist.get(position));
+                            RemotePlay.get().deleteFromRemotePlay(activity,songList.size(), position, songList.get(position));
                             notifyItemRemoved(position);
                             notifyItemRangeChanged(position, getItemCount()-position);
 
                             break;
                         case R.id.copy_to_clipboard:
-                            Dialogs.copyDialog(context, arraylist.get(position));
+                            Dialogs.copyDialog(activity, songList.get(position));
                             break;
                         case R.id.delete:
-                            Song song = arraylist.get(position);
+                            Song song = songList.get(position);
                             CharSequence title,artist;
                             int content;
                             title = song.getTitle();
@@ -134,28 +131,28 @@ public class QueueAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                                 }
                                 private void update(Bitmap bitmap){
                                     if(bitmap==null){
-                                        bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.album_art);
+                                        bitmap = BitmapFactory.decodeResource(activity.getResources(), R.drawable.album_art);
                                     }
-                                    Drawable albumart = new BitmapDrawable(context.getResources(), bitmap);
+                                    Drawable albumart = new BitmapDrawable(activity.getResources(), bitmap);
                                     String wholeStr = title+"\n"+artist;
                                     SpannableString spanTitle = new SpannableString(wholeStr);
-                                    spanTitle.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.grey0)), (title+"\n").length(),wholeStr.length() , 0);
+                                    spanTitle.setSpan(new ForegroundColorSpan(activity.getResources().getColor(R.color.grey0)), (title+"\n").length(),wholeStr.length() , 0);
 
-                                    new MaterialDialog.Builder(context)
+                                    new MaterialDialog.Builder(activity)
                                             .title(spanTitle)
                                             .content(content)
                                             .positiveText(R.string.yes)
                                             .negativeText(R.string.no)
-                                            .positiveColor(Utils.getAccentColor(context))
-                                            .negativeColor(Utils.getAccentColor(context))
+                                            .positiveColor(Utils.getAccentColor(activity.getApplicationContext()))
+                                            .negativeColor(Utils.getAccentColor(activity.getApplicationContext()))
                                             .onPositive((dialog, which) -> {
-                                                if (context == null)
+                                                if (activity == null)
                                                     return;
-                                                RemotePlay.get().deleteFromRemotePlay(context,arraylist.size(), position, song);
+                                                RemotePlay.get().deleteFromRemotePlay(activity,songList.size(), position, song);
                                                 List<Song> alist = new ArrayList<>();
                                                 alist.add(song);
-                                                Utils.deleteTracks(context, alist);
-                                                arraylist.remove(position);
+                                                Utils.deleteTracks(activity, alist);
+                                                songList.remove(position);
                                                 notifyItemRemoved(position);
                                                 notifyItemRangeChanged(position, getItemCount()-position);
 
@@ -168,13 +165,13 @@ public class QueueAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
                             break;
                         case R.id.set_as_ringtone:
-                            Utils.setRingtone(context, arraylist.get(position).getSongId());
+                            Utils.setRingtone(activity, songList.get(position).getSongId());
                             break;
                         case R.id.add_to_playlist:
-                            getDisposable.handlePlaylistDialog(arraylist.get(position));
+                            playlistListener.handlePlaylistDialog(songList.get(position));
                             break;
                         case R.id.share:
-                            Dialogs.shareDialog(context, arraylist.get(position), false);
+                            Dialogs.shareDialog(activity, songList.get(position), false);
                             break;
                         default:
                             break;
@@ -188,8 +185,8 @@ public class QueueAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         });
     }
 
-    private void setOnModel1PopupMenuListener(ViewHolder viewHolder, final int position) {
-        viewHolder.more.setOnClickListener(v -> {
+    private void setOnOnlinePopupMenuListener(ViewHolder viewHolder, final int position) {
+        viewHolder.binding.more.setOnClickListener(v -> {
             try {
                 ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(v.getContext(), R.style.PopupMenuToolbar);
 
@@ -199,27 +196,27 @@ public class QueueAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 popup.setOnMenuItemClickListener(item -> {
                     switch (item.getItemId()) {
                         case R.id.action_remove_from_queue:
-                            RemotePlay.get().deleteFromRemotePlay(context,arraylist.size(), position, arraylist.get(position));
+                            RemotePlay.get().deleteFromRemotePlay(activity,songList.size(), position, songList.get(position));
                             notifyItemRemoved(position);
                             notifyItemRangeChanged(position, getItemCount() - position);
                             break;
                         case R.id.popup_song_copyto_clipboard:
-                            Dialogs.copyDialog(context, arraylist.get(position));
+                            Dialogs.copyDialog(activity, songList.get(position));
                             break;
                         case R.id.action_down:
-                            PermissionUtils.with(context)
+                            PermissionUtils.with(activity)
                                     .permissions(Manifest.permission.READ_EXTERNAL_STORAGE,
                                             Manifest.permission.WRITE_EXTERNAL_STORAGE)
                                     .result(new PermissionUtils.PermInterface() {
                                         @Override
                                         public void onPermGranted() {
-                                            dCount++;
-                                            SongUtils.downPerform(context, arraylist.get(position));
+                                            downloadCount++;
+                                            SongUtils.downPerform(activity, songList.get(position));
                                         }
 
                                         @Override
                                         public void onPermUnapproved() {
-                                            ToastUtils.show(context.getApplicationContext(),R.string.no_perm_save_file);
+                                            ToastUtils.show(activity.getApplicationContext(),R.string.no_perm_save_file);
                                         }
                                     })
                                     .reqPerm();
@@ -237,29 +234,23 @@ public class QueueAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return (null != arraylist ? arraylist.size() : 0);
+        return (null != songList ? songList.size() : 0);
     }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView line1;
-        TextView line2;
-        ImageView albumArt, more;
-        private View indicatorView;
 
-        public ViewHolder(View view) {
-            super(view);
-            this.line1 = view.findViewById(R.id.line1);
-            this.line2 = view.findViewById(R.id.line2);
-            this.albumArt = view.findViewById(R.id.albumArt);
-            this.more = view.findViewById(R.id.more);
-            indicatorView = view.findViewById(R.id.indicator);
-            view.setOnClickListener(this);
+        private QueueAdapterItemBinding binding;
+
+        public ViewHolder(QueueAdapterItemBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+            this.binding.getRoot().setOnClickListener(this::onClick);
         }
 
         @Override
         public void onClick(View v) {
-            RemotePlay.get().playSong(context,getAdapterPosition());
+            RemotePlay.get().playSong(activity,getAdapterPosition());
         }
     }
 }

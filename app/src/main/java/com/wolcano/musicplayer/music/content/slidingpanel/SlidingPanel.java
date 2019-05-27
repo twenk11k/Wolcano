@@ -168,7 +168,7 @@ public class SlidingPanel implements OnServiceListener,View.OnClickListener {
         line1.setText(song.getTitle());
         line2.setText(song.getArtist());
         play.setSelected(RemotePlay.get().isPlaying() || RemotePlay.get().isPreparing());
-        progressBar.setMax((int) song.getDura());
+        progressBar.setMax((int) song.getDuration());
         progressBar.setProgress((int) RemotePlay.get().getPlayerCurrentPosition());
 
     }

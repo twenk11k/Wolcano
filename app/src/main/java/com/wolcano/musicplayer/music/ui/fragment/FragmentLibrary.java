@@ -29,6 +29,7 @@ import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
 import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragment;
+import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragment2;
 import com.wolcano.musicplayer.music.utils.PermissionUtils;
 import com.wolcano.musicplayer.music.widgets.StatusBarView;
 import com.wolcano.musicplayer.music.ui.adapter.LibraryFragmentPagerAdapter;

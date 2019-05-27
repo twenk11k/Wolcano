@@ -2,19 +2,20 @@ package com.wolcano.musicplayer.music.ui.adapter;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
 import com.wolcano.musicplayer.music.R;
+import com.wolcano.musicplayer.music.databinding.ItemGenreBinding;
 import com.wolcano.musicplayer.music.mvp.models.Genre;
 import com.wolcano.musicplayer.music.utils.Utils;
-
 import java.util.List;
 
-public class GenreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHolder> {
 
     private List<Genre> arraylist;
     private Context context;
@@ -26,22 +27,19 @@ public class GenreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        RecyclerView.ViewHolder viewHolder;
-        View v;
-        v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_artist, parent, false);
-        viewHolder = new GenreAdapter.ViewHolder(v);
-        return viewHolder;
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        ItemGenreBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_genre, parent, false);
+        return new ViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        GenreAdapter.ViewHolder viewHolder = (GenreAdapter.ViewHolder) holder;
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        Genre genre = arraylist.get(position);
-
-        viewHolder.line1.setText(genre.getName());
-        viewHolder.line2.setText(Utils.createStr(context, R.plurals.Nsongs, genre.getSongCount()));
+        holder.binding.setGenre(arraylist.get(position));
+        holder.binding.executePendingBindings();
+        Genre genre = holder.binding.getGenre();
+        holder.binding.line1.setText(genre.getName());
+        holder.binding.line2.setText(Utils.createStr(context, R.plurals.Nsongs, genre.getSongCount()));
 
     }
 
@@ -52,13 +50,13 @@ public class GenreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView line1;
-        TextView line2;
-        public ViewHolder(View view) {
-            super(view);
-            line1 =  itemView.findViewById(R.id.line1);
-            line2 =  itemView.findViewById(R.id.line2);
-            view.setOnClickListener(this);
+
+        private ItemGenreBinding binding;
+
+        public ViewHolder(ItemGenreBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+            this.binding.getRoot().setOnClickListener(this::onClick);
         }
 
         @Override

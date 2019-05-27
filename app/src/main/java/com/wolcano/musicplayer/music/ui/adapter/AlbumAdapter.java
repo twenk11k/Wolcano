@@ -3,6 +3,7 @@ package com.wolcano.musicplayer.music.ui.adapter;
 import android.app.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.ContextThemeWrapper;
@@ -13,12 +14,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.wolcano.musicplayer.music.R;
+import com.wolcano.musicplayer.music.databinding.ItemAlbumBinding;
+import com.wolcano.musicplayer.music.mvp.listener.Bind;
 import com.wolcano.musicplayer.music.mvp.models.Album;
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs;
 import com.wolcano.musicplayer.music.utils.Utils;
 import java.util.List;
 
-public class AlbumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> {
 
     private List<Album> arraylist;
     private Activity context;
@@ -30,23 +33,22 @@ public class AlbumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        RecyclerView.ViewHolder viewHolder;
-        View v;
-        v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_song, parent, false);
-        viewHolder = new AlbumAdapter.ViewHolder(v);
-        return viewHolder;
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        ItemAlbumBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_album, parent, false);
+        return new ViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        AlbumAdapter.ViewHolder viewHolder = (AlbumAdapter.ViewHolder) holder;
-        Album album = arraylist.get(position);
-        viewHolder.albumName.setText(album.getName());
-        viewHolder.artistName.setText(album.getArtist());
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
+        holder.binding.setAlbum(arraylist.get(position));
+        holder.binding.executePendingBindings();
+        Album album = holder.binding.getAlbum();
+        holder.binding.line1.setText(album.getName());
+        holder.binding.line2.setText(album.getArtist());
         String albumUri = "content://media/external/audio/albumart/" + album.getId();
-        Picasso.get().load(albumUri).placeholder(R.drawable.album_art).into(viewHolder.icon);
-        setOnPopupMenuListener(viewHolder, position);
+        Picasso.get().load(albumUri).placeholder(R.drawable.album_art).into(holder.binding.albumArt);
+        setOnPopupMenuListener(holder, position);
 
     }
     @Override
@@ -54,7 +56,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         return (null != arraylist ? arraylist.size() : 0);
     }
     private void setOnPopupMenuListener(AlbumAdapter.ViewHolder holder, final int position) {
-        holder.more.setOnClickListener(v -> {
+        holder.binding.more.setOnClickListener(v -> {
             try {
                 ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(v.getContext(), R.style.PopupMenuToolbar);
 
@@ -80,19 +82,13 @@ public class AlbumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView albumName;
-        TextView artistName;
-        ImageView icon,more;
 
+        private ItemAlbumBinding binding;
 
-        public ViewHolder(View itemView) {
-            super(itemView);
-            albumName = itemView.findViewById(R.id.line1);
-            artistName = itemView.findViewById(R.id.line2);
-            icon = itemView.findViewById(R.id.albumArt);
-            more = itemView.findViewById(R.id.more);
-            icon.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            itemView.setOnClickListener(this);
+        public ViewHolder(ItemAlbumBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+            this.binding.getRoot().setOnClickListener(this::onClick);
         }
 
         @Override

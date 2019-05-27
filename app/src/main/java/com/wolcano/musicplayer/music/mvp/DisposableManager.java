@@ -5,6 +5,8 @@ import io.reactivex.disposables.Disposable;
 
 public class DisposableManager {
 
+    private DisposableManager() {}
+
     private static CompositeDisposable compositeDisposable;
 
     public static void add(Disposable disposable) {
@@ -22,5 +24,4 @@ public class DisposableManager {
         return compositeDisposable;
     }
 
-    private DisposableManager() {}
 }

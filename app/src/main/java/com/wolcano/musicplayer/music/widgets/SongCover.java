@@ -167,9 +167,9 @@ public class SongCover {
         if (song == null) {
             return null;
         }
-        if (song.getTip() == Song.Tip.MODEL0 && song.getAlbumId() > 0) {
+        if (song.getType() == Song.Tip.MODEL0 && song.getAlbumId() > 0) {
             return String.valueOf(song.getAlbumId());
-        } else if (song.getTip() == Song.Tip.MODEL1 && !TextUtils.isEmpty(song.getCovPath())) {
+        } else if (song.getType() == Song.Tip.MODEL1 && !TextUtils.isEmpty(song.getCovPath())) {
             return song.getCovPath();
         } else {
             return null;
@@ -193,7 +193,7 @@ public class SongCover {
 
     private Bitmap loadModelwT(Context context,Song song, Tip tip) {
         Bitmap bm;
-        if (song.getTip() == Song.Tip.MODEL0) {
+        if (song.getType() == Song.Tip.MODEL0) {
             bm = getAlbumart(context,song.getAlbumId());
         } else {
             bm = loadModelFile(song.getCovPath());

@@ -2,6 +2,7 @@ package com.wolcano.musicplayer.music.ui.adapter.other;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -11,42 +12,45 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wolcano.musicplayer.music.R;
+import com.wolcano.musicplayer.music.databinding.ItemCopyBinding;
 import com.wolcano.musicplayer.music.mvp.models.Copy;
 
 import java.util.ArrayList;
 
 public class LikeItemAdapter extends RecyclerView.Adapter<LikeItemAdapter.ViewHolder> {
 
-    private final ArrayList<Copy> items;
+    private final ArrayList<Copy> likeList;
     private final Context context;
-    private LikeItemAdapter.ItemCallback itemCallback;
+    private ItemCallback itemCallback;
 
-    public LikeItemAdapter(Context context, ArrayList<Copy> items) {
+    public LikeItemAdapter(Context context, ArrayList<Copy> likeList) {
         this.context = context;
-        this.items = items;
+        this.likeList = likeList;
     }
 
     @NonNull
     @Override
-    public LikeItemAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.copy_item, parent, false);
-        return new LikeItemAdapter.ViewHolder(view, this);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        ItemCopyBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_copy, parent, false);
+        return new ViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull LikeItemAdapter.ViewHolder holder, int position) {
-
-        holder.text.setText(items.get(position).getText());
-        if (items.get(position).getIcon() == 0)
-            holder.icon.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_star_rate_white_48));
-        if (items.get(position).getIcon() == 1)
-            holder.icon.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_share_white_18));
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.binding.setCopy(likeList.get(position));
+        holder.binding.executePendingBindings();
+        Copy like = holder.binding.getCopy();
+        holder.binding.text.setText(like.getText());
+        if (like.getIcon() == 0)
+            holder.binding.icon.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_star_rate_white_48));
+        if (like.getIcon() == 1)
+            holder.binding.icon.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_share_white_18));
 
     }
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return likeList.size();
     }
 
     public void setCallback(LikeItemAdapter.ItemCallback callback) {
@@ -58,23 +62,19 @@ public class LikeItemAdapter extends RecyclerView.Adapter<LikeItemAdapter.ViewHo
         void onItemClicked(int itemIndex);
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView text;
-        private ImageView icon;
-        final LikeItemAdapter adapter;
+        private ItemCopyBinding binding;
 
-        ViewHolder(View itemView, LikeItemAdapter adapter) {
-            super(itemView);
-            text = itemView.findViewById(R.id.text);
-            icon = itemView.findViewById(R.id.icon);
-            this.adapter = adapter;
-            itemView.setOnClickListener(this);
+        ViewHolder(ItemCopyBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+            this.binding.getRoot().setOnClickListener(this::onClick);
         }
 
         @Override
         public void onClick(View v) {
-            adapter.itemCallback.onItemClicked(getAdapterPosition());
+            itemCallback.onItemClicked(getAdapterPosition());
         }
     }
 }

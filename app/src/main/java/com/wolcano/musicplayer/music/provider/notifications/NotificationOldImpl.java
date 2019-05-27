@@ -15,11 +15,11 @@ import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.provider.RemotePlay;
 import com.wolcano.musicplayer.music.provider.MusicService;
-import static com.wolcano.musicplayer.music.Constants.ACTION_QUIT;
-import static com.wolcano.musicplayer.music.Constants.ACTION_REWIND;
-import static com.wolcano.musicplayer.music.Constants.ACTION_SKIP;
-import static com.wolcano.musicplayer.music.Constants.ACTION_STOP;
-import static com.wolcano.musicplayer.music.Constants.ACTION_TOGGLE_PAUSE;
+import static com.wolcano.musicplayer.music.constants.Constants.ACTION_QUIT;
+import static com.wolcano.musicplayer.music.constants.Constants.ACTION_REWIND;
+import static com.wolcano.musicplayer.music.constants.Constants.ACTION_SKIP;
+import static com.wolcano.musicplayer.music.constants.Constants.ACTION_STOP;
+import static com.wolcano.musicplayer.music.constants.Constants.ACTION_TOGGLE_PAUSE;
 
 public class NotificationOldImpl extends Notification {
 

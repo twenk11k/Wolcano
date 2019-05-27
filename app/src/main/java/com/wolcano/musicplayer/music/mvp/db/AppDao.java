@@ -77,7 +77,7 @@ public class AppDao extends AbstractDao<Song, Long> {
         if (id != null) {
             stmt.bindLong(1, id);
         }
-        stmt.bindLong(2, entity.getTip());
+        stmt.bindLong(2, entity.getType());
         stmt.bindLong(3, entity.getSongId());
  
         String title = entity.getTitle();
@@ -100,7 +100,7 @@ public class AppDao extends AbstractDao<Song, Long> {
         if (coverPath != null) {
             stmt.bindString(8, coverPath);
         }
-        stmt.bindLong(9, entity.getDura());
+        stmt.bindLong(9, entity.getDuration());
         stmt.bindString(10, entity.getPath());
  
         String fileName = entity.getDosName();
@@ -118,7 +118,7 @@ public class AppDao extends AbstractDao<Song, Long> {
         if (id != null) {
             stmt.bindLong(1, id);
         }
-        stmt.bindLong(2, entity.getTip());
+        stmt.bindLong(2, entity.getType());
         stmt.bindLong(3, entity.getSongId());
  
         String title = entity.getTitle();
@@ -141,7 +141,7 @@ public class AppDao extends AbstractDao<Song, Long> {
         if (coverPath != null) {
             stmt.bindString(8, coverPath);
         }
-        stmt.bindLong(9, entity.getDura());
+        stmt.bindLong(9, entity.getDuration());
         stmt.bindString(10, entity.getPath());
  
         String fileName = entity.getDosName();
@@ -178,14 +178,14 @@ public class AppDao extends AbstractDao<Song, Long> {
     @Override
     public void readEntity(Cursor cursor, Song entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setTip(cursor.getInt(offset + 1));
+        entity.setType(cursor.getInt(offset + 1));
         entity.setSongId(cursor.getLong(offset + 2));
         entity.setTitle(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setArtist(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setAlbum(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
         entity.setAlbumId(cursor.getLong(offset + 6));
         entity.setCovPath(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
-        entity.setDura(cursor.getLong(offset + 8));
+        entity.setDuration(cursor.getLong(offset + 8));
         entity.setPath(cursor.getString(offset + 9));
         entity.setDosName(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
         entity.setDosSize(cursor.getLong(offset + 11));

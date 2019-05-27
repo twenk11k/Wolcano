@@ -19,12 +19,12 @@ import com.wolcano.musicplayer.music.provider.notifications.Notification;
 import com.wolcano.musicplayer.music.provider.notifications.NotificationImpl;
 import com.wolcano.musicplayer.music.provider.notifications.NotificationLatestImpl;
 import com.wolcano.musicplayer.music.provider.notifications.NotificationOldImpl;
-import static com.wolcano.musicplayer.music.Constants.ACTION_PAUSE;
-import static com.wolcano.musicplayer.music.Constants.ACTION_REWIND;
-import static com.wolcano.musicplayer.music.Constants.ACTION_SKIP;
-import static com.wolcano.musicplayer.music.Constants.ACTION_STOP;
-import static com.wolcano.musicplayer.music.Constants.ACTION_STOP_SLEEP;
-import static com.wolcano.musicplayer.music.Constants.ACTION_TOGGLE_PAUSE;
+import static com.wolcano.musicplayer.music.constants.Constants.ACTION_PAUSE;
+import static com.wolcano.musicplayer.music.constants.Constants.ACTION_REWIND;
+import static com.wolcano.musicplayer.music.constants.Constants.ACTION_SKIP;
+import static com.wolcano.musicplayer.music.constants.Constants.ACTION_STOP;
+import static com.wolcano.musicplayer.music.constants.Constants.ACTION_STOP_SLEEP;
+import static com.wolcano.musicplayer.music.constants.Constants.ACTION_TOGGLE_PAUSE;
 
 
 public class MusicService extends Service {

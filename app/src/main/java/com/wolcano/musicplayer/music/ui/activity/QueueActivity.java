@@ -13,19 +13,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.wolcano.musicplayer.music.R;
-import com.wolcano.musicplayer.music.mvp.listener.GetDisposable;
 import com.wolcano.musicplayer.music.mvp.listener.OnServiceListener;
+import com.wolcano.musicplayer.music.mvp.listener.PlaylistListener;
 import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.provider.RemotePlay;
 import com.wolcano.musicplayer.music.ui.activity.base.BaseActivity;
 import com.wolcano.musicplayer.music.ui.dialog.SleepTimerDialog;
-import com.wolcano.musicplayer.music.utils.ToastUtils;
 import com.wolcano.musicplayer.music.widgets.StatusBarView;
 import com.wolcano.musicplayer.music.ui.adapter.QueueAdapter;
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs;
@@ -40,7 +38,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class QueueActivity extends BaseActivity implements AdapterView.OnItemClickListener, OnServiceListener,GetDisposable {
+public class QueueActivity extends BaseActivity implements AdapterView.OnItemClickListener, OnServiceListener, PlaylistListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;

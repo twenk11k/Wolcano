@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import com.wolcano.musicplayer.music.R;
+import com.wolcano.musicplayer.music.constants.Type;
 import com.wolcano.musicplayer.music.mvp.models.SongOnline;
 import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.provider.RemotePlay;
@@ -32,16 +33,16 @@ import java.util.List;
 
 public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private ArrayList<SongOnline> arraylist;
+    private ArrayList<SongOnline> songOnlineList;
     private AppCompatActivity context;
     private boolean showLoader;
-    private int dCount = 0;
+    private int downloadCount = 0;
 
-    public MainAdapter(AppCompatActivity context, ArrayList<SongOnline> arraylist) {
-        if (arraylist == null) {
-            this.arraylist = new ArrayList<>();
+    public MainAdapter(AppCompatActivity context, ArrayList<SongOnline> songOnlineList) {
+        if (songOnlineList == null) {
+            this.songOnlineList = new ArrayList<>();
         } else {
-            this.arraylist = arraylist;
+            this.songOnlineList = songOnlineList;
 
         }
         this.context = context;
@@ -62,7 +63,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.popup_song_copyto_clipboard:
-                                Dialogs.copyDialog(context, arraylist.get(pos));
+                                Dialogs.copyDialog(context, songOnlineList.get(pos));
                                 break;
                             case R.id.action_down:
                                 PermissionUtils.with(context)
@@ -71,8 +72,8 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                                         .result(new PermissionUtils.PermInterface() {
                                             @Override
                                             public void onPermGranted() {
-                                                dCount++;
-                                                SongUtils.downPerform(context,arraylist.get(pos));
+                                                downloadCount++;
+                                                SongUtils.downPerform(context,songOnlineList.get(pos));
                                             }
 
                                             @Override
@@ -96,8 +97,8 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public void clear() {
-        final int size = arraylist.size();
-        arraylist.clear();
+        final int size = songOnlineList.size();
+        songOnlineList.clear();
         notifyItemRangeRemoved(0, size);
     }
 
@@ -141,16 +142,16 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             SongOnline localItem;
 
-            localItem = arraylist.get(position);
+            localItem = songOnlineList.get(position);
 
             viewHolder.line1.setText(localItem.getTitle());
-            String dura = "";
+            String duration = "";
             try {
-                dura = Utils.getDura(localItem.getDuration());
+                duration = Utils.getDuration(localItem.getDuration());
             } catch (NumberFormatException e) {
                 e.printStackTrace();
             }
-            viewHolder.line2.setText((String.valueOf(arraylist.get(position).getDuration()).isEmpty() ? "" : String.valueOf(dura)) + "  |  " + localItem.getArtistName());
+            viewHolder.line2.setText((String.valueOf(songOnlineList.get(position).getDuration()).isEmpty() ? "" : String.valueOf(duration)) + "  |  " + localItem.getArtistName());
 
             setOnPopupMenuListener(viewHolder, position);
         }
@@ -159,7 +160,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public int getItemViewType(int position) {
 
-        if (arraylist.size() == (position + 1) && arraylist.size() >= 50) {
+        if (songOnlineList.size() == (position + 1) && songOnlineList.size() >= 50) {
             return Type.TYPE_FOOTER;
         } else {
             return Type.TYPE_SONG;
@@ -170,25 +171,20 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return (null != arraylist ? arraylist.size() : 0);
+        return (null != songOnlineList ? songOnlineList.size() : 0);
     }
 
 
-    private static class Type {
-
-        private static final int TYPE_SONG = 1;
-        private static final int TYPE_FOOTER = 2;
-
-    }
 
     public void showLoading(boolean status) {
         this.showLoader = status;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView line1;
-        TextView line2;
-        ImageView albumArt,more;
+
+        private TextView line1;
+        private TextView line2;
+        private ImageView albumArt,more;
 
         public ViewHolder(View view) {
             super(view);
@@ -203,7 +199,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public void onClick(View v) {
             Utils.hideKeyboard(context);
             final Handler handler = new Handler();
-            handler.postDelayed(() -> new PlayModelLocal(context, arraylist) {
+            handler.postDelayed(() -> new PlayModelLocal(context, songOnlineList) {
                 @Override
                 public void onPrepare() {
                 }

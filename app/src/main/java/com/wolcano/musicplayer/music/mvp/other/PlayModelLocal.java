@@ -25,11 +25,11 @@ public abstract class PlayModelLocal extends PlayModelOnline {
             String artist = songOnlineList.get(i).getArtistName();
             String title = songOnlineList.get(i).getTitle();
             song = new Song();
-            song.setTip(Song.Tip.MODEL1);
+            song.setType(Song.Tip.MODEL1);
             song.setTitle(title);
             song.setArtist(artist);
             song.setPath(songOnlineList.get(i).getPath());
-            song.setDura(songOnlineList.get(i).getDuration()*1000);
+            song.setDuration(songOnlineList.get(i).getDuration()*1000);
             songList.add(song);
             if(i==(songOnlineList.size()-1)){
                 onTaskDone(songList);

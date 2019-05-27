@@ -27,8 +27,8 @@ import com.wolcano.musicplayer.music.utils.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.wolcano.musicplayer.music.Constants.ACTION_PAUSE;
-import static com.wolcano.musicplayer.music.Constants.ACTION_STOP_SLEEP;
+import static com.wolcano.musicplayer.music.constants.Constants.ACTION_PAUSE;
+import static com.wolcano.musicplayer.music.constants.Constants.ACTION_STOP_SLEEP;
 
 public class SleepTimerDialog extends DialogFragment {
     @BindView(R.id.seek_arc)

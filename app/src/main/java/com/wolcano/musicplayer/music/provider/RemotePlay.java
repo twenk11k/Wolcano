@@ -138,7 +138,7 @@ public class RemotePlay {
         try {
             mediaPlayer.reset();
             mediaPlayer.setDataSource(song.getPath());
-            if (song.getTip() == Song.Tip.MODEL1) {
+            if (song.getType() == Song.Tip.MODEL1) {
                 mediaPlayer.prepareAsync();
             } else {
                 mediaPlayer.prepare();

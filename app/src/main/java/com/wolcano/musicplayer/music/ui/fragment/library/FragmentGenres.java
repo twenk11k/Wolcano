@@ -34,6 +34,7 @@ import com.wolcano.musicplayer.music.ui.fragment.FragmentLibrary;
 import com.wolcano.musicplayer.music.ui.activity.MainActivity;
 import com.wolcano.musicplayer.music.ui.adapter.GenreAdapter;
 import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragment;
+import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragment2;
 import com.wolcano.musicplayer.music.utils.Utils;
 import java.util.List;
 import io.reactivex.disposables.Disposable;
