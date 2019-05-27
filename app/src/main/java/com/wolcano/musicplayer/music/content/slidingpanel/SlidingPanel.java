@@ -115,7 +115,6 @@ public class SlidingPanel implements OnServiceListener,View.OnClickListener {
 
     }
 
-
     public Disposable getDisposable() {
         return disposable;
     }
