@@ -16,7 +16,7 @@ public class AppHandler implements Application.ActivityLifecycleCallbacks {
     private List<Observer> observerList;
     private int activityCount;
     private Handler handler;
-    private static final long HANDLER_VAL = 500;
+    private static final long HANDLER_DELAY = 500;
     private boolean isChecked;
 
     public interface Observer {
@@ -88,7 +88,7 @@ public class AppHandler implements Application.ActivityLifecycleCallbacks {
                     AppHandler.this.notify(activity, false);
                 }
             }
-        }, HANDLER_VAL);
+        }, HANDLER_DELAY);
     }
 
 

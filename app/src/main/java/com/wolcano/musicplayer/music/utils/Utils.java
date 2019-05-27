@@ -211,16 +211,16 @@ public class Utils {
         settings.edit().putBoolean("recreated_val", val).apply();
 
     }
-    public static int getCountSave(Context context) {
+    public static int getCountDownload(Context context) {
         settings = context.getSharedPreferences("VALUES", Context.MODE_PRIVATE);
 
-        return settings.getInt("count_save", 0);
+        return settings.getInt("count_download", 0);
     }
 
-    public static void setCountSave(Context context, int pos) {
+    public static void setCountDownload(Context context, int pos) {
         settings = context.getSharedPreferences("VALUES", Context.MODE_PRIVATE);
 
-        settings.edit().putInt("count_save", pos).apply();
+        settings.edit().putInt("count_download", pos).apply();
     }
     public static int getLastSleepTimerValue(Context context) {
         settings = context.getSharedPreferences("VALUES", Context.MODE_PRIVATE);

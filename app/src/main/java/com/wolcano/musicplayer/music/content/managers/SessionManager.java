@@ -17,7 +17,7 @@ import com.wolcano.musicplayer.music.provider.RemotePlay;
 
 public class SessionManager {
 
-    private MusicService service;
+    private MusicService musicService;
     private MediaSessionCompat mediaSessionCompat;
 
     public static SessionManager get() {
@@ -31,9 +31,9 @@ public class SessionManager {
     private SessionManager() {
     }
 
-    public void setSessionMng(MusicService musicService) {
-        this.service = musicService;
-        initMedia();
+    public void setSessionManager(MusicService musicService) {
+        this.musicService = musicService;
+        initMediaSessionCompat();
     }
 
 
@@ -52,8 +52,8 @@ public class SessionManager {
                         .setState(state, RemotePlay.get().getPlayerCurrentPosition(), 1)
                         .build());
     }
-    private void initMedia() {
-        mediaSessionCompat = new MediaSessionCompat(service, "SessionManager");
+    private void initMediaSessionCompat() {
+        mediaSessionCompat = new MediaSessionCompat(musicService, "SessionManager");
         mediaSessionCompat.setFlags(MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS | MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS);
         mediaSessionCompat.setCallback(sessionCallback);
         mediaSessionCompat.setActive(true);
@@ -66,27 +66,27 @@ public class SessionManager {
     private MediaSessionCompat.Callback sessionCallback = new MediaSessionCompat.Callback() {
         @Override
         public void onPlay() {
-            RemotePlay.get().buttonClick(service);
+            RemotePlay.get().buttonClick(musicService);
         }
 
         @Override
         public void onPause() {
-            RemotePlay.get().buttonClick(service);
+            RemotePlay.get().buttonClick(musicService);
         }
 
         @Override
         public void onSkipToNext() {
-            RemotePlay.get().next(service,false);
+            RemotePlay.get().next(musicService,false);
         }
 
         @Override
         public void onSkipToPrevious() {
-            RemotePlay.get().prev(service);
+            RemotePlay.get().prev(musicService);
         }
 
         @Override
         public void onStop() {
-            RemotePlay.get().stopRemotePlay(service);
+            RemotePlay.get().stopRemotePlay(musicService);
         }
 
         @Override
@@ -116,7 +116,7 @@ public class SessionManager {
             }
             private void update(Bitmap bitmap){
                 if(bitmap==null){
-                    bitmap = BitmapFactory.decodeResource(service.getResources(), R.drawable.album_art);
+                    bitmap = BitmapFactory.decodeResource(musicService.getResources(), R.drawable.album_art);
                 }
                 MediaMetadataCompat.Builder metaData = new MediaMetadataCompat.Builder()
                         .putString(MediaMetadataCompat.METADATA_KEY_TITLE, song.getTitle())

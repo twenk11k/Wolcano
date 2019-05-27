@@ -124,22 +124,19 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
 
 
     private boolean isDragging;
-    SlidingPanel slidingPanel;
-
+    private SlidingPanel slidingPanel;
     private boolean isExpand = false;
-    private int olshared = -1;
-    private MenuItem recentlyAddedMenu;
     private Context context;
     private boolean lightStatusbar;
     private boolean mIsResumed = true;
     private Activity activity;
-    private Disposable mainActDisposable;
+    private Disposable disposable;
     private Drawable placeholder;
     private Handler handlerD, handlerCollapse;
     private Runnable runnableD;
     private int currentFrag;
-    private Handler handlerNavigate;
-
+    private boolean typeReturn = false;
+    private BottomSheetBehavior bottomSheetBehavior;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -154,15 +151,11 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
         handleRateDialog();
     }
 
-    BottomSheetBehavior bottomSheetBehavior;
 
     private void setDrawerOptions() {
 
-        handlerNavigate = new Handler();
         handlerCollapse = new Handler();
-
         bottomSheetBehavior = new BottomSheetBehavior();
-
         bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
@@ -176,10 +169,12 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
     }
 
     private void slideDown(BottomNavigationView child, float slideOffset) {
-        float heigh_to_animate = slideOffset * child.getHeight();
+
+        float height = slideOffset * child.getHeight();
+
         ViewPropertyAnimator animator = child.animate();
-        animator
-                .translationY(heigh_to_animate)
+
+        animator.translationY(height)
                 .setInterpolator(new DecelerateInterpolator())
                 .setDuration(0)
                 .start();
@@ -235,17 +230,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
     }
 
 
-    private void setBadge(int count) {
-        recentlyAddedMenu.setTitle(getResources().getString(R.string.recentlyadded));
-        String laststr = recentlyAddedMenu.getTitle().toString();
-        String counter = Integer.toString(count);
-        String s = laststr + "   " + counter + " ";
-        SpannableString sColored = new SpannableString(s);
-        sColored.setSpan(new RelativeSizeSpan(1.2f), s.length() - 3, s.length(), 0);
-        sColored.setSpan(new ForegroundColorSpan(Utils.getAccentColor(this)), s.length() - 3, s.length(), 0);
-        recentlyAddedMenu.setTitle(sColored);
-    }
-
     private void setLeftButtonMode() {
         PlayerEnum mode = PlayerEnum.valueOf(Utils.getPlaylistId(context));
         switch (mode) {
@@ -289,7 +273,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
 
 
     @Override
-    protected void onServiceCon() {
+    protected void onServiceConnection() {
         slidingPanel = new SlidingPanel(frameTopOne, this);
         RemotePlay.get().onListener(slidingPanel);
         handleIntent();
@@ -307,10 +291,10 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
 
     private void startPlaybackFromUri(Uri songUri) {
         String songPath = UriFilesUtils.getPathFromUri(this, songUri);
-        List<Song> intent_list = buildQueueFromFileUri(songUri);
-        for (int i = 0; i < intent_list.size(); i++) {
-            if (intent_list.get(i).getPath().equals(songPath)) {
-                RemotePlay.get().playAdd(context, intent_list, intent_list.get(i));
+        List<Song> intentList = buildQueueFromFileUri(songUri);
+        for (int i = 0; i < intentList.size(); i++) {
+            if (intentList.get(i).getPath().equals(songPath)) {
+                RemotePlay.get().playAdd(context, intentList, intentList.get(i));
                 break;
             }
         }
@@ -344,10 +328,8 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
 
     public void initViews() {
 
-        //setNavigationDrawer();
         setSlidingPanelLayout();
         int openingVal;
-
         openingVal = Utils.getOpeningVal(MainActivity.this);
         Utils.setFirstFrag(this.getApplicationContext(), true);
         setFragment(openingVal);
@@ -505,11 +487,11 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
     protected void onDestroy() {
         RemotePlay.get().removeListener(this);
 
-        if (mainActDisposable != null && !mainActDisposable.isDisposed()) {
-            mainActDisposable.dispose();
+        if (disposable != null && !disposable.isDisposed()) {
+            disposable.dispose();
         }
-        if (slidingPanel.bitmapSubscription != null && !slidingPanel.bitmapSubscription.isDisposed()) {
-            slidingPanel.bitmapSubscription.dispose();
+        if (slidingPanel.getDisposable() != null && !slidingPanel.getDisposable().isDisposed()) {
+            slidingPanel.getDisposable().dispose();
         }
 
         if (handlerD != null) {
@@ -521,11 +503,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
         super.onDestroy();
     }
 
-    /*  public void setNavigationDrawer() {
-          navigationView.setNavigationItemSelectedListener(this);
-      }
-      */
-    private boolean typeReturn = false;
 
 
     @Override
@@ -561,7 +538,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
 
-        } else if (position == 1 || position == 5) {
+        } else if (position == 1) {
             if (mIsResumed)
                 getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
@@ -570,7 +547,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
 
-        } else if (position == 2 || position == 4) {
+        } else if (position == 2) {
             if (mIsResumed)
                 getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
@@ -578,7 +555,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
             fragmentTransaction.replace(R.id.fragment, fragmentLibrary);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
-        } else if (position == 3 || position == 6) {
+        } else if (position == 3) {
             if (mIsResumed)
                 getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
@@ -715,14 +692,14 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
 
     public void loadBitmap(Song song, ImageView imageView, ModelView modelCoverView) {
 
-        Observable<List<ModelBitmap>> bitmap1Observable =
+        Observable<List<ModelBitmap>> bitmapObservable =
                 Observable.fromCallable(() -> {
                     List<ModelBitmap> bitmapList = new ArrayList<>();
                     bitmapList.add(SongCover.get().loadBlurredModel(context, song));
                     bitmapList.add(SongCover.get().loadOvalModel(context, song));
                     return bitmapList;
                 }).throttleFirst(500, TimeUnit.MILLISECONDS);
-        mainActDisposable = bitmap1Observable.
+        disposable = bitmapObservable.
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
                 subscribe(bitmap -> setBitmap(bitmap, imageView, modelCoverView));
@@ -763,7 +740,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
 
     @Override
     public void handlePlaylistDialog(Song song) {
-        mainActDisposable = Observable.fromCallable(() -> SongUtils.scanPlaylist(activity)).
+        disposable = Observable.fromCallable(() -> SongUtils.scanPlaylist(activity)).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
                 subscribe(playlists -> Dialogs.addPlaylistDialog(activity, song, playlists));
@@ -782,7 +759,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
                 typeReturn = true;
             break;
             case R.id.nav_recentlyadded:
-                Utils.setCountSave(MainActivity.this, 0);
+                Utils.setCountDownload(MainActivity.this, 0);
                 setFragment(1);
                 typeReturn = true;
             break;

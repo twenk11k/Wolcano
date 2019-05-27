@@ -25,6 +25,7 @@ import com.kabouzeid.appthemehelper.ATH;
 import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.wolcano.musicplayer.music.content.Binder;
 import com.wolcano.musicplayer.music.provider.MusicService;
+import com.wolcano.musicplayer.music.provider.RemotePlay;
 import com.wolcano.musicplayer.music.utils.Utils;
 import com.wolcano.musicplayer.music.widgets.StatusBarView;
 import com.wolcano.musicplayer.music.utils.PermissionUtils;
@@ -47,7 +48,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         // handler
         baseHandler = new Handler(Looper.getMainLooper());
         // service connection
-        connService();
+        connectService();
         // register RxBus if sdk api above 19
         if (Build.VERSION.SDK_INT > 19)
             RxBus.get().register(this);
@@ -71,7 +72,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.setContentView(view, params);
         setView();
     }
-    private void connService() {
+    private void connectService() {
         Intent intent = new Intent();
         intent.setClass(this, MusicService.class);
         serviceConnection = new RemoteServiceConn();
@@ -86,14 +87,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-
     private class RemoteServiceConn implements ServiceConnection {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             musicService = ((MusicService.ServiceInit) service).getMusicService();
 
             if(!Utils.getServiceDestroy(getApplicationContext())){
-                onServiceCon();
+                onServiceConnection();
                 handleListener();
             } else {
                 Utils.setServiceDestroy(getApplicationContext(),false);
@@ -113,7 +113,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onStart();
     }
 
-    protected void onServiceCon() {
+    protected void onServiceConnection() {
     }
 
     private void setStatusBar() {
@@ -145,15 +145,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (serviceConnection != null) {
             unbindService(serviceConnection);
         }
-        /*  if(!RemotePlay.get().isPlaying()){
-            Intent intent = new Intent(this, MusicService.class);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                getApplicationContext().startForegroundService(intent);
-            } else {
-                getApplicationContext().stopService(intent);
-            }
-        }
-        */
+
         if (receiverRegistered) {
             receiverRegistered = false;
         }

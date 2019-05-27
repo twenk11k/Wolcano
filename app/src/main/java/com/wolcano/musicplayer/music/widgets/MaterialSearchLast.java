@@ -41,6 +41,8 @@ import com.wolcano.musicplayer.music.mvp.listener.SetSearchQuery;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import javax.inject.Inject;
+
 
 public class MaterialSearchLast extends FrameLayout implements Filter.FilterListener {
 
@@ -82,7 +84,6 @@ public class MaterialSearchLast extends FrameLayout implements Filter.FilterList
     public MaterialSearchLast(Context context) {
         this(context, null);
     }
-
     public MaterialSearchLast(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }

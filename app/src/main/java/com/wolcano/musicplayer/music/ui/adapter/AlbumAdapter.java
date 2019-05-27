@@ -42,9 +42,9 @@ public class AlbumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         AlbumAdapter.ViewHolder viewHolder = (AlbumAdapter.ViewHolder) holder;
         Album album = arraylist.get(position);
-        viewHolder.albumName.setText(album.name);
-        viewHolder.artistName.setText(album.artist);
-        String albumUri = "content://media/external/audio/albumart/" + album.id;
+        viewHolder.albumName.setText(album.getName());
+        viewHolder.artistName.setText(album.getArtist());
+        String albumUri = "content://media/external/audio/albumart/" + album.getId();
         Picasso.get().load(albumUri).placeholder(R.drawable.album_art).into(viewHolder.icon);
         setOnPopupMenuListener(viewHolder, position);
 
@@ -65,7 +65,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
                     switch (item.getItemId()) {
                         case R.id.copy_to_clipboard:
-                            Dialogs.copyDialog(context, arraylist.get(position).name,arraylist.get(position).artist);
+                            Dialogs.copyDialog(context, arraylist.get(position).getName(),arraylist.get(position).getArtist());
                             break;
                         default:
                             break;
@@ -100,8 +100,8 @@ public class AlbumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             try {
 
                 Album album = arraylist.get(getAdapterPosition());
-                Utils.navigateToAlbum(context, album.id,
-                        album.name);
+                Utils.navigateToAlbum(context, album.getId(),
+                        album.getName());
 
 
             } catch (Exception e) {

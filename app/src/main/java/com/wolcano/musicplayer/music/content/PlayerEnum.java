@@ -6,7 +6,7 @@ public enum PlayerEnum {
     NORMAL(0),
     SHUFFLE(1),
     REPEAT(2);
-    private int val;
+    private int value;
     public static PlayerEnum valueOf(int value) {
         switch (value) {
             case 1:
@@ -19,11 +19,11 @@ public enum PlayerEnum {
         }
     }
     public int getVal() {
-        return val;
+        return value;
     }
 
-    PlayerEnum(int val) {
-        this.val = val;
+    PlayerEnum(int value) {
+        this.value = value;
     }
 
 

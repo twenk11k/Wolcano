@@ -9,18 +9,17 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import androidx.core.app.NotificationCompat;
 import android.text.TextUtils;
-
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.provider.RemotePlay;
 import com.wolcano.musicplayer.music.provider.MusicService;
-
 import static com.wolcano.musicplayer.music.Constants.ACTION_QUIT;
 import static com.wolcano.musicplayer.music.Constants.ACTION_REWIND;
 import static com.wolcano.musicplayer.music.Constants.ACTION_SKIP;
 import static com.wolcano.musicplayer.music.Constants.ACTION_TOGGLE_PAUSE;
+
 
 public class NotificationLatestImpl extends Notification {
     public NotificationLatestImpl get() {
@@ -110,13 +109,13 @@ public class NotificationLatestImpl extends Notification {
                                     .addAction(nextAction);
 
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                builder.setStyle(new androidx.media.app.NotificationCompat.MediaStyle().setMediaSession(service.sessionManager.getMediaSessionCompat().getSessionToken()).setShowActionsInCompactView(0, 1, 2))
+                                builder.setStyle(new androidx.media.app.NotificationCompat.MediaStyle().setMediaSession(service.getSessionManager().getMediaSessionCompat().getSessionToken()).setShowActionsInCompactView(0, 1, 2))
                                         .setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
                             }
 
 
                             if (stopped)
-                                return; // thenotification has been stopped before loading was finished
+                                return;
                             updateNotifyModeAndPostNotification(builder.build());
                         }
                     });

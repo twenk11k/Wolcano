@@ -15,7 +15,6 @@ import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.provider.RemotePlay;
 import com.wolcano.musicplayer.music.provider.MusicService;
-
 import static com.wolcano.musicplayer.music.Constants.ACTION_QUIT;
 import static com.wolcano.musicplayer.music.Constants.ACTION_REWIND;
 import static com.wolcano.musicplayer.music.Constants.ACTION_SKIP;
@@ -124,7 +123,7 @@ public class NotificationOldImpl extends Notification {
                         setNotificationContent();
 
                         if (stopped)
-                            return; // thenotification has been stopped before loading was finished
+                            return;
                         updateNotifyModeAndPostNotification(notification);
                     }
                 });

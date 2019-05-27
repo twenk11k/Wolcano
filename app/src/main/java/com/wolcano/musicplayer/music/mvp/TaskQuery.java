@@ -10,11 +10,8 @@ public class TaskQuery {
 	private final String[] projection;
 	private final String[] selectionArgs;
 	private final String selection;
-	public Uri uri;
-
+	private Uri uri;
 	private String sort_order;
-	public int type;
-
 
 	public TaskQuery(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder)
 	{

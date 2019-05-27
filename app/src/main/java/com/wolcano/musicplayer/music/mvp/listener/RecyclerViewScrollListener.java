@@ -14,7 +14,7 @@ public abstract class RecyclerViewScrollListener extends RecyclerView.OnScrollLi
     public static int previousTotal = 0;
     private boolean loading = true;
     private int visThreshold = 2;
-    int firstVisItem, visItemCount, totalItemCount;
+    int firstVisibleItem, visibleItemCount, totalItemCount;
 
     private boolean infiniteScrollingEnabled = true;
 
@@ -29,14 +29,14 @@ public abstract class RecyclerViewScrollListener extends RecyclerView.OnScrollLi
 
         RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
 
-        visItemCount = recyclerView.getChildCount();
+        visibleItemCount = recyclerView.getChildCount();
         if (manager instanceof GridLayoutManager) {
             GridLayoutManager gridLayoutManager = (GridLayoutManager)manager;
-            firstVisItem = gridLayoutManager.findFirstVisibleItemPosition();
+            firstVisibleItem = gridLayoutManager.findFirstVisibleItemPosition();
             totalItemCount = gridLayoutManager.getItemCount();
         } else if (manager instanceof LinearLayoutManager) {
             LinearLayoutManager linearLayoutManager = (LinearLayoutManager)manager;
-            firstVisItem = linearLayoutManager.findFirstVisibleItemPosition();
+            firstVisibleItem = linearLayoutManager.findFirstVisibleItemPosition();
             totalItemCount = linearLayoutManager.getItemCount();
         }
 
@@ -49,13 +49,13 @@ public abstract class RecyclerViewScrollListener extends RecyclerView.OnScrollLi
                 }
             }
 
-            if (!loading && (totalItemCount -  visItemCount <= firstVisItem + visThreshold)) {
+            if (!loading && (totalItemCount -  visibleItemCount <= firstVisibleItem + visThreshold)) {
                 onLoadMore();
                 loading = true;
             }
         }
 
-        if (firstVisItem == 0) {
+        if (firstVisibleItem == 0) {
             if (!controlsVisible) {
                 onScrollUp();
                 controlsVisible = true;

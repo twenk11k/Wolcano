@@ -36,10 +36,10 @@ public class LikeItemAdapter extends RecyclerView.Adapter<LikeItemAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull LikeItemAdapter.ViewHolder holder, int position) {
 
-        holder.text.setText(items.get(position).text);
-        if (items.get(position).icon == 0)
+        holder.text.setText(items.get(position).getText());
+        if (items.get(position).getIcon() == 0)
             holder.icon.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_star_rate_white_48));
-        if (items.get(position).icon == 1)
+        if (items.get(position).getIcon() == 1)
             holder.icon.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_share_white_18));
 
     }

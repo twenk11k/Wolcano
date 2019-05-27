@@ -39,8 +39,8 @@ public class ArtistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         Artist artist = arraylist.get(position);
 
-        viewHolder.line1.setText(artist.name);
-        viewHolder.line2.setText(Utils.createStr(context, R.plurals.Nsongs, artist.songCount));
+        viewHolder.line1.setText(artist.getName());
+        viewHolder.line2.setText(Utils.createStr(context, R.plurals.Nsongs, artist.getSongCount()));
 
     }
 
@@ -64,8 +64,8 @@ public class ArtistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         public void onClick(View v) {
 
             Artist artist = arraylist.get(getAdapterPosition());
-            long artistId = artist.id;
-            String artistName = artist.name;
+            long artistId = artist.getId();
+            String artistName = artist.getName();
             Utils.navigateToArtist(context, artistId, artistName);
 
         }

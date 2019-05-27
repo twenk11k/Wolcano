@@ -118,6 +118,5 @@
             android:name=".ui.activity.SettingsActivity"
             android:label="@string/title_activity_settings" />
 
-        <meta-data android:name="com.bugsnag.android.API_KEY" android:value="76c92798a7ab34aea588445b73d45b99"/>
         </application>
 </manifest>

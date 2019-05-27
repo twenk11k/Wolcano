@@ -39,7 +39,6 @@ import com.wolcano.musicplayer.music.utils.ToastUtils;
 import com.wolcano.musicplayer.music.utils.Utils;
 import java.util.List;
 import io.reactivex.disposables.Disposable;
-import pl.droidsonroids.gif.GifImageView;
 
 public class FragmentArtists extends BaseFragment implements ArtistView,AppBarLayout.OnOffsetChangedListener {
 

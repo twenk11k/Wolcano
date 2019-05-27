@@ -4,7 +4,6 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
 import androidx.annotation.RequiresApi;
-
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.provider.RemotePlay;
@@ -15,25 +14,29 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 public abstract class Notification {
 
 
-    public MusicService service;
     private NotificationManager notificationManager;
     private final int NOTIFICATION_ID = 1337;
-    final String NOTIFICATION_CHANNEL_ID = "thenotification";
     private final int NOTIFY_MODE_BACKGROUND = 0;
     private final int NOTIFY_MODE_FOREGROUND = 1;
     private int notifyMode = NOTIFY_MODE_BACKGROUND;
-    boolean stopped;
+
+    public MusicService service;
+    public boolean stopped;
+    public final String NOTIFICATION_CHANNEL_ID = "thenotification";
 
 
     public synchronized void init(MusicService service) {
+
         this.service = service;
         notificationManager = (NotificationManager) service.getSystemService(NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel();
         }
+
     }
 
-    void updateNotifyModeAndPostNotification(android.app.Notification notification) {
+    public void updateNotifyModeAndPostNotification(android.app.Notification notification) {
+
         int newNotifyMode;
         if (RemotePlay.get().isPlaying()) {
             newNotifyMode = NOTIFY_MODE_FOREGROUND;

@@ -690,11 +690,11 @@ public class SongUtils {
             int i = 0;
             while (cursor.moveToNext()) {
                 Genre genre = getGenreFromCursor(context, cursor);
-                if (genre.songCount > 0) {
+                if (genre.getSongCount() > 0) {
                     genreList.add(genre);
                 } else {
                     try {
-                        context.getContentResolver().delete(MediaStore.Audio.Genres.EXTERNAL_CONTENT_URI, MediaStore.Audio.Genres._ID + " == " + genre.id, null);
+                        context.getContentResolver().delete(MediaStore.Audio.Genres.EXTERNAL_CONTENT_URI, MediaStore.Audio.Genres._ID + " == " + genre.getId(), null);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

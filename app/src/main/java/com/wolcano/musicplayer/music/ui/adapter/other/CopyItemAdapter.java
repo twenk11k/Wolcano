@@ -37,12 +37,12 @@ public class CopyItemAdapter extends RecyclerView.Adapter<CopyItemAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        holder.text.setText(items.get(position).text);
-        if (items.get(position).icon == 0)
+        holder.text.setText(items.get(position).getText());
+        if (items.get(position).getIcon() == 0)
             holder.icon.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_music_note_white_24));
-        if (items.get(position).icon == 1)
+        if (items.get(position).getIcon() == 1)
             holder.icon.setImageDrawable(context.getResources().getDrawable(R.drawable.account_circle_white));
-        if (items.get(position).icon == 2)
+        if (items.get(position).getIcon() == 2)
             holder.icon.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_album_white_36));
 
     }

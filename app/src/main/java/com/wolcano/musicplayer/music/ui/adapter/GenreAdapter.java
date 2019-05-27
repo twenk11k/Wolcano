@@ -40,8 +40,8 @@ public class GenreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         Genre genre = arraylist.get(position);
 
-        viewHolder.line1.setText(genre.name);
-        viewHolder.line2.setText(Utils.createStr(context, R.plurals.Nsongs, genre.songCount));
+        viewHolder.line1.setText(genre.getName());
+        viewHolder.line2.setText(Utils.createStr(context, R.plurals.Nsongs, genre.getSongCount()));
 
     }
 
@@ -65,8 +65,8 @@ public class GenreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         public void onClick(View v) {
 
            Genre genre = arraylist.get(getAdapterPosition());
-           long genreId = genre.id;
-           String genreName = genre.name;
+           long genreId = genre.getId();
+           String genreName = genre.getName();
            Utils.navigateToGenre(context, genreId, genreName);
 
         }

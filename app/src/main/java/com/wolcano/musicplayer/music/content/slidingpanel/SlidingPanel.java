@@ -22,9 +22,7 @@ import com.wolcano.musicplayer.music.widgets.SongCover;
 import com.wolcano.musicplayer.music.mvp.listener.Bind;
 import com.wolcano.musicplayer.music.ui.activity.MainActivity;
 import com.wolcano.musicplayer.music.utils.Utils;
-
 import java.util.concurrent.TimeUnit;
-
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -35,10 +33,10 @@ import io.reactivex.schedulers.Schedulers;
 public class SlidingPanel implements OnServiceListener,View.OnClickListener {
 
 
-
-    public Disposable bitmapSubscription;
+    private Disposable disposable;
     private Drawable placeholder;
     private Activity activity;
+
 
     @Bind(R.id.progressTop1)
     private ProgressBar progressBar;
@@ -53,18 +51,20 @@ public class SlidingPanel implements OnServiceListener,View.OnClickListener {
     @Bind(R.id.model_imageview)
     private ImageView modelImage;
 
+
     public SlidingPanel(View view, Activity activity) {
         Binder.bindIt(this, view);
         this.activity = activity;
         setViews();
     }
+
+
     public void setViews(){
         // Marquee TextView
         line1.setHorizontallyScrolling(true);
         line1.setSelected(true);
 
         play.setColorFilter(Utils.getAccentColor(activity));
-
 
 
         if(RemotePlay.get().getPlayMusic(activity.getApplicationContext())!=null){
@@ -115,6 +115,12 @@ public class SlidingPanel implements OnServiceListener,View.OnClickListener {
 
     }
 
+
+    public Disposable getDisposable() {
+        return disposable;
+    }
+
+
     @Override
     public void onProgressChange(int progress) {
         progressBar.setProgress(progress);
@@ -149,12 +155,7 @@ public class SlidingPanel implements OnServiceListener,View.OnClickListener {
                     .load(R.drawable.album_art)
                     .into(modelImage);
 
-          //  Drawable placeholder = activity.getResources().getDrawable(R.drawable.album_default);
-
-           // DrawableCompat.setTint(placeholder, Utils.getPrimaryColor(activity));
             loadBitmap(song,panelTop1);
-
-
             return;
         }
         String contentURI = "content://media/external/audio/media/" + song.getSongId() + "/albumart";
@@ -175,9 +176,9 @@ public class SlidingPanel implements OnServiceListener,View.OnClickListener {
 
     private void loadBitmap(Song song, ImageView imageView) {
 
-        Observable<Bitmap> bitmap1Observable =
+        Observable<Bitmap> bitmapObservable =
                 Observable.fromCallable(() -> SongCover.get().loadBlurred(activity.getApplicationContext(),song)).throttleFirst(500, TimeUnit.MILLISECONDS);
-        bitmapSubscription = bitmap1Observable.
+        disposable = bitmapObservable.
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
 

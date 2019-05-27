@@ -42,7 +42,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.disposables.Disposable;
-import pl.droidsonroids.gif.GifImageView;
 
 public class FragmentPlaylist extends BaseFragment implements PlaylistView {
 

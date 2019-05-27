@@ -15,10 +15,8 @@ import com.wolcano.musicplayer.music.mvp.TaskQuery;
 
 import java.io.File;
 
-/**
- * The class for share audio files
- * 2016
- */
+
+
 public class Share {
 
     private static final int TYPE_ARTIST = 0;
@@ -40,12 +38,12 @@ public class Share {
         try {
             while (cursor.moveToNext()) {
                 File songFile = new File(cursor.getString(1));
-                Intent share = new Intent(Intent.ACTION_SEND);
-                share.setType("audio/*");
-                share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(songFile));
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("audio/*");
+                intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(songFile));
                 StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
                 StrictMode.setVmPolicy(builder.build());
-                ctx.startActivity(Intent.createChooser(share, ctx.getString(R.string.sharefile)));
+                ctx.startActivity(Intent.createChooser(intent, ctx.getString(R.string.sharefile)));
             }
         } catch (ActivityNotFoundException ex) {
             Toast.makeText(ctx, "Error", Toast.LENGTH_SHORT).show();
@@ -96,7 +94,6 @@ public class Share {
         }
 
         TaskQuery result = new TaskQuery(media, projection, selection.toString(), null, sort);
-        result.type = type;
         return result;
     }
 

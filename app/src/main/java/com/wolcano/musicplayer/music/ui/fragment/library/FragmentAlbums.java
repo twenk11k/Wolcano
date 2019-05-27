@@ -35,11 +35,9 @@ import com.wolcano.musicplayer.music.ui.fragment.FragmentLibrary;
 import com.wolcano.musicplayer.music.ui.activity.MainActivity;
 import com.wolcano.musicplayer.music.ui.adapter.AlbumAdapter;
 import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragment;
-import com.wolcano.musicplayer.music.utils.ToastUtils;
 import com.wolcano.musicplayer.music.utils.Utils;
 import java.util.List;
 import io.reactivex.disposables.Disposable;
-import pl.droidsonroids.gif.GifImageView;
 
 public class FragmentAlbums extends BaseFragment implements AlbumView,AppBarLayout.OnOffsetChangedListener {
 

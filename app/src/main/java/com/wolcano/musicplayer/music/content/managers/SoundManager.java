@@ -2,9 +2,7 @@ package com.wolcano.musicplayer.music.content.managers;
 
 import android.content.Context;
 import android.media.AudioManager;
-
 import com.wolcano.musicplayer.music.provider.RemotePlay;
-
 import static android.content.Context.AUDIO_SERVICE;
 
 public class SoundManager implements AudioManager.OnAudioFocusChangeListener {

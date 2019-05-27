@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.inject.Singleton;
+
 
 public class RemotePlay {
 
@@ -43,7 +45,7 @@ public class RemotePlay {
     private static final long GUNCEL = 300L;
     private static final int PREPARE = 1;
 
-    private int mState = IDLE;
+    private int state = IDLE;
     private MusicService musicService;
     private static final int PAUSE = 3;
     private ServiceConnection serviceConnection;
@@ -88,12 +90,9 @@ public class RemotePlay {
     }
 
     public void playAdd(Context context, List<Song> alist, Song song) {
+
         songList.clear();
-
-        for (int i = 0; i < alist.size(); i++) {
-            songList.add(alist.get(i));
-        }
-
+        songList.addAll(alist);
         int position = songList.indexOf(song);
         DatabaseManager.get().getAppDao().deleteAll();
         DatabaseManager.get().getAppDao().insert(song);
@@ -144,12 +143,12 @@ public class RemotePlay {
             } else {
                 mediaPlayer.prepare();
             }
-            mState = PREPARE;
+            state = PREPARE;
             for (OnServiceListener listener : listenerList) {
                 listener.onChangeSong(song);
             }
 
-            musicService.notification.update(song);
+            musicService.getNotification().update(song);
             SessionManager.get().updateSessionMetaData(song);
             SessionManager.get().updateSessionPlaybackState();
         } catch (IOException e) {
@@ -203,7 +202,7 @@ public class RemotePlay {
                 } else if (playPosition == position) {
                     if (position == 0 && playPosition == 0) {
                         stopRemotePlay(context);
-                        musicService.notification.stop();
+                        musicService.getNotification().stop();
                         for (OnServiceListener listener : listenerList) {
 
                             listener.onChangeSong(getPlayMusic(context));
@@ -254,10 +253,10 @@ public class RemotePlay {
         if (soundManager.reqSoundFocus()) {
             mediaPlayer.start();
             musicService.registerReceiv();
-            mState = PLAY;
+            state = PLAY;
             handler.post(remoteRunnable);
 
-            musicService.notification.update(getPlayMusic(context));
+            musicService.getNotification().update(getPlayMusic(context));
             SessionManager.get().updateSessionPlaybackState();
 
             for (OnServiceListener listener : listenerList) {
@@ -276,10 +275,10 @@ public class RemotePlay {
         }
 
         mediaPlayer.pause();
-        mState = PAUSE;
+        state = PAUSE;
         handler.removeCallbacks(remoteRunnable);
 
-        musicService.notification.update(getPlayMusic(context));
+        musicService.getNotification().update(getPlayMusic(context));
         SessionManager.get().updateSessionPlaybackState();
         if (abSoundFocus) {
             soundManager.abSoundFocus();
@@ -309,19 +308,7 @@ public class RemotePlay {
 
         pauseRemotePlay(context);
         mediaPlayer.reset();
-        mState = IDLE;
-    }
-
-    private class RemoteServiceConn implements ServiceConnection {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            musicService = ((MusicService.ServiceInit) service).getMusicService();
-
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-        }
+        state = IDLE;
     }
 
 
@@ -345,11 +332,11 @@ public class RemotePlay {
 
 
     public boolean isPreparing() {
-        return mState == PREPARE;
+        return state == PREPARE;
     }
 
     private boolean isItIDLE() {
-        return mState == IDLE;
+        return state == IDLE;
     }
 
     public List<Song> getSongList() {
@@ -373,11 +360,11 @@ public class RemotePlay {
     }
 
     public boolean isPlaying() {
-        return mState == PLAY;
+        return state == PLAY;
     }
 
     public boolean isPausing() {
-        return mState == PAUSE;
+        return state == PAUSE;
     }
 
     public MediaPlayer getMediaPlayer() {
@@ -387,6 +374,19 @@ public class RemotePlay {
 
     private void setRemotePlayPos(Context context, int position) {
         Utils.savePlayPosition(context, position);
+    }
+
+    @Singleton
+    private class RemoteServiceConn implements ServiceConnection {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            musicService = ((MusicService.ServiceInit) service).getMusicService();
+
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+        }
     }
 
 }

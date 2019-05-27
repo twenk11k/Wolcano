@@ -19,7 +19,6 @@ import com.wolcano.musicplayer.music.provider.notifications.Notification;
 import com.wolcano.musicplayer.music.provider.notifications.NotificationImpl;
 import com.wolcano.musicplayer.music.provider.notifications.NotificationLatestImpl;
 import com.wolcano.musicplayer.music.provider.notifications.NotificationOldImpl;
-
 import static com.wolcano.musicplayer.music.Constants.ACTION_PAUSE;
 import static com.wolcano.musicplayer.music.Constants.ACTION_REWIND;
 import static com.wolcano.musicplayer.music.Constants.ACTION_SKIP;
@@ -31,10 +30,13 @@ import static com.wolcano.musicplayer.music.Constants.ACTION_TOGGLE_PAUSE;
 public class MusicService extends Service {
 
     private Handler uiThreadHandler;
-    public SessionManager sessionManager;
-    public Notification notification;
+    private SessionManager sessionManager;
     private boolean becomingNoisyReceiverRegistered;
-    private IntentFilter becomingNoisyReceiverIntentFilter = new IntentFilter(AudioManager.ACTION_AUDIO_BECOMING_NOISY);
+    private IntentFilter becomingNoisyIntentFilter = new IntentFilter(AudioManager.ACTION_AUDIO_BECOMING_NOISY);
+
+    private Notification notification;
+
+
     private final BroadcastReceiver becomingNoisyReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, @NonNull Intent intent) {
@@ -43,6 +45,12 @@ public class MusicService extends Service {
             }
         }
     };
+
+    public Notification getNotification(){
+        return notification;
+    }
+
+
     public class ServiceInit extends Binder {
         public MusicService getMusicService() {
             return MusicService.this;
@@ -50,15 +58,19 @@ public class MusicService extends Service {
     }
     public void registerReceiv(){
         if (!becomingNoisyReceiverRegistered) {
-            registerReceiver(becomingNoisyReceiver, becomingNoisyReceiverIntentFilter);
+            registerReceiver(becomingNoisyReceiver, becomingNoisyIntentFilter);
             becomingNoisyReceiverRegistered = true;
         }
     }
+    public SessionManager getSessionManager(){
+        return sessionManager;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
         RemotePlay.get().init(this.getApplicationContext());
-        SessionManager.get().setSessionMng(this);
+        SessionManager.get().setSessionManager(this);
         sessionManager = SessionManager.get();
         uiThreadHandler = new Handler();
         setNotification();
@@ -87,13 +99,6 @@ public class MusicService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         return new ServiceInit();
-    }
-
-    public static void startCommand(Context context, String action) {
-
-        Intent intent = new Intent(context, MusicService.class);
-        intent.setAction(action);
-        context.startService(intent);
     }
 
     @Override

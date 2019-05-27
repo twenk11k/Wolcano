@@ -36,10 +36,10 @@ public class ShareItemAdapter extends RecyclerView.Adapter<ShareItemAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ShareItemAdapter.ViewHolder holder, int position) {
 
-        holder.text.setText(items.get(position).text);
-        if (items.get(position).icon == 0)
+        holder.text.setText(items.get(position).getText());
+        if (items.get(position).getIcon() == 0)
             holder.icon.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_insert_drive_file_white_24));
-        if (items.get(position).icon == 1)
+        if (items.get(position).getIcon() == 1)
             holder.icon.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_text_format_white_24));
 
     }

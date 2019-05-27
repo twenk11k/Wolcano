@@ -38,7 +38,6 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import pl.droidsonroids.gif.GifImageView;
 
 
 public class QueueActivity extends BaseActivity implements AdapterView.OnItemClickListener, OnServiceListener,GetDisposable {
@@ -76,7 +75,7 @@ public class QueueActivity extends BaseActivity implements AdapterView.OnItemCli
 
 
     @Override
-    protected void onServiceCon() {
+    protected void onServiceConnection() {
         primaryColor = Utils.getPrimaryColor(this);
         setStatusbarColorAuto(statusBarView, primaryColor);
 

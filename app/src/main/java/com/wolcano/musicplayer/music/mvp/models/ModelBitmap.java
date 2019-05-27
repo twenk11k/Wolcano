@@ -21,4 +21,6 @@ public class ModelBitmap {
     public int getId(){
         return id;
     }
+
+
 }

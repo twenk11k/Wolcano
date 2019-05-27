@@ -55,7 +55,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import pl.droidsonroids.gif.GifImageView;
 
 public class PlaylistDetailFragment extends BaseFragment implements SongView,GetDisposable {
 

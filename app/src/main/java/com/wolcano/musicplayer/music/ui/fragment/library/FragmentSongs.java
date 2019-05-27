@@ -16,6 +16,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -57,6 +60,7 @@ import com.wolcano.musicplayer.music.ui.activity.MainActivity;
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs;
 import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragment;
 import com.wolcano.musicplayer.music.ui.filter.SongFilter;
+import com.wolcano.musicplayer.music.ui.viewmodel.SongsViewModel;
 import com.wolcano.musicplayer.music.utils.SongUtils;
 import com.wolcano.musicplayer.music.utils.Utils;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
@@ -82,6 +86,7 @@ public class FragmentSongs extends BaseFragment implements SongView,FilterListen
     private String text;
     private View v;
     private SongPresenter songPresenter;
+    private ViewModel viewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -90,8 +95,10 @@ public class FragmentSongs extends BaseFragment implements SongView,FilterListen
 
         context = getContext();
         activity = getActivity();
-
         setHasOptionsMenu(true);
+
+        viewModel = ViewModelProviders.of(this).get(SongsViewModel.class);
+
         empty = v.findViewById(android.R.id.empty);
         recyclerView = v.findViewById(R.id.recyclerview);
 

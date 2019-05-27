@@ -38,5 +38,16 @@ public class SongOnline {
         return path;
     }
 
+    public void setArtistName(String artistName) {
+        this.artistName = artistName;
+    }
+
+    public void setDuration(long duration) {
+        this.duration = duration;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
 
 }

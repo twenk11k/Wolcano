@@ -63,7 +63,7 @@ public class Dialogs {
                 .dividerColor(context.getResources().getColor(R.color.gray1))
                 .theme(Theme.DARK)
                 .show();
-        adapter.setCallback(itemIndex -> showToastCopy(context, copylist.get(itemIndex).text, dialog));
+        adapter.setCallback(itemIndex -> showToastCopy(context, copylist.get(itemIndex).getText(), dialog));
 
     }
     public static void copyDialog(Context context,String album,String artist) {
@@ -90,7 +90,7 @@ public class Dialogs {
                 .dividerColor(context.getResources().getColor(R.color.gray1))
                 .theme(Theme.DARK)
                 .show();
-        adapter.setCallback(itemIndex -> showToastCopy(context, copylist.get(itemIndex).text, dialog));
+        adapter.setCallback(itemIndex -> showToastCopy(context, copylist.get(itemIndex).getText(), dialog));
 
     }
     public static void copyDialog(Context context, SongOnline song) {
@@ -115,7 +115,7 @@ public class Dialogs {
                 .dividerColor(context.getResources().getColor(R.color.gray1))
                 .theme(Theme.DARK)
                 .show();
-        adapter.setCallback(itemIndex -> showToastCopy(context, copylist.get(itemIndex).text, dialog));
+        adapter.setCallback(itemIndex -> showToastCopy(context, copylist.get(itemIndex).getText(), dialog));
 
     }
 
@@ -177,14 +177,14 @@ public class Dialogs {
                     .adapter(adapterModel1, null)
                     .theme(Theme.DARK)
                     .show();
-            adapterModel1.setCallback(itemIndex -> showToastShare(context, shareListModel1.get(itemIndex).text, dialogModel1, song, itemIndex));
+            adapterModel1.setCallback(itemIndex -> showToastShare(context, shareListModel1.get(itemIndex).getText(), dialogModel1, song, itemIndex));
         } else {
             MaterialDialog dialogLocal = new MaterialDialog.Builder(context)
                     .title(R.string.sharequestion)
                     .adapter(adapterModel0, null)
                     .theme(Theme.DARK)
                     .show();
-            adapterModel0.setCallback(itemIndex -> showToastShare(context, shareListModel0.get(itemIndex).text, dialogLocal, song, itemIndex));
+            adapterModel0.setCallback(itemIndex -> showToastShare(context, shareListModel0.get(itemIndex).getText(), dialogLocal, song, itemIndex));
         }
 
     }
@@ -193,7 +193,7 @@ public class Dialogs {
         final CharSequence[] chars = new CharSequence[playlistList.size() + 1];
         chars[0] = context.getResources().getString(R.string.create_new_playlist);
         for (int i = 0; i < playlistList.size(); i++) {
-            chars[i + 1] = playlistList.get(i).name;
+            chars[i + 1] = playlistList.get(i).getName();
         }
         CharSequence title, artist;
         title = song.getTitle();
@@ -234,7 +234,7 @@ public class Dialogs {
                                 createPlaylistDialog(context, song.getSongId(), song.getTitle());
                                 return;
                             }
-                            SongUtils.addToPlaylist(context, song.getSongId(), playlistList.get(which - 1).id, song.getTitle());
+                            SongUtils.addToPlaylist(context, song.getSongId(), playlistList.get(which - 1).getId(), song.getTitle());
                             dialog.dismiss();
 
                         }).build().show();

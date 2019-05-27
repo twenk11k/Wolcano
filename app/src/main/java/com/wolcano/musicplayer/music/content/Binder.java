@@ -2,10 +2,9 @@ package com.wolcano.musicplayer.music.content;
 
 import android.app.Activity;
 import android.view.View;
-
+import java.lang.reflect.Field;
 import com.wolcano.musicplayer.music.mvp.listener.Bind;
 
-import java.lang.reflect.Field;
 
 public class Binder {
 

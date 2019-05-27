@@ -47,8 +47,8 @@ public class PlaylistAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         Playlist playlist = arraylist.get(position);
 
-        viewHolder.line2.setText(Utils.createStr(context, R.plurals.Nsongs, playlist.songCount));
-        viewHolder.line1.setText(playlist.name);
+        viewHolder.line2.setText(Utils.createStr(context, R.plurals.Nsongs, playlist.getSongCount()));
+        viewHolder.line1.setText(playlist.getName());
         viewHolder.albumArt.setColorFilter(ContextCompat.getColor(context,R.color.grey0));
         setOnPopupMenuListener(viewHolder, position);
 
@@ -71,11 +71,11 @@ public class PlaylistAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHold
                                     .negativeText(R.string.cancel)
                                     .positiveColor(Utils.getAccentColor(context))
                                     .negativeColor(Utils.getAccentColor(context))
-                                    .input(null, arraylist.get(position).name, false, new MaterialDialog.InputCallback() {
+                                    .input(null, arraylist.get(position).getName(), false, new MaterialDialog.InputCallback() {
                                         @Override
                                         public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
-                                            SongUtils.renamePlaylist(context,arraylist.get(position).id, input.toString());
-                                            arraylist.get(position).name = input.toString();
+                                            SongUtils.renamePlaylist(context,arraylist.get(position).getId(), input.toString());
+                                            arraylist.get(position).setName(input.toString());
                                             holder.line1.setText(input.toString());
                                             Toast.makeText(context, R.string.rename_playlist_success, Toast.LENGTH_SHORT).show();
                                         }
@@ -84,14 +84,14 @@ public class PlaylistAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHold
                             break;
                         case R.id.delete:
                             new MaterialDialog.Builder(context)
-                                    .title(arraylist.get(position).name)
+                                    .title(arraylist.get(position).getName())
                                     .content(R.string.delete_playlist)
                                     .positiveText(R.string.delete)
                                     .negativeText(R.string.cancel)
                                     .positiveColor(Utils.getAccentColor(context))
                                     .negativeColor(Utils.getAccentColor(context))
                                     .onPositive((dialog, which) -> {
-                                        SongUtils.deletePlaylists(context,arraylist.get(position).id);
+                                        SongUtils.deletePlaylists(context,arraylist.get(position).getId());
                                         arraylist.remove(holder.getAdapterPosition());
                                         notifyItemRemoved(holder.getAdapterPosition());
                                         notifyItemRangeChanged(holder.getAdapterPosition(), getItemCount() - holder.getAdapterPosition());
@@ -131,8 +131,8 @@ public class PlaylistAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHold
         @Override
         public void onClick(View v) {
             Playlist playlist = arraylist.get(getAdapterPosition());
-                long playlistID = playlist.id;
-                String playlistName = playlist.name;
+                long playlistID = playlist.getId();
+                String playlistName = playlist.getName();
                 Utils.navigateToPlaylist(context, playlistID,
                         playlistName);
 

@@ -2,14 +2,40 @@ package com.wolcano.musicplayer.music.mvp.models;
 
 public class Playlist {
 
-    public long id;
-    public String name;
-    public int songCount;
+    private long id;
+    private String name;
+    private int songCount;
 
 
-    public Playlist(long _id, String _name, int _songCount) {
-        this.id = _id;
-        this.name = _name;
-        this.songCount = _songCount;
+    public Playlist(long id, String name, int songCount) {
+        this.id = id;
+        this.name = name;
+        this.songCount = songCount;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public int getSongCount() {
+        return songCount;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setSongCount(int songCount) {
+        this.songCount = songCount;
+    }
+
 }
+
