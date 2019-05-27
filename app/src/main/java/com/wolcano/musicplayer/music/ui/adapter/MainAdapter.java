@@ -6,18 +6,18 @@ import android.os.Build;
 import android.os.Handler;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.PopupMenu;
-import android.widget.TextView;
+import android.widget.ProgressBar;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.constants.Type;
+import com.wolcano.musicplayer.music.databinding.ItemSongOnlineBinding;
 import com.wolcano.musicplayer.music.mvp.models.SongOnline;
 import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.provider.RemotePlay;
@@ -30,28 +30,31 @@ import com.wolcano.musicplayer.music.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private ArrayList<SongOnline> songOnlineList;
-    private AppCompatActivity context;
+    private AppCompatActivity activity;
     private boolean showLoader;
     private int downloadCount = 0;
 
-    public MainAdapter(AppCompatActivity context, ArrayList<SongOnline> songOnlineList) {
+    public MainAdapter(AppCompatActivity activity, ArrayList<SongOnline> songOnlineList) {
         if (songOnlineList == null) {
             this.songOnlineList = new ArrayList<>();
         } else {
             this.songOnlineList = songOnlineList;
 
         }
-        this.context = context;
+        this.activity = activity;
 
     }
 
 
     private void setOnPopupMenuListener(ViewHolder viewHolder, final int pos) {
-        viewHolder.more.setOnClickListener(v -> {
+        viewHolder.binding.more.setOnClickListener(v -> {
             try {
                 ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(v.getContext(), R.style.PopupMenuToolbar);
 
@@ -63,22 +66,22 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.popup_song_copyto_clipboard:
-                                Dialogs.copyDialog(context, songOnlineList.get(pos));
+                                Dialogs.copyDialog(activity, songOnlineList.get(pos));
                                 break;
                             case R.id.action_down:
-                                PermissionUtils.with(context)
+                                PermissionUtils.with(activity)
                                         .permissions(Manifest.permission.READ_EXTERNAL_STORAGE,
                                                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
                                         .result(new PermissionUtils.PermInterface() {
                                             @Override
                                             public void onPermGranted() {
                                                 downloadCount++;
-                                                SongUtils.downPerform(context,songOnlineList.get(pos));
+                                                SongUtils.downPerform(activity,songOnlineList.get(pos));
                                             }
 
                                             @Override
                                             public void onPermUnapproved() {
-                                                ToastUtils.show(context.getApplicationContext(),R.string.no_perm_save_file);
+                                                ToastUtils.show(activity.getApplicationContext(),R.string.no_perm_save_file);
                                             }
                                         })
                                         .reqPerm();
@@ -109,8 +112,8 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         View v;
         switch (viewType) {
             case Type.TYPE_SONG:
-                v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_song, parent, false);
-                viewHolder = new ViewHolder(v);
+                ItemSongOnlineBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),R.layout.item_song_online,parent,false);
+                viewHolder = new ViewHolder(binding);
                 break;
             case Type.TYPE_FOOTER:
                 v = LayoutInflater.from(parent.getContext()).inflate(R.layout.thefooter_view, parent, false);
@@ -128,30 +131,30 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             if (holder instanceof LoaderViewHolder) {
                 LoaderViewHolder loaderViewHolder = (LoaderViewHolder) holder;
                 if (showLoader) {
-                    loaderViewHolder.mProgressBar.setVisibility(View.VISIBLE);
+                    loaderViewHolder.progressBar.setVisibility(View.VISIBLE);
                     if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-                    loaderViewHolder.mProgressBar.setIndeterminateTintList(ColorStateList.valueOf(Utils.getAccentColor(context)));
+                    loaderViewHolder.progressBar.setIndeterminateTintList(ColorStateList.valueOf(Utils.getAccentColor(activity)));
                 } else {
-                    loaderViewHolder.mProgressBar.setVisibility(View.GONE);
+                    loaderViewHolder.progressBar.setVisibility(View.GONE);
                 }
             }
 
         } else {
 
             ViewHolder viewHolder = (ViewHolder) holder;
+            viewHolder.binding.setSongOnline(songOnlineList.get(position));
+            viewHolder.binding.executePendingBindings();
 
-            SongOnline localItem;
+            SongOnline songOnline = viewHolder.binding.getSongOnline();
 
-            localItem = songOnlineList.get(position);
-
-            viewHolder.line1.setText(localItem.getTitle());
+            viewHolder.binding.line1.setText(songOnline.getTitle());
             String duration = "";
             try {
-                duration = Utils.getDuration(localItem.getDuration());
+                duration = Utils.getDuration(songOnline.getDuration());
             } catch (NumberFormatException e) {
                 e.printStackTrace();
             }
-            viewHolder.line2.setText((String.valueOf(songOnlineList.get(position).getDuration()).isEmpty() ? "" : String.valueOf(duration)) + "  |  " + localItem.getArtistName());
+            viewHolder.binding.line2.setText((String.valueOf(songOnlineList.get(position).getDuration()).isEmpty() ? "" : String.valueOf(duration)) + "  |  " + songOnline.getArtistName());
 
             setOnPopupMenuListener(viewHolder, position);
         }
@@ -182,24 +185,19 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView line1;
-        private TextView line2;
-        private ImageView albumArt,more;
+        private ItemSongOnlineBinding binding;
 
-        public ViewHolder(View view) {
-            super(view);
-            this.line1 = view.findViewById(R.id.line1);
-            this.line2 = view.findViewById(R.id.line2);
-            this.albumArt = view.findViewById(R.id.albumArt);
-            this.more = view.findViewById(R.id.more);
-            view.setOnClickListener(this);
+        public ViewHolder(ItemSongOnlineBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+            this.binding.getRoot().setOnClickListener(this::onClick);
         }
 
         @Override
         public void onClick(View v) {
-            Utils.hideKeyboard(context);
+            Utils.hideKeyboard(activity);
             final Handler handler = new Handler();
-            handler.postDelayed(() -> new PlayModelLocal(context, songOnlineList) {
+            handler.postDelayed(() -> new PlayModelLocal(activity, songOnlineList) {
                 @Override
                 public void onPrepare() {
                 }
@@ -207,15 +205,25 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 @Override
                 public void onTaskDone(List<Song> alist) {
                     if(getAdapterPosition()!=-1)
-                    RemotePlay.get().playAdd(context,alist, alist.get(getAdapterPosition()));
+                    RemotePlay.get().playAdd(activity,alist, alist.get(getAdapterPosition()));
                 }
 
                 @Override
                 public void onTaskFail(Exception e) {
-                    ToastUtils.show(context.getApplicationContext(),R.string.cannot_play);
+                    ToastUtils.show(activity.getApplicationContext(),R.string.cannot_play);
                 }
             }.onTask(), 100);
 
+        }
+    }
+    public class LoaderViewHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.progress_bar)
+        ProgressBar progressBar;
+
+        public LoaderViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

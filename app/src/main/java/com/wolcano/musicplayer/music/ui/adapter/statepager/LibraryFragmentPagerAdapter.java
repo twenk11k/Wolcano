@@ -1,4 +1,4 @@
-package com.wolcano.musicplayer.music.ui.adapter;
+package com.wolcano.musicplayer.music.ui.adapter.statepager;
 
 import android.content.Context;
 

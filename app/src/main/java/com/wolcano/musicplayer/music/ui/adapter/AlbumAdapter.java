@@ -1,6 +1,7 @@
 package com.wolcano.musicplayer.music.ui.adapter;
 
 import android.app.Activity;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.databinding.DataBindingUtil;
@@ -10,25 +11,24 @@ import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+
 import com.squareup.picasso.Picasso;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.databinding.ItemAlbumBinding;
-import com.wolcano.musicplayer.music.mvp.listener.Bind;
 import com.wolcano.musicplayer.music.mvp.models.Album;
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs;
 import com.wolcano.musicplayer.music.utils.Utils;
+
 import java.util.List;
 
 public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> {
 
-    private List<Album> arraylist;
+    private List<Album> albumList;
     private Activity context;
 
-    public AlbumAdapter(Activity context, List<Album> arraylist) {
+    public AlbumAdapter(Activity context, List<Album> albumList) {
         this.context = context;
-        this.arraylist = arraylist;
+        this.albumList = albumList;
     }
 
     @NonNull
@@ -41,9 +41,11 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        holder.binding.setAlbum(arraylist.get(position));
+        holder.binding.setAlbum(albumList.get(position));
         holder.binding.executePendingBindings();
+
         Album album = holder.binding.getAlbum();
+
         holder.binding.line1.setText(album.getName());
         holder.binding.line2.setText(album.getArtist());
         String albumUri = "content://media/external/audio/albumart/" + album.getId();
@@ -51,10 +53,12 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
         setOnPopupMenuListener(holder, position);
 
     }
+
     @Override
     public int getItemCount() {
-        return (null != arraylist ? arraylist.size() : 0);
+        return (null != albumList ? albumList.size() : 0);
     }
+
     private void setOnPopupMenuListener(AlbumAdapter.ViewHolder holder, final int position) {
         holder.binding.more.setOnClickListener(v -> {
             try {
@@ -67,7 +71,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
 
                     switch (item.getItemId()) {
                         case R.id.copy_to_clipboard:
-                            Dialogs.copyDialog(context, arraylist.get(position).getName(),arraylist.get(position).getArtist());
+                            Dialogs.copyDialog(context, albumList.get(position).getName(), albumList.get(position).getArtist());
                             break;
                         default:
                             break;
@@ -95,7 +99,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
         public void onClick(View view) {
             try {
 
-                Album album = arraylist.get(getAdapterPosition());
+                Album album = albumList.get(getAdapterPosition());
                 Utils.navigateToAlbum(context, album.getId(),
                         album.getName());
 

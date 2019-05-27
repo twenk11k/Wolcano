@@ -63,6 +63,7 @@ public class PlaylistSongAdapter extends RecyclerView.Adapter<PlaylistSongAdapte
         holder.binding.executePendingBindings();
 
         Song song = holder.binding.getSong();
+
         String duration = "";
         try {
             duration = Utils.getDuration(song.getDuration() / 1000);

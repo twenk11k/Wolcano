@@ -13,7 +13,6 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
@@ -21,11 +20,13 @@ import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.mvp.listener.SetSearchQuery;
 import com.wolcano.musicplayer.music.widgets.MaterialSearchLast;
 import com.wolcano.musicplayer.music.utils.Utils;
-
 import java.util.ArrayList;
 import java.util.List;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class SearchAdapter extends BaseAdapter implements Filterable {
+
 
     private ArrayList<String> searchList;
     private String[] suggestions,lastSearches;
@@ -33,7 +34,7 @@ public class SearchAdapter extends BaseAdapter implements Filterable {
     private LayoutInflater inflater;
     private boolean ellipsize;
     private Context context;
-    public boolean isFirst;
+    private boolean isFirst;
     private int whichList = 0;
     private int textColor;
     private MaterialSearchLast materialSearchLast;
@@ -42,20 +43,23 @@ public class SearchAdapter extends BaseAdapter implements Filterable {
 
     public SearchAdapter(Context context, String[] suggestions, Drawable suggestionIcon, Drawable suggestionSend, boolean ellipsize, String[] lastSearches, boolean isFirst, SetSearchQuery callback, int textColor, MaterialSearchLast materialSearchLast) {
 
-        inflater = LayoutInflater.from(context);
+        this.inflater = LayoutInflater.from(context);
         this.searchList = new ArrayList<>();
         this.suggestions = suggestions;
         this.suggestionIcon = suggestionIcon;
         this.ellipsize = ellipsize;
         this.suggestionSend = suggestionSend;
         this.context = context;
-
         this.lastSearches = lastSearches;
         this.isFirst = isFirst;
         this.callback = callback;
         this.textColor = textColor;
         this.materialSearchLast = materialSearchLast;
 
+    }
+
+    public boolean getIsFirst(){
+        return isFirst;
     }
 
     @Override
@@ -144,15 +148,15 @@ public class SearchAdapter extends BaseAdapter implements Filterable {
         convertView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                int getseccolor = Utils.getAccentColor(context);
+                int accentColor = Utils.getAccentColor(context);
 
                 MaterialDialog.Builder builder = new MaterialDialog.Builder(context)
                         .title(viewHolder.textView.getText().toString())
                         .content(context.getString(R.string.question_remove_history))
                         .negativeText(context.getString(R.string.cancelU))
-                        .negativeColor(getseccolor)
+                        .negativeColor(accentColor)
                         .positiveText(context.getString(R.string.removeU))
-                        .positiveColor(getseccolor)
+                        .positiveColor(accentColor)
                         .theme(Theme.DARK)
                         .onPositive(new MaterialDialog.SingleButtonCallback() {
                             @Override
@@ -191,15 +195,17 @@ public class SearchAdapter extends BaseAdapter implements Filterable {
 
     public class SuggestionsViewHolder {
 
-        TextView textView;
-        ImageView imageView1,imageView2;
+        private TextView textView;
+        private ImageView imageView1,imageView2;
 
-        private SuggestionsViewHolder(View convertView) {
-            textView = (TextView) convertView.findViewById(R.id.suggestion_text);
+        private SuggestionsViewHolder(View itemView) {
+            textView =  itemView.findViewById(R.id.suggestion_text);
             if (suggestionIcon != null) {
-                imageView1 = (ImageView) convertView.findViewById(R.id.suggestion_icon);
+                imageView1 =  itemView.findViewById(R.id.suggestion_icon);
                 imageView1.setImageDrawable(suggestionIcon);
-                imageView2 = convertView.findViewById(R.id.suggestion_send);
+            }
+            if(suggestionSend != null){
+                imageView2 = itemView.findViewById(R.id.suggestion_send);
                 imageView2.setImageDrawable(suggestionSend);
             }
         }

@@ -1,4 +1,4 @@
-package com.wolcano.musicplayer.music.ui.adapter.other;
+package com.wolcano.musicplayer.music.ui.adapter.customdialog;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
@@ -8,8 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.databinding.ItemCopyBinding;
@@ -19,8 +17,8 @@ import java.util.ArrayList;
 
 public class LikeItemAdapter extends RecyclerView.Adapter<LikeItemAdapter.ViewHolder> {
 
-    private final ArrayList<Copy> likeList;
-    private final Context context;
+    private ArrayList<Copy> likeList;
+    private Context context;
     private ItemCallback itemCallback;
 
     public LikeItemAdapter(Context context, ArrayList<Copy> likeList) {
@@ -37,9 +35,12 @@ public class LikeItemAdapter extends RecyclerView.Adapter<LikeItemAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
         holder.binding.setCopy(likeList.get(position));
         holder.binding.executePendingBindings();
+
         Copy like = holder.binding.getCopy();
+
         holder.binding.text.setText(like.getText());
         if (like.getIcon() == 0)
             holder.binding.icon.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_star_rate_white_48));

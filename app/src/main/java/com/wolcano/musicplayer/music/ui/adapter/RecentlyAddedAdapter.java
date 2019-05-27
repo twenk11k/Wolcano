@@ -54,7 +54,9 @@ public class RecentlyAddedAdapter extends RecyclerView.Adapter<RecentlyAddedAdap
 
         holder.binding.setSong(songList.get(position));
         holder.binding.executePendingBindings();
+
         Song song = holder.binding.getSong();
+
         String duration = "";
         try {
             duration = Utils.getDuration(song.getDuration() / 1000);

@@ -67,7 +67,7 @@
         android:tint="@color/grey0"
         android:scaleType="fitCenter"
         android:background="?android:selectableItemBackground"
-        android:src="@drawable/thepause_black_large"/>
+        android:src="@drawable/btn_pause_black_large"/>
 
     <ImageButton
         android:id="@+id/next"

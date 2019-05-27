@@ -69,7 +69,7 @@
             android:scaleType="center"
             android:tint="@color/grey0"
 
-            android:src="@drawable/thepause_black_large" />
+            android:src="@drawable/btn_pause_black_large" />
 
         <ImageView
             android:id="@+id/next"

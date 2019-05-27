@@ -17,12 +17,12 @@ import java.util.List;
 
 public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHolder> {
 
-    private List<Genre> arraylist;
+    private List<Genre> genreList;
     private Context context;
 
-    public GenreAdapter(Context context, List<Genre> arraylist){
+    public GenreAdapter(Context context, List<Genre> genreList){
         this.context = context;
-        this.arraylist = arraylist;
+        this.genreList = genreList;
     }
 
     @NonNull
@@ -35,9 +35,11 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        holder.binding.setGenre(arraylist.get(position));
+        holder.binding.setGenre(genreList.get(position));
         holder.binding.executePendingBindings();
+
         Genre genre = holder.binding.getGenre();
+
         holder.binding.line1.setText(genre.getName());
         holder.binding.line2.setText(Utils.createStr(context, R.plurals.Nsongs, genre.getSongCount()));
 
@@ -45,7 +47,7 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return (null != arraylist ? arraylist.size() : 0);
+        return (null != genreList ? genreList.size() : 0);
     }
 
 
@@ -62,7 +64,7 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHolder> 
         @Override
         public void onClick(View v) {
 
-           Genre genre = arraylist.get(getAdapterPosition());
+           Genre genre = genreList.get(getAdapterPosition());
            long genreId = genre.getId();
            String genreName = genre.getName();
            Utils.navigateToGenre(context, genreId, genreName);

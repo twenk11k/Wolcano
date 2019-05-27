@@ -46,7 +46,9 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
 
         holder.binding.setPlaylist(playlistList.get(position));
         holder.binding.executePendingBindings();
+
         Playlist playlist = holder.binding.getPlaylist();
+
         holder.binding.line1.setText(playlist.getName());
         holder.binding.line2.setText(Utils.createStr(context, R.plurals.Nsongs, playlist.getSongCount()));
         holder.binding.playlistImg.setColorFilter(ContextCompat.getColor(context, R.color.grey0));

@@ -4,17 +4,15 @@ import android.app.Activity;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.databinding.ItemArtistBinding;
 import com.wolcano.musicplayer.music.mvp.models.Artist;
 import com.wolcano.musicplayer.music.utils.Utils;
-
 import java.util.List;
+
 
 public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder> {
 
@@ -38,7 +36,9 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
 
         holder.binding.setArtist(artistList.get(position));
         holder.binding.executePendingBindings();
+
         Artist artist = holder.binding.getArtist();
+
         holder.binding.line1.setText(artist.getName());
         holder.binding.line2.setText(Utils.createStr(context, R.plurals.Nsongs, artist.getSongCount()));
 

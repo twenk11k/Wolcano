@@ -1,67 +1,74 @@
-package com.wolcano.musicplayer.music.ui.adapter.other;
+package com.wolcano.musicplayer.music.ui.adapter.customdialog;
 
 import android.content.Context;
-
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.databinding.ItemCopyBinding;
-import com.wolcano.musicplayer.music.mvp.listener.ItemCallback;
 import com.wolcano.musicplayer.music.mvp.models.Copy;
 
 import java.util.ArrayList;
 
-public class ShareItemAdapter extends RecyclerView.Adapter<ShareItemAdapter.ViewHolder> {
 
-    private final ArrayList<Copy> shareList;
-    private final Context context;
+public class CopyItemAdapter extends RecyclerView.Adapter<CopyItemAdapter.ViewHolder> {
+
+    private ArrayList<Copy> copyList;
+    private Context context;
     private ItemCallback itemCallback;
 
-    public ShareItemAdapter(Context context, ArrayList<Copy> shareList) {
+    public CopyItemAdapter(Context context, ArrayList<Copy> copyList) {
         this.context = context;
-        this.shareList = shareList;
+        this.copyList = copyList;
     }
 
     @NonNull
     @Override
-    public ShareItemAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ItemCopyBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_copy, parent, false);
         return new ViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ShareItemAdapter.ViewHolder holder, int position) {
-        holder.binding.setCopy(shareList.get(position));
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
+        holder.binding.setCopy(copyList.get(position));
         holder.binding.executePendingBindings();
-        Copy share = holder.binding.getCopy();
-        holder.binding.text.setText(share.getText());
-        if (share.getIcon() == 0)
-            holder.binding.icon.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_insert_drive_file_white_24));
-        if (share.getIcon() == 1)
-            holder.binding.icon.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_text_format_white_24));
+
+        Copy copy = holder.binding.getCopy();
+
+        holder.binding.text.setText(copy.getText());
+        if (copy.getIcon() == 0)
+            holder.binding.icon.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_music_note_white_24));
+        if (copy.getIcon() == 1)
+            holder.binding.icon.setImageDrawable(context.getResources().getDrawable(R.drawable.account_circle_white));
+        if (copy.getIcon() == 2)
+            holder.binding.icon.setImageDrawable(context.getResources().getDrawable(R.drawable.baseline_album_white_36));
 
     }
 
     @Override
     public int getItemCount() {
-        return shareList.size();
+        return copyList.size();
     }
 
     public void setCallback(ItemCallback callback) {
         this.itemCallback = callback;
     }
 
+    public interface ItemCallback {
+
+        void onItemClicked(int itemIndex);
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private ItemCopyBinding binding;
 
-        ViewHolder(ItemCopyBinding binding) {
+        public ViewHolder(ItemCopyBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
             this.binding.getRoot().setOnClickListener(this::onClick);

@@ -31,7 +31,7 @@
             android:minHeight="2dp"
             android:padding="20dp"
             android:progressDrawable="@drawable/seekbar_styling"
-            android:thumb="@drawable/theseek_bar_progress_btn" />
+            android:thumb="@drawable/seek_bar_progress_btn" />
 
         <TextView
             android:id="@+id/total"
