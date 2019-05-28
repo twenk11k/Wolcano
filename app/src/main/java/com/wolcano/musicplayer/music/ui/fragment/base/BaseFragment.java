@@ -56,4 +56,5 @@ public abstract class BaseFragment extends Fragment {
     public void setStatusbarColorAuto(StatusBarView statusBarView, int color) {
         setStatusbarColor(color, statusBarView);
     }
+
 }

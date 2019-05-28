@@ -11,7 +11,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +21,6 @@ import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -34,36 +32,39 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
-
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.kabouzeid.appthemehelper.ATH;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.squareup.picasso.Picasso;
+import com.wolcano.musicplayer.music.App;
 import com.wolcano.musicplayer.music.constants.Constants;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.databinding.FragmentAlbumDetailBinding;
 import com.wolcano.musicplayer.music.databinding.FragmentAlbumDetailOldBinding;
+import com.wolcano.musicplayer.music.di.component.AlbumSongComponent;
+import com.wolcano.musicplayer.music.di.component.ApplicationComponent;
+import com.wolcano.musicplayer.music.di.component.DaggerAlbumSongComponent;
+import com.wolcano.musicplayer.music.di.module.AlbumSongModule;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
 import com.wolcano.musicplayer.music.mvp.interactor.SongInteractorImpl;
 import com.wolcano.musicplayer.music.mvp.listener.PlaylistListener;
 import com.wolcano.musicplayer.music.mvp.models.Playlist;
 import com.wolcano.musicplayer.music.mvp.models.Song;
-import com.wolcano.musicplayer.music.mvp.presenter.SongPresenterImpl;
 import com.wolcano.musicplayer.music.mvp.presenter.interfaces.SongPresenter;
 import com.wolcano.musicplayer.music.mvp.view.SongView;
 import com.wolcano.musicplayer.music.provider.RemotePlay;
 import com.wolcano.musicplayer.music.ui.adapter.detail.AlbumSongAdapter;
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs;
+import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragment;
 import com.wolcano.musicplayer.music.utils.SongUtils;
 import com.wolcano.musicplayer.music.utils.Utils;
 import com.wolcano.musicplayer.music.widgets.RotateFabBehavior;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.Callable;
-
+import javax.inject.Inject;
 import butterknife.OnClick;
 import butterknife.Optional;
 import io.reactivex.Observable;
@@ -76,7 +77,7 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentAlbumDetail extends Fragment implements SongView, PlaylistListener {
+public class FragmentAlbumDetail extends BaseFragment implements SongView, PlaylistListener, View.OnClickListener {
 
 
     private Context context;
@@ -84,12 +85,9 @@ public class FragmentAlbumDetail extends Fragment implements SongView, PlaylistL
     private long albumID = -1;
     private String albumName;
     private int primaryColor = -1, accentColor = -1;
-
     private Activity activity;
     private Menu menu;
     private Disposable disposable;
-    private SongPresenter songPresenter;
-
     private Toolbar toolbar;
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private AppBarLayout appBarLayout;
@@ -97,7 +95,11 @@ public class FragmentAlbumDetail extends Fragment implements SongView, PlaylistL
     private ImageView albumArt;
     private RecyclerView recyclerView;
     private View gradient;
-
+    private int FAB_TIME = 150;
+    private Handler handlerFab;
+    private Runnable runnableFab;
+    @Inject
+    SongPresenter songPresenter;
 
     public static FragmentAlbumDetail newInstance(long id, String name) {
         FragmentAlbumDetail fragment = new FragmentAlbumDetail();
@@ -118,7 +120,11 @@ public class FragmentAlbumDetail extends Fragment implements SongView, PlaylistL
             albumID = getArguments().getLong(Constants.ALBUM_ID);
             albumName = getArguments().getString(Constants.ALBUM_NAME);
         }
+        setupComponent(((App) getActivity().getApplication()).getApplicationComponent());
+
+
     }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -149,7 +155,7 @@ public class FragmentAlbumDetail extends Fragment implements SongView, PlaylistL
         FragmentAlbumDetailOldBinding bindingOld;
 
         if (Build.VERSION.SDK_INT >= 21) {
-            binding = DataBindingUtil.inflate(inflater,R.layout.fragment_album_detail,container,false);
+            binding = DataBindingUtil.inflate(inflater, R.layout.fragment_album_detail, container, false);
             setUpViews(binding);
             root = binding.getRoot();
 
@@ -184,9 +190,8 @@ public class FragmentAlbumDetail extends Fragment implements SongView, PlaylistL
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.addItemDecoration(new DividerItemDecoration(context,
                 DividerItemDecoration.VERTICAL));
-        String sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
 
-        songPresenter = new SongPresenterImpl(this, activity, sort, albumID, new SongInteractorImpl());
+
         songPresenter.getAlbumSongs();
 
         showAlbumArt();
@@ -205,6 +210,7 @@ public class FragmentAlbumDetail extends Fragment implements SongView, PlaylistL
     }
 
     private void setUpViews(FragmentAlbumDetailBinding binding) {
+
         toolbar = binding.toolbar;
         collapsingToolbarLayout = binding.collapsingtoolbar;
         appBarLayout = binding.appbar;
@@ -212,6 +218,8 @@ public class FragmentAlbumDetail extends Fragment implements SongView, PlaylistL
         albumArt = binding.albumArt;
         recyclerView = binding.recyclerview;
         gradient = binding.gradient;
+        fabPlay.setOnClickListener(this);
+
     }
 
     private void showAlbumArt() {
@@ -280,7 +288,11 @@ public class FragmentAlbumDetail extends Fragment implements SongView, PlaylistL
 
     @Override
     public void onDestroyView() {
+
         setStatusBarColor(primaryColor);
+        if(handlerFab!=null && runnableFab!=null){
+            handlerFab.removeCallbacks(runnableFab);
+        }
 
         if (disposable != null && !disposable.isDisposed()) {
             disposable.dispose();
@@ -333,26 +345,6 @@ public class FragmentAlbumDetail extends Fragment implements SongView, PlaylistL
         collapsingToolbarLayout.setTitle(albumName);
     }
 
-    @Optional
-    @Nullable
-    @OnClick(R.id.fabPlay)
-    public void onFabPlayClick() {
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (mAdapter != null) {
-                    if (mAdapter.getSongList() != null) {
-                        if (mAdapter.getSongList().size() != 0) {
-                            Song song = mAdapter.getSongList().get(0);
-                            RemotePlay.get().playAdd(context, mAdapter.getSongList(), song);
-                        }
-                    }
-                }
-            }
-        }, 150);
-    }
-
     @Override
     public void handlePlaylistDialog(Song song) {
         disposable = Observable.fromCallable(new Callable<List<Playlist>>() {
@@ -376,5 +368,38 @@ public class FragmentAlbumDetail extends Fragment implements SongView, PlaylistL
         mAdapter = new AlbumSongAdapter(context, songList, FragmentAlbumDetail.this);
         recyclerView.setAdapter(mAdapter);
         runLayoutAnimation(recyclerView);
+    }
+
+    public void setupComponent(ApplicationComponent applicationComponent) {
+
+
+        String sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
+
+        AlbumSongComponent albumSongComponent = DaggerAlbumSongComponent.builder()
+                .applicationComponent(applicationComponent)
+                .albumSongModule(new AlbumSongModule(this,this,activity,sort,albumID,new SongInteractorImpl()))
+                .build();
+        albumSongComponent.inject(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId()==R.id.fabPlay){
+            handlerFab = new Handler();
+            runnableFab = new Runnable() {
+                @Override
+                public void run() {
+                    if (mAdapter != null) {
+                        if (mAdapter.getSongList() != null) {
+                            if (mAdapter.getSongList().size() != 0) {
+                                Song song = mAdapter.getSongList().get(0);
+                                RemotePlay.get().playAdd(context, mAdapter.getSongList(), song);
+                            }
+                        }
+                    }
+                }
+            };
+            handlerFab.postDelayed(runnableFab,FAB_TIME);
+        }
     }
 }

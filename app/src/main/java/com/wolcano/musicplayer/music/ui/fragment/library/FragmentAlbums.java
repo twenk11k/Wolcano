@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.provider.MediaStore;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
@@ -11,6 +12,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,11 +21,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+
 import com.google.android.material.appbar.AppBarLayout;
 import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.databinding.FragmentInnerAlbumBinding;
+import com.wolcano.musicplayer.music.di.component.AlbumComponent;
+import com.wolcano.musicplayer.music.di.component.ApplicationComponent;
+import com.wolcano.musicplayer.music.di.component.DaggerAlbumComponent;
+import com.wolcano.musicplayer.music.di.module.AlbumModule;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
 import com.wolcano.musicplayer.music.mvp.interactor.AlbumInteractorImpl;
 import com.wolcano.musicplayer.music.mvp.models.Album;
@@ -35,24 +42,25 @@ import com.wolcano.musicplayer.music.ui.fragment.FragmentLibrary;
 import com.wolcano.musicplayer.music.ui.activity.MainActivity;
 import com.wolcano.musicplayer.music.ui.adapter.AlbumAdapter;
 import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragment;
+import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragmentInject;
 import com.wolcano.musicplayer.music.utils.Utils;
+
 import java.util.List;
+
+import javax.inject.Inject;
+
 import io.reactivex.disposables.Disposable;
 
-public class FragmentAlbums extends BaseFragment implements AlbumView,AppBarLayout.OnOffsetChangedListener {
+public class FragmentAlbums extends BaseFragmentInject implements AlbumView, AppBarLayout.OnOffsetChangedListener {
 
     private AlbumAdapter adapter;
-    private Activity activity;
-    private Disposable disposable;
-    private AlbumPresenter albumPresenter;
     private FragmentInnerAlbumBinding binding;
     private View view;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        activity = getActivity();
-    }
+    @Inject
+    AlbumPresenter albumPresenter;
+
+
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
@@ -61,8 +69,8 @@ public class FragmentAlbums extends BaseFragment implements AlbumView,AppBarLayo
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()==R.id.menu_sleeptimer){
-               new SleepTimerDialog().show(getFragmentManager(), "SET_SLEEP_TIMER");
+        if (item.getItemId() == R.id.menu_sleeptimer) {
+            new SleepTimerDialog().show(getFragmentManager(), "SET_SLEEP_TIMER");
         }
         return super.onOptionsItemSelected(item);
     }
@@ -76,7 +84,7 @@ public class FragmentAlbums extends BaseFragment implements AlbumView,AppBarLayo
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_sleeptimer, menu);
-        Toolbar toolbar =  getActivity().findViewById(R.id.toolbar);
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
         ToolbarContentTintHelper.handleOnCreateOptionsMenu(getActivity(), toolbar, menu, ATHToolbarActivity.getToolbarBackgroundColor(toolbar));
 
         super.onCreateOptionsMenu(menu, inflater);
@@ -97,9 +105,7 @@ public class FragmentAlbums extends BaseFragment implements AlbumView,AppBarLayo
         binding.recyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.recyclerview.addItemDecoration(new DividerItemDecoration(getContext(),
                 DividerItemDecoration.VERTICAL));
-        String sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
-        albumPresenter = new AlbumPresenterImpl(this,activity,disposable,sort,new AlbumInteractorImpl());
-        albumPresenter.getAlbums();
+       albumPresenter.getAlbums();
 
     }
 
@@ -113,6 +119,7 @@ public class FragmentAlbums extends BaseFragment implements AlbumView,AppBarLayo
         recyclerView.getAdapter().notifyDataSetChanged();
         recyclerView.scheduleLayoutAnimation();
     }
+
     public void controlIfEmpty() {
         if (binding.empty != null) {
             binding.empty.setText(R.string.no_album);
@@ -130,16 +137,15 @@ public class FragmentAlbums extends BaseFragment implements AlbumView,AppBarLayo
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (disposable != null && !disposable.isDisposed()) {
-            disposable.dispose();
-        }
         DisposableManager.dispose();
         getLibraryFragment().removeOnAppBarOffsetChangedListener(this);
 
     }
+
     private FragmentLibrary getLibraryFragment() {
         return (FragmentLibrary) getParentFragment();
     }
+
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
         view.setPadding(view.getPaddingLeft(), view.getPaddingTop(), view.getPaddingRight(), getLibraryFragment().getTotalAppBarScrollingRange() + verticalOffset);
@@ -166,4 +172,17 @@ public class FragmentAlbums extends BaseFragment implements AlbumView,AppBarLayo
         adapter.notifyDataSetChanged();
         runLayoutAnimation(binding.recyclerview);
     }
+
+
+    @Override
+    public void setupComponent(ApplicationComponent applicationComponent) {
+        String sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
+        AlbumComponent albumComponent = DaggerAlbumComponent.builder()
+                .applicationComponent(applicationComponent)
+                .albumModule(new AlbumModule(this,this,getActivity(),sort,new AlbumInteractorImpl()))
+                .build();
+
+        albumComponent.inject(this);
+    }
+
 }

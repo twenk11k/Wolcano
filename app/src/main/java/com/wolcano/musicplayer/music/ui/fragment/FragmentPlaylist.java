@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -12,6 +13,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,33 +21,36 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+
 import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.databinding.FragmentBaseSongBinding;
+import com.wolcano.musicplayer.music.di.component.ApplicationComponent;
+import com.wolcano.musicplayer.music.di.component.DaggerPlaylistComponent;
+import com.wolcano.musicplayer.music.di.component.PlaylistComponent;
+import com.wolcano.musicplayer.music.di.module.PlaylistModule;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
 import com.wolcano.musicplayer.music.mvp.interactor.PlaylistInteractorImpl;
 import com.wolcano.musicplayer.music.mvp.models.Playlist;
-import com.wolcano.musicplayer.music.mvp.presenter.PlaylistPresenterImpl;
 import com.wolcano.musicplayer.music.mvp.presenter.interfaces.PlaylistPresenter;
 import com.wolcano.musicplayer.music.mvp.view.PlaylistView;
 import com.wolcano.musicplayer.music.ui.dialog.SleepTimerDialog;
-import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragment;
 import com.wolcano.musicplayer.music.ui.adapter.PlaylistAdapter;
+import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragmentInject;
 import com.wolcano.musicplayer.music.utils.Utils;
 import java.util.List;
-import butterknife.ButterKnife;
-import io.reactivex.disposables.Disposable;
+import javax.inject.Inject;
 
-public class FragmentPlaylist extends BaseFragment implements PlaylistView {
+
+public class FragmentPlaylist extends BaseFragmentInject implements PlaylistView {
 
     private PlaylistAdapter mAdapter;
     private int color;
-    private Activity activity;
-    private Disposable disposable;
-    private PlaylistPresenter playlistPresenter;
     private FragmentBaseSongBinding binding;
 
+    @Inject
+    PlaylistPresenter playlistPresenter;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -85,15 +90,10 @@ public class FragmentPlaylist extends BaseFragment implements PlaylistView {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()==R.id.menu_sleeptimer){
+        if (item.getItemId() == R.id.menu_sleeptimer) {
             new SleepTimerDialog().show(getFragmentManager(), "SET_SLEEP_TIMER");
         }
         return super.onOptionsItemSelected(item);
-    }
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        activity = getActivity();
     }
 
     @Override
@@ -105,9 +105,9 @@ public class FragmentPlaylist extends BaseFragment implements PlaylistView {
         binding.recyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.recyclerview.addItemDecoration(new DividerItemDecoration(getContext(),
                 DividerItemDecoration.VERTICAL));
-        String sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
-        playlistPresenter = new PlaylistPresenterImpl(this,activity,sort,new PlaylistInteractorImpl());
+
         playlistPresenter.getPlaylists();
+
         return binding.getRoot();
     }
 
@@ -122,10 +122,6 @@ public class FragmentPlaylist extends BaseFragment implements PlaylistView {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
-        if (disposable != null && !disposable.isDisposed()) {
-            disposable.dispose();
-        }
 
         DisposableManager.dispose();
 
@@ -149,5 +145,18 @@ public class FragmentPlaylist extends BaseFragment implements PlaylistView {
                 controlIfEmpty();
             }
         });
+    }
+
+    @Override
+    public void setupComponent(ApplicationComponent applicationComponent) {
+        String sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
+
+        PlaylistComponent playlistComponent = DaggerPlaylistComponent.builder()
+                .applicationComponent(applicationComponent)
+                .playlistModule(new PlaylistModule(this, this, getActivity(), sort, new PlaylistInteractorImpl()))
+                .build();
+
+        playlistComponent.inject(this);
+
     }
 }

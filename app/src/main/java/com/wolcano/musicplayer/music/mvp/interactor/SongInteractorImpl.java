@@ -2,6 +2,8 @@ package com.wolcano.musicplayer.music.mvp.interactor;
 
 import android.Manifest;
 import android.app.Activity;
+import android.util.Log;
+
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.wolcano.musicplayer.music.R;
@@ -11,22 +13,24 @@ import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.utils.PermissionUtils;
 import com.wolcano.musicplayer.music.utils.SongUtils;
 import com.wolcano.musicplayer.music.utils.ToastUtils;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
+import static com.wolcano.musicplayer.music.constants.Constants.ERROR_TAG;
 import static com.wolcano.musicplayer.music.constants.Constants.SONG_LIBRARY;
 
 public class SongInteractorImpl implements SongInteractor {
 
 
-
     @Subscribe(tags = {@Tag(SONG_LIBRARY)})
     @Override
-    public void getSongs(Activity activity,String sort,OnGetSongListener onGetSongListener) {
+    public void getSongs(Activity activity, String sort, OnGetSongListener onGetSongListener) {
 
         PermissionUtils.with(activity)
                 .permissions(Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -61,7 +65,7 @@ public class SongInteractorImpl implements SongInteractor {
 
     @Subscribe(tags = {@Tag(SONG_LIBRARY)})
     @Override
-    public void getPlaylistSongs(Activity activity,String sort,long playlistID,OnGetSongListener onGetSongListener) {
+    public void getPlaylistSongs(Activity activity, String sort, long playlistID, OnGetSongListener onGetSongListener) {
 
 
         PermissionUtils.with(activity)
@@ -72,7 +76,11 @@ public class SongInteractorImpl implements SongInteractor {
                     public void onPermGranted() {
 
                         Observable<List<Song>> observable =
-                                Observable.fromCallable(() -> SongUtils.scanSongsforPlaylist(activity, sort, playlistID)).throttleFirst(500, TimeUnit.MILLISECONDS);
+                                Observable.fromCallable(() -> SongUtils.scanSongsforPlaylist(activity, sort, playlistID))
+                                        .throttleFirst(500, TimeUnit.MILLISECONDS)
+                                        .doOnError(throwable -> {
+                                            Log.e(ERROR_TAG,"Message: "+throwable.getMessage());
+                                        });
 
                         Disposable disposable = observable.
                                 subscribeOn(Schedulers.io()).
@@ -94,9 +102,10 @@ public class SongInteractorImpl implements SongInteractor {
                 .reqPerm();
 
     }
+
     @Subscribe(tags = {@Tag(SONG_LIBRARY)})
     @Override
-    public void getAlbumSongs(Activity activity, String sort,long albumID, OnGetSongListener onGetSongListener) {
+    public void getAlbumSongs(Activity activity, String sort, long albumID, OnGetSongListener onGetSongListener) {
         PermissionUtils.with(activity)
                 .permissions(Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -117,7 +126,7 @@ public class SongInteractorImpl implements SongInteractor {
                     @Override
                     public void onPermUnapproved() {
                         onGetSongListener.controlIfEmpty();
-                        ToastUtils.show(activity.getApplicationContext(),R.string.no_perm_storage);
+                        ToastUtils.show(activity.getApplicationContext(), R.string.no_perm_storage);
                     }
                 })
                 .reqPerm();

@@ -25,15 +25,22 @@ import android.widget.RelativeLayout;
 
 import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
+import com.wolcano.musicplayer.music.App;
 import com.wolcano.musicplayer.music.constants.Constants;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.databinding.FragmentBaseSongBinding;
+import com.wolcano.musicplayer.music.di.component.ApplicationComponent;
+import com.wolcano.musicplayer.music.di.component.DaggerPlaylistSongComponent;
+import com.wolcano.musicplayer.music.di.component.DaggerSongComponent;
+import com.wolcano.musicplayer.music.di.component.PlaylistSongComponent;
+import com.wolcano.musicplayer.music.di.component.SongComponent;
+import com.wolcano.musicplayer.music.di.module.PlaylistSongModule;
+import com.wolcano.musicplayer.music.di.module.SongModule;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
 import com.wolcano.musicplayer.music.mvp.interactor.SongInteractorImpl;
 import com.wolcano.musicplayer.music.mvp.listener.PlaylistListener;
 import com.wolcano.musicplayer.music.mvp.models.Playlist;
 import com.wolcano.musicplayer.music.mvp.models.Song;
-import com.wolcano.musicplayer.music.mvp.presenter.SongPresenterImpl;
 import com.wolcano.musicplayer.music.mvp.presenter.interfaces.SongPresenter;
 import com.wolcano.musicplayer.music.mvp.view.SongView;
 import com.wolcano.musicplayer.music.ui.dialog.SleepTimerDialog;
@@ -43,10 +50,9 @@ import com.wolcano.musicplayer.music.ui.adapter.detail.PlaylistSongAdapter;
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs;
 import com.wolcano.musicplayer.music.utils.SongUtils;
 import com.wolcano.musicplayer.music.utils.Utils;
-
 import java.util.List;
 import java.util.concurrent.Callable;
-
+import javax.inject.Inject;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -62,8 +68,11 @@ public class FragmentPlaylistDetail extends BaseFragment implements SongView, Pl
     private int primaryColor = -1, accentColor = -1;
     private Activity activity;
     private Disposable disposable;
-    private SongPresenter songPresenter;
     private FragmentBaseSongBinding binding;
+
+    @Inject
+    SongPresenter songPresenter;
+
 
     public static FragmentPlaylistDetail newInstance(long id, String name) {
         FragmentPlaylistDetail fragment = new FragmentPlaylistDetail();
@@ -83,8 +92,12 @@ public class FragmentPlaylistDetail extends BaseFragment implements SongView, Pl
             playlistID = getArguments().getLong(Constants.PLAYLIST_ID);
             playlistName = getArguments().getString(Constants.PLAYLIST_NAME);
         }
+
         context = getActivity();
+        setupComponent(((App) getActivity().getApplication()).getApplicationComponent());
+
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -139,8 +152,6 @@ public class FragmentPlaylistDetail extends BaseFragment implements SongView, Pl
 
         binding.recyclerview.setAdapter(mAdapter);
 
-        String sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
-        songPresenter = new SongPresenterImpl(this,activity,sort,playlistID,new SongInteractorImpl());
         songPresenter.getPlaylistSongs();
         setupToolbar();
     }
@@ -226,5 +237,17 @@ public class FragmentPlaylistDetail extends BaseFragment implements SongView, Pl
 
         binding.recyclerview.setAdapter(mAdapter);
         runLayoutAnimation(binding.recyclerview);
+    }
+
+
+    public void setupComponent(ApplicationComponent applicationComponent) {
+        String sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
+
+        PlaylistSongComponent playlistSongComponent = DaggerPlaylistSongComponent.builder()
+                .applicationComponent(applicationComponent)
+                .playlistSongModule(new PlaylistSongModule(this,this,getActivity(),sort,playlistID,new SongInteractorImpl()))
+                .build();
+
+        playlistSongComponent.inject(this);
     }
 }

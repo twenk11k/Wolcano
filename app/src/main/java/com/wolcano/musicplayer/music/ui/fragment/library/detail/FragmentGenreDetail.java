@@ -26,15 +26,19 @@ import android.widget.RelativeLayout;
 
 import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
+import com.wolcano.musicplayer.music.App;
 import com.wolcano.musicplayer.music.constants.Constants;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.databinding.FragmentBaseSongBinding;
+import com.wolcano.musicplayer.music.di.component.ApplicationComponent;
+import com.wolcano.musicplayer.music.di.component.DaggerGenreSongComponent;
+import com.wolcano.musicplayer.music.di.component.GenreSongComponent;
+import com.wolcano.musicplayer.music.di.module.GenreSongModule;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
 import com.wolcano.musicplayer.music.mvp.interactor.SongInteractorImpl;
 import com.wolcano.musicplayer.music.mvp.listener.PlaylistListener;
 import com.wolcano.musicplayer.music.mvp.models.Playlist;
 import com.wolcano.musicplayer.music.mvp.models.Song;
-import com.wolcano.musicplayer.music.mvp.presenter.SongPresenterImpl;
 import com.wolcano.musicplayer.music.mvp.presenter.interfaces.SongPresenter;
 import com.wolcano.musicplayer.music.mvp.view.SongView;
 import com.wolcano.musicplayer.music.ui.dialog.SleepTimerDialog;
@@ -44,10 +48,9 @@ import com.wolcano.musicplayer.music.ui.adapter.RecentlyAddedAdapter;
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs;
 import com.wolcano.musicplayer.music.utils.SongUtils;
 import com.wolcano.musicplayer.music.utils.Utils;
-
 import java.util.List;
 import java.util.concurrent.Callable;
-
+import javax.inject.Inject;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -57,15 +60,17 @@ import io.reactivex.schedulers.Schedulers;
 
 public class FragmentGenreDetail extends BaseFragment implements SongView, PlaylistListener {
 
-    private Context context;
     private RecentlyAddedAdapter mAdapter;
     private long genreID = -1;
     private String genreName;
     private int primaryColor = -1;
     private Activity activity;
     private Disposable disposable;
-    private SongPresenter songPresenter;
     private FragmentBaseSongBinding binding;
+
+    @Inject
+    SongPresenter songPresenter;
+
 
     public static FragmentGenreDetail newInstance(long id, String name) {
         FragmentGenreDetail fragment = new FragmentGenreDetail();
@@ -84,9 +89,11 @@ public class FragmentGenreDetail extends BaseFragment implements SongView, Playl
             genreID = getArguments().getLong(Constants.GENRE_ID);
             genreName = getArguments().getString(Constants.GENRE_NAME);
         }
-        context = getActivity();
         activity = getActivity();
+        setupComponent(((App) getActivity().getApplication()).getApplicationComponent());
+
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -139,9 +146,7 @@ public class FragmentGenreDetail extends BaseFragment implements SongView, Playl
         binding.recyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.recyclerview.addItemDecoration(new DividerItemDecoration(getContext(),
                 DividerItemDecoration.VERTICAL));
-        String sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
 
-        songPresenter = new SongPresenterImpl(this,activity,sort,genreID,new SongInteractorImpl());
         songPresenter.getGenreSongs();
         setupToolbar();
     }
@@ -229,5 +234,19 @@ public class FragmentGenreDetail extends BaseFragment implements SongView, Playl
 
         binding.recyclerview.setAdapter(mAdapter);
         runLayoutAnimation(binding.recyclerview);
+    }
+
+
+    public void setupComponent(ApplicationComponent applicationComponent) {
+        String sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
+
+        GenreSongComponent genreSongComponent = DaggerGenreSongComponent.builder()
+                .applicationComponent(applicationComponent)
+                .genreSongModule(new GenreSongModule(this,this,activity,sort,genreID,new SongInteractorImpl()))
+                .build();
+
+        genreSongComponent.inject(this);
+
+
     }
 }

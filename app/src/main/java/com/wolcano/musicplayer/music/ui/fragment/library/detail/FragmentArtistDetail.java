@@ -25,15 +25,22 @@ import android.widget.RelativeLayout;
 
 import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
+import com.wolcano.musicplayer.music.App;
 import com.wolcano.musicplayer.music.constants.Constants;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.databinding.FragmentBaseSongBinding;
+import com.wolcano.musicplayer.music.di.component.ApplicationComponent;
+import com.wolcano.musicplayer.music.di.component.ArtistSongComponent;
+import com.wolcano.musicplayer.music.di.component.DaggerArtistSongComponent;
+import com.wolcano.musicplayer.music.di.component.DaggerSongComponent;
+import com.wolcano.musicplayer.music.di.component.SongComponent;
+import com.wolcano.musicplayer.music.di.module.ArtistSongModule;
+import com.wolcano.musicplayer.music.di.module.SongModule;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
 import com.wolcano.musicplayer.music.mvp.interactor.SongInteractorImpl;
 import com.wolcano.musicplayer.music.mvp.listener.PlaylistListener;
 import com.wolcano.musicplayer.music.mvp.models.Playlist;
 import com.wolcano.musicplayer.music.mvp.models.Song;
-import com.wolcano.musicplayer.music.mvp.presenter.SongPresenterImpl;
 import com.wolcano.musicplayer.music.mvp.presenter.interfaces.SongPresenter;
 import com.wolcano.musicplayer.music.mvp.view.SongView;
 import com.wolcano.musicplayer.music.ui.dialog.SleepTimerDialog;
@@ -42,9 +49,10 @@ import com.wolcano.musicplayer.music.ui.adapter.detail.AlbumSongAdapter;
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs;
 import com.wolcano.musicplayer.music.utils.SongUtils;
 import com.wolcano.musicplayer.music.utils.Utils;
-
 import java.util.List;
 import java.util.concurrent.Callable;
+
+import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -62,8 +70,10 @@ public class FragmentArtistDetail extends BaseFragment implements SongView, Play
     private int primaryColor = -1;
     private Activity activity;
     private Disposable disposable;
-    private SongPresenter songPresenter;
     private FragmentBaseSongBinding binding;
+
+    @Inject
+    SongPresenter songPresenter;
 
     public static FragmentArtistDetail newInstance(long id, String name) {
         FragmentArtistDetail fragment = new FragmentArtistDetail();
@@ -84,7 +94,10 @@ public class FragmentArtistDetail extends BaseFragment implements SongView, Play
             artistId = getArguments().getLong(Constants.ARTIST_ID);
             artistName = getArguments().getString(Constants.ARTIST_NAME);
         }
+        setupComponent(((App) getActivity().getApplication()).getApplicationComponent());
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -135,9 +148,8 @@ public class FragmentArtistDetail extends BaseFragment implements SongView, Play
         binding.recyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.recyclerview.addItemDecoration(new DividerItemDecoration(getContext(),
                 DividerItemDecoration.VERTICAL));
-        String sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
-        songPresenter = new SongPresenterImpl(this,activity,sort,artistId,new SongInteractorImpl());
-        songPresenter.getArtistSongs();
+
+       songPresenter.getArtistSongs();
         setupToolbar();
     }
 
@@ -223,5 +235,14 @@ public class FragmentArtistDetail extends BaseFragment implements SongView, Play
 
         binding.recyclerview.setAdapter(mAdapter);
         runLayoutAnimation( binding.recyclerview);
+    }
+
+    public void setupComponent(ApplicationComponent applicationComponent) {
+        String sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
+        ArtistSongComponent artistSongComponent = DaggerArtistSongComponent.builder()
+                .applicationComponent(applicationComponent)
+                .artistSongModule(new ArtistSongModule(this,this,activity,sort,artistId,new SongInteractorImpl()))
+                .build();
+        artistSongComponent.inject(this);
     }
 }

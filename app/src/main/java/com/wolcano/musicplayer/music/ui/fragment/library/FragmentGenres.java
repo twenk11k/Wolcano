@@ -1,6 +1,5 @@
 package com.wolcano.musicplayer.music.ui.fragment.library;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -24,10 +23,13 @@ import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.databinding.FragmentInnerAlbumBinding;
+import com.wolcano.musicplayer.music.di.component.ApplicationComponent;
+import com.wolcano.musicplayer.music.di.component.DaggerGenreComponent;
+import com.wolcano.musicplayer.music.di.component.GenreComponent;
+import com.wolcano.musicplayer.music.di.module.GenreModule;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
 import com.wolcano.musicplayer.music.mvp.interactor.GenreInteractorImpl;
 import com.wolcano.musicplayer.music.mvp.models.Genre;
-import com.wolcano.musicplayer.music.mvp.presenter.GenrePresenterImpl;
 import com.wolcano.musicplayer.music.mvp.presenter.interfaces.GenrePresenter;
 import com.wolcano.musicplayer.music.mvp.view.GenreView;
 import com.wolcano.musicplayer.music.ui.dialog.SleepTimerDialog;
@@ -35,24 +37,21 @@ import com.wolcano.musicplayer.music.ui.fragment.FragmentLibrary;
 import com.wolcano.musicplayer.music.ui.activity.MainActivity;
 import com.wolcano.musicplayer.music.ui.adapter.GenreAdapter;
 import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragment;
+import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragmentInject;
 import com.wolcano.musicplayer.music.utils.Utils;
 import java.util.List;
-import io.reactivex.disposables.Disposable;
 
-public class FragmentGenres extends BaseFragment implements GenreView,AppBarLayout.OnOffsetChangedListener {
+import javax.inject.Inject;
+
+public class FragmentGenres extends BaseFragmentInject implements GenreView,AppBarLayout.OnOffsetChangedListener {
 
     private GenreAdapter adapter;
-    private Activity activity;
-    private Disposable disposable;
-    private GenrePresenter genrePresenter;
     private FragmentInnerAlbumBinding binding;
     private View view;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        activity = getActivity();
-    }
+    @Inject
+    GenrePresenter genrePresenter;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -90,9 +89,9 @@ public class FragmentGenres extends BaseFragment implements GenreView,AppBarLayo
         binding.recyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.recyclerview.addItemDecoration(new DividerItemDecoration(getContext(),
                 DividerItemDecoration.VERTICAL));
-        String sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
-        genrePresenter = new GenrePresenterImpl(this,activity,sort,new GenreInteractorImpl());
-        genrePresenter.getGenres();
+
+       genrePresenter.getGenres();
+
     }
 
 
@@ -117,10 +116,6 @@ public class FragmentGenres extends BaseFragment implements GenreView,AppBarLayo
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
-        if (disposable != null && !disposable.isDisposed()) {
-            disposable.dispose();
-        }
 
         DisposableManager.dispose();
         getLibraryFragment().removeOnAppBarOffsetChangedListener(this);
@@ -163,5 +158,17 @@ public class FragmentGenres extends BaseFragment implements GenreView,AppBarLayo
 
         binding.recyclerview.setAdapter(adapter);
         runLayoutAnimation(binding.recyclerview);
+    }
+
+    @Override
+    public void setupComponent(ApplicationComponent applicationComponent) {
+        String sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
+
+        GenreComponent genreComponent = DaggerGenreComponent.builder()
+                .applicationComponent(applicationComponent)
+                .genreModule(new GenreModule(this,this,getActivity(),sort,new GenreInteractorImpl()))
+                .build();
+
+        genreComponent.inject(this);
     }
 }

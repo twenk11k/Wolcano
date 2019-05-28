@@ -1,6 +1,5 @@
 package com.wolcano.musicplayer.music.ui.fragment.library;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -19,16 +18,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
-import android.widget.TextView;
 import com.google.android.material.appbar.AppBarLayout;
 import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.databinding.FragmentInnerAlbumBinding;
+import com.wolcano.musicplayer.music.di.component.ApplicationComponent;
+import com.wolcano.musicplayer.music.di.component.ArtistComponent;
+import com.wolcano.musicplayer.music.di.component.DaggerArtistComponent;
+import com.wolcano.musicplayer.music.di.module.ArtistModule;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
 import com.wolcano.musicplayer.music.mvp.interactor.ArtistInteractorImpl;
 import com.wolcano.musicplayer.music.mvp.models.Artist;
-import com.wolcano.musicplayer.music.mvp.presenter.ArtistPresenterImpl;
 import com.wolcano.musicplayer.music.mvp.presenter.interfaces.ArtistPresenter;
 import com.wolcano.musicplayer.music.mvp.view.ArtistView;
 import com.wolcano.musicplayer.music.ui.dialog.SleepTimerDialog;
@@ -36,25 +37,23 @@ import com.wolcano.musicplayer.music.ui.fragment.FragmentLibrary;
 import com.wolcano.musicplayer.music.ui.activity.MainActivity;
 import com.wolcano.musicplayer.music.ui.adapter.ArtistAdapter;
 import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragment;
-import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragment2;
+import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragmentInject;
 import com.wolcano.musicplayer.music.utils.Utils;
 import java.util.List;
-import io.reactivex.disposables.Disposable;
+import javax.inject.Inject;
 
-public class FragmentArtists extends BaseFragment implements ArtistView,AppBarLayout.OnOffsetChangedListener {
+
+public class FragmentArtists extends BaseFragmentInject implements ArtistView,AppBarLayout.OnOffsetChangedListener {
 
     private ArtistAdapter adapter;
-    private Activity activity;
-    private Disposable disposable;
-    private ArtistPresenter artistPresenter;
     private FragmentInnerAlbumBinding binding;
     private View view;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        activity = getActivity();
-    }
+    @Inject
+    ArtistPresenter artistPresenter;
+
+
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -77,9 +76,7 @@ public class FragmentArtists extends BaseFragment implements ArtistView,AppBarLa
         binding.recyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.recyclerview.addItemDecoration(new DividerItemDecoration(getContext(),
                 DividerItemDecoration.VERTICAL));
-        String sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
-        artistPresenter = new ArtistPresenterImpl(this,activity,sort,new ArtistInteractorImpl());
-        artistPresenter.getArtists();
+       artistPresenter.getArtists();
 
     }
 
@@ -125,9 +122,6 @@ public class FragmentArtists extends BaseFragment implements ArtistView,AppBarLa
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (disposable != null && !disposable.isDisposed()) {
-            disposable.dispose();
-        }
 
         DisposableManager.dispose();
         getLibraryFragment().removeOnAppBarOffsetChangedListener(this);
@@ -164,4 +158,17 @@ public class FragmentArtists extends BaseFragment implements ArtistView,AppBarLa
         binding.recyclerview.setAdapter(adapter);
         runLayoutAnimation(binding.recyclerview);
     }
+
+    @Override
+    public void setupComponent(ApplicationComponent applicationComponent) {
+        String sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
+
+        ArtistComponent artistComponent = DaggerArtistComponent.builder()
+                .applicationComponent(applicationComponent)
+                .artistModule(new ArtistModule(this,this,getActivity(),sort,new ArtistInteractorImpl()))
+                .build();
+
+        artistComponent.inject(this);
+    }
+
 }

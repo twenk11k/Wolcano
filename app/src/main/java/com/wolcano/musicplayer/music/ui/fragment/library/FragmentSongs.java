@@ -26,13 +26,16 @@ import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.databinding.FragmentSongsBinding;
+import com.wolcano.musicplayer.music.di.component.ApplicationComponent;
+import com.wolcano.musicplayer.music.di.component.DaggerSongComponent;
+import com.wolcano.musicplayer.music.di.component.SongComponent;
+import com.wolcano.musicplayer.music.di.module.SongModule;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
 import com.wolcano.musicplayer.music.mvp.interactor.SongInteractorImpl;
 import com.wolcano.musicplayer.music.mvp.listener.FilterListener;
 import com.wolcano.musicplayer.music.mvp.listener.PlaylistListener;
 import com.wolcano.musicplayer.music.mvp.models.Playlist;
 import com.wolcano.musicplayer.music.mvp.models.Song;
-import com.wolcano.musicplayer.music.mvp.presenter.SongPresenterImpl;
 import com.wolcano.musicplayer.music.mvp.presenter.interfaces.SongPresenter;
 import com.wolcano.musicplayer.music.mvp.view.SongView;
 import com.wolcano.musicplayer.music.ui.adapter.SongAdapter;
@@ -40,28 +43,31 @@ import com.wolcano.musicplayer.music.ui.fragment.FragmentLibrary;
 import com.wolcano.musicplayer.music.ui.activity.MainActivity;
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs;
 import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragment;
+import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragmentInject;
 import com.wolcano.musicplayer.music.utils.SongUtils;
 import com.wolcano.musicplayer.music.utils.Utils;
 import java.util.List;
 import java.util.concurrent.Callable;
+import javax.inject.Inject;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class FragmentSongs extends BaseFragment implements SongView,FilterListener, AppBarLayout.OnOffsetChangedListener, PlaylistListener {
+public class FragmentSongs extends BaseFragmentInject implements SongView,FilterListener, AppBarLayout.OnOffsetChangedListener, PlaylistListener {
 
 
     private SongAdapter mAdapter;
     private Context context;
-    private Activity activity;
     private int searchC = 0;
     private Disposable disposable;
-    private SongPresenter songPresenter;
+
     private FragmentSongsBinding binding;
     private View view;
     private String text;
+    @Inject
+    SongPresenter songPresenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -69,15 +75,13 @@ public class FragmentSongs extends BaseFragment implements SongView,FilterListen
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_songs, container, false);
         view = binding.getRoot();
         context = getContext();
-        activity = getActivity();
         setHasOptionsMenu(true);
 
         Utils.setUpFastScrollRecyclerViewColor(binding.recyclerview, Utils.getAccentColor(getContext()));
         binding.recyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.recyclerview.addItemDecoration(new DividerItemDecoration(getContext(),
                 DividerItemDecoration.VERTICAL));
-        String sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
-        songPresenter = new SongPresenterImpl(this,activity,sort,new SongInteractorImpl());
+
         songPresenter.getSongs();
 
         return view;
@@ -216,5 +220,17 @@ public class FragmentSongs extends BaseFragment implements SongView,FilterListen
                         Dialogs.addPlaylistDialog(context, song, playlists);
                     }
                 });
+    }
+
+    @Override
+    public void setupComponent(ApplicationComponent applicationComponent) {
+
+        String sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
+
+        SongComponent songsComponent = DaggerSongComponent.builder()
+                .applicationComponent(applicationComponent)
+                .songModule(new SongModule(this,this,getActivity(),sort,new SongInteractorImpl()))
+                .build();
+        songsComponent.inject(this);
     }
 }

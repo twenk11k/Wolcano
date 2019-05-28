@@ -36,6 +36,7 @@ import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 import com.kabouzeid.appthemehelper.util.TintHelper;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.wolcano.musicplayer.music.R;
+import com.wolcano.musicplayer.music.di.component.ApplicationComponent;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
 import com.wolcano.musicplayer.music.mvp.listener.RecyclerViewScrollListener;
 import com.wolcano.musicplayer.music.mvp.models.SongOnline;
@@ -68,6 +69,7 @@ import static com.wolcano.musicplayer.music.constants.Constants.MAIN_BASE_URL_2;
 
 
 public class FragmentOnline extends BaseFragment implements SetSearchQuery {
+
 
     //  Butterknife bindings...
     @BindView(R.id.toolbar)

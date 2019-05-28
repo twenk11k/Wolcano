@@ -1,11 +1,9 @@
 package com.wolcano.musicplayer.music.ui.fragment;
 
 import android.Manifest;
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -25,6 +23,7 @@ import com.kabouzeid.appthemehelper.util.TintHelper;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.databinding.FragmentLibraryBinding;
+import com.wolcano.musicplayer.music.di.component.ApplicationComponent;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
 import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragment;
 import com.wolcano.musicplayer.music.utils.PermissionUtils;
@@ -39,7 +38,6 @@ import com.wolcano.musicplayer.music.utils.Utils;
 public class FragmentLibrary extends BaseFragment {
 
     private boolean isHidden = false;
-    private Context context;
     private FragmentLibraryBinding binding;
 
     @Nullable
@@ -48,10 +46,6 @@ public class FragmentLibrary extends BaseFragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_library, container, false);
 
         setHasOptionsMenu(true);
-        context = getContext();
-
-
-
         int color = Utils.getPrimaryColor(getContext());
         setStatusbarColorAuto(binding.statusBarCustom, color);
 

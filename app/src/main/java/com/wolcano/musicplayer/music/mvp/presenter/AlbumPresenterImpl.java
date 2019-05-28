@@ -19,14 +19,12 @@ public class AlbumPresenterImpl implements AlbumPresenter, AlbumInteractor.OnGet
     private Fragment fragment;
     private Activity activity;
     private String sort;
-    private Disposable disposable;
     private AlbumInteractor albumInteractor;
 
-    public AlbumPresenterImpl(Fragment fragment, Activity activity, Disposable disposable, String sort, AlbumInteractorImpl albumInteractor) {
+    public AlbumPresenterImpl(Fragment fragment, Activity activity, String sort, AlbumInteractorImpl albumInteractor) {
 
         this.fragment = fragment;
         this.activity = activity;
-        this.disposable = disposable;
         this.sort = sort;
         this.albumInteractor = albumInteractor;
 
