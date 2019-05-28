@@ -77,7 +77,7 @@ public class FragmentSongs extends BaseFragment implements SongView,FilterListen
         binding.recyclerview.addItemDecoration(new DividerItemDecoration(getContext(),
                 DividerItemDecoration.VERTICAL));
         String sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
-        songPresenter = new SongPresenterImpl(this,activity,disposable,sort,new SongInteractorImpl());
+        songPresenter = new SongPresenterImpl(this,activity,sort,new SongInteractorImpl());
         songPresenter.getSongs();
 
         return view;

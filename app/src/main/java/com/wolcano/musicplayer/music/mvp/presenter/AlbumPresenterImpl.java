@@ -34,7 +34,7 @@ public class AlbumPresenterImpl implements AlbumPresenter, AlbumInteractor.OnGet
 
     @Override
     public void getAlbums() {
-        albumInteractor.getAlbum(activity,disposable,sort,this);
+        albumInteractor.getAlbum(activity,sort,this);
 
     }
 

@@ -186,7 +186,7 @@ public class FragmentAlbumDetail extends Fragment implements SongView, PlaylistL
                 DividerItemDecoration.VERTICAL));
         String sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
 
-        songPresenter = new SongPresenterImpl(this, activity, disposable, sort, albumID, new SongInteractorImpl());
+        songPresenter = new SongPresenterImpl(this, activity, sort, albumID, new SongInteractorImpl());
         songPresenter.getAlbumSongs();
 
         showAlbumArt();

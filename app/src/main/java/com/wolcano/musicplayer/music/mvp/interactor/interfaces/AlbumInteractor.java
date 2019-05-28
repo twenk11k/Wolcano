@@ -15,6 +15,6 @@ public interface AlbumInteractor {
         void controlIfEmpty();
     }
 
-    void getAlbum(Activity activity, Disposable disposable, String sort, OnGetAlbumListener onGetAlbumListener);
+    void getAlbum(Activity activity, String sort, OnGetAlbumListener onGetAlbumListener);
 
 }

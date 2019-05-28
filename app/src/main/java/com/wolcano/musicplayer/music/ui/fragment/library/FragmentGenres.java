@@ -91,7 +91,7 @@ public class FragmentGenres extends BaseFragment implements GenreView,AppBarLayo
         binding.recyclerview.addItemDecoration(new DividerItemDecoration(getContext(),
                 DividerItemDecoration.VERTICAL));
         String sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
-        genrePresenter = new GenrePresenterImpl(this,activity,disposable,sort,new GenreInteractorImpl());
+        genrePresenter = new GenrePresenterImpl(this,activity,sort,new GenreInteractorImpl());
         genrePresenter.getGenres();
     }
 

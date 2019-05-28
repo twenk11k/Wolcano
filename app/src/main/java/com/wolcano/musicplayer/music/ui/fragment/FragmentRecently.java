@@ -118,7 +118,7 @@ public class FragmentRecently extends BaseFragment implements SongView, Playlist
                 DividerItemDecoration.VERTICAL));
         String sort = MediaStore.Audio.Media.DATE_ADDED + " DESC";
 
-        songPresenter = new SongPresenterImpl(this,activity,disposable,sort,new SongInteractorImpl());
+        songPresenter = new SongPresenterImpl(this,activity,sort,new SongInteractorImpl());
         songPresenter.getSongs();
 
         return binding.getRoot();

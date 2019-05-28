@@ -14,6 +14,6 @@ public interface GenreInteractor {
         void controlIfEmpty();
     }
 
-    void getGenres(Activity activity, Disposable disposable, String sort, OnGetGenreListener OnGetGenreListener);
+    void getGenres(Activity activity, String sort, OnGetGenreListener OnGetGenreListener);
 
 }

@@ -141,7 +141,7 @@ public class FragmentGenreDetail extends BaseFragment implements SongView, Playl
                 DividerItemDecoration.VERTICAL));
         String sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
 
-        songPresenter = new SongPresenterImpl(this,activity,disposable,sort,genreID,new SongInteractorImpl());
+        songPresenter = new SongPresenterImpl(this,activity,sort,genreID,new SongInteractorImpl());
         songPresenter.getGenreSongs();
         setupToolbar();
     }

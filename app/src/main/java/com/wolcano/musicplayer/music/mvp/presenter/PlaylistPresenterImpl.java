@@ -8,7 +8,6 @@ import com.wolcano.musicplayer.music.mvp.models.Playlist;
 import com.wolcano.musicplayer.music.mvp.presenter.interfaces.PlaylistPresenter;
 import com.wolcano.musicplayer.music.ui.fragment.FragmentPlaylist;
 import java.util.List;
-import io.reactivex.disposables.Disposable;
 
 
 public class PlaylistPresenterImpl implements PlaylistPresenter, PlaylistInteractor.OnGetPlaylistListener {
@@ -16,13 +15,11 @@ public class PlaylistPresenterImpl implements PlaylistPresenter, PlaylistInterac
     private Fragment fragment;
     private PlaylistInteractor playlistInteractor;
     private String sort;
-    private Disposable disposable;
     private Activity activity;
 
-    public PlaylistPresenterImpl(Fragment fragment, Activity activity, Disposable disposable, String sort, PlaylistInteractorImpl playlistInteractor){
+    public PlaylistPresenterImpl(Fragment fragment, Activity activity, String sort, PlaylistInteractorImpl playlistInteractor){
         this.fragment = fragment;
         this.activity = activity;
-        this.disposable = disposable;
         this.sort = sort;
         this.playlistInteractor = playlistInteractor;
     }
@@ -45,6 +42,6 @@ public class PlaylistPresenterImpl implements PlaylistPresenter, PlaylistInterac
 
     @Override
     public void getPlaylists() {
-        playlistInteractor.getPlaylists(activity,disposable,sort,this);
+        playlistInteractor.getPlaylists(activity,sort,this);
     }
 }

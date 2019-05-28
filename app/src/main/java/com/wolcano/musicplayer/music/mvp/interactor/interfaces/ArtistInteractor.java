@@ -13,7 +13,7 @@ public interface ArtistInteractor {
         void controlIfEmpty();
     }
 
-    void getArtist(Activity activity, Disposable disposable, String sort, OnGetArtistListener onGetArtistListener);
+    void getArtist(Activity activity, String sort, OnGetArtistListener onGetArtistListener);
 
 
 }

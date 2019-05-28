@@ -136,7 +136,7 @@ public class FragmentArtistDetail extends BaseFragment implements SongView, Play
         binding.recyclerview.addItemDecoration(new DividerItemDecoration(getContext(),
                 DividerItemDecoration.VERTICAL));
         String sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
-        songPresenter = new SongPresenterImpl(this,activity,disposable,sort,artistId,new SongInteractorImpl());
+        songPresenter = new SongPresenterImpl(this,activity,sort,artistId,new SongInteractorImpl());
         songPresenter.getArtistSongs();
         setupToolbar();
     }

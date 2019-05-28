@@ -5,6 +5,7 @@ import android.app.Activity;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.wolcano.musicplayer.music.R;
+import com.wolcano.musicplayer.music.mvp.DisposableManager;
 import com.wolcano.musicplayer.music.mvp.interactor.interfaces.GenreInteractor;
 import com.wolcano.musicplayer.music.mvp.models.Genre;
 import com.wolcano.musicplayer.music.utils.PermissionUtils;
@@ -22,13 +23,11 @@ import static com.wolcano.musicplayer.music.constants.Constants.SONG_LIBRARY;
 
 public class GenreInteractorImpl implements GenreInteractor {
 
-    private Disposable disposable1;
 
     @Subscribe(tags = {@Tag(SONG_LIBRARY)})
     @Override
-    public void getGenres(Activity activity, Disposable disposable, String sort, OnGetGenreListener onGetGenreListener) {
+    public void getGenres(Activity activity, String sort, OnGetGenreListener onGetGenreListener) {
 
-        disposable1 = disposable;
 
         PermissionUtils.with(activity)
                 .permissions(Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -38,10 +37,12 @@ public class GenreInteractorImpl implements GenreInteractor {
                     public void onPermGranted() {
                         Observable<List<Genre>> observable =
                                 Observable.fromCallable(() -> SongUtils.scanGenre(activity)).throttleFirst(500, TimeUnit.MILLISECONDS);
-                        disposable1 = observable.
+                        Disposable disposable = observable.
                                 subscribeOn(Schedulers.io()).
                                 observeOn(AndroidSchedulers.mainThread()).
                                 subscribe(genreList -> onGetGenreListener.sendGenres(genreList));
+
+                        DisposableManager.add(disposable);
                     }
                     @Override
                     public void onPermUnapproved() {

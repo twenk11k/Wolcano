@@ -140,7 +140,7 @@ public class FragmentPlaylistDetail extends BaseFragment implements SongView, Pl
         binding.recyclerview.setAdapter(mAdapter);
 
         String sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
-        songPresenter = new SongPresenterImpl(this,activity,disposable,sort,playlistID,new SongInteractorImpl());
+        songPresenter = new SongPresenterImpl(this,activity,sort,playlistID,new SongInteractorImpl());
         songPresenter.getPlaylistSongs();
         setupToolbar();
     }

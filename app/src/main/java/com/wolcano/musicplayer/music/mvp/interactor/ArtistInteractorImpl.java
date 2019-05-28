@@ -6,6 +6,7 @@ import android.app.Activity;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.wolcano.musicplayer.music.R;
+import com.wolcano.musicplayer.music.mvp.DisposableManager;
 import com.wolcano.musicplayer.music.mvp.interactor.interfaces.ArtistInteractor;
 import com.wolcano.musicplayer.music.mvp.models.Artist;
 import com.wolcano.musicplayer.music.utils.PermissionUtils;
@@ -24,13 +25,11 @@ import static com.wolcano.musicplayer.music.constants.Constants.SONG_LIBRARY;
 
 public class ArtistInteractorImpl implements ArtistInteractor {
 
-    private Disposable disposable1;
 
     @Subscribe(tags = {@Tag(SONG_LIBRARY)})
     @Override
-    public void getArtist(Activity activity, Disposable disposable, String sort, OnGetArtistListener onGetArtistListener) {
+    public void getArtist(Activity activity, String sort, OnGetArtistListener onGetArtistListener) {
 
-        disposable1 = disposable;
         PermissionUtils.with(activity)
                 .permissions(Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -40,10 +39,12 @@ public class ArtistInteractorImpl implements ArtistInteractor {
                         Observable<List<Artist>> observable =
                                 Observable.fromCallable(() -> SongUtils.scanArtists(activity)).throttleFirst(500, TimeUnit.MILLISECONDS);
 
-                        disposable1 = observable.
+                        Disposable disposable = observable.
                                 subscribeOn(Schedulers.io()).
                                 observeOn(AndroidSchedulers.mainThread()).
                                 subscribe(artistList -> onGetArtistListener.sendArtist(artistList));
+
+                        DisposableManager.add(disposable);
                     }
 
                     @Override

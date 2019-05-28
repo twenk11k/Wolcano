@@ -78,7 +78,7 @@ public class FragmentArtists extends BaseFragment implements ArtistView,AppBarLa
         binding.recyclerview.addItemDecoration(new DividerItemDecoration(getContext(),
                 DividerItemDecoration.VERTICAL));
         String sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
-        artistPresenter = new ArtistPresenterImpl(this,activity,disposable,sort,new ArtistInteractorImpl());
+        artistPresenter = new ArtistPresenterImpl(this,activity,sort,new ArtistInteractorImpl());
         artistPresenter.getArtists();
 
     }

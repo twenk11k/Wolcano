@@ -16,7 +16,7 @@ public interface PlaylistInteractor {
     }
 
 
-    void getPlaylists(Activity activity, Disposable disposable,String sort,OnGetPlaylistListener onGetPlaylistListener);
+    void getPlaylists(Activity activity,String sort,OnGetPlaylistListener onGetPlaylistListener);
 
 
 }

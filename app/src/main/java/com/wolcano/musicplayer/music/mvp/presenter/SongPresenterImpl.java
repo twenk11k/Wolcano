@@ -14,7 +14,6 @@ import com.wolcano.musicplayer.music.ui.fragment.library.detail.FragmentArtistDe
 import com.wolcano.musicplayer.music.ui.fragment.library.detail.FragmentGenreDetail;
 import com.wolcano.musicplayer.music.ui.fragment.library.detail.FragmentPlaylistDetail;
 import java.util.List;
-import io.reactivex.disposables.Disposable;
 
 
 public class SongPresenterImpl implements SongPresenter, SongInteractor.OnGetSongListener {
@@ -22,26 +21,23 @@ public class SongPresenterImpl implements SongPresenter, SongInteractor.OnGetSon
     private Fragment fragment;
     private SongInteractor songInteractor;
     private String sort;
-    private Disposable disposable;
     private Activity activity;
     private long id;
 
-    public SongPresenterImpl(Fragment fragment,Activity activity, Disposable disposable, String sort, SongInteractorImpl songInteractor){
+    public SongPresenterImpl(Fragment fragment,Activity activity, String sort, SongInteractorImpl songInteractor){
 
         this.fragment = fragment;
         this.songInteractor = songInteractor;
         this.sort = sort;
-        this.disposable = disposable;
         this.activity = activity;
 
     }
 
-    public SongPresenterImpl(Fragment fragment,Activity activity, Disposable disposable, String sort,long id, SongInteractorImpl songInteractor){
+    public SongPresenterImpl(Fragment fragment,Activity activity, String sort,long id, SongInteractorImpl songInteractor){
 
         this.fragment = fragment;
         this.songInteractor = songInteractor;
         this.sort = sort;
-        this.disposable = disposable;
         this.activity = activity;
         this.id = id;
 
@@ -49,28 +45,28 @@ public class SongPresenterImpl implements SongPresenter, SongInteractor.OnGetSon
 
     @Override
     public void getSongs() {
-        songInteractor.getSongs(activity,disposable,sort,this);
+        songInteractor.getSongs(activity,sort,this);
     }
 
     @Override
     public void getPlaylistSongs() {
-        songInteractor.getPlaylistSongs(activity,disposable,sort,id,this);
+        songInteractor.getPlaylistSongs(activity,sort,id,this);
     }
     @Override
     public void getAlbumSongs() {
-        songInteractor.getAlbumSongs(activity,disposable,sort,id,this);
+        songInteractor.getAlbumSongs(activity,sort,id,this);
     }
 
     @Override
     public void getArtistSongs() {
-        songInteractor.getArtistSongs(activity,disposable,sort,id,this);
+        songInteractor.getArtistSongs(activity,sort,id,this);
 
     }
 
     @Override
     public void getGenreSongs() {
 
-        songInteractor.getGenreSongs(activity,disposable,sort,id,this);
+        songInteractor.getGenreSongs(activity,sort,id,this);
 
     }
 

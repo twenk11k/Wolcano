@@ -47,4 +47,7 @@ public class App extends Application {
         super.attachBaseContext(base);
         MultiDex.install(this);
     }
+    public ApplicationComponent getApplicationComponent() {
+        return applicationComponent;
+    }
 }

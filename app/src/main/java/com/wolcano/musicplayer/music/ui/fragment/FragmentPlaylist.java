@@ -106,7 +106,7 @@ public class FragmentPlaylist extends BaseFragment implements PlaylistView {
         binding.recyclerview.addItemDecoration(new DividerItemDecoration(getContext(),
                 DividerItemDecoration.VERTICAL));
         String sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
-        playlistPresenter = new PlaylistPresenterImpl(this,activity,disposable,sort,new PlaylistInteractorImpl());
+        playlistPresenter = new PlaylistPresenterImpl(this,activity,sort,new PlaylistInteractorImpl());
         playlistPresenter.getPlaylists();
         return binding.getRoot();
     }

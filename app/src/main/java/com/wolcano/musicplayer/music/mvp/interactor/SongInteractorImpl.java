@@ -5,6 +5,7 @@ import android.app.Activity;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.wolcano.musicplayer.music.R;
+import com.wolcano.musicplayer.music.mvp.DisposableManager;
 import com.wolcano.musicplayer.music.mvp.interactor.interfaces.SongInteractor;
 import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.utils.PermissionUtils;
@@ -21,14 +22,11 @@ import static com.wolcano.musicplayer.music.constants.Constants.SONG_LIBRARY;
 
 public class SongInteractorImpl implements SongInteractor {
 
-    private Disposable disposable1;
 
 
     @Subscribe(tags = {@Tag(SONG_LIBRARY)})
     @Override
-    public void getSongs(Activity activity,Disposable disposable,String sort,OnGetSongListener onGetSongListener) {
-
-        disposable1 = disposable;
+    public void getSongs(Activity activity,String sort,OnGetSongListener onGetSongListener) {
 
         PermissionUtils.with(activity)
                 .permissions(Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -39,11 +37,12 @@ public class SongInteractorImpl implements SongInteractor {
 
                         Observable<List<Song>> observable =
                                 Observable.fromCallable(() -> SongUtils.scanSongs(activity, sort)).throttleFirst(500, TimeUnit.MILLISECONDS);
-
-                        disposable1 = observable.
+                        Disposable disposable = observable.
                                 subscribeOn(Schedulers.io()).
                                 observeOn(AndroidSchedulers.mainThread()).
                                 subscribe(songsList -> onGetSongListener.sendSongList(songsList));
+
+                        DisposableManager.add(disposable);
 
                     }
 
@@ -62,9 +61,8 @@ public class SongInteractorImpl implements SongInteractor {
 
     @Subscribe(tags = {@Tag(SONG_LIBRARY)})
     @Override
-    public void getPlaylistSongs(Activity activity,Disposable disposable,String sort,long playlistID,OnGetSongListener onGetSongListener) {
+    public void getPlaylistSongs(Activity activity,String sort,long playlistID,OnGetSongListener onGetSongListener) {
 
-        disposable1 = disposable;
 
         PermissionUtils.with(activity)
                 .permissions(Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -76,11 +74,12 @@ public class SongInteractorImpl implements SongInteractor {
                         Observable<List<Song>> observable =
                                 Observable.fromCallable(() -> SongUtils.scanSongsforPlaylist(activity, sort, playlistID)).throttleFirst(500, TimeUnit.MILLISECONDS);
 
-                        disposable1 = observable.
+                        Disposable disposable = observable.
                                 subscribeOn(Schedulers.io()).
                                 observeOn(AndroidSchedulers.mainThread()).
                                 subscribe(songsList -> onGetSongListener.sendSongList(songsList));
 
+                        DisposableManager.add(disposable);
                     }
 
                     @Override
@@ -97,8 +96,7 @@ public class SongInteractorImpl implements SongInteractor {
     }
     @Subscribe(tags = {@Tag(SONG_LIBRARY)})
     @Override
-    public void getAlbumSongs(Activity activity, Disposable disposable, String sort,long albumID, OnGetSongListener onGetSongListener) {
-        disposable1 = disposable;
+    public void getAlbumSongs(Activity activity, String sort,long albumID, OnGetSongListener onGetSongListener) {
         PermissionUtils.with(activity)
                 .permissions(Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -108,11 +106,12 @@ public class SongInteractorImpl implements SongInteractor {
                         Observable<List<Song>> observable =
                                 Observable.fromCallable(() -> SongUtils.scanSongsforAlbum(activity, sort, albumID)).throttleFirst(500, TimeUnit.MILLISECONDS);
 
-                        disposable1 = observable.
+                        Disposable disposable = observable.
                                 subscribeOn(Schedulers.io()).
                                 observeOn(AndroidSchedulers.mainThread()).
                                 subscribe(songList -> onGetSongListener.sendSongList(songList));
 
+                        DisposableManager.add(disposable);
                     }
 
                     @Override
@@ -126,9 +125,8 @@ public class SongInteractorImpl implements SongInteractor {
 
     @Subscribe(tags = {@Tag(SONG_LIBRARY)})
     @Override
-    public void getArtistSongs(Activity activity, Disposable disposable, String sort, long artistID, OnGetSongListener onGetSongListener) {
+    public void getArtistSongs(Activity activity, String sort, long artistID, OnGetSongListener onGetSongListener) {
 
-        disposable1 = disposable;
 
         PermissionUtils.with(activity)
                 .permissions(Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -139,10 +137,12 @@ public class SongInteractorImpl implements SongInteractor {
                         Observable<List<Song>> observable =
                                 Observable.fromCallable(() -> SongUtils.scanSongsforArtist(activity, sort, artistID)).throttleFirst(500, TimeUnit.MILLISECONDS);
 
-                        disposable1 = observable.
+                        Disposable disposable = observable.
                                 subscribeOn(Schedulers.io()).
                                 observeOn(AndroidSchedulers.mainThread()).
                                 subscribe(songList -> onGetSongListener.sendSongList(songList));
+
+                        DisposableManager.add(disposable);
 
                     }
 
@@ -157,9 +157,8 @@ public class SongInteractorImpl implements SongInteractor {
 
     @Subscribe(tags = {@Tag(SONG_LIBRARY)})
     @Override
-    public void getGenreSongs(Activity activity, Disposable disposable, String sort, long genreID, OnGetSongListener onGetSongListener) {
+    public void getGenreSongs(Activity activity, String sort, long genreID, OnGetSongListener onGetSongListener) {
 
-      disposable1 = disposable;
 
         PermissionUtils.with(activity)
                 .permissions(Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -170,10 +169,12 @@ public class SongInteractorImpl implements SongInteractor {
                         Observable<List<Song>> observable =
                                 Observable.fromCallable(() -> SongUtils.scanSongsforGenre(activity, sort, genreID)).throttleFirst(500, TimeUnit.MILLISECONDS);
 
-                        disposable1 = observable.
+                        Disposable disposable = observable.
                                 subscribeOn(Schedulers.io()).
                                 observeOn(AndroidSchedulers.mainThread()).
                                 subscribe(songList -> onGetSongListener.sendSongList(songList));
+
+                        DisposableManager.add(disposable);
                     }
 
                     @Override
