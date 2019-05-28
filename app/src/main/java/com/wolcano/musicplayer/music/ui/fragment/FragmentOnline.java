@@ -36,7 +36,6 @@ import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 import com.kabouzeid.appthemehelper.util.TintHelper;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.wolcano.musicplayer.music.R;
-import com.wolcano.musicplayer.music.di.component.ApplicationComponent;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
 import com.wolcano.musicplayer.music.mvp.listener.RecyclerViewScrollListener;
 import com.wolcano.musicplayer.music.mvp.models.SongOnline;
@@ -136,7 +135,6 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
 
 
     private int color;
-    private boolean isitInitial;
     private boolean isitRemoved = false;
     private String titQuery = "b.cplayer-data-sound-title";
     private String baseQuery = "li[data-sound-url]";
@@ -413,7 +411,6 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
             @Override
             public boolean onQueryTextChange(String newText) {
                 if (newText.equals("")) {
-                    isitInitial = true;
                     String[] arr;
                     arr = suggestionList.toArray(new String[suggestionList.size()]);
                     MaterialSearchLast.isEmpty = true;
@@ -436,7 +433,6 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
 
                 } else {
 
-                    isitInitial = false;
                     materialSearchView.setSuggestions(suggestionListStringsFromRemove, lastSearchesStringsFromRemove, false, FragmentOnline.this, colorTint);
 
                     if (suggestionListStringsFromRemove != null && lastSearchesStringsFromRemove != null) {
