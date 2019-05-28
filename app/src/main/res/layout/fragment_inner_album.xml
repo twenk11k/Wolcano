@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout  xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <import type="android.view.View"/>
+    </data>
+
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/darkbg1"
@@ -8,7 +13,7 @@
     >
 
     <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
-        android:id="@+id/recycler"
+        android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layoutAnimation="@anim/layout_animation_fall_down"
         android:layout_height="match_parent"
@@ -19,7 +24,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_marginBottom="@dimen/mini_player_height" />
     <TextView
-        android:id="@android:id/empty"
+        android:id="@+id/empty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -31,3 +36,4 @@
         android:textSize="20sp"
         android:visibility="gone" />
 </RelativeLayout>
+</layout>

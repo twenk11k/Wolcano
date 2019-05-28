@@ -11,15 +11,18 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,6 +34,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
+
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -39,6 +43,8 @@ import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.squareup.picasso.Picasso;
 import com.wolcano.musicplayer.music.constants.Constants;
 import com.wolcano.musicplayer.music.R;
+import com.wolcano.musicplayer.music.databinding.FragmentAlbumDetailBinding;
+import com.wolcano.musicplayer.music.databinding.FragmentAlbumDetailOldBinding;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
 import com.wolcano.musicplayer.music.mvp.interactor.SongInteractorImpl;
 import com.wolcano.musicplayer.music.mvp.listener.PlaylistListener;
@@ -53,11 +59,11 @@ import com.wolcano.musicplayer.music.ui.dialog.Dialogs;
 import com.wolcano.musicplayer.music.utils.SongUtils;
 import com.wolcano.musicplayer.music.utils.Utils;
 import com.wolcano.musicplayer.music.widgets.RotateFabBehavior;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.Callable;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import butterknife.OnClick;
 import butterknife.Optional;
 import io.reactivex.Observable;
@@ -70,19 +76,8 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AlbumDetailFragment extends Fragment implements SongView, PlaylistListener {
+public class FragmentAlbumDetail extends Fragment implements SongView, PlaylistListener {
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.collapsingtoolbar)
-    CollapsingToolbarLayout collapsingToolbarLayout;
-    @BindView(R.id.appbar)
-    AppBarLayout appBarLayout;
-    FloatingActionButton fabPlay;
-    @BindView(R.id.albumArt)
-    ImageView albumArt;
-    @BindView(R.id.recyclerview)
-    RecyclerView recyclerView;
 
     private Context context;
     private AlbumSongAdapter mAdapter;
@@ -95,8 +90,17 @@ public class AlbumDetailFragment extends Fragment implements SongView, PlaylistL
     private Disposable disposable;
     private SongPresenter songPresenter;
 
-    public static AlbumDetailFragment newInstance(long id, String name) {
-        AlbumDetailFragment fragment = new AlbumDetailFragment();
+    private Toolbar toolbar;
+    private CollapsingToolbarLayout collapsingToolbarLayout;
+    private AppBarLayout appBarLayout;
+    private FloatingActionButton fabPlay;
+    private ImageView albumArt;
+    private RecyclerView recyclerView;
+    private View gradient;
+
+
+    public static FragmentAlbumDetail newInstance(long id, String name) {
+        FragmentAlbumDetail fragment = new FragmentAlbumDetail();
         Bundle args = new Bundle();
         args.putLong(Constants.ALBUM_ID, id);
         args.putString(Constants.ALBUM_NAME, name);
@@ -135,23 +139,29 @@ public class AlbumDetailFragment extends Fragment implements SongView, PlaylistL
 
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View root;
 
-        if(Build.VERSION.SDK_INT>=21){
-             root = inflater.inflate(R.layout.album_detail, container, false);
-             fabPlay = root.findViewById(R.id.fabPlay);
-        } else {
-             root = inflater.inflate(R.layout.album_detail_old, container, false);
-        }
-        ButterKnife.bind(this, root);
+        FragmentAlbumDetailBinding binding;
+        FragmentAlbumDetailOldBinding bindingOld;
 
+        if (Build.VERSION.SDK_INT >= 21) {
+            binding = DataBindingUtil.inflate(inflater,R.layout.fragment_album_detail,container,false);
+            setUpViews(binding);
+            root = binding.getRoot();
+
+        } else {
+            bindingOld = DataBindingUtil.inflate(inflater, R.layout.fragment_album_detail_old, container, false);
+            setUpViewsOld(bindingOld);
+            root = bindingOld.getRoot();
+        }
         if (Build.VERSION.SDK_INT < 21) {
             appBarLayout.setFitsSystemWindows(false);
             albumArt.setFitsSystemWindows(false);
-            root.findViewById(R.id.gradient).setFitsSystemWindows(false);
+            gradient.setFitsSystemWindows(false);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 Window window = getActivity().getWindow();
                 window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -160,7 +170,6 @@ public class AlbumDetailFragment extends Fragment implements SongView, PlaylistL
 
         } else {
 
-            Toolbar toolbar =  root.findViewById(R.id.toolbar);
             CollapsingToolbarLayout.LayoutParams layoutParams = (CollapsingToolbarLayout.LayoutParams) toolbar.getLayoutParams();
             layoutParams.height += Utils.getStatHeight(context);
             toolbar.setLayoutParams(layoutParams);
@@ -177,12 +186,32 @@ public class AlbumDetailFragment extends Fragment implements SongView, PlaylistL
                 DividerItemDecoration.VERTICAL));
         String sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
 
-        songPresenter = new SongPresenterImpl(this,activity,disposable,sort,albumID,new SongInteractorImpl());
+        songPresenter = new SongPresenterImpl(this, activity, disposable, sort, albumID, new SongInteractorImpl());
         songPresenter.getAlbumSongs();
 
         showAlbumArt();
         setupToolbar();
         return root;
+
+    }
+
+    private void setUpViewsOld(FragmentAlbumDetailOldBinding binding) {
+
+        toolbar = binding.toolbar;
+        appBarLayout = binding.appbar;
+        albumArt = binding.albumArt;
+        gradient = binding.gradient;
+        recyclerView = binding.recyclerview;
+    }
+
+    private void setUpViews(FragmentAlbumDetailBinding binding) {
+        toolbar = binding.toolbar;
+        collapsingToolbarLayout = binding.collapsingtoolbar;
+        appBarLayout = binding.appbar;
+        fabPlay = binding.fabPlay;
+        albumArt = binding.albumArt;
+        recyclerView = binding.recyclerview;
+        gradient = binding.gradient;
     }
 
     private void showAlbumArt() {
@@ -312,11 +341,11 @@ public class AlbumDetailFragment extends Fragment implements SongView, PlaylistL
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(mAdapter!=null){
-                    if(mAdapter.getSongList()!=null){
+                if (mAdapter != null) {
+                    if (mAdapter.getSongList() != null) {
                         if (mAdapter.getSongList().size() != 0) {
                             Song song = mAdapter.getSongList().get(0);
-                            RemotePlay.get().playAdd(context,mAdapter.getSongList(), song);
+                            RemotePlay.get().playAdd(context, mAdapter.getSongList(), song);
                         }
                     }
                 }
@@ -326,7 +355,7 @@ public class AlbumDetailFragment extends Fragment implements SongView, PlaylistL
 
     @Override
     public void handlePlaylistDialog(Song song) {
-        disposable = Observable.fromCallable(new Callable<List<Playlist>>(){
+        disposable = Observable.fromCallable(new Callable<List<Playlist>>() {
             @Override
             public List<Playlist> call() throws Exception {
                 return SongUtils.scanPlaylist(activity);
@@ -344,7 +373,7 @@ public class AlbumDetailFragment extends Fragment implements SongView, PlaylistL
 
     @Override
     public void setSongList(List<Song> songList) {
-        mAdapter = new AlbumSongAdapter(context, songList, AlbumDetailFragment.this);
+        mAdapter = new AlbumSongAdapter(context, songList, FragmentAlbumDetail.this);
         recyclerView.setAdapter(mAdapter);
         runLayoutAnimation(recyclerView);
     }

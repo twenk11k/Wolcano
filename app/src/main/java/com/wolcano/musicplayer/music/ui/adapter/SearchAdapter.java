@@ -22,8 +22,7 @@ import com.wolcano.musicplayer.music.widgets.MaterialSearchLast;
 import com.wolcano.musicplayer.music.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 
 public class SearchAdapter extends BaseAdapter implements Filterable {
 
@@ -58,9 +57,6 @@ public class SearchAdapter extends BaseAdapter implements Filterable {
 
     }
 
-    public boolean getIsFirst(){
-        return isFirst;
-    }
 
     @Override
     public Filter getFilter() {

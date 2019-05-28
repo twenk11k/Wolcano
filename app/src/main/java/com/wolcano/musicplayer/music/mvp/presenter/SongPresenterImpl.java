@@ -9,10 +9,10 @@ import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.mvp.presenter.interfaces.SongPresenter;
 import com.wolcano.musicplayer.music.ui.fragment.FragmentRecently;
 import com.wolcano.musicplayer.music.ui.fragment.library.FragmentSongs;
-import com.wolcano.musicplayer.music.ui.fragment.library.detail.AlbumDetailFragment;
-import com.wolcano.musicplayer.music.ui.fragment.library.detail.ArtistDetailFragment;
-import com.wolcano.musicplayer.music.ui.fragment.library.detail.GenreDetailFragment;
-import com.wolcano.musicplayer.music.ui.fragment.library.detail.PlaylistDetailFragment;
+import com.wolcano.musicplayer.music.ui.fragment.library.detail.FragmentAlbumDetail;
+import com.wolcano.musicplayer.music.ui.fragment.library.detail.FragmentArtistDetail;
+import com.wolcano.musicplayer.music.ui.fragment.library.detail.FragmentGenreDetail;
+import com.wolcano.musicplayer.music.ui.fragment.library.detail.FragmentPlaylistDetail;
 import java.util.List;
 import io.reactivex.disposables.Disposable;
 
@@ -82,18 +82,18 @@ public class SongPresenterImpl implements SongPresenter, SongInteractor.OnGetSon
         } else if(fragment instanceof FragmentSongs){
             FragmentSongs fragmentSongs = (FragmentSongs) fragment;
             fragmentSongs.setSongList(songList);
-        } else if(fragment instanceof PlaylistDetailFragment){
-            PlaylistDetailFragment playlistDetailFragment = (PlaylistDetailFragment) fragment;
-            playlistDetailFragment.setSongList(songList);
-        } else if(fragment instanceof AlbumDetailFragment){
-            AlbumDetailFragment albumDetailFragment = (AlbumDetailFragment) fragment;
-            albumDetailFragment.setSongList(songList);
-        } else if(fragment instanceof ArtistDetailFragment){
-            ArtistDetailFragment artistDetailFragment = (ArtistDetailFragment) fragment;
-            artistDetailFragment.setSongList(songList);
-        } else if(fragment instanceof GenreDetailFragment) {
-            GenreDetailFragment genreDetailFragment = (GenreDetailFragment) fragment;
-            genreDetailFragment.setSongList(songList);
+        } else if(fragment instanceof FragmentPlaylistDetail){
+            FragmentPlaylistDetail fragmentPlaylistDetail = (FragmentPlaylistDetail) fragment;
+            fragmentPlaylistDetail.setSongList(songList);
+        } else if(fragment instanceof FragmentAlbumDetail){
+            FragmentAlbumDetail fragmentAlbumDetail = (FragmentAlbumDetail) fragment;
+            fragmentAlbumDetail.setSongList(songList);
+        } else if(fragment instanceof FragmentArtistDetail){
+            FragmentArtistDetail fragmentArtistDetail = (FragmentArtistDetail) fragment;
+            fragmentArtistDetail.setSongList(songList);
+        } else if(fragment instanceof FragmentGenreDetail) {
+            FragmentGenreDetail fragmentGenreDetail = (FragmentGenreDetail) fragment;
+            fragmentGenreDetail.setSongList(songList);
         }
 
     }
@@ -106,15 +106,15 @@ public class SongPresenterImpl implements SongPresenter, SongInteractor.OnGetSon
         } else if(fragment instanceof FragmentSongs){
             FragmentSongs fragmentSongs = (FragmentSongs) fragment;
             fragmentSongs.controlIfEmpty();
-        } else if(fragment instanceof PlaylistDetailFragment){
-            PlaylistDetailFragment playlistDetailFragment = (PlaylistDetailFragment) fragment;
-            playlistDetailFragment.controlIfEmpty();
-        } else if(fragment instanceof ArtistDetailFragment){
-            ArtistDetailFragment artistDetailFragment = (ArtistDetailFragment) fragment;
-            artistDetailFragment.controlIfEmpty();
-        } else if(fragment instanceof GenreDetailFragment){
-            GenreDetailFragment genreDetailFragment = (GenreDetailFragment) fragment;
-            genreDetailFragment.controlIfEmpty();
+        } else if(fragment instanceof FragmentPlaylistDetail){
+            FragmentPlaylistDetail fragmentPlaylistDetail = (FragmentPlaylistDetail) fragment;
+            fragmentPlaylistDetail.controlIfEmpty();
+        } else if(fragment instanceof FragmentArtistDetail){
+            FragmentArtistDetail fragmentArtistDetail = (FragmentArtistDetail) fragment;
+            fragmentArtistDetail.controlIfEmpty();
+        } else if(fragment instanceof FragmentGenreDetail){
+            FragmentGenreDetail fragmentGenreDetail = (FragmentGenreDetail) fragment;
+            fragmentGenreDetail.controlIfEmpty();
         }
     }
 }

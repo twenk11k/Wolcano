@@ -7,6 +7,7 @@ import android.provider.MediaStore;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,11 +19,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
-import android.widget.TextView;
 import com.google.android.material.appbar.AppBarLayout;
 import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.wolcano.musicplayer.music.R;
+import com.wolcano.musicplayer.music.databinding.FragmentInnerAlbumBinding;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
 import com.wolcano.musicplayer.music.mvp.interactor.GenreInteractorImpl;
 import com.wolcano.musicplayer.music.mvp.models.Genre;
@@ -34,20 +35,18 @@ import com.wolcano.musicplayer.music.ui.fragment.FragmentLibrary;
 import com.wolcano.musicplayer.music.ui.activity.MainActivity;
 import com.wolcano.musicplayer.music.ui.adapter.GenreAdapter;
 import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragment;
-import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragment2;
 import com.wolcano.musicplayer.music.utils.Utils;
 import java.util.List;
 import io.reactivex.disposables.Disposable;
 
 public class FragmentGenres extends BaseFragment implements GenreView,AppBarLayout.OnOffsetChangedListener {
 
-    private com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView recyclerView;
     private GenreAdapter adapter;
     private Activity activity;
-    private TextView empty;
     private Disposable disposable;
-    private View v;
     private GenrePresenter genrePresenter;
+    private FragmentInnerAlbumBinding binding;
+    private View view;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,16 +56,17 @@ public class FragmentGenres extends BaseFragment implements GenreView,AppBarLayo
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.fragment_inner_album, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_inner_album, container, false);
+        view = binding.getRoot();
         setHasOptionsMenu(true);
-        setupView(v);
-        return v;
+        setupViews();
+        return view;
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_sleeptimer, menu);
-        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
         ToolbarContentTintHelper.handleOnCreateOptionsMenu(getActivity(), toolbar, menu, ATHToolbarActivity.getToolbarBackgroundColor(toolbar));
 
         super.onCreateOptionsMenu(menu, inflater);
@@ -85,12 +85,10 @@ public class FragmentGenres extends BaseFragment implements GenreView,AppBarLayo
         return super.onOptionsItemSelected(item);
     }
 
-    private void setupView(View v) {
-        recyclerView = v.findViewById(R.id.recycler);
-        empty = v.findViewById(android.R.id.empty);
-        Utils.setUpFastScrollRecyclerViewColor(recyclerView, Utils.getAccentColor(getContext()));
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),
+    private void setupViews() {
+        Utils.setUpFastScrollRecyclerViewColor(binding.recyclerview, Utils.getAccentColor(getContext()));
+        binding.recyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.recyclerview.addItemDecoration(new DividerItemDecoration(getContext(),
                 DividerItemDecoration.VERTICAL));
         String sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
         genrePresenter = new GenrePresenterImpl(this,activity,disposable,sort,new GenreInteractorImpl());
@@ -110,9 +108,9 @@ public class FragmentGenres extends BaseFragment implements GenreView,AppBarLayo
     }
 
     public void controlIfEmpty() {
-        if (empty != null) {
-            empty.setText(R.string.no_genre);
-            empty.setVisibility(adapter == null || adapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
+        if (binding.empty != null) {
+            binding.empty.setText(R.string.no_genre);
+            binding.empty.setVisibility(adapter == null || adapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
         }
     }
 
@@ -142,16 +140,16 @@ public class FragmentGenres extends BaseFragment implements GenreView,AppBarLayo
 
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-        v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), getLibraryFragment().getTotalAppBarScrollingRange() + verticalOffset);
+        view.setPadding(view.getPaddingLeft(), view.getPaddingTop(), view.getPaddingRight(), getLibraryFragment().getTotalAppBarScrollingRange() + verticalOffset);
 
     }
 
     @Override
     public void setGenreList(List<Genre> genreList) {
         if (genreList.size() <= 30) {
-            recyclerView.setThumbEnabled(false);
+            binding.recyclerview.setThumbEnabled(false);
         } else {
-            recyclerView.setThumbEnabled(true);
+            binding.recyclerview.setThumbEnabled(true);
         }
         adapter = new GenreAdapter((MainActivity) getActivity(), genreList);
         controlIfEmpty();
@@ -163,7 +161,7 @@ public class FragmentGenres extends BaseFragment implements GenreView,AppBarLayo
             }
         });
 
-        recyclerView.setAdapter(adapter);
-        runLayoutAnimation(recyclerView);
+        binding.recyclerview.setAdapter(adapter);
+        runLayoutAnimation(binding.recyclerview);
     }
 }

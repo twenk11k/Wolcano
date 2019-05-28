@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,6 +29,7 @@ import android.widget.TextView;
 import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.wolcano.musicplayer.music.R;
+import com.wolcano.musicplayer.music.databinding.FragmentBaseSongBinding;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
 import com.wolcano.musicplayer.music.mvp.interactor.SongInteractorImpl;
 import com.wolcano.musicplayer.music.mvp.listener.PlaylistListener;
@@ -53,28 +55,20 @@ import io.reactivex.schedulers.Schedulers;
 
 public class FragmentRecently extends BaseFragment implements SongView, PlaylistListener {
 
-    @BindView(R.id.recyclerview)
-    FastScrollRecyclerView recyclerView;
-    @BindView(R.id.statusBarCustom)
-    StatusBarView statusBarView;
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(android.R.id.empty)
-    TextView empty;
-
     private RecentlyAddedAdapter mAdapter;
     private int color;
     private Activity activity;
     private Disposable disposable;
     private SongPresenter songPresenter;
+    private FragmentBaseSongBinding binding;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         color = Utils.getPrimaryColor(getContext());
-            if (statusBarView != null) {
-                setStatusbarColorAuto(statusBarView, color);
+            if (binding.statusBarCustom != null) {
+                setStatusbarColorAuto(binding.statusBarCustom, color);
             }
         if (Build.VERSION.SDK_INT < 21 && view.findViewById(R.id.statusBarCustom) != null) {
             view.findViewById(R.id.statusBarCustom).setVisibility(View.GONE);
@@ -86,9 +80,9 @@ public class FragmentRecently extends BaseFragment implements SongView, Playlist
             }
         }
 
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(binding.toolbar);
 
-        toolbar.setBackgroundColor(color);
+        binding.toolbar.setBackgroundColor(color);
 
         final ActionBar ab = ((AppCompatActivity) getActivity()).getSupportActionBar();
         ab.setTitle(R.string.recentlyadded);
@@ -100,7 +94,7 @@ public class FragmentRecently extends BaseFragment implements SongView, Playlist
         super.onCreateOptionsMenu(menu, inflater);
         menu.clear();
         inflater.inflate(R.menu.menu_sleeptimer, menu);
-        ToolbarContentTintHelper.handleOnCreateOptionsMenu(getActivity(), toolbar, menu, ATHToolbarActivity.getToolbarBackgroundColor(toolbar));
+        ToolbarContentTintHelper.handleOnCreateOptionsMenu(getActivity(), binding.toolbar, menu, ATHToolbarActivity.getToolbarBackgroundColor( binding.toolbar));
     }
 
     @Override
@@ -111,33 +105,27 @@ public class FragmentRecently extends BaseFragment implements SongView, Playlist
         return super.onOptionsItemSelected(item);
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootview = inflater.inflate(R.layout.fragment_base_song, container, false);
+
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_base_song, container, false);
         activity = getActivity();
-        ButterKnife.bind(this, rootview);
         setHasOptionsMenu(true);
 
-        Utils.setUpFastScrollRecyclerViewColor(recyclerView, Utils.getAccentColor(getContext()));
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),
+        Utils.setUpFastScrollRecyclerViewColor(binding.recyclerview, Utils.getAccentColor(getContext()));
+        binding.recyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.recyclerview.addItemDecoration(new DividerItemDecoration(getContext(),
                 DividerItemDecoration.VERTICAL));
         String sort = MediaStore.Audio.Media.DATE_ADDED + " DESC";
 
         songPresenter = new SongPresenterImpl(this,activity,disposable,sort,new SongInteractorImpl());
         songPresenter.getSongs();
 
-        return rootview;
+        return binding.getRoot();
     }
 
 
-
-
-
-
-
-        private void runLayoutAnimation(final RecyclerView recyclerView) {
+    private void runLayoutAnimation(final RecyclerView recyclerView) {
             final Context context = recyclerView.getContext();
             final LayoutAnimationController controller =
                     AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fall_down);
@@ -148,9 +136,9 @@ public class FragmentRecently extends BaseFragment implements SongView, Playlist
         }
 
     public void controlIfEmpty() {
-        if (empty != null) {
-            empty.setText(R.string.no_song);
-            empty.setVisibility(mAdapter == null || mAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
+        if (binding.empty != null) {
+            binding.empty.setText(R.string.no_song);
+            binding.empty.setVisibility(mAdapter == null || mAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
         }
     }
 
@@ -180,9 +168,9 @@ public class FragmentRecently extends BaseFragment implements SongView, Playlist
             songList.subList(60, songList.size()).clear();
         }
         if (songList.size() <= 30) {
-            recyclerView.setThumbEnabled(false);
+            binding.recyclerview.setThumbEnabled(false);
         } else {
-            recyclerView.setThumbEnabled(true);
+            binding.recyclerview.setThumbEnabled(true);
         }
         mAdapter = new RecentlyAddedAdapter(activity, songList, FragmentRecently.this);
         controlIfEmpty();
@@ -194,7 +182,7 @@ public class FragmentRecently extends BaseFragment implements SongView, Playlist
             }
         });
 
-        recyclerView.setAdapter(mAdapter);
-        runLayoutAnimation(recyclerView);
+        binding.recyclerview.setAdapter(mAdapter);
+        runLayoutAnimation( binding.recyclerview);
     }
 }

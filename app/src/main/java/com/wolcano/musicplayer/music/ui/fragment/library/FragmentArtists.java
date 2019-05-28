@@ -7,6 +7,7 @@ import android.provider.MediaStore;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +24,7 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.wolcano.musicplayer.music.R;
+import com.wolcano.musicplayer.music.databinding.FragmentInnerAlbumBinding;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
 import com.wolcano.musicplayer.music.mvp.interactor.ArtistInteractorImpl;
 import com.wolcano.musicplayer.music.mvp.models.Artist;
@@ -41,13 +43,12 @@ import io.reactivex.disposables.Disposable;
 
 public class FragmentArtists extends BaseFragment implements ArtistView,AppBarLayout.OnOffsetChangedListener {
 
-    private com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView recyclerView;
     private ArtistAdapter adapter;
     private Activity activity;
-    private TextView empty;
     private Disposable disposable;
     private ArtistPresenter artistPresenter;
-    private View v;
+    private FragmentInnerAlbumBinding binding;
+    private View view;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,19 +65,17 @@ public class FragmentArtists extends BaseFragment implements ArtistView,AppBarLa
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.fragment_inner_album, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_inner_album, container, false);
+        view = binding.getRoot();
         setHasOptionsMenu(true);
-
-        setupView(v);
-        return v;
+        setupViews();
+        return view;
     }
 
-    private void setupView(View v) {
-        recyclerView = v.findViewById(R.id.recycler);
-        empty = v.findViewById(android.R.id.empty);
-        Utils.setUpFastScrollRecyclerViewColor(recyclerView, Utils.getAccentColor(getContext()));
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),
+    private void setupViews() {
+        Utils.setUpFastScrollRecyclerViewColor(binding.recyclerview, Utils.getAccentColor(getContext()));
+        binding.recyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.recyclerview.addItemDecoration(new DividerItemDecoration(getContext(),
                 DividerItemDecoration.VERTICAL));
         String sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
         artistPresenter = new ArtistPresenterImpl(this,activity,disposable,sort,new ArtistInteractorImpl());
@@ -117,9 +116,9 @@ public class FragmentArtists extends BaseFragment implements ArtistView,AppBarLa
     }
 
     public void controlIfEmpty() {
-        if (empty != null) {
-            empty.setText(R.string.no_artist);
-            empty.setVisibility(adapter == null || adapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
+        if (binding.empty != null) {
+            binding.empty.setText(R.string.no_artist);
+            binding.empty.setVisibility(adapter == null || adapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
         }
     }
 
@@ -141,16 +140,16 @@ public class FragmentArtists extends BaseFragment implements ArtistView,AppBarLa
 
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-        v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), getLibraryFragment().getTotalAppBarScrollingRange() + verticalOffset);
+        view.setPadding(view.getPaddingLeft(), view.getPaddingTop(), view.getPaddingRight(), getLibraryFragment().getTotalAppBarScrollingRange() + verticalOffset);
 
     }
 
     @Override
     public void setArtistList(List<Artist> artistList) {
         if (artistList.size() <= 30) {
-            recyclerView.setThumbEnabled(false);
+            binding.recyclerview.setThumbEnabled(false);
         } else {
-            recyclerView.setThumbEnabled(true);
+            binding.recyclerview.setThumbEnabled(true);
         }
         adapter = new ArtistAdapter((MainActivity) getActivity(), artistList);
         controlIfEmpty();
@@ -162,7 +161,7 @@ public class FragmentArtists extends BaseFragment implements ArtistView,AppBarLa
             }
         });
 
-        recyclerView.setAdapter(adapter);
-        runLayoutAnimation(recyclerView);
+        binding.recyclerview.setAdapter(adapter);
+        runLayoutAnimation(binding.recyclerview);
     }
 }

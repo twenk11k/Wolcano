@@ -3,28 +3,16 @@ package com.wolcano.musicplayer.music.ui.fragment.library;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
-import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -33,18 +21,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
-import android.widget.Filter;
-import android.widget.Filterable;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.android.material.appbar.AppBarLayout;
 import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 import com.wolcano.musicplayer.music.R;
+import com.wolcano.musicplayer.music.databinding.FragmentSongsBinding;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
 import com.wolcano.musicplayer.music.mvp.interactor.SongInteractorImpl;
 import com.wolcano.musicplayer.music.mvp.listener.FilterListener;
@@ -54,19 +35,13 @@ import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.mvp.presenter.SongPresenterImpl;
 import com.wolcano.musicplayer.music.mvp.presenter.interfaces.SongPresenter;
 import com.wolcano.musicplayer.music.mvp.view.SongView;
-import com.wolcano.musicplayer.music.provider.RemotePlay;
 import com.wolcano.musicplayer.music.ui.adapter.SongAdapter;
 import com.wolcano.musicplayer.music.ui.fragment.FragmentLibrary;
 import com.wolcano.musicplayer.music.ui.activity.MainActivity;
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs;
 import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragment;
-import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragment2;
-import com.wolcano.musicplayer.music.ui.filter.SongFilter;
-import com.wolcano.musicplayer.music.ui.viewmodel.SongsViewModel;
 import com.wolcano.musicplayer.music.utils.SongUtils;
 import com.wolcano.musicplayer.music.utils.Utils;
-import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import io.reactivex.Observable;
@@ -79,40 +54,33 @@ public class FragmentSongs extends BaseFragment implements SongView,FilterListen
 
 
     private SongAdapter mAdapter;
-    private FastScrollRecyclerView recyclerView;
     private Context context;
     private Activity activity;
     private int searchC = 0;
-    private TextView empty;
     private Disposable disposable;
-    private String text;
-    private View v;
     private SongPresenter songPresenter;
-    private ViewModel viewModel;
+    private FragmentSongsBinding binding;
+    private View view;
+    private String text;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-         v = inflater.inflate(R.layout.fragment_songs, container, false);
-
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_songs, container, false);
+        view = binding.getRoot();
         context = getContext();
         activity = getActivity();
         setHasOptionsMenu(true);
 
-        viewModel = ViewModelProviders.of(this).get(SongsViewModel.class);
-
-        empty = v.findViewById(android.R.id.empty);
-        recyclerView = v.findViewById(R.id.recyclerview);
-
-        Utils.setUpFastScrollRecyclerViewColor(recyclerView, Utils.getAccentColor(getContext()));
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),
+        Utils.setUpFastScrollRecyclerViewColor(binding.recyclerview, Utils.getAccentColor(getContext()));
+        binding.recyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.recyclerview.addItemDecoration(new DividerItemDecoration(getContext(),
                 DividerItemDecoration.VERTICAL));
         String sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
         songPresenter = new SongPresenterImpl(this,activity,disposable,sort,new SongInteractorImpl());
         songPresenter.getSongs();
 
-        return v;
+        return view;
     }
     private FragmentLibrary getLibraryFragment() {
         return (FragmentLibrary) getParentFragment();
@@ -130,8 +98,8 @@ public class FragmentSongs extends BaseFragment implements SongView,FilterListen
     public void setSongList(List<Song> songList) {
 
         mAdapter = new SongAdapter((MainActivity) getActivity(), songList, FragmentSongs.this::setFastScrollIndexer,this);
-        recyclerView.setAdapter(mAdapter);
-        runLayoutAnimation(recyclerView);
+        binding.recyclerview.setAdapter(mAdapter);
+        runLayoutAnimation(binding.recyclerview);
 
     }
 
@@ -147,9 +115,9 @@ public class FragmentSongs extends BaseFragment implements SongView,FilterListen
     }
 
     public void controlIfEmpty() {
-        if (empty != null) {
-            empty.setText(R.string.no_song);
-            empty.setVisibility(mAdapter == null || mAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
+        if (binding.empty != null) {
+            binding.empty.setText(R.string.no_song);
+            binding.empty.setVisibility(mAdapter == null || mAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
         }
     }
 
@@ -220,15 +188,15 @@ public class FragmentSongs extends BaseFragment implements SongView,FilterListen
     @Override
     public void setFastScrollIndexer(boolean isShown) {
         if (isShown) {
-            recyclerView.setThumbEnabled(true);
+            binding.recyclerview.setThumbEnabled(true);
         } else {
-            recyclerView.setThumbEnabled(false);
+            binding.recyclerview.setThumbEnabled(false);
         }
     }
 
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
-        v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), getLibraryFragment().getTotalAppBarScrollingRange() + i);
+        view.setPadding(view.getPaddingLeft(), view.getPaddingTop(), view.getPaddingRight(), getLibraryFragment().getTotalAppBarScrollingRange() + i);
     }
 
 

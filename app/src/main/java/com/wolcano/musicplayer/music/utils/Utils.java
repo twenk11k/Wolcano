@@ -43,10 +43,10 @@ import com.wolcano.musicplayer.music.App;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.widgets.StatusBarView;
-import com.wolcano.musicplayer.music.ui.fragment.library.detail.AlbumDetailFragment;
-import com.wolcano.musicplayer.music.ui.fragment.library.detail.ArtistDetailFragment;
-import com.wolcano.musicplayer.music.ui.fragment.library.detail.GenreDetailFragment;
-import com.wolcano.musicplayer.music.ui.fragment.library.detail.PlaylistDetailFragment;
+import com.wolcano.musicplayer.music.ui.fragment.library.detail.FragmentAlbumDetail;
+import com.wolcano.musicplayer.music.ui.fragment.library.detail.FragmentArtistDetail;
+import com.wolcano.musicplayer.music.ui.fragment.library.detail.FragmentGenreDetail;
+import com.wolcano.musicplayer.music.ui.fragment.library.detail.FragmentPlaylistDetail;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.io.File;
@@ -498,7 +498,7 @@ public class Utils {
     public static void navigateToAlbum(Activity context, long albumID, String albumName) {
         FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
                Fragment fragment;
-        fragment = AlbumDetailFragment.newInstance(albumID, albumName   );
+        fragment = FragmentAlbumDetail.newInstance(albumID, albumName   );
         fragment.setEnterTransition(new Slide(Gravity.RIGHT));
         fragment.setExitTransition(new Slide(Gravity.LEFT));
         transaction.hide(((AppCompatActivity) context).getSupportFragmentManager().findFragmentById(R.id.fragment));
@@ -511,7 +511,7 @@ public class Utils {
         FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
         Fragment fragment;
 
-        fragment = ArtistDetailFragment.newInstance(artistID, artistName);
+        fragment = FragmentArtistDetail.newInstance(artistID, artistName);
         fragment.setEnterTransition(new Slide(Gravity.RIGHT));
         fragment.setExitTransition(new Slide(Gravity.LEFT));
         transaction.hide(((AppCompatActivity) context).getSupportFragmentManager().findFragmentById(R.id.fragment));
@@ -524,7 +524,7 @@ public class Utils {
         FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
         Fragment fragment;
 
-        fragment = GenreDetailFragment.newInstance(genreID, genreName);
+        fragment = FragmentGenreDetail.newInstance(genreID, genreName);
         fragment.setEnterTransition(new Slide(Gravity.RIGHT));
         fragment.setExitTransition(new Slide(Gravity.LEFT));
 
@@ -538,7 +538,7 @@ public class Utils {
         FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
         Fragment fragment;
 
-        fragment = PlaylistDetailFragment.newInstance(playlistID, playlistName);
+        fragment = FragmentPlaylistDetail.newInstance(playlistID, playlistName);
         fragment.setEnterTransition(new Slide(Gravity.RIGHT));
         fragment.setExitTransition(new Slide(Gravity.LEFT));
 

@@ -14,6 +14,8 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.databinding.DataBindingUtil;
+
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
@@ -47,7 +49,6 @@ public class RatingDialogV2 extends AppCompatDialog implements RatingBar.OnRatin
     private float threshold;
     private int session;
     private boolean thresholdPassed = true;
-
     public RatingDialogV2(Context context, RatingDialogV2.Builder builder) {
         super(context);
         this.context = context;

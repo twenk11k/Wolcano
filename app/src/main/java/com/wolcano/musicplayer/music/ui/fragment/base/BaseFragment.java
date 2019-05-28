@@ -7,7 +7,6 @@ import android.os.Looper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.hwangjr.rxbus.RxBus;
 import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.wolcano.musicplayer.music.widgets.StatusBarView;
@@ -17,6 +16,7 @@ import com.wolcano.musicplayer.music.ui.activity.MainActivity;
 
 
 public abstract class BaseFragment extends Fragment {
+
     protected Handler handler;
 
     @Override
