@@ -166,7 +166,7 @@ public class SettingsActivity extends BaseActivitySettings implements ColorChoos
         public void onCreatePreferences(Bundle bundle, String s) {
             addPreferencesFromResource(R.xml.pref_general);
             addPreferencesFromResource(R.xml.pref_colors);
-            addPreferencesFromResource(R.xml.pref_onlineplayer);
+            addPreferencesFromResource(R.xml.pref_online);
             addPreferencesFromResource(R.xml.pref_others);
 
         }

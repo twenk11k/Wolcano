@@ -34,7 +34,7 @@ public class SlidingPanel implements OnServiceListener,View.OnClickListener {
 
 
     private Disposable disposable;
-    private Drawable placeholder;
+    private Drawable placeholderDrawable;
     private Activity activity;
 
 
@@ -47,7 +47,7 @@ public class SlidingPanel implements OnServiceListener,View.OnClickListener {
     @Bind(R.id.line2)
     private TextView line2;
     @Bind(R.id.panel_top1bg)
-    private ImageView panelTop1;
+    private ImageView slidingUpPanelTop1;
     @Bind(R.id.model_imageview)
     private ImageView modelImage;
 
@@ -72,7 +72,7 @@ public class SlidingPanel implements OnServiceListener,View.OnClickListener {
             Picasso.get()
                     .load(contentURI)
                     .into(modelImage);
-            loadBitmap(RemotePlay.get().getPlayMusic(activity.getApplicationContext()),panelTop1);
+            loadBitmap(RemotePlay.get().getPlayMusic(activity.getApplicationContext()),slidingUpPanelTop1);
 
         }
         ScaledImageView scaledImageView = new ScaledImageView(activity);
@@ -80,12 +80,12 @@ public class SlidingPanel implements OnServiceListener,View.OnClickListener {
         int height = Resources.getSystem().getDisplayMetrics().heightPixels;
 
         scaledImageView.imageBitmap = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(activity.getResources(),R.drawable.album_default),width,height,true);
-        placeholder = activity.getResources().getDrawable(R.drawable.album_default);
-        placeholder.setColorFilter(Utils.getPrimaryColor(activity), PorterDuff.Mode.MULTIPLY);
+        placeholderDrawable = activity.getResources().getDrawable(R.drawable.album_default);
+        placeholderDrawable.setColorFilter(Utils.getPrimaryColor(activity), PorterDuff.Mode.MULTIPLY);
 
         progressBar.getProgressDrawable().setColorFilter(Utils.getAccentColor(activity), PorterDuff.Mode.SRC_IN);
         play.setOnClickListener(this);
-        panelTop1.setOnTouchListener(new OnSwipeTouchListener(activity) {
+        slidingUpPanelTop1.setOnTouchListener(new OnSwipeTouchListener(activity) {
             @Override
             public void onSwipeLeft() {
                 super.onSwipeLeft();
@@ -154,7 +154,7 @@ public class SlidingPanel implements OnServiceListener,View.OnClickListener {
                     .load(R.drawable.album_art)
                     .into(modelImage);
 
-            loadBitmap(song,panelTop1);
+            loadBitmap(song,slidingUpPanelTop1);
             return;
         }
         String contentURI = "content://media/external/audio/media/" + song.getSongId() + "/albumart";
@@ -163,7 +163,7 @@ public class SlidingPanel implements OnServiceListener,View.OnClickListener {
                 .placeholder(R.drawable.album_art)
                 .into(modelImage);
 
-        loadBitmap(song,panelTop1);
+        loadBitmap(song,slidingUpPanelTop1);
 
         line1.setText(song.getTitle());
         line2.setText(song.getArtist());
@@ -191,7 +191,7 @@ public class SlidingPanel implements OnServiceListener,View.OnClickListener {
 
             @Override
             public void onError(Throwable e) {
-                imageView.setImageDrawable(placeholder);
+                imageView.setImageDrawable(placeholderDrawable);
             }
 
             @Override

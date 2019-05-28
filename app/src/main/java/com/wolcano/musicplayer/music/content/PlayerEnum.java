@@ -2,11 +2,18 @@ package com.wolcano.musicplayer.music.content;
 
 public enum PlayerEnum {
 
-
     NORMAL(0),
     SHUFFLE(1),
     REPEAT(2);
+
+
     private int value;
+
+    PlayerEnum(int value) {
+        this.value = value;
+    }
+
+
     public static PlayerEnum valueOf(int value) {
         switch (value) {
             case 1:
@@ -18,13 +25,9 @@ public enum PlayerEnum {
                 return NORMAL;
         }
     }
-    public int getVal() {
+
+    public int getValue() {
         return value;
     }
-
-    PlayerEnum(int value) {
-        this.value = value;
-    }
-
 
 }

@@ -239,7 +239,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
                 mode = PlayerEnum.NORMAL;
                 break;
         }
-        Utils.setPlaylistId(context, mode.getVal());
+        Utils.setPlaylistId(context, mode.getValue());
         setLeftButton();
     }
 

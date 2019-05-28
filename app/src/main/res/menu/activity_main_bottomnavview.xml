@@ -21,17 +21,14 @@
             android:id="@+id/nav_playlists"
             android:icon="@drawable/baseline_queue_music_white_36"
             android:title="@string/playlists" />
-
-
-
-    </group>
-
-    <group android:id="@+id/ids">
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_settings"
             android:title="@string/settings" />
 
+
+
     </group>
+
 
 </menu>

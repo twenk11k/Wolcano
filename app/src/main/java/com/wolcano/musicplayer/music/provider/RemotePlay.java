@@ -250,7 +250,7 @@ public class RemotePlay {
             return;
         }
 
-        if (soundManager.reqSoundFocus()) {
+        if (soundManager.requestAudioFocus()) {
             mediaPlayer.start();
             musicService.registerReceiv();
             state = PLAY;
@@ -269,7 +269,7 @@ public class RemotePlay {
         pauseRemotePlay(context, true);
     }
 
-    public void pauseRemotePlay(Context context, boolean abSoundFocus) {
+    public void pauseRemotePlay(Context context, boolean abandonAudioFocus) {
         if (!isPlaying()) {
             return;
         }
@@ -280,8 +280,8 @@ public class RemotePlay {
 
         musicService.getNotification().update(getPlayMusic(context));
         SessionManager.get().updateSessionPlaybackState();
-        if (abSoundFocus) {
-            soundManager.abSoundFocus();
+        if (abandonAudioFocus) {
+            soundManager.abandonAudioFocus();
         }
 
         for (OnServiceListener listener : listenerList) {
