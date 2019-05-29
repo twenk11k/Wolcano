@@ -38,7 +38,6 @@ import com.wolcano.musicplayer.music.mvp.models.Song;
 import com.wolcano.musicplayer.music.mvp.presenter.interfaces.SongPresenter;
 import com.wolcano.musicplayer.music.mvp.view.SongView;
 import com.wolcano.musicplayer.music.ui.dialog.SleepTimerDialog;
-import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragment;
 import com.wolcano.musicplayer.music.ui.adapter.RecentlyAddedAdapter;
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs;
 import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragmentInject;

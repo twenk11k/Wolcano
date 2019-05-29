@@ -34,14 +34,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class OnlineAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private ArrayList<SongOnline> songOnlineList;
     private AppCompatActivity activity;
     private boolean showLoader;
     private int downloadCount = 0;
 
-    public MainAdapter(AppCompatActivity activity, ArrayList<SongOnline> songOnlineList) {
+    public OnlineAdapter(AppCompatActivity activity, ArrayList<SongOnline> songOnlineList) {
         if (songOnlineList == null) {
             this.songOnlineList = new ArrayList<>();
         } else {

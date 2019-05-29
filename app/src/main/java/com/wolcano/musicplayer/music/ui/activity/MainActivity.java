@@ -17,7 +17,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewPropertyAnimator;
@@ -28,7 +27,6 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.afollestad.materialdialogs.GravityEnum;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
@@ -63,13 +61,11 @@ import com.wolcano.musicplayer.music.utils.ToastUtils;
 import com.wolcano.musicplayer.music.utils.UriFilesUtils;
 import com.wolcano.musicplayer.music.utils.Utils;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.Observable;
@@ -128,11 +124,10 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
     private Activity activity;
     private Disposable disposable;
     private Drawable placeholder;
-    private Handler handlerD, handlerCollapse;
-    private Runnable runnableD;
+    private Handler  handlerCollapse;
     private int currentFrag;
     private boolean typeReturn = false;
-    private BottomSheetBehavior bottomSheetBehavior;
+    // private BottomSheetBehavior bottomSheetBehavior;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -147,11 +142,16 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
         handleRateDialog();
     }
 
-
     private void setDrawerOptions() {
 
         handlerCollapse = new Handler();
-        bottomSheetBehavior = new BottomSheetBehavior();
+        // applyBottomSheetBehavior();
+
+    }
+
+    private void applyBottomSheetBehavior() {
+
+        /* bottomSheetBehavior =   BottomSheetBehavior.from(relativeLayout);
         bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
@@ -162,8 +162,13 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
                 slideDown(navigationView, slideOffset);
             }
         });
+        */
+
     }
 
+    /**
+        Slide down bottomnavigationview using ViewPropertyAnimator
+     */
     private void slideDown(BottomNavigationView child, float slideOffset) {
 
         float height = slideOffset * child.getHeight();
@@ -490,9 +495,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
             slidingPanel.getDisposable().dispose();
         }
 
-        if (handlerD != null) {
-            handlerD.removeCallbacks(runnableD);
-        }
 
         DisposableManager.dispose();
 

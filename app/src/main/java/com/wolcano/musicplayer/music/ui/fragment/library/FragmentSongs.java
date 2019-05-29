@@ -180,12 +180,12 @@ public class FragmentSongs extends BaseFragmentInject implements SongView,Filter
     public void onDestroyView() {
         super.onDestroyView();
 
+        getLibraryFragment().removeOnAppBarOffsetChangedListener(this);
         if (disposable != null && !disposable.isDisposed()) {
             disposable.dispose();
         }
 
         DisposableManager.dispose();
-        getLibraryFragment().removeOnAppBarOffsetChangedListener(this);
 
     }
 

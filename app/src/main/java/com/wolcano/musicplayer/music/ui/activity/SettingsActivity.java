@@ -74,7 +74,7 @@ public class SettingsActivity extends BaseActivitySettings implements ColorChoos
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_preferences);
+        setContentView(R.layout.activity_settings);
         setDrawUnderStatusbar(true);
         ButterKnife.bind(this);
         if(Build.VERSION.SDK_INT == 17 || Build.VERSION.SDK_INT==18){

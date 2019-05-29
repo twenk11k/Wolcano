@@ -34,22 +34,17 @@ import com.wolcano.musicplayer.music.di.module.AlbumModule;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
 import com.wolcano.musicplayer.music.mvp.interactor.AlbumInteractorImpl;
 import com.wolcano.musicplayer.music.mvp.models.Album;
-import com.wolcano.musicplayer.music.mvp.presenter.AlbumPresenterImpl;
 import com.wolcano.musicplayer.music.mvp.presenter.interfaces.AlbumPresenter;
 import com.wolcano.musicplayer.music.mvp.view.AlbumView;
 import com.wolcano.musicplayer.music.ui.dialog.SleepTimerDialog;
 import com.wolcano.musicplayer.music.ui.fragment.FragmentLibrary;
 import com.wolcano.musicplayer.music.ui.activity.MainActivity;
 import com.wolcano.musicplayer.music.ui.adapter.AlbumAdapter;
-import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragment;
 import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragmentInject;
 import com.wolcano.musicplayer.music.utils.Utils;
-
 import java.util.List;
-
 import javax.inject.Inject;
 
-import io.reactivex.disposables.Disposable;
 
 public class FragmentAlbums extends BaseFragmentInject implements AlbumView, AppBarLayout.OnOffsetChangedListener {
 
@@ -137,8 +132,8 @@ public class FragmentAlbums extends BaseFragmentInject implements AlbumView, App
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        DisposableManager.dispose();
         getLibraryFragment().removeOnAppBarOffsetChangedListener(this);
+        DisposableManager.dispose();
 
     }
 

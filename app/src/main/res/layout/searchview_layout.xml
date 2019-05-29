@@ -36,7 +36,6 @@
                 android:paddingLeft="@dimen/search_view_text_padding"
                 android:paddingRight="@dimen/search_view_text_padding"
                 android:singleLine="true"
-
                 android:textSize="16sp"/>
 
             <ImageButton

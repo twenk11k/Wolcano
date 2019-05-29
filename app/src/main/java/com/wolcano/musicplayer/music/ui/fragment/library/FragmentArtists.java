@@ -122,9 +122,8 @@ public class FragmentArtists extends BaseFragmentInject implements ArtistView,Ap
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
-        DisposableManager.dispose();
         getLibraryFragment().removeOnAppBarOffsetChangedListener(this);
+        DisposableManager.dispose();
 
     }
 

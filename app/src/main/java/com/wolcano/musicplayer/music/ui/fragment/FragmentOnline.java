@@ -41,7 +41,7 @@ import com.wolcano.musicplayer.music.mvp.listener.RecyclerViewScrollListener;
 import com.wolcano.musicplayer.music.mvp.models.SongOnline;
 import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragment;
 import com.wolcano.musicplayer.music.widgets.StatusBarView;
-import com.wolcano.musicplayer.music.ui.adapter.MainAdapter;
+import com.wolcano.musicplayer.music.ui.adapter.OnlineAdapter;
 import com.wolcano.musicplayer.music.mvp.listener.SetSearchQuery;
 import com.wolcano.musicplayer.music.widgets.MaterialSearchLast;
 import com.wolcano.musicplayer.music.utils.Utils;
@@ -86,59 +86,46 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
     @BindView(R.id.recyclerview)
     FastScrollRecyclerView recyclerView;
 
-
     private Activity activity;
     private Context context;
-    private int posMore = 0;
+    private int positionMore = 0;
     private String txtSearch;
     private boolean control = false;
     private int lCounter = 0;
-
-    boolean moreBlk = false;
-
-    private String strErr;
+    private String errorStr;
     private int[] array;
-    private int srcCnt = 0;
     private boolean isApproved = false;
     private ArrayList<String> arrayList;
     private ArrayList<String> arrayTitleList;
     private ArrayList<String> arrayArtistList;
-    private ArrayList<String> arraySeaList;
+    private ArrayList<String> arraySearchList;
     private ArrayList<String> lastSearches;
     private ArrayList<String> arrayList2;
     private ArrayList<String> arrayDuraList;
     private ArrayList<String> suggestionList;
     private ArrayList<SongOnline> arraySongOnlineList;
-
     private int cInt = 1;
-    private boolean lMore = false;
-
+    private boolean loadMore = false;
     private ArrayAdapter<String> adt;
     private ArrayAdapter<String> adtTitle;
     private ArrayAdapter<String> adtDuration;
     private ArrayAdapter<String> adtArtist;
     private ArrayAdapter<String> adtSearchList;
     private ArrayAdapter<String> adt2;
-    private ArrayAdapter<SongOnline> adtModel1List;
-
+    private ArrayAdapter<SongOnline> adtSongOnline;
     private Disposable disposable;
-
-    private MainAdapter mAdapter;
-
+    private OnlineAdapter onlineAdapter;
     private MaterialSearchLast materialSearchView;
     private String[] suggestionListStringsFromRemove;
     private String[] lastSearchesStringsFromRemove;
-    private String duraQuery = "em.cplayer-data-sound-time";
-
+    private String durationQuery = "em.cplayer-data-sound-time";
     private View footerView;
-    private List<String> lastSearch;
-
-
+    private List<String> lastSearchList;
     private int color;
     private boolean isitRemoved = false;
-    private String titQuery = "b.cplayer-data-sound-title";
+    private String titleQuery = "b.cplayer-data-sound-title";
     private String baseQuery = "li[data-sound-url]";
-    private String artQuery = "i.cplayer-data-sound-author";
+    private String artistQuery = "i.cplayer-data-sound-author";
     private String singleQuery = "data-sound-url";
     private String val = "shine";
 
@@ -213,7 +200,7 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
         footerView = inflater.inflate(R.layout.thefooter_view, container, false);
         arrayList = new ArrayList<>();
         arrayArtistList = new ArrayList<>();
-        arraySeaList = new ArrayList<>();
+        arraySearchList = new ArrayList<>();
         arrayList2 = new ArrayList<>();
         arrayDuraList = new ArrayList<>();
         arraySongOnlineList = new ArrayList<>();
@@ -232,21 +219,21 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
     }
 
     private void loadMoreData() {
-        if (!lMore) {
+        if (!loadMore) {
             if (cInt <= 5 && arrayList.size() >= 50 && !isApproved) {
-                if (!lMore) {
-                    lMore = true;
+                if (!loadMore) {
+                    loadMore = true;
                     cInt++;
-                    posMore = recyclerView.getAdapter().getItemCount() - 1;
+                    positionMore = recyclerView.getAdapter().getItemCount() - 1;
                     if (!control) {
                         isApproved = false;
-                        ExecuteTask();
+                        executeTask();
                     } else {
-                        lMore = false;
+                        loadMore = false;
                     }
                 }
             } else {
-                lMore = false;
+                loadMore = false;
             }
         }
     }
@@ -417,13 +404,13 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
 
                     String str = Utils.getLastSearch(context);
                     if (str != null) {
-                        lastSearch = Arrays.asList(str.split(","));
+                        lastSearchList = Arrays.asList(str.split(","));
                         String[] lastSearches;
                         if (str.isEmpty()) {
                             lastSearches = null;
 
                         } else {
-                            lastSearches = lastSearch.toArray(new String[lastSearch.size()]);
+                            lastSearches = lastSearchList.toArray(new String[lastSearchList.size()]);
 
                         }
 
@@ -549,7 +536,7 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
         RecyclerViewScrollListener.previousTotal = 0;
         isApproved = true;
         Utils.setGetSearch(context, query);
-        if (!lMore) {
+        if (!loadMore) {
             if (arrayList != null && adt != null) {
                 arrayList.clear();
                 adt.notifyDataSetChanged();
@@ -558,8 +545,8 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
                 arrayList2.clear();
                 adt2.notifyDataSetChanged();
             }
-            if (arraySeaList != null && adtSearchList != null) {
-                arraySeaList.clear();
+            if (arraySearchList != null && adtSearchList != null) {
+                arraySearchList.clear();
                 adtSearchList.notifyDataSetChanged();
             }
             if (arrayArtistList != null && adtArtist != null) {
@@ -574,27 +561,25 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
                 arrayDuraList.clear();
                 adtDuration.notifyDataSetChanged();
             }
-            if (arraySongOnlineList != null && adtModel1List != null) {
+            if (arraySongOnlineList != null && adtSongOnline != null) {
                 arraySongOnlineList.clear();
-                adtModel1List.notifyDataSetChanged();
+                adtSongOnline.notifyDataSetChanged();
             }
-            if (mAdapter != null) {
-                mAdapter.clear();
+            if (onlineAdapter != null) {
+                onlineAdapter.clear();
             }
 
             if (disposable != null)
                 disposable.dispose();
             lCounter = 0;
-            srcCnt++;
-            posMore = 0;
-            if (mAdapter != null) {
-                mAdapter.showLoading(false);
-
+            positionMore = 0;
+            if (onlineAdapter != null) {
+                onlineAdapter.showLoading(false);
             }
             txtSearch = query;
             cInt = 1;
             materialSearchView.clearFocus();
-            ExecuteTask();
+            executeTask();
             isApproved = false;
 
         }
@@ -658,7 +643,7 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
         adtArtist = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, arrayArtistList);
         adtTitle = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, arrayTitleList);
         adtDuration = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, arrayDuraList);
-        adtSearchList = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, arraySeaList);
+        adtSearchList = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, arraySearchList);
 
     }
 
@@ -679,16 +664,15 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
     private void addToArrayList(String str1, String str2, String str3, String str4, String str5) {
         arrayList.add(str1);
         arrayList2.add(str2);
-        arraySeaList.add(str2);
+        arraySearchList.add(str2);
         arrayArtistList.add(str3);
         arrayTitleList.add(str4);
         arrayDuraList.add(str5);
     }
 
-    private void ExecuteTask() {
+    private void executeTask() {
 
-        moreBlk = true;
-        if (!lMore) {
+        if (!loadMore) {
 
             progressBar.setVisibility(View.VISIBLE);
         }
@@ -706,16 +690,16 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
                             doc = Jsoup.connect(MAIN_BASE_URL + txtSearch + "/" + MAIN_BASE_URL_2 + Integer.toString(cInt) + "/").timeout(10000).ignoreHttpErrors(true).get();
                         }
                         if (doc != null) {
-                            Elements baseEl = doc.select(baseQuery);
-                            Elements artEl = doc.select(artQuery);
-                            Elements titEl = doc.select(titQuery);
-                            Elements duraEl = doc.select(duraQuery);
-                            for (int j = 0; j < baseEl.size(); j++) {
-                                String title = titEl.get(j).text();
-                                String artist = artEl.get(j).text();
-                                String dura = duraEl.get(j).text();
-                                String baseUrl = baseEl.get(j).attr(singleQuery);
-                                addToArrayList(title + "\n " + artist + "\n", baseUrl, artist, title, dura);
+                            Elements baseElements = doc.select(baseQuery);
+                            Elements artistElements = doc.select(artistQuery);
+                            Elements titleElements = doc.select(titleQuery);
+                            Elements durationElements = doc.select(durationQuery);
+                            for (int j = 0; j < baseElements.size(); j++) {
+                                String title = titleElements.get(j).text();
+                                String artist = artistElements.get(j).text();
+                                String duration = durationElements.get(j).text();
+                                String baseUrl = baseElements.get(j).attr(singleQuery);
+                                addToArrayList(title + "\n " + artist + "\n", baseUrl, artist, title, duration);
                             }
                             addToArrayAdapter();
                             checkAdapter();
@@ -743,9 +727,9 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
     }
 
     private void postMain() {
-        if (arraySongOnlineList != null && adtModel1List != null) {
+        if (arraySongOnlineList != null && adtSongOnline != null) {
             arraySongOnlineList.clear();
-            adtModel1List.notifyDataSetChanged();
+            adtSongOnline.notifyDataSetChanged();
         }
         if (arrayList != null) {
             array = new int[arrayList.size()];
@@ -770,10 +754,10 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
                     array[k] = k;
                     SongOnline songOnline = new SongOnline(adtSearchList.getItem(k), adtArtist.getItem(k), adtTitle.getItem(k), finalStage);
                     arraySongOnlineList.add(songOnline);
-                    if (adtModel1List != null) {
-                        adtModel1List.notifyDataSetInvalidated();
+                    if (adtSongOnline != null) {
+                        adtSongOnline.notifyDataSetInvalidated();
                     }
-                    adtModel1List = new ArrayAdapter<SongOnline>(context, android.R.layout.simple_list_item_1, arraySongOnlineList);
+                    adtSongOnline = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, arraySongOnlineList);
 
                 }
             }
@@ -781,18 +765,17 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
         }
         recyclerView.requestLayout();
         recyclerView.invalidate();
-        lMore = false;
+        loadMore = false;
         footerView.setVisibility(View.GONE);
-        moreBlk = false;
         if (!isConnected()) {
             progressBar.setVisibility(View.GONE);
             Toast.makeText(context.getApplicationContext(), R.string.cnn_err, Toast.LENGTH_SHORT).show();
         } else {
             if (arrayList.size() == 0) {
                 isitRemoved = true;
-                if (strErr == getString(R.string.http_error)) {
+                if (errorStr.equals(getString(R.string.http_error))) {
                     Toast.makeText(context.getApplicationContext(), R.string.cnn_err, Toast.LENGTH_SHORT).show();
-                    strErr = "";
+                    errorStr = "";
                 } else {
                     controlIfEmpty();
                 }
@@ -801,16 +784,16 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
             }
             if (!isitRemoved) {
                 empty.setVisibility(View.GONE);
-                if (posMore == 0 && cInt == 1) {
+                if (positionMore == 0 && cInt == 1) {
                     if (recyclerView.getAdapter() == null) {
-                        createMainAdapter();
+                        createOnlineAdapter();
                         if (arraySongOnlineList.size() >= 15) {
                             recyclerView.setThumbEnabled(true);
                         } else {
                             recyclerView.setThumbEnabled(false);
                         }
 
-                        mAdapter.notifyDataSetChanged();
+                        onlineAdapter.notifyDataSetChanged();
                         runLayoutAnimation(recyclerView);
 
                     }
@@ -820,7 +803,7 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
                     } else {
                         recyclerView.setThumbEnabled(false);
                     }
-                    mAdapter.notifyDataSetChanged();
+                    onlineAdapter.notifyDataSetChanged();
 
                 }
                 if (lCounter == adtSearchList.getCount()) {
@@ -830,24 +813,24 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
 
                 if (!control && cInt <= 5) {
 
-                    mAdapter.showLoading(true);
+                    onlineAdapter.showLoading(true);
                     if (arraySongOnlineList.size() >= 15) {
                         recyclerView.setThumbEnabled(true);
                     } else {
                         recyclerView.setThumbEnabled(false);
                     }
-                    mAdapter.notifyDataSetChanged();
+                    onlineAdapter.notifyDataSetChanged();
 
                 } else {
 
-                    mAdapter.showLoading(false);
+                    onlineAdapter.showLoading(false);
                     if (arraySongOnlineList.size() >= 15) {
                         recyclerView.setThumbEnabled(true);
                     } else {
                         recyclerView.setThumbEnabled(false);
                     }
 
-                    mAdapter.notifyDataSetChanged();
+                    onlineAdapter.notifyDataSetChanged();
                     runLayoutAnimation(recyclerView);
 
                 }
@@ -875,19 +858,19 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
     private void controlIfEmpty() {
         if (empty != null) {
             empty.setText(R.string.no_result);
-            empty.setVisibility(mAdapter == null || mAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
+            empty.setVisibility(onlineAdapter == null || onlineAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
         }
     }
 
-    private void setMainAdapter() {
-        mAdapter = new MainAdapter((AppCompatActivity) getActivity(), arraySongOnlineList);
-        recyclerView.setAdapter(mAdapter);
+    private void setOnlineAdapter() {
+        onlineAdapter = new OnlineAdapter((AppCompatActivity) getActivity(), arraySongOnlineList);
+        recyclerView.setAdapter(onlineAdapter);
 
     }
 
 
-    private void createMainAdapter() {
-        setMainAdapter();
+    private void createOnlineAdapter() {
+        setOnlineAdapter();
     }
 
 

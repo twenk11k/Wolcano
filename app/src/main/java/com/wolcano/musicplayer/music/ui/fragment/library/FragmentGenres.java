@@ -36,7 +36,6 @@ import com.wolcano.musicplayer.music.ui.dialog.SleepTimerDialog;
 import com.wolcano.musicplayer.music.ui.fragment.FragmentLibrary;
 import com.wolcano.musicplayer.music.ui.activity.MainActivity;
 import com.wolcano.musicplayer.music.ui.adapter.GenreAdapter;
-import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragment;
 import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragmentInject;
 import com.wolcano.musicplayer.music.utils.Utils;
 import java.util.List;
@@ -116,9 +115,9 @@ public class FragmentGenres extends BaseFragmentInject implements GenreView,AppB
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        getLibraryFragment().removeOnAppBarOffsetChangedListener(this);
 
         DisposableManager.dispose();
-        getLibraryFragment().removeOnAppBarOffsetChangedListener(this);
 
     }
 
