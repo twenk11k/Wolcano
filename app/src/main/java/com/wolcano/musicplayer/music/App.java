@@ -3,7 +3,9 @@ package com.wolcano.musicplayer.music;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+
 import androidx.multidex.MultiDex;
+
 import com.wolcano.musicplayer.music.content.AppHandler;
 import com.wolcano.musicplayer.music.di.component.ApplicationComponent;
 import com.wolcano.musicplayer.music.di.component.DaggerApplicationComponent;
@@ -28,7 +30,6 @@ public class App extends Application {
         GeneralCache.get().initializeCache(this);
         AppHandler.setCallbacks(this);
         DatabaseManager.get().init(this);
-        // TODO Implement Bugsnag api key to manifest and call this: Bugsnag.init(this);
 
         Intent intent = new Intent(this, MusicService.class);
         startService(intent);
@@ -47,6 +48,7 @@ public class App extends Application {
         super.attachBaseContext(base);
         MultiDex.install(this);
     }
+
     public ApplicationComponent getApplicationComponent() {
         return applicationComponent;
     }
