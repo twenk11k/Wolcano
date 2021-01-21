@@ -48,7 +48,6 @@ repositories {
 }
 
 dependencies {
-    //implementation(kotlin("stdlib-jdk7"))
 
     implementation(SupportLibs.ANDROIDX_APPCOMPAT)
     implementation(SupportLibs.ANDROIDX_CONSTRAINT_LAYOUT)
@@ -62,7 +61,6 @@ dependencies {
     implementation(SupportLibs.ANDROID_MATERIAL)
 
     testImplementation(TestingLib.JUNIT)
-
     androidTestImplementation(AndroidTestingLib.ANDROIDX_TEST_EXT_JUNIT)
     androidTestImplementation(AndroidTestingLib.ANDROIDX_TEST_RULES)
     androidTestImplementation(AndroidTestingLib.ESPRESSO_CORE)
@@ -83,14 +81,12 @@ dependencies {
     implementation(ThirdPartyLibs.SDP)
 
     implementation(OtherLibs.RETROFIT)
-
     implementation(OtherLibs.RXJAVA2_ANDROID)
     implementation(OtherLibs.RXJAVA2)
     implementation(OtherLibs.RXANDROID)
-
     implementation(OtherLibs.DAGGER)
     annotationProcessor(OtherLibs.DAGGER_COMPILER)
     implementation(OtherLibs.DAGGER_ANDROID_SUPPORT)
-
     implementation(OtherLibs.LIFECYCLE_EXTENSIONS)
+
 }
