@@ -1,6 +1,7 @@
 package com.wolcano.musicplayer.music.constants;
 
 import android.provider.MediaStore;
+
 import javax.inject.Singleton;
 
 
@@ -15,7 +16,7 @@ public class Constants {
     public static final String GENRE_NAME = "genre_name";
     public static final String PLAYLIST_ID = "playlist_id";
     public static final String PLAYLIST_NAME = "playlist_name";
-    public static final String MAIN_BASE_URL = "https://mp3-pn.com/search/s/f/";
+    public static final String MAIN_BASE_URL = "https://wax.click/search/s/f/";
     public static final String SONG_ONLY_SELECTION = MediaStore.Audio.AudioColumns.IS_MUSIC + "=1"
             + " AND " + MediaStore.Audio.AudioColumns.TITLE + " != ''";
     public static final String SONG_LIBRARY= "song_library";

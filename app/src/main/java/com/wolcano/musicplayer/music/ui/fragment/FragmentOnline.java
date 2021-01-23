@@ -12,13 +12,6 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,29 +25,41 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 import com.kabouzeid.appthemehelper.util.TintHelper;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
+import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
 import com.wolcano.musicplayer.music.mvp.listener.RecyclerViewScrollListener;
-import com.wolcano.musicplayer.music.mvp.models.SongOnline;
-import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragment;
-import com.wolcano.musicplayer.music.widgets.StatusBarView;
-import com.wolcano.musicplayer.music.ui.adapter.OnlineAdapter;
 import com.wolcano.musicplayer.music.mvp.listener.SetSearchQuery;
-import com.wolcano.musicplayer.music.widgets.MaterialSearchLast;
+import com.wolcano.musicplayer.music.mvp.models.SongOnline;
+import com.wolcano.musicplayer.music.ui.adapter.OnlineAdapter;
+import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragment;
 import com.wolcano.musicplayer.music.utils.Utils;
-import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
+import com.wolcano.musicplayer.music.widgets.MaterialSearchLast;
+import com.wolcano.musicplayer.music.widgets.StatusBarView;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.Callable;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.Observable;
@@ -62,13 +67,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
+
 import static com.wolcano.musicplayer.music.constants.Constants.MAIN_BASE_URL;
 import static com.wolcano.musicplayer.music.constants.Constants.MAIN_BASE_URL_2;
 
 
-
 public class FragmentOnline extends BaseFragment implements SetSearchQuery {
-
 
     //  Butterknife bindings...
     @BindView(R.id.toolbar)
@@ -206,14 +210,12 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
         arraySongOnlineList = new ArrayList<>();
         arrayTitleList = new ArrayList<>();
 
-
         materialSearchView = rootview.findViewById(R.id.material_search_last);
 
         emptyView.setVisibility(View.VISIBLE);
         setSearchView();
         empty.setText(context.getResources().getString(R.string.search_info));
         recyclerView.setVisibility(View.GONE);
-
 
         return rootview;
     }
@@ -324,7 +326,6 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
                         k++;
                     }
 
-
                 }
                 int sy;
                 ArrayList<String> arrayList = new ArrayList<>();
@@ -333,7 +334,6 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
                 if (k > 0) {
                     for (sy = 0; sy < k; sy++) {
                         arrayList.remove(sy);
-
                     }
                 }
 
@@ -408,12 +408,9 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
                         String[] lastSearches;
                         if (str.isEmpty()) {
                             lastSearches = null;
-
                         } else {
                             lastSearches = lastSearchList.toArray(new String[lastSearchList.size()]);
-
                         }
-
                         materialSearchView.setSuggestions(arr, lastSearches, true, FragmentOnline.this, colorTint);
                     }
                     MaterialSearchLast.isEmpty = false;
@@ -514,9 +511,7 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
         StringBuilder sb2 = new StringBuilder();
 
         for (int i = 0; i < lastSearchesStringsFromRemove.length; i++) {
-
             sb2.append(lastSearchesStringsFromRemove[i]).append(",");
-
         }
 
         Utils.setSearchQuery(context, sb.toString());
@@ -621,8 +616,6 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
         super.onCreateOptionsMenu(menu, inflater);
 
     }
-
-
 
 
     @Override
