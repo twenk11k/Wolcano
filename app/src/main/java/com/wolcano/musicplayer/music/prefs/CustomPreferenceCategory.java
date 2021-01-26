@@ -4,8 +4,10 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.TextView;
+
 import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceViewHolder;
+
 import com.wolcano.musicplayer.music.utils.Utils;
 
 
@@ -29,12 +31,12 @@ public class CustomPreferenceCategory extends PreferenceCategory {
 
     public CustomPreferenceCategory(Context context) {
         super(context);
-        this.init(context, (AttributeSet)null);
+        this.init(context, (AttributeSet) null);
     }
 
     public void onBindViewHolder(PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
-        TextView titleTextView = (TextView)holder.itemView;
+        TextView titleTextView = (TextView) holder.itemView;
         titleTextView.setTextColor(Utils.getAccentColor(getContext()));
     }
 

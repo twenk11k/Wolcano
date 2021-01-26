@@ -15,7 +15,6 @@ import dagger.Provides;
 @Module
 public class GenreSongModule {
 
-
     private SongView view;
     private Fragment fragment;
     private Activity activity;
@@ -31,7 +30,6 @@ public class GenreSongModule {
         this.sort = sort;
         this.genreID = genreID;
     }
-
 
     @Provides
     public SongView provideView(){

@@ -1,9 +1,15 @@
 package com.wolcano.musicplayer.music.ui.fragment;
 
-import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,14 +19,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 
 import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
@@ -35,11 +33,13 @@ import com.wolcano.musicplayer.music.mvp.interactor.PlaylistInteractorImpl;
 import com.wolcano.musicplayer.music.mvp.models.Playlist;
 import com.wolcano.musicplayer.music.mvp.presenter.interfaces.PlaylistPresenter;
 import com.wolcano.musicplayer.music.mvp.view.PlaylistView;
-import com.wolcano.musicplayer.music.ui.dialog.SleepTimerDialog;
 import com.wolcano.musicplayer.music.ui.adapter.PlaylistAdapter;
+import com.wolcano.musicplayer.music.ui.dialog.SleepTimerDialog;
 import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragmentInject;
 import com.wolcano.musicplayer.music.utils.Utils;
+
 import java.util.List;
+
 import javax.inject.Inject;
 
 

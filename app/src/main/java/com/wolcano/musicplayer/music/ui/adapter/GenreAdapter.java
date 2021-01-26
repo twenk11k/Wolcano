@@ -1,17 +1,19 @@
 package com.wolcano.musicplayer.music.ui.adapter;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.databinding.ItemGenreBinding;
 import com.wolcano.musicplayer.music.mvp.models.Genre;
 import com.wolcano.musicplayer.music.utils.Utils;
+
 import java.util.List;
 
 

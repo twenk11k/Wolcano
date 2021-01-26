@@ -25,7 +25,6 @@ import static com.wolcano.musicplayer.music.constants.Constants.SONG_LIBRARY;
 
 public class ArtistInteractorImpl implements ArtistInteractor {
 
-
     @Subscribe(tags = {@Tag(SONG_LIBRARY)})
     @Override
     public void getArtist(Activity activity, String sort, OnGetArtistListener onGetArtistListener) {
@@ -42,7 +41,7 @@ public class ArtistInteractorImpl implements ArtistInteractor {
                         Disposable disposable = observable.
                                 subscribeOn(Schedulers.io()).
                                 observeOn(AndroidSchedulers.mainThread()).
-                                subscribe(artistList -> onGetArtistListener.sendArtist(artistList));
+                                subscribe(onGetArtistListener::sendArtist);
 
                         DisposableManager.add(disposable);
                     }
@@ -54,7 +53,5 @@ public class ArtistInteractorImpl implements ArtistInteractor {
                     }
                 })
                 .reqPerm();
-
-
     }
 }

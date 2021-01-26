@@ -9,7 +9,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -21,14 +20,10 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -37,8 +32,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 import com.kabouzeid.appthemehelper.util.TintHelper;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
-import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 import com.wolcano.musicplayer.music.R;
+import com.wolcano.musicplayer.music.databinding.FragmentOnlineBinding;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
 import com.wolcano.musicplayer.music.mvp.listener.RecyclerViewScrollListener;
 import com.wolcano.musicplayer.music.mvp.listener.SetSearchQuery;
@@ -47,8 +42,8 @@ import com.wolcano.musicplayer.music.ui.adapter.OnlineAdapter;
 import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragment;
 import com.wolcano.musicplayer.music.utils.Utils;
 import com.wolcano.musicplayer.music.widgets.MaterialSearchLast;
-import com.wolcano.musicplayer.music.widgets.StatusBarView;
 
+import org.jetbrains.annotations.NotNull;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -60,35 +55,15 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.Callable;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
 import static com.wolcano.musicplayer.music.constants.Constants.MAIN_BASE_URL;
 import static com.wolcano.musicplayer.music.constants.Constants.MAIN_BASE_URL_2;
 
-
 public class FragmentOnline extends BaseFragment implements SetSearchQuery {
-
-    //  Butterknife bindings...
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.statusBarCustom)
-    StatusBarView statusBarView;
-    @BindView(R.id.progressBar)
-    MaterialProgressBar progressBar;
-    @BindView(R.id.emptyText)
-    TextView empty;
-    @BindView(R.id.toolbar_container)
-    FrameLayout toolbarContainer;
-    @BindView(R.id.view_empty)
-    View emptyView;
-    @BindView(R.id.recyclerview)
-    FastScrollRecyclerView recyclerView;
 
     private Activity activity;
     private Context context;
@@ -119,7 +94,6 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
     private ArrayAdapter<SongOnline> adtSongOnline;
     private Disposable disposable;
     private OnlineAdapter onlineAdapter;
-    private MaterialSearchLast materialSearchView;
     private String[] suggestionListStringsFromRemove;
     private String[] lastSearchesStringsFromRemove;
     private String durationQuery = "em.cplayer-data-sound-time";
@@ -133,33 +107,27 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
     private String singleQuery = "data-sound-url";
     private String val = "shine";
 
+    private FragmentOnlineBinding binding;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootview;
-        if (Build.VERSION.SDK_INT >= 21) {
-            rootview = inflater.inflate(R.layout.fragment_online, container, false);
-        } else {
-            rootview = inflater.inflate(R.layout.fragment_online_19, container, false);
-
-        }
+        binding = FragmentOnlineBinding.inflate(inflater, container, false);
         setHasOptionsMenu(true);
-        ButterKnife.bind(this, rootview);
 
         activity = getActivity();
         context = getContext();
         color = Utils.getPrimaryColor(context);
-        toolbarContainer.bringToFront();
+        binding.toolbarContainer.bringToFront();
 
-
-        setStatusbarColorAuto(statusBarView, color);
-        Utils.setUpFastScrollRecyclerViewColor(recyclerView, Utils.getAccentColor(context));
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),
+        setStatusbarColorAuto(binding.statusBarCustom, color);
+        Utils.setUpFastScrollRecyclerViewColor(binding.recyclerView, Utils.getAccentColor(context));
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),
                 DividerItemDecoration.VERTICAL));
 
 
-        recyclerView.addOnScrollListener(new RecyclerViewScrollListener() {
+        binding.recyclerView.addOnScrollListener(new RecyclerViewScrollListener() {
             @Override
             public void onScrollUp() {
 
@@ -176,29 +144,18 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
             }
         });
 
-
-        if (Build.VERSION.SDK_INT < 21 && rootview.findViewById(R.id.statusBarCustom) != null) {
-            rootview.findViewById(R.id.statusBarCustom).setVisibility(View.GONE);
-            if (Build.VERSION.SDK_INT >= 19) {
-                int statusBarHeight = Utils.getStatHeight(getContext());
-                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) rootview.findViewById(R.id.toolbar_container).getLayoutParams();
-                layoutParams.setMargins(0, statusBarHeight, 0, 0);
-                rootview.findViewById(R.id.toolbar_container).setLayoutParams(layoutParams);
-            }
-        }
-
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        toolbar.setBackgroundColor(color);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(binding.toolbar);
+        binding.toolbar.setBackgroundColor(color);
         if (Utils.isColorLight(color)) {
-            toolbar.setTitleTextColor(Color.BLACK);
+            binding.toolbar.setTitleTextColor(Color.BLACK);
         } else {
-            toolbar.setTitleTextColor(Color.WHITE);
+            binding.toolbar.setTitleTextColor(Color.WHITE);
         }
         final ActionBar ab = ((AppCompatActivity) getActivity()).getSupportActionBar();
         ab.setTitle(R.string.onlineplayer);
 
-        if (toolbar.getNavigationIcon() != null) {
-            toolbar.setNavigationIcon(TintHelper.createTintedDrawable(toolbar.getNavigationIcon(), ToolbarContentTintHelper.toolbarContentColor(getContext(), color)));
+        if (binding.toolbar.getNavigationIcon() != null) {
+            binding.toolbar.setNavigationIcon(TintHelper.createTintedDrawable(binding.toolbar.getNavigationIcon(), ToolbarContentTintHelper.toolbarContentColor(getContext(), color)));
         }
 
         footerView = inflater.inflate(R.layout.thefooter_view, container, false);
@@ -210,14 +167,12 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
         arraySongOnlineList = new ArrayList<>();
         arrayTitleList = new ArrayList<>();
 
-        materialSearchView = rootview.findViewById(R.id.material_search_last);
-
-        emptyView.setVisibility(View.VISIBLE);
+        binding.viewEmpty.setVisibility(View.VISIBLE);
         setSearchView();
-        empty.setText(context.getResources().getString(R.string.search_info));
-        recyclerView.setVisibility(View.GONE);
+        binding.emptyText.setText(context.getResources().getString(R.string.search_info));
+        binding.recyclerView.setVisibility(View.GONE);
 
-        return rootview;
+        return binding.getRoot();
     }
 
     private void loadMoreData() {
@@ -226,7 +181,7 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
                 if (!loadMore) {
                     loadMore = true;
                     cInt++;
-                    positionMore = recyclerView.getAdapter().getItemCount() - 1;
+                    positionMore = binding.recyclerView.getAdapter().getItemCount() - 1;
                     if (!control) {
                         isApproved = false;
                         executeTask();
@@ -242,40 +197,40 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
 
     private void setSearchView() {
 
-        materialSearchView.setSubmitOnClick(true);
-        materialSearchView.setVoiceSearch(true);
-        progressBar.setIndeterminateTintList(ColorStateList.valueOf(Utils.getAccentColor(context)));
-        materialSearchView.setHint(getString(R.string.searchhint));
-        materialSearchView.setSuggestionIcon(getResources().getDrawable(R.drawable.ic_history_white_24dp));
-        materialSearchView.setSuggestionRemove(getResources().getDrawable(R.drawable.baseline_close_black_36));
-        materialSearchView.setSuggestionSend(getResources().getDrawable(R.drawable.ic_call_made_white_24dp));
+        binding.materialSearchLast.setSubmitOnClick(true);
+        binding.materialSearchLast.setVoiceSearch(true);
+        binding.progressBar.setIndeterminateTintList(ColorStateList.valueOf(Utils.getAccentColor(context)));
+        binding.materialSearchLast.setHint(getString(R.string.searchhint));
+        binding.materialSearchLast.setSuggestionIcon(getResources().getDrawable(R.drawable.ic_history_white_24dp));
+        binding.materialSearchLast.setSuggestionRemove(getResources().getDrawable(R.drawable.baseline_close_black_36));
+        binding.materialSearchLast.setSuggestionSend(getResources().getDrawable(R.drawable.ic_call_made_white_24dp));
         int colorPrimary = Utils.getPrimaryColor(context);
         int colorTint;
         if (Utils.isColorLight(colorPrimary)) {
             colorTint = Color.BLACK;
-            materialSearchView.setSuggestionIconTint(colorTint);
-            materialSearchView.setSuggestionRemoveTint(colorTint);
-            materialSearchView.setSuggestionSendTint(colorTint);
-            materialSearchView.setCloseIconTint(colorTint);
-            materialSearchView.setBackIconTint(colorTint);
-            materialSearchView.setTextColor(colorTint);
-            materialSearchView.setHintTextColor(ContextCompat.getColor(context, R.color.black_u6));
+            binding.materialSearchLast.setSuggestionIconTint(colorTint);
+            binding.materialSearchLast.setSuggestionRemoveTint(colorTint);
+            binding.materialSearchLast.setSuggestionSendTint(colorTint);
+            binding.materialSearchLast.setCloseIconTint(colorTint);
+            binding.materialSearchLast.setBackIconTint(colorTint);
+            binding.materialSearchLast.setTextColor(colorTint);
+            binding.materialSearchLast.setHintTextColor(ContextCompat.getColor(context, R.color.black_u6));
 
         } else {
             colorTint = Color.WHITE;
-            materialSearchView.setSuggestionIconTint(colorTint);
-            materialSearchView.setSuggestionRemoveTint(colorTint);
-            materialSearchView.setSuggestionSendTint(colorTint);
-            materialSearchView.setCloseIconTint(colorTint);
-            materialSearchView.setBackIconTint(colorTint);
-            materialSearchView.setTextColor(colorTint);
-            materialSearchView.setHintTextColor(ContextCompat.getColor(context, R.color.grey0));
+            binding.materialSearchLast.setSuggestionIconTint(colorTint);
+            binding.materialSearchLast.setSuggestionRemoveTint(colorTint);
+            binding.materialSearchLast.setSuggestionSendTint(colorTint);
+            binding.materialSearchLast.setCloseIconTint(colorTint);
+            binding.materialSearchLast.setBackIconTint(colorTint);
+            binding.materialSearchLast.setTextColor(colorTint);
+            binding.materialSearchLast.setHintTextColor(ContextCompat.getColor(context, R.color.grey0));
 
         }
-        materialSearchView.setBackgroundColor(colorPrimary);
+        binding.materialSearchLast.setBackgroundColor(colorPrimary);
         ColorDrawable colorDrawable = new ColorDrawable(colorPrimary);
-        materialSearchView.setSuggestionBackground(colorDrawable);
-        suggestionList = new ArrayList<String>();
+        binding.materialSearchLast.setSuggestionBackground(colorDrawable);
+        suggestionList = new ArrayList<>();
         lastSearches = new ArrayList<>();
         String str = Utils.getSearchQuery(context);
         String getLast = Utils.getLastSearch(context);
@@ -292,7 +247,7 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
             handleAutoSearch();
 
         }
-        recyclerView.addOnScrollListener(new RecyclerViewScrollListener() {
+        binding.recyclerView.addOnScrollListener(new RecyclerViewScrollListener() {
             @Override
             public void onScrollUp() {
 
@@ -309,7 +264,7 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
             }
         });
 
-        materialSearchView.setOnQueryTextListener(new MaterialSearchLast.OnQueryTextListener() {
+        binding.materialSearchLast.setOnQueryTextListener(new MaterialSearchLast.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 String getLast = Utils.getLastSearch(context);
@@ -357,7 +312,7 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
                 String[] arrf = suggestionList.toArray(new String[suggestionList.size()]);
                 String[] arrf2 = lastSearches.toArray(new String[lastSearches.size()]);
 
-                materialSearchView.setSuggestions(arrf, arrf2, false, FragmentOnline.this, colorTint);
+                binding.materialSearchLast.setSuggestions(arrf, arrf2, false, FragmentOnline.this, colorTint);
                 StringBuilder sbf = new StringBuilder();
 
                 for (int i = 0; i < arrf.length; i++) {
@@ -372,21 +327,21 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
                     setSearchQuery(query.trim());
                 } else if (query.trim().contains(val)) {
                     if (!query.trim().isEmpty()) {
-                        toolbar.setTitle(query.trim());
+                        binding.toolbar.setTitle(query.trim());
                     }
-                    emptyView.setVisibility(View.GONE);
-                    empty.setVisibility(View.GONE);
-                    progressBar.setVisibility(View.VISIBLE);
-                    recyclerView.setVisibility(View.GONE);
+                    binding.viewEmpty.setVisibility(View.GONE);
+                    binding.emptyText.setVisibility(View.GONE);
+                    binding.progressBar.setVisibility(View.VISIBLE);
+                    binding.recyclerView.setVisibility(View.GONE);
                     int delay = (2 + new Random().nextInt(3)) * 1000;
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            progressBar.setVisibility(View.GONE);
-                            if (empty != null) {
-                                empty.setText(R.string.no_result);
-                                empty.setVisibility(View.VISIBLE);
+                            binding.progressBar.setVisibility(View.GONE);
+                            if (binding.emptyText != null) {
+                                binding.emptyText.setText(R.string.no_result);
+                                binding.emptyText.setVisibility(View.VISIBLE);
                             }
                         }
                     }, delay);
@@ -411,16 +366,16 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
                         } else {
                             lastSearches = lastSearchList.toArray(new String[lastSearchList.size()]);
                         }
-                        materialSearchView.setSuggestions(arr, lastSearches, true, FragmentOnline.this, colorTint);
+                        binding.materialSearchLast.setSuggestions(arr, lastSearches, true, FragmentOnline.this, colorTint);
                     }
                     MaterialSearchLast.isEmpty = false;
 
                 } else {
 
-                    materialSearchView.setSuggestions(suggestionListStringsFromRemove, lastSearchesStringsFromRemove, false, FragmentOnline.this, colorTint);
+                    binding.materialSearchLast.setSuggestions(suggestionListStringsFromRemove, lastSearchesStringsFromRemove, false, FragmentOnline.this, colorTint);
 
                     if (suggestionListStringsFromRemove != null && lastSearchesStringsFromRemove != null) {
-                        materialSearchView.setSuggestions(suggestionListStringsFromRemove, lastSearchesStringsFromRemove, false, FragmentOnline.this, colorTint);
+                        binding.materialSearchLast.setSuggestions(suggestionListStringsFromRemove, lastSearchesStringsFromRemove, false, FragmentOnline.this, colorTint);
                         suggestionListStringsFromRemove = null;
                         lastSearchesStringsFromRemove = null;
                     }
@@ -441,21 +396,21 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
                 setSearchQuery(last_single_search.trim());
             } else if (last_single_search.trim().contains(val)) {
                 if (!last_single_search.isEmpty()) {
-                    toolbar.setTitle(last_single_search.trim());
+                    binding.toolbar.setTitle(last_single_search.trim());
                 }
-                recyclerView.setVisibility(View.GONE);
-                emptyView.setVisibility(View.GONE);
-                empty.setVisibility(View.GONE);
-                progressBar.setVisibility(View.VISIBLE);
+                binding.recyclerView.setVisibility(View.GONE);
+                binding.viewEmpty.setVisibility(View.GONE);
+                binding.emptyText.setVisibility(View.GONE);
+                binding.progressBar.setVisibility(View.VISIBLE);
                 int delay = (2 + new Random().nextInt(3)) * 1000;
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        progressBar.setVisibility(View.GONE);
-                        if (empty != null) {
-                            empty.setText(R.string.no_result);
-                            empty.setVisibility(View.VISIBLE);
+                        binding.progressBar.setVisibility(View.GONE);
+                        if (binding.emptyText != null) {
+                            binding.emptyText.setText(R.string.no_result);
+                            binding.emptyText.setVisibility(View.VISIBLE);
                         }
                     }
                 }, delay);
@@ -522,11 +477,11 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
 
     private void setSearchQuery(String query) {
 
-        emptyView.setVisibility(View.GONE);
-        empty.setVisibility(View.GONE);
-        recyclerView.setVisibility(View.VISIBLE);
+        binding.viewEmpty.setVisibility(View.GONE);
+        binding.emptyText.setVisibility(View.GONE);
+        binding.recyclerView.setVisibility(View.VISIBLE);
 
-        toolbar.setTitle(query);
+        binding.toolbar.setTitle(query);
 
         RecyclerViewScrollListener.previousTotal = 0;
         isApproved = true;
@@ -573,7 +528,7 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
             }
             txtSearch = query;
             cInt = 1;
-            materialSearchView.clearFocus();
+            binding.materialSearchLast.clearFocus();
             executeTask();
             isApproved = false;
 
@@ -602,17 +557,17 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
 
         menu.clear();
         inflater.inflate(R.menu.menu_online, menu);
-        ToolbarContentTintHelper.handleOnCreateOptionsMenu(getActivity(), toolbar, menu, ATHToolbarActivity.getToolbarBackgroundColor(toolbar));
+        ToolbarContentTintHelper.handleOnCreateOptionsMenu(getActivity(), binding.toolbar, menu, ATHToolbarActivity.getToolbarBackgroundColor(binding.toolbar));
         if (Utils.isColorLight(color)) {
-            materialSearchView.setBackgroundColor(com.kabouzeid.appthemehelper.util.ColorUtil.shiftColor(color, 0.7F));
-            materialSearchView.setSuggestionBackgroundColor(com.kabouzeid.appthemehelper.util.ColorUtil.shiftColor(color, 0.7F));
+            binding.materialSearchLast.setBackgroundColor(com.kabouzeid.appthemehelper.util.ColorUtil.shiftColor(color, 0.7F));
+            binding.materialSearchLast.setSuggestionBackgroundColor(com.kabouzeid.appthemehelper.util.ColorUtil.shiftColor(color, 0.7F));
         } else {
-            materialSearchView.setBackgroundColor(color);
-            materialSearchView.setSuggestionBackgroundColor(color);
+            binding.materialSearchLast.setBackgroundColor(color);
+            binding.materialSearchLast.setSuggestionBackgroundColor(color);
         }
 
         MenuItem searchItem = menu.findItem(R.id.action_searchM);
-        materialSearchView.setMenuItem(searchItem);
+        binding.materialSearchLast.setMenuItem(searchItem);
         super.onCreateOptionsMenu(menu, inflater);
 
     }
@@ -620,13 +575,13 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
 
     @Override
     public void onSearchQuery(int position, boolean isFirst) {
-        materialSearchView.setQuery(materialSearchView.getListPosSend(position), isFirst);
+        binding.materialSearchLast.setQuery(binding.materialSearchLast.getListPosSend(position), isFirst);
     }
 
     @Override
     public void onRemoveSuggestion(int position, int whichList) {
 
-        removeSuggestion(materialSearchView.getListPosSend(position));
+        removeSuggestion(binding.materialSearchLast.getListPosSend(position));
 
     }
 
@@ -641,14 +596,14 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
     }
 
     public void closeSearch() {
-        if (materialSearchView != null) {
-            materialSearchView.closeSearch();
+        if (binding.materialSearchLast != null) {
+            binding.materialSearchLast.closeSearch();
         }
     }
 
     public boolean isSearchOpen() {
-        if (materialSearchView != null) {
-            return materialSearchView.isSearchOpen();
+        if (binding.materialSearchLast != null) {
+            return binding.materialSearchLast.isSearchOpen();
         }
         return false;
     }
@@ -666,8 +621,7 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
     private void executeTask() {
 
         if (!loadMore) {
-
-            progressBar.setVisibility(View.VISIBLE);
+            binding.progressBar.setVisibility(View.VISIBLE);
         }
 
         disposable = Observable.fromCallable(new Callable<Boolean>() {
@@ -756,12 +710,12 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
             }
 
         }
-        recyclerView.requestLayout();
-        recyclerView.invalidate();
+        binding.recyclerView.requestLayout();
+        binding.recyclerView.invalidate();
         loadMore = false;
         footerView.setVisibility(View.GONE);
         if (!isConnected()) {
-            progressBar.setVisibility(View.GONE);
+            binding.progressBar.setVisibility(View.GONE);
             Toast.makeText(context.getApplicationContext(), R.string.cnn_err, Toast.LENGTH_SHORT).show();
         } else {
             if (arrayList.size() == 0) {
@@ -776,25 +730,25 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
                 isitRemoved = false;
             }
             if (!isitRemoved) {
-                empty.setVisibility(View.GONE);
+                binding.emptyText.setVisibility(View.GONE);
                 if (positionMore == 0 && cInt == 1) {
-                    if (recyclerView.getAdapter() == null) {
+                    if (binding.recyclerView.getAdapter() == null) {
                         createOnlineAdapter();
                         if (arraySongOnlineList.size() >= 15) {
-                            recyclerView.setThumbEnabled(true);
+                            binding.recyclerView.setThumbEnabled(true);
                         } else {
-                            recyclerView.setThumbEnabled(false);
+                            binding.recyclerView.setThumbEnabled(false);
                         }
 
                         onlineAdapter.notifyDataSetChanged();
-                        runLayoutAnimation(recyclerView);
+                        runLayoutAnimation(binding.recyclerView);
 
                     }
                 } else if (cInt > 1 && cInt <= 5) {
                     if (arraySongOnlineList.size() >= 15) {
-                        recyclerView.setThumbEnabled(true);
+                        binding.recyclerView.setThumbEnabled(true);
                     } else {
-                        recyclerView.setThumbEnabled(false);
+                        binding.recyclerView.setThumbEnabled(false);
                     }
                     onlineAdapter.notifyDataSetChanged();
 
@@ -808,9 +762,9 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
 
                     onlineAdapter.showLoading(true);
                     if (arraySongOnlineList.size() >= 15) {
-                        recyclerView.setThumbEnabled(true);
+                        binding.recyclerView.setThumbEnabled(true);
                     } else {
-                        recyclerView.setThumbEnabled(false);
+                        binding.recyclerView.setThumbEnabled(false);
                     }
                     onlineAdapter.notifyDataSetChanged();
 
@@ -818,21 +772,21 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
 
                     onlineAdapter.showLoading(false);
                     if (arraySongOnlineList.size() >= 15) {
-                        recyclerView.setThumbEnabled(true);
+                        binding.recyclerView.setThumbEnabled(true);
                     } else {
-                        recyclerView.setThumbEnabled(false);
+                        binding.recyclerView.setThumbEnabled(false);
                     }
 
                     onlineAdapter.notifyDataSetChanged();
-                    runLayoutAnimation(recyclerView);
+                    runLayoutAnimation(binding.recyclerView);
 
                 }
-                progressBar.setVisibility(View.GONE);
-                recyclerView.setVisibility(View.VISIBLE);
+                binding.progressBar.setVisibility(View.GONE);
+                binding.recyclerView.setVisibility(View.VISIBLE);
 
             } else {
-                progressBar.setVisibility(View.GONE);
-                recyclerView.setVisibility(View.VISIBLE);
+                binding.progressBar.setVisibility(View.GONE);
+                binding.recyclerView.setVisibility(View.VISIBLE);
 
             }
         }
@@ -849,29 +803,26 @@ public class FragmentOnline extends BaseFragment implements SetSearchQuery {
     }
 
     private void controlIfEmpty() {
-        if (empty != null) {
-            empty.setText(R.string.no_result);
-            empty.setVisibility(onlineAdapter == null || onlineAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
+        if (binding.emptyText != null) {
+            binding.emptyText.setText(R.string.no_result);
+            binding.emptyText.setVisibility(onlineAdapter == null || onlineAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
         }
     }
 
     private void setOnlineAdapter() {
         onlineAdapter = new OnlineAdapter((AppCompatActivity) getActivity(), arraySongOnlineList);
-        recyclerView.setAdapter(onlineAdapter);
-
+        binding.recyclerView.setAdapter(onlineAdapter);
     }
-
 
     private void createOnlineAdapter() {
         setOnlineAdapter();
     }
 
-
     @Override
     public void onDestroyView() {
 
-        if (materialSearchView.isSearchOpen()) {
-            materialSearchView.closeSearch();
+        if (binding.materialSearchLast.isSearchOpen()) {
+            binding.materialSearchLast.closeSearch();
         }
 
         if (disposable != null) {

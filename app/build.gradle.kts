@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    kotlin("kapt")
 }
 
 android {
@@ -39,6 +40,10 @@ android {
     lintOptions {
         isWarningsAsErrors = true
         isAbortOnError = true
+    }
+
+    kapt {
+        generateStubs = true
     }
 }
 
@@ -85,7 +90,7 @@ dependencies {
     implementation(OtherLibs.RXJAVA2)
     implementation(OtherLibs.RXANDROID)
     implementation(OtherLibs.DAGGER)
-    annotationProcessor(OtherLibs.DAGGER_COMPILER)
+    kapt(OtherLibs.DAGGER_COMPILER)
     implementation(OtherLibs.DAGGER_ANDROID_SUPPORT)
     implementation(OtherLibs.LIFECYCLE_EXTENSIONS)
 

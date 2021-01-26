@@ -3,7 +3,6 @@ package com.wolcano.musicplayer.music.ui.adapter;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import androidx.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,13 +12,17 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.mvp.listener.SetSearchQuery;
-import com.wolcano.musicplayer.music.widgets.MaterialSearchLast;
 import com.wolcano.musicplayer.music.utils.Utils;
+import com.wolcano.musicplayer.music.widgets.MaterialSearchLast;
+
 import java.util.ArrayList;
 import java.util.List;
 

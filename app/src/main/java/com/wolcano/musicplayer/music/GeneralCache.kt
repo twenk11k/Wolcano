@@ -1,0 +1,35 @@
+package com.wolcano.musicplayer.music
+
+import android.app.Activity
+import android.app.Application
+import android.app.Application.ActivityLifecycleCallbacks
+import android.os.Bundle
+import com.wolcano.musicplayer.music.mvp.models.Song
+import com.wolcano.musicplayer.music.widgets.SongCover
+
+object GeneralCache {
+
+    val songList: List<Song> = ArrayList()
+    private val activityList: MutableList<Activity> = ArrayList()
+
+    fun initializeCache(application: Application) {
+        SongCover.get().init(application.applicationContext)
+        application.registerActivityLifecycleCallbacks(SchemeActivities())
+    }
+
+    private class SchemeActivities : ActivityLifecycleCallbacks {
+        override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+            activityList.add(activity)
+        }
+
+        override fun onActivityStarted(activity: Activity) {}
+        override fun onActivityResumed(activity: Activity) {}
+        override fun onActivityPaused(activity: Activity) {}
+        override fun onActivityStopped(activity: Activity) {}
+        override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
+        override fun onActivityDestroyed(activity: Activity) {
+            activityList.remove(activity)
+        }
+    }
+
+}

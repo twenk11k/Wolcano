@@ -2,6 +2,7 @@ package com.wolcano.musicplayer.music.mvp.interactor;
 
 import android.Manifest;
 import android.app.Activity;
+
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.wolcano.musicplayer.music.R;
@@ -11,6 +12,7 @@ import com.wolcano.musicplayer.music.mvp.models.Genre;
 import com.wolcano.musicplayer.music.utils.PermissionUtils;
 import com.wolcano.musicplayer.music.utils.SongUtils;
 import com.wolcano.musicplayer.music.utils.ToastUtils;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -23,12 +25,9 @@ import static com.wolcano.musicplayer.music.constants.Constants.SONG_LIBRARY;
 
 public class GenreInteractorImpl implements GenreInteractor {
 
-
     @Subscribe(tags = {@Tag(SONG_LIBRARY)})
     @Override
     public void getGenres(Activity activity, String sort, OnGetGenreListener onGetGenreListener) {
-
-
         PermissionUtils.with(activity)
                 .permissions(Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -40,7 +39,7 @@ public class GenreInteractorImpl implements GenreInteractor {
                         Disposable disposable = observable.
                                 subscribeOn(Schedulers.io()).
                                 observeOn(AndroidSchedulers.mainThread()).
-                                subscribe(genreList -> onGetGenreListener.sendGenres(genreList));
+                                subscribe(onGetGenreListener::sendGenres);
 
                         DisposableManager.add(disposable);
                     }
@@ -51,9 +50,6 @@ public class GenreInteractorImpl implements GenreInteractor {
                     }
                 })
                 .reqPerm();
-
-
     }
-
 
 }

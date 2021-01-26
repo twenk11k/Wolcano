@@ -23,8 +23,7 @@
         android:theme="@style/AppTheme">
         <service
             android:name=".provider.MusicService"
-            android:enabled="true"
-             />
+            android:enabled="true" />
 
         <receiver android:name=".broadcasts.RemoteBroadcast">
             <intent-filter>
@@ -118,5 +117,5 @@
             android:name=".ui.activity.SettingsActivity"
             android:label="@string/title_activity_settings" />
 
-        </application>
+    </application>
 </manifest>

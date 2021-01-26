@@ -14,7 +14,6 @@ public abstract class BaseFragmentAlbumDetail extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupComponent(((App) getActivity().getApplication()).getApplicationComponent());
-
     }
 
     public abstract void setupComponent(ApplicationComponent applicationComponent);

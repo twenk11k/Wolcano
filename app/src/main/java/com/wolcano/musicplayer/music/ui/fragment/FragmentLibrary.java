@@ -4,6 +4,12 @@ import android.Manifest;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -11,11 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.View;
-import android.view.ViewGroup;
+
 import com.google.android.material.appbar.AppBarLayout;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
@@ -23,15 +25,14 @@ import com.kabouzeid.appthemehelper.util.TintHelper;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.databinding.FragmentLibraryBinding;
-import com.wolcano.musicplayer.music.di.component.ApplicationComponent;
 import com.wolcano.musicplayer.music.mvp.DisposableManager;
-import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragment;
-import com.wolcano.musicplayer.music.utils.PermissionUtils;
 import com.wolcano.musicplayer.music.ui.adapter.statepager.LibraryFragmentPagerAdapter;
+import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragment;
 import com.wolcano.musicplayer.music.ui.fragment.library.FragmentAlbums;
 import com.wolcano.musicplayer.music.ui.fragment.library.FragmentArtists;
 import com.wolcano.musicplayer.music.ui.fragment.library.FragmentGenres;
 import com.wolcano.musicplayer.music.ui.fragment.library.FragmentSongs;
+import com.wolcano.musicplayer.music.utils.PermissionUtils;
 import com.wolcano.musicplayer.music.utils.Utils;
 
 

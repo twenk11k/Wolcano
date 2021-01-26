@@ -9,12 +9,13 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import android.text.Html;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
@@ -23,14 +24,15 @@ import com.squareup.picasso.Target;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.content.Share;
 import com.wolcano.musicplayer.music.mvp.models.Copy;
-import com.wolcano.musicplayer.music.mvp.models.SongOnline;
 import com.wolcano.musicplayer.music.mvp.models.Playlist;
 import com.wolcano.musicplayer.music.mvp.models.Song;
+import com.wolcano.musicplayer.music.mvp.models.SongOnline;
 import com.wolcano.musicplayer.music.ui.adapter.customdialog.CopyItemAdapter;
 import com.wolcano.musicplayer.music.ui.adapter.customdialog.LikeItemAdapter;
 import com.wolcano.musicplayer.music.ui.adapter.customdialog.ShareItemAdapter;
 import com.wolcano.musicplayer.music.utils.SongUtils;
 import com.wolcano.musicplayer.music.utils.Utils;
+
 import java.util.ArrayList;
 import java.util.List;
 

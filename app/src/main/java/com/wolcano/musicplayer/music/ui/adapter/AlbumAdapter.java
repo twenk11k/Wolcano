@@ -1,23 +1,21 @@
 package com.wolcano.musicplayer.music.ui.adapter;
 
 import android.app.Activity;
+import android.view.ContextThemeWrapper;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.ContextThemeWrapper;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.squareup.picasso.Picasso;
 import com.wolcano.musicplayer.music.R;
 import com.wolcano.musicplayer.music.databinding.ItemAlbumBinding;
 import com.wolcano.musicplayer.music.mvp.models.Album;
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs;
-import com.wolcano.musicplayer.music.utils.Utils;
 
 import java.util.List;
 
@@ -100,9 +98,9 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
             try {
 
                 Album album = albumList.get(getAdapterPosition());
-                Utils.navigateToAlbum(context, album.getId(),
+                /*Utils.navigateToAlbum(context, album.getId(),
                         album.getName());
-
+                 */
 
             } catch (Exception e) {
                 e.printStackTrace();

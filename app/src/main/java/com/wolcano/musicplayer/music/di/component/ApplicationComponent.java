@@ -16,5 +16,4 @@ public interface ApplicationComponent {
 
     App wolcanoApp();
 
-
 }

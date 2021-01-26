@@ -12,8 +12,10 @@ import com.wolcano.musicplayer.music.mvp.models.Playlist;
 import com.wolcano.musicplayer.music.utils.PermissionUtils;
 import com.wolcano.musicplayer.music.utils.SongUtils;
 import com.wolcano.musicplayer.music.utils.ToastUtils;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -23,11 +25,9 @@ import static com.wolcano.musicplayer.music.constants.Constants.SONG_LIBRARY;
 
 public class PlaylistInteractorImpl implements PlaylistInteractor {
 
-
     @Subscribe(tags = {@Tag(SONG_LIBRARY)})
     @Override
     public void getPlaylists(Activity activity, String sort, OnGetPlaylistListener onGetPlaylistListener) {
-
         PermissionUtils.with(activity)
                 .permissions(Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -40,7 +40,7 @@ public class PlaylistInteractorImpl implements PlaylistInteractor {
                         Disposable disposable = observable.
                                 subscribeOn(Schedulers.io()).
                                 observeOn(AndroidSchedulers.mainThread()).
-                                subscribe(playlists -> onGetPlaylistListener.sendPlaylists(playlists));
+                                subscribe(onGetPlaylistListener::sendPlaylists);
 
                         DisposableManager.add(disposable);
                     }
@@ -52,7 +52,6 @@ public class PlaylistInteractorImpl implements PlaylistInteractor {
                     }
                 })
                 .reqPerm();
-
-
     }
+
 }

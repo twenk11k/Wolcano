@@ -1,7 +1,6 @@
 package com.wolcano.musicplayer.music.widgets;
 
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -35,15 +34,14 @@ import android.widget.TextView;
 
 import com.miguelcatalan.materialsearchview.utils.AnimationUtil;
 import com.wolcano.musicplayer.music.R;
-import com.wolcano.musicplayer.music.ui.adapter.SearchAdapter;
 import com.wolcano.musicplayer.music.mvp.listener.SetSearchQuery;
+import com.wolcano.musicplayer.music.ui.adapter.SearchAdapter;
 
 import java.lang.reflect.Field;
 import java.util.List;
 
 
 public class MaterialSearchLast extends FrameLayout implements Filter.FilterListener {
-
 
     private MenuItem menuItem;
     private boolean isSearchOpen = false;

@@ -35,7 +35,6 @@ public abstract class BaseFragmentInject extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupComponent(((App) getActivity().getApplication()).getApplicationComponent());
-
     }
 
     @Override

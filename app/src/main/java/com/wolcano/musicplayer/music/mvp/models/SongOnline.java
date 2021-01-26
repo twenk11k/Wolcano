@@ -2,7 +2,6 @@ package com.wolcano.musicplayer.music.mvp.models;
 
 public class SongOnline {
 
-
     private String title;
     private String path;
     private String artistName;
