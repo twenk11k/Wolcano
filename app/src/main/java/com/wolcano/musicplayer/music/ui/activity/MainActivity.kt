@@ -48,7 +48,6 @@ import com.wolcano.musicplayer.music.provider.RemotePlay.removeListener
 import com.wolcano.musicplayer.music.provider.RemotePlay.seekTo
 import com.wolcano.musicplayer.music.ui.activity.base.BaseActivity
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs
-import com.wolcano.musicplayer.music.ui.dialog.RatingDialogV2
 import com.wolcano.musicplayer.music.ui.fragment.FragmentLibrary
 import com.wolcano.musicplayer.music.ui.fragment.FragmentOnline
 import com.wolcano.musicplayer.music.ui.fragment.FragmentPlaylist
@@ -91,7 +90,6 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         setDrawerOptions()
         initViews()
         displayDialog()
-        handleRateDialog()
     }
 
     private fun setDrawerOptions() {
@@ -108,21 +106,6 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             .setInterpolator(DecelerateInterpolator())
             .setDuration(0)
             .start()
-    }
-
-    private fun handleRateDialog() {
-        val ratingDialog = RatingDialogV2.Builder(this)
-            .threshold(4f)
-            .session(3)
-            .title(getString(R.string.rating_title))
-            .formCancelText(getString(R.string.rating_cancel))
-            .formSubmitText(getString(R.string.rating_submit))
-            .formTitle(getString(R.string.form_title))
-            .positiveButtonText(getString(R.string.form_later))
-            .negativeButtonText(getString(R.string.form_never))
-            .formHint(getString(R.string.form_hint))
-            .build()
-        ratingDialog.show()
     }
 
     fun getToolbar(): Toolbar? {
