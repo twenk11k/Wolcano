@@ -23,9 +23,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.kabouzeid.appthemehelper.ATH
-import com.kabouzeid.appthemehelper.util.ColorUtil
-import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper
 import com.squareup.picasso.Picasso
 import com.wolcano.musicplayer.music.App
 import com.wolcano.musicplayer.music.R
@@ -47,6 +44,9 @@ import com.wolcano.musicplayer.music.provider.RemotePlay
 import com.wolcano.musicplayer.music.ui.adapter.detail.AlbumSongAdapter
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs
 import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragment
+import com.wolcano.musicplayer.music.ui.helper.ToolbarContentTintHelper
+import com.wolcano.musicplayer.music.utils.ATH
+import com.wolcano.musicplayer.music.utils.ColorUtils
 import com.wolcano.musicplayer.music.utils.SongUtils
 import com.wolcano.musicplayer.music.utils.Utils
 import com.wolcano.musicplayer.music.widgets.RotateFabBehavior
@@ -59,18 +59,17 @@ import javax.inject.Inject
 
 class FragmentAlbumDetail : BaseFragment(), SongView, PlaylistListener, View.OnClickListener {
 
-    private var mAdapter: AlbumSongAdapter? = null
+    private var adapter: AlbumSongAdapter? = null
     private var albumID: Long = -1
     private var albumName: String? = null
     private var primaryColor = -1
     private var accentColor: Int = -1
     private var activity: Activity? = null
-    private lateinit var menu: Menu
     private var disposable: Disposable? = null
     private var toolbar: Toolbar? = null
     private var collapsingToolbarLayout: CollapsingToolbarLayout? = null
     private var appBarLayout: AppBarLayout? = null
-    private var fabPlay: FloatingActionButton? = null
+    private lateinit var fabPlay: FloatingActionButton
     private var albumArt: ImageView? = null
     private var recyclerView: RecyclerView? = null
     private var gradient: View? = null
@@ -102,22 +101,6 @@ class FragmentAlbumDetail : BaseFragment(), SongView, PlaylistListener, View.OnC
         setupComponent((getActivity()!!.application as App).getApplicationComponent())
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        menu.clear()
-        this.menu = menu
-    }
-
-    fun show() {
-        if (Build.VERSION.SDK_INT >= 21) {
-            fabPlay!!.animate()
-                .scaleX(1f)
-                .scaleY(1f)
-                .setInterpolator(DecelerateInterpolator())
-                .start()
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -143,30 +126,20 @@ class FragmentAlbumDetail : BaseFragment(), SongView, PlaylistListener, View.OnC
             setUpViewsOld(bindingOld)
             root = bindingOld.root
         }
-        if (Build.VERSION.SDK_INT < 21) {
-            appBarLayout?.fitsSystemWindows = false
-            albumArt?.fitsSystemWindows = false
-            gradient?.fitsSystemWindows = false
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                val window = getActivity()!!.window
-                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-                window.statusBarColor = resources.getColor(R.color.darkbg1)
-            }
-        } else {
-            val layoutParams = toolbar!!.layoutParams as CollapsingToolbarLayout.LayoutParams
-            layoutParams.height += Utils.getStatHeight(requireContext())
-            toolbar?.layoutParams = layoutParams
-            toolbar?.setPadding(0, Utils.getStatHeight(requireContext()), 0, 0)
-        }
+
+        val layoutParams = toolbar!!.layoutParams as CollapsingToolbarLayout.LayoutParams
+        layoutParams.height += Utils.getStatHeight(requireContext())
+        toolbar?.layoutParams = layoutParams
+        toolbar?.setPadding(0, Utils.getStatHeight(requireContext()), 0, 0)
 
         primaryColor = Utils.getPrimaryColor(requireContext())
         accentColor = Utils.getAccentColor(requireContext())
 
-        recyclerView?.adapter = mAdapter
-        recyclerView?.layoutManager = LinearLayoutManager(context)
+        recyclerView?.adapter = adapter
+        recyclerView?.layoutManager = LinearLayoutManager(requireContext())
         recyclerView?.addItemDecoration(
             DividerItemDecoration(
-                context,
+                requireContext(),
                 DividerItemDecoration.VERTICAL
             )
         )
@@ -177,7 +150,27 @@ class FragmentAlbumDetail : BaseFragment(), SongView, PlaylistListener, View.OnC
         showAlbumArt()
         setupToolbar()
         return root
+    }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.clear()
+        ToolbarContentTintHelper.handleOnCreateOptionsMenu(
+            requireActivity(),
+            toolbar,
+            menu,
+            ColorUtils.getToolbarBackgroundColor(toolbar)
+        )
+    }
+
+    fun show() {
+        if (Build.VERSION.SDK_INT >= 21) {
+            fabPlay.animate()
+                .scaleX(1f)
+                .scaleY(1f)
+                .setInterpolator(DecelerateInterpolator())
+                .start()
+        }
     }
 
     private fun setUpViewsOld(binding: FragmentAlbumDetailOldBinding) {
@@ -197,7 +190,7 @@ class FragmentAlbumDetail : BaseFragment(), SongView, PlaylistListener, View.OnC
         albumArt = binding.albumArt
         recyclerView = binding.recyclerview
         gradient = binding.gradient
-        fabPlay?.setOnClickListener(this)
+        fabPlay.setOnClickListener(this)
     }
 
     private fun showAlbumArt() {
@@ -212,7 +205,7 @@ class FragmentAlbumDetail : BaseFragment(), SongView, PlaylistListener, View.OnC
             .into(albumArt)
         var bitmap: Bitmap? = null
         try {
-            bitmap = MediaStore.Images.Media.getBitmap(context!!.contentResolver, uri)
+            bitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
         } catch (e: IOException) {
             e.printStackTrace()
         }
@@ -221,7 +214,7 @@ class FragmentAlbumDetail : BaseFragment(), SongView, PlaylistListener, View.OnC
                 val swatch = Utils.getMostPopulousSwatch(palette)
                 if (swatch != null) {
                     var color = swatch.rgb
-                    color = ColorUtil.shiftColor(color, 0.7f)
+                    color = ColorUtils.shiftColor(color, 0.7f)
                     collapsingToolbarLayout?.setContentScrimColor(color)
                     collapsingToolbarLayout?.setStatusBarScrimColor(
                         Utils.getStatusBarColor(
@@ -236,12 +229,6 @@ class FragmentAlbumDetail : BaseFragment(), SongView, PlaylistListener, View.OnC
                         collapsingToolbarLayout?.setExpandedTitleColor(Color.WHITE)
                     }
                     setStatusBarColor(color)
-                    ToolbarContentTintHelper.handleOnCreateOptionsMenu(
-                        activity,
-                        toolbar,
-                        menu,
-                        color
-                    )
                 }
             }
         } else {
@@ -253,7 +240,6 @@ class FragmentAlbumDetail : BaseFragment(), SongView, PlaylistListener, View.OnC
                 collapsingToolbarLayout?.setCollapsedTitleTextColor(Color.WHITE)
             }
             setStatusBarColor(Color.BLACK)
-            ToolbarContentTintHelper.handleOnCreateOptionsMenu(activity, toolbar, menu, Color.WHITE)
         }
     }
 
@@ -284,9 +270,9 @@ class FragmentAlbumDetail : BaseFragment(), SongView, PlaylistListener, View.OnC
 
     private fun setStatusBarColor(color: Int) {
         if (Utils.isColorLight(color)) {
-            ATH.setLightStatusbar(activity, true)
+            ATH.setLightStatusbar(requireActivity(), true)
         } else {
-            ATH.setLightStatusbar(activity, false)
+            ATH.setLightStatusbar(requireActivity(), false)
         }
     }
 
@@ -300,12 +286,6 @@ class FragmentAlbumDetail : BaseFragment(), SongView, PlaylistListener, View.OnC
         if (getActivity() != null) {
             collapsingToolbarLayout?.setContentScrimColor(primaryColor)
             collapsingToolbarLayout?.setStatusBarScrimColor(Utils.getStatusBarColor(primaryColor))
-            ToolbarContentTintHelper.handleOnCreateOptionsMenu(
-                getActivity(),
-                toolbar,
-                menu,
-                primaryColor
-            )
             if (Utils.isColorLight(primaryColor)) {
                 collapsingToolbarLayout?.setCollapsedTitleTextColor(Color.BLACK)
             } else {
@@ -330,17 +310,17 @@ class FragmentAlbumDetail : BaseFragment(), SongView, PlaylistListener, View.OnC
             ).observeOn(
                 AndroidSchedulers.mainThread()
             ).subscribe { playlists ->
-            Dialogs.addPlaylistDialog(
-                activity,
-                song,
-                playlists
-            )
-        }
+                Dialogs.addPlaylistDialog(
+                    requireActivity(),
+                    song,
+                    playlists
+                )
+            }
     }
 
     override fun setSongList(songList: MutableList<Song>) {
-        mAdapter = AlbumSongAdapter(context!!, songList, this@FragmentAlbumDetail)
-        recyclerView?.adapter = mAdapter
+        adapter = AlbumSongAdapter(requireContext(), songList, this@FragmentAlbumDetail)
+        recyclerView?.adapter = adapter
         runLayoutAnimation(recyclerView!!)
     }
 
@@ -366,10 +346,10 @@ class FragmentAlbumDetail : BaseFragment(), SongView, PlaylistListener, View.OnC
         if (v?.id == R.id.fabPlay) {
             handlerFab = Handler()
             runnableFab = Runnable {
-                if (mAdapter != null) {
-                    if (mAdapter!!.songList.size != 0) {
-                        val song = mAdapter!!.songList[0]
-                        RemotePlay.playAdd(context!!, mAdapter!!.songList, song)
+                if (adapter != null) {
+                    if (adapter!!.songList.size != 0) {
+                        val song = adapter!!.songList[0]
+                        RemotePlay.playAdd(context!!, adapter!!.songList, song)
                     }
                 }
             }

@@ -9,6 +9,7 @@ import com.wolcano.musicplayer.music.mvp.interactor.interfaces.ArtistInteractor;
 import com.wolcano.musicplayer.music.mvp.models.Artist;
 import com.wolcano.musicplayer.music.mvp.presenter.interfaces.ArtistPresenter;
 import com.wolcano.musicplayer.music.ui.fragment.library.FragmentArtists;
+
 import java.util.List;
 
 public class ArtistPresenterImpl implements ArtistPresenter, ArtistInteractor.OnGetArtistListener {

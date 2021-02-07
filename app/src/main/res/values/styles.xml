@@ -11,13 +11,15 @@
         <item name="colorControlNormal">@color/black_u1</item>
         <item name="android:colorForeground">@color/black_u2</item>
         <item name="colorSwitchThumbNormal">@color/md_grey_200</item>
-
+        <item name="md_color_button_text">@color/colorAccent</item>
+        <item name="md_ripple_color">?android:colorControlHighlight</item>
         <!-- Overflow Button Style. -->
         <item name="actionOverflowButtonStyle">@style/OverflowStyle</item>
         <!-- Album and Artist Listener -->
         <item name="preferenceTheme">@style/preferenceTheme2</item>
 
     </style>
+
     <style name="preferenceTheme2" parent="PreferenceThemeOverlay.v14.Material">
         <item name="android:textColor">#ffffff</item>
         <item name="android:textColorSecondary">@color/grey0</item>
@@ -26,14 +28,17 @@
         <item name="android:dividerHeight">0dp</item>
 
     </style>
+
     <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="spinBars">true</item>
         <item name="color">@android:color/white</item>
     </style>
+
     <style name="OverflowStyle" parent="Widget.AppCompat.ActionButton.Overflow">
         <item name="android:src">@drawable/ic_action_navigation_more_vert</item>
 
     </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -42,9 +47,11 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-    <style name="AlertDialogCustom"  parent="Theme.AppCompat.Dialog">
+
+    <style name="AlertDialogCustom" parent="Theme.AppCompat.Dialog">
         <item name="android:windowBackground">@color/darkbg1</item>
     </style>
+
     <style name="PopupMenuToolbar" parent="ThemeOverlay.AppCompat.Dark">
         <item name="android:colorBackground">#3b3b3b</item>
         <item name="android:textColor">@color/md_white_1000</item>
@@ -52,6 +59,7 @@
         <item name="android:actionMenuTextColor">@color/md_white_1000</item>
 
     </style>
+
     <style name="FabStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -61,10 +69,13 @@
         <item name="pressedTranslationZ">12dp</item>
         <item name="rippleColor">@android:color/white</item>
     </style>
+
     <style name="TextApperance.Album.Title" parent="@style/TextAppearance.AppCompat.Large">
         <item name="android:textSize">29sp</item>
     </style>
+
     <attr name="ttPopupMenuStyle" format="reference" />
+
     <style name="NoBorderButton" parent="@android:style/Widget.Holo.Button.Borderless.Small">
         <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
         <item name="android:fontFamily">sans-serif-medium</item>

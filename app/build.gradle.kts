@@ -71,7 +71,9 @@ dependencies {
     androidTestImplementation(AndroidTestingLib.ESPRESSO_CORE)
 
     implementation(ThirdPartyLibs.JSOUP)
-    implementation(ThirdPartyLibs.MATERIAL_DIALOGS_COMMON)
+    implementation(ThirdPartyLibs.MATERIAL_DIALOGS_CORE)
+    implementation(ThirdPartyLibs.MATERIAL_DIALOGS_INPUT)
+    implementation(ThirdPartyLibs.MATERIAL_DIALOGS_COLOR)
     implementation(ThirdPartyLibs.RECYCLERVIEW_FASTSCROLL)
     implementation(ThirdPartyLibs.BUTTERKNIFE)
     annotationProcessor(ThirdPartyLibs.BUTTERKNIFE_COMPILER)
@@ -79,7 +81,6 @@ dependencies {
     implementation(ThirdPartyLibs.GREENDAO)
     implementation(ThirdPartyLibs.RXBUS)
     implementation(ThirdPartyLibs.SLIDINGUPPANEL)
-    implementation(ThirdPartyLibs.APPTHEMEHELPER)
     implementation(ThirdPartyLibs.MATERIALSEARCHVIEW)
     implementation(ThirdPartyLibs.PICASSO)
     implementation(ThirdPartyLibs.SEEKARC)
@@ -93,5 +94,4 @@ dependencies {
     kapt(OtherLibs.DAGGER_COMPILER)
     implementation(OtherLibs.DAGGER_ANDROID_SUPPORT)
     implementation(OtherLibs.LIFECYCLE_EXTENSIONS)
-
 }

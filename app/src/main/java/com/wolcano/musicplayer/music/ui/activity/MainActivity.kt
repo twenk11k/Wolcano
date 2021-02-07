@@ -18,11 +18,8 @@ import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.afollestad.materialdialogs.GravityEnum
 import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.Theme
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.kabouzeid.appthemehelper.ATH
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState
 import com.wolcano.musicplayer.music.R
@@ -90,7 +87,6 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         super.onCreate(savedInstanceState)
         context = this
         activity = this
-        setContentView(R.layout.activity_main)
         setDrawerOptions()
         initViews()
         displayDialog()
@@ -141,14 +137,13 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             } else {
                 getString(R.string.first_dec_old)
             }
-            MaterialDialog.Builder(this)
-                .title(R.string.first_title)
-                .content(str)
-                .theme(Theme.DARK)
-                .btnStackedGravity(GravityEnum.END)
-                .positiveText(R.string.close)
-                .canceledOnTouchOutside(false)
-                .show()
+            MaterialDialog(this).show {
+                title(R.string.first_title)
+                message(text = str)
+                positiveButton(R.string.close)
+                cancelOnTouchOutside(false)
+            }
+
             Utils.setFirst(context, false)
         }
     }
@@ -163,6 +158,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             PlayerEnum.NORMAL -> PlayerEnum.SHUFFLE
             PlayerEnum.SHUFFLE -> PlayerEnum.REPEAT
             PlayerEnum.REPEAT -> PlayerEnum.NORMAL
+            else -> PlayerEnum.NORMAL
         }
         Utils.setPlaylistId(context, mode.value)
         setLeftButton()
@@ -207,7 +203,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         val intentList: List<Song?> = buildQueueFromFileUri(songUri)
         for (i in intentList.indices) {
             if (intentList[i]!!.path == songPath) {
-                playAdd(context!!, intentList, intentList[i]!!)
+                playAdd(context, intentList, intentList[i]!!)
                 break
             }
         }
@@ -258,7 +254,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     }
 
     private fun initViews2() {
-        if(binding.navView != null) {
+        if (binding.navView != null) {
             NavigationViewUtils.setItemIconColors(
                 binding.navView,
                 ColorUtils.getOppositeColor(Utils.getPrimaryColor(this)),
@@ -275,8 +271,16 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             Utils.getAccentColor(this),
             PorterDuff.Mode.SRC_IN
         )
-        binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.seekbar.thumb?.setColorFilter(Utils.getAccentColor(this), PorterDuff.Mode.SRC_IN)
-        binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.queue.setColorFilter(resources.getColor(R.color.grey0))
+        binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.seekbar.thumb?.setColorFilter(
+            Utils.getAccentColor(
+                this
+            ), PorterDuff.Mode.SRC_IN
+        )
+        binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.queue.setColorFilter(
+            resources.getColor(
+                R.color.grey0
+            )
+        )
         placeholder = resources.getDrawable(R.drawable.album_default)
         placeholder?.setColorFilter(Utils.getPrimaryColor(this), PorterDuff.Mode.MULTIPLY)
     }
@@ -285,12 +289,24 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         binding.slidinguppanel.slidinguppanelChild2.back.setOnClickListener(this)
         binding.slidinguppanel.slidinguppanelChild2.menu.setOnClickListener(this)
         binding.slidinguppanel.slidinguppanelChild2.innerLinearTopOne.setOnClickListener(this)
-        binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.leftbutton.setOnClickListener(this)
-        binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.play.setOnClickListener(this)
-        binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.prev.setOnClickListener(this)
-        binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.next.setOnClickListener(this)
-        binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.queue.setOnClickListener(this)
-        binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.seekbar.setOnSeekBarChangeListener(this)
+        binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.leftbutton.setOnClickListener(
+            this
+        )
+        binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.play.setOnClickListener(
+            this
+        )
+        binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.prev.setOnClickListener(
+            this
+        )
+        binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.next.setOnClickListener(
+            this
+        )
+        binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.queue.setOnClickListener(
+            this
+        )
+        binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.seekbar.setOnSeekBarChangeListener(
+            this
+        )
     }
 
     override fun onResume() {
@@ -299,7 +315,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             binding.slidinguppanel.slidinguppanellayout.panelState = PanelState.COLLAPSED
         }
         if (Utils.getColorSelection(this)) {
-            SongCover.get().setCacheDefault(context)
+            SongCover.setCacheDefault(context)
             Utils.setColorSelection(this, false)
             Utils.setRecreated(this, true)
             updateUiSettings()
@@ -348,7 +364,8 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             ) {
                 when (newState) {
                     PanelState.COLLAPSED -> {
-                        binding.slidinguppanel.slidinguppanelTop1.flPlayBar.visibility = View.VISIBLE
+                        binding.slidinguppanel.slidinguppanelTop1.flPlayBar.visibility =
+                            View.VISIBLE
                         isExpand = false
                         ATH.setLightStatusbar(this@MainActivity, lightStatusbar)
                     }
@@ -405,7 +422,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     fun getIfMainVisible(): Boolean {
         val fragment = supportFragmentManager.findFragmentById(R.id.fragment)
         return if (fragment is FragmentOnline) {
-            if (fragment.isSearchOpen) {
+            if (fragment.isSearchOpen()) {
                 fragment.closeSearch()
                 true
             } else {
@@ -481,17 +498,19 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
     override fun onPlayPause() {
         binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.play.isSelected = false
-        binding.slidinguppanel.slidinguppanelChild2.modelcover?.pause()
+        binding.slidinguppanel.slidinguppanelChild2.modelcover.pause()
     }
 
     override fun onProgressChange(progress: Int) {
         if (!isDragging) {
-            binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.seekbar.progress = progress
+            binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.seekbar.progress =
+                progress
         }
     }
 
     override fun onBufferingUpdate(percent: Int) {
-        if (percent != 0) binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.seekbar.secondaryProgress = binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.seekbar.max * 100 / percent
+        if (percent != 0) binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.seekbar.secondaryProgress =
+            binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.seekbar.max * 100 / percent
     }
 
     override fun onClick(v: View) {
@@ -500,8 +519,11 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             R.id.menu -> if (getPlayMusic(context) != null) {
                 if (getPlayMusic(context)!!.type == Song.Tip.MODEL0) {
                     SongHelperMenu.handleMenuLocal(
-                        this, v, getPlayMusic(context)!!
-                    ) { song: Song? -> handlePlaylistDialog(song) }
+                        this,
+                        v,
+                        getPlayMusic(context)!!,
+                        this
+                    )
                 } else {
                     SongHelperMenu.handleMenuOnline(this, v, getPlayMusic(context))
                 }
@@ -511,14 +533,15 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             R.id.play -> play()
             R.id.next -> next()
             R.id.prev -> prev()
-            R.id.queue -> if (!getSongList()!!.isEmpty()) {
+            R.id.queue -> if (getSongList()!!.isNotEmpty()) {
                 val intent = Intent(this, QueueActivity::class.java)
                 startActivity(intent)
             } else {
                 Toast.makeText(this, resources.getString(R.string.empty_queue), Toast.LENGTH_SHORT)
                     .show()
             }
-            R.id.nav_header_relative -> binding.slidinguppanel.slidinguppanellayout.panelState = PanelState.EXPANDED
+            R.id.nav_header_relative -> binding.slidinguppanel.slidinguppanellayout.panelState =
+                PanelState.EXPANDED
         }
     }
 
@@ -528,11 +551,17 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
     fun setLeftButton() {
         val mode = Utils.getPlaylistId(context)
-        binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.leftbutton.setImageLevel(mode)
+        binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.leftbutton.setImageLevel(
+            mode
+        )
     }
 
     private fun setAlbumCover(song: Song?) {
-        loadBitmap(song, binding.slidinguppanel.slidinguppanelChild2.child2bg, binding.slidinguppanel.slidinguppanelChild2.modelcover)
+        loadBitmap(
+            song,
+            binding.slidinguppanel.slidinguppanelChild2.child2bg,
+            binding.slidinguppanel.slidinguppanelChild2.modelcover
+        )
     }
 
     private fun setBitmap(
@@ -548,31 +577,30 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             imageView.setImageBitmap(blur.bitmap)
         }
         if (round == null) {
-            modelCoverView.setRoundBitmap(SongCover.get().getMainModel(context, SongCover.Tip.OVAL))
+            modelCoverView.setRoundBitmap(SongCover.getMainModel(context, SongCover.Tip.OVAL))
         } else {
             if (round.id == 0) {
                 modelCoverView.setRoundBitmap(round.bitmap)
             } else if (round.id == 1) {
                 modelCoverView.setRoundBitmap(
-                    SongCover.get().getMainModel(context, SongCover.Tip.OVAL)
+                    SongCover.getMainModel(context, SongCover.Tip.OVAL)
                 )
             }
         }
     }
 
     fun loadBitmap(song: Song?, imageView: ImageView, modelCoverView: ModelView) {
-        val bitmapObservable = Observable.fromCallable<List<ModelBitmap>> {
-            val bitmapList: MutableList<ModelBitmap> =
-                ArrayList()
-            bitmapList.add(SongCover.get().loadBlurredModel(context, song))
-            bitmapList.add(SongCover.get().loadOvalModel(context, song))
+        val bitmapObservable = Observable.fromCallable<List<ModelBitmap?>> {
+            val bitmapList: MutableList<ModelBitmap?> = ArrayList()
+            bitmapList.add(SongCover.loadBlurredModel(context, song))
+            bitmapList.add(SongCover.loadOvalModel(context, song))
             bitmapList
         }.throttleFirst(500, TimeUnit.MILLISECONDS)
         disposable =
             bitmapObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe { bitmap: List<ModelBitmap> ->
+                .subscribe { list: List<ModelBitmap?> ->
                     setBitmap(
-                        bitmap,
+                        list,
                         imageView,
                         modelCoverView
                     )
@@ -585,17 +613,22 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             binding.slidinguppanel.slidinguppanelChild2.artist.text = ""
             binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.current.setText(R.string.start)
             binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.total.setText(R.string.start)
-            binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.seekbar.secondaryProgress = 0
-            binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.seekbar.progress = 0
+            binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.seekbar.secondaryProgress =
+                0
+            binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.seekbar.progress =
+                0
             binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.seekbar.max = 0
             setAlbumCover(song)
             return
         }
         binding.slidinguppanel.slidinguppanelChild2.title.text = song.title
         binding.slidinguppanel.slidinguppanelChild2.artist.text = song.artist
-        binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.seekbar.progress = getPlayerCurrentPosition().toInt()
-        binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.seekbar.secondaryProgress = 0
-        binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.seekbar.max = song.duration.toInt()
+        binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.seekbar.progress =
+            getPlayerCurrentPosition().toInt()
+        binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.seekbar.secondaryProgress =
+            0
+        binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.seekbar.max =
+            song.duration.toInt()
         binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.current.setText(R.string.start)
         binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.total.text =
             Utils.getDuraStr(song.duration / 1000, this)
@@ -616,9 +649,9 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 activity
             )
         }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-            .subscribe { playlists: List<Playlist>? ->
+            .subscribe { playlists: List<Playlist> ->
                 Dialogs.addPlaylistDialog(
-                    activity,
+                    this,
                     song,
                     playlists
                 )

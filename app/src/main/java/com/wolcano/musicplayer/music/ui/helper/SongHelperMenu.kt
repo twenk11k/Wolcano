@@ -14,9 +14,8 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
-import com.afollestad.materialdialogs.DialogAction
+import androidx.core.content.ContextCompat
 import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.MaterialDialog.SingleButtonCallback
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Picasso.LoadedFrom
 import com.squareup.picasso.Target
@@ -39,10 +38,10 @@ class SongHelperMenu {
         private var dCount = 0
 
         fun handleMenuLocal(
-            context: Context?,
+            context: Context,
             v: View?,
             song: Song,
-            PlaylistListener: PlaylistListener
+            playlistListener: PlaylistListener
         ) {
             try {
                 val contextThemeWrapper =
@@ -59,10 +58,9 @@ class SongHelperMenu {
                         R.id.delete -> {
                             val title: CharSequence
                             val artist: CharSequence
-                            val content: Int
                             title = song.title
                             artist = song.artist
-                            content = R.string.delete_song_content
+                            val content: Int = R.string.delete_song_content
                             val albumUri =
                                 Uri.parse("content://media/external/audio/media/" + song.songId + "/albumart")
                             Picasso.get().load(albumUri).into(object : Target {
@@ -85,41 +83,35 @@ class SongHelperMenu {
                                     var bitmap = bitmap
                                     if (bitmap == null) {
                                         bitmap = BitmapFactory.decodeResource(
-                                            context!!.resources,
+                                            context.resources,
                                             R.drawable.album_art
                                         )
                                     }
                                     val albumart: Drawable =
-                                        BitmapDrawable(context!!.resources, bitmap)
+                                        BitmapDrawable(context.resources, bitmap)
                                     val wholeStr = """
                                 $title
                                 $artist
                                 """.trimIndent()
                                     val spanTitle = SpannableString(wholeStr)
                                     spanTitle.setSpan(
-                                        ForegroundColorSpan(context.resources.getColor(R.color.grey0)),
+                                        ForegroundColorSpan(
+                                            ContextCompat.getColor(
+                                                context,
+                                                R.color.grey0
+                                            )
+                                        ),
                                         """$title
 """.length,
                                         wholeStr.length,
                                         0
                                     )
-                                    MaterialDialog.Builder(context)
-                                        .title(spanTitle)
-                                        .content(content)
-                                        .positiveText(R.string.yes)
-                                        .negativeText(R.string.no)
-                                        .positiveColor(
-                                            Utils.getAccentColor(
-                                                context
-                                            )
-                                        )
-                                        .negativeColor(
-                                            Utils.getAccentColor(
-                                                context
-                                            )
-                                        )
-                                        .onPositive(SingleButtonCallback { dialog: MaterialDialog?, which: DialogAction? ->
-                                            if (context == null) return@SingleButtonCallback
+
+                                    MaterialDialog(context).show {
+                                        title(text = spanTitle.toString())
+                                        message(content)
+                                        positiveButton(R.string.yes) {
+                                            if (context == null) return@positiveButton
                                             deleteFromRemotePlay(
                                                 context,
                                                 1,
@@ -133,18 +125,19 @@ class SongHelperMenu {
                                                 context,
                                                 alist
                                             )
-                                        })
-                                        .icon(albumart)
-                                        .limitIconToDefaultSize()
-                                        .show()
+                                        }
+
+                                        negativeButton(R.string.no)
+                                        icon(drawable = albumart)
+                                    }
                                 }
                             })
                         }
                         R.id.set_as_ringtone -> Utils.setRingtone(
-                            context!!,
+                            context,
                             song.songId
                         )
-                        R.id.add_to_playlist -> PlaylistListener.handlePlaylistDialog(song)
+                        R.id.add_to_playlist -> playlistListener.handlePlaylistDialog(song)
                         R.id.share -> Dialogs.shareDialog(context, song, false)
                         else -> {
                         }
@@ -195,4 +188,5 @@ class SongHelperMenu {
             }
         }
     }
+
 }

@@ -38,4 +38,19 @@
     <color name="grey_u1">#9E9E9E</color>
     <color name="white_u6">#3DFFFFFF</color>
     <color name="grid_item_rl">#323232</color>
+    <color name="md_grey_200">#EEEEEE</color>
+    <color name="md_white_1000">#FFFFFF</color>
+    <color name="md_grey_700">#616161</color>
+    <color name="ate_control_disabled_dark">#4DFFFFFF</color>
+    <color name="ate_control_normal_dark">#B3FFFFFF</color>
+    <color name="ate_control_disabled_light">#43000000</color>
+    <color name="ate_control_normal_light">#8A000000</color>
+    <color name="ate_switch_thumb_disabled_dark">#FF424242</color>
+    <color name="ate_switch_thumb_disabled_light">#FFBDBDBD</color>
+    <color name="ate_switch_thumb_normal_dark">#FFBDBDBD</color>
+    <color name="ate_switch_thumb_normal_light">#FFFAFAFA</color>
+    <color name="ate_switch_track_disabled_dark">#1AFFFFFF</color>
+    <color name="ate_switch_track_disabled_light">#1F000000</color>
+    <color name="ate_switch_track_normal_dark">#4DFFFFFF</color>
+    <color name="ate_switch_track_normal_light">#43000000</color>
 </resources>

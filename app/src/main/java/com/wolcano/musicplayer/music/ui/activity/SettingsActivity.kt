@@ -13,33 +13,27 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import androidx.annotation.ColorInt
 import androidx.preference.ListPreference
 import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.TwoStatePreference
-import com.afollestad.materialdialogs.GravityEnum
 import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.Theme
-import com.afollestad.materialdialogs.color.ColorChooserDialog
-import com.afollestad.materialdialogs.color.ColorChooserDialog.ColorCallback
-import com.kabouzeid.appthemehelper.ThemeStore
-import com.kabouzeid.appthemehelper.common.ATHToolbarActivity
-import com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEColorPreference
-import com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEListPreference
-import com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreference
-import com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceFragmentCompat
-import com.kabouzeid.appthemehelper.util.ColorUtil
-import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper
+import com.afollestad.materialdialogs.color.ColorPalette
+import com.afollestad.materialdialogs.color.colorChooser
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.databinding.ActivitySettingsBinding
+import com.wolcano.musicplayer.music.prefs.ColorPreference
 import com.wolcano.musicplayer.music.ui.activity.base.BaseActivitySettings
+import com.wolcano.musicplayer.music.ui.helper.ToolbarContentTintHelper
+import com.wolcano.musicplayer.music.utils.ColorUtils
 import com.wolcano.musicplayer.music.utils.FileUtils
 import com.wolcano.musicplayer.music.utils.PrefUtils
 import com.wolcano.musicplayer.music.utils.Utils
+import com.wolcano.musicplayer.music.utils.Utils.getPrimaryColor
 import java.io.File
 import java.io.IOException
 
-class SettingsActivity: BaseActivitySettings(), ColorCallback {
+class SettingsActivity : BaseActivitySettings() {
 
     private var color = 0
 
@@ -49,7 +43,7 @@ class SettingsActivity: BaseActivitySettings(), ColorCallback {
         super.onCreate(savedInstanceState)
         setDrawUnderStatusbar(true)
 
-        color = Utils.getPrimaryColor(this)
+        color = getPrimaryColor(this)
         setStatusbarColor(color, binding.statusBarCustom)
 
         setTaskDescriptionColorAuto()
@@ -66,26 +60,6 @@ class SettingsActivity: BaseActivitySettings(), ColorCallback {
         }
     }
 
-
-    override fun onColorSelection(dialog: ColorChooserDialog, @ColorInt selectedColor: Int) {
-        val tag = dialog.tag()
-        if (tag == "dialog1") {
-            Utils.setPrimaryColor(this, selectedColor)
-            ThemeStore.editTheme(this)
-                .primaryColor(selectedColor)
-                .commit()
-        } else if (tag == "dialog2") {
-            Utils.setAccentColor(this, selectedColor)
-            ThemeStore.editTheme(this)
-                .accentColor(selectedColor)
-                .commit()
-        }
-        recreate()
-        Utils.setColorSelection(this, true)
-    }
-
-    override fun onColorChooserDismissed(dialog: ColorChooserDialog) {}
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
             onBackPressed()
@@ -99,13 +73,12 @@ class SettingsActivity: BaseActivitySettings(), ColorCallback {
             this,
             binding.toolbar,
             menu,
-            ATHToolbarActivity.getToolbarBackgroundColor(binding.toolbar)
+            ColorUtils.getToolbarBackgroundColor(binding.toolbar)
         )
         return super.onCreateOptionsMenu(menu)
     }
 
-
-    class SettingsFragment : ATEPreferenceFragmentCompat(),
+    class SettingsFragment : PreferenceFragmentCompat(),
         OnSharedPreferenceChangeListener {
         override fun onCreatePreferences(bundle: Bundle?, s: String?) {
             addPreferencesFromResource(R.xml.pref_general)
@@ -118,12 +91,13 @@ class SettingsActivity: BaseActivitySettings(), ColorCallback {
             super.onViewCreated(view, savedInstanceState)
             listView.setPadding(0, 0, 0, 0)
             invalidateSettings()
-            PrefUtils.getInstance(activity!!).registerOnSharedPreferenceChangedListener(this)
+            PrefUtils.getInstance(requireActivity()).registerOnSharedPreferenceChangedListener(this)
         }
 
         override fun onDestroyView() {
             super.onDestroyView()
-            PrefUtils.getInstance(activity!!).unregisterOnSharedPreferenceChangedListener(this)
+            PrefUtils.getInstance(requireActivity())
+                .unregisterOnSharedPreferenceChangedListener(this)
         }
 
         fun invalidateSettings() {
@@ -134,67 +108,64 @@ class SettingsActivity: BaseActivitySettings(), ColorCallback {
         }
 
         private fun handleOthers() {
-            val rateApp = findPreference("rate_app") as ATEPreference
+            val rateApp = findPreference("rate_app") as Preference
             rateApp.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                Utils.rateWolcano(context)
+                Utils.rateWolcano(requireContext())
                 true
             }
-            val shareApp = findPreference("share_app") as ATEPreference
+            val shareApp = findPreference("share_app") as Preference
             shareApp.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                Utils.shareWolcano(context)
+                Utils.shareWolcano(requireContext())
                 true
             }
         }
 
         private fun handleGeneralSettings() {
-            val opening = findPreference("opening") as ATEListPreference
-            opening.setValueIndex(Utils.getOpeningVal(context))
+            val opening = findPreference("opening") as ListPreference
+            opening.setValueIndex(Utils.getOpeningVal(requireContext()))
             setSummary(
                 opening, Utils.getOpeningVal(
-                    context
+                    requireContext()
                 )
             )
             opening.onPreferenceChangeListener =
-                Preference.OnPreferenceChangeListener { preference: Preference?, o: Any ->
+                Preference.OnPreferenceChangeListener { _: Preference?, o: Any ->
                     setSummary(opening, o)
                     Utils.setOpeningVal(
-                        context,
+                        requireContext(),
                         Integer.valueOf(o.toString())
                     )
                     true
                 }
-            val howtouse = findPreference("howtouse") as ATEPreference
+            val howtouse = findPreference("howtouse") as Preference
             howtouse.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                val content: String
-                content = if (Build.VERSION.SDK_INT >= 23) {
+                val content: String = if (Build.VERSION.SDK_INT >= 23) {
                     getString(R.string.first_dec)
                 } else {
                     getString(R.string.first_dec_old)
                 }
-                MaterialDialog.Builder(context!!)
-                    .title(R.string.pref_title_howtouse)
-                    .content(content)
-                    .theme(Theme.DARK)
-                    .positiveText(R.string.close)
-                    .canceledOnTouchOutside(false)
-                    .btnStackedGravity(GravityEnum.END)
-                    .show()
+                MaterialDialog(requireActivity()).show {
+                    title(R.string.pref_title_howtouse)
+                    message(text = content)
+                    positiveButton(R.string.close)
+                    cancelOnTouchOutside(false)
+                }
                 true
             }
-            val sleeptimer = findPreference("sleeptimerbehav") as ATEListPreference
+            val sleeptimer = findPreference("sleeptimerbehav") as ListPreference
             sleeptimer.setValueIndex(
                 Utils.getOpeningValSleep(
-                    context
+                    requireContext()
                 )
             )
             sleeptimer.onPreferenceChangeListener =
-                Preference.OnPreferenceChangeListener { preference: Preference?, o: Any ->
+                Preference.OnPreferenceChangeListener { _: Preference?, o: Any ->
                     Utils.setOpeningValSleep(
-                        context,
+                        requireContext(),
                         Integer.valueOf(o.toString())
                     )
                     Toast.makeText(
-                        context,
+                        requireContext(),
                         getSleepTimerStr(o.toString().toInt()),
                         Toast.LENGTH_SHORT
                     )
@@ -212,110 +183,100 @@ class SettingsActivity: BaseActivitySettings(), ColorCallback {
         }
 
         private fun handleColorSettings() {
-            val primaryColorPref = findPreference("primary_color") as ATEColorPreference
-            val primaryColor = Utils.getPrimaryColor(context)
-            primaryColorPref.setColor(primaryColor, ColorUtil.darkenColor(primaryColor))
+            val primaryColorPref = findPreference("primary_color") as ColorPreference
+            val primaryColor = getPrimaryColor(requireContext())
+            primaryColorPref.setColor(primaryColor, ColorUtils.darkenColor(primaryColor))
             primaryColorPref.onPreferenceClickListener =
-                Preference.OnPreferenceClickListener { preference: Preference? ->
-                    ColorChooserDialog.Builder(
-                        context!!, R.string.primary_color_desc_title
-                    )
-                        .titleSub(R.string.colors) // title of dialog when viewing shades of a color
-                        .doneButton(R.string.done) // changes label of the done button
-                        .cancelButton(R.string.cancel) // changes label of the cancel button
-                        .backButton(R.string.back) // changes label of the back button
-                        .dynamicButtonColor(true) // defaults to true, false will disable changing action buttons' color to currently selected color
-                        .theme(Theme.DARK)
-                        .tag("dialog1")
-                        .customButton(R.string.custom)
-                        .presetsButton(R.string.presets)
-                        .show(activity) // an AppCompatActivity which implements ColorCallback
+                Preference.OnPreferenceClickListener {
+                    MaterialDialog(requireActivity()).show {
+                        title(R.string.primary_color_desc_title)
+                        colorChooser(
+                            colors = ColorPalette.Primary,
+                            subColors = ColorPalette.PrimarySub
+                        ) { _, color ->
+                            Utils.setPrimaryColor(requireContext(), color)
+                            requireActivity().recreate()
+                            Utils.setColorSelection(requireContext(), true)
+                        }
+                    }
                     true
                 }
-            val accentColorPref = findPreference("accent_color") as ATEColorPreference
-            val accentColor = Utils.getAccentColor(context)
-            accentColorPref.setColor(accentColor, ColorUtil.darkenColor(accentColor))
+            val accentColorPref = findPreference("accent_color") as ColorPreference
+            val accentColor = Utils.getAccentColor(requireContext())
+            accentColorPref.setColor(accentColor, ColorUtils.darkenColor(accentColor))
             accentColorPref.onPreferenceClickListener =
-                Preference.OnPreferenceClickListener { preference: Preference? ->
-                    ColorChooserDialog.Builder(
-                        context!!, R.string.accent_color_desc_title
-                    )
-                        .titleSub(R.string.colors) // title of dialog when viewing shades of a color
-                        .doneButton(R.string.done) // changes label of the done button
-                        .cancelButton(R.string.cancel) // changes label of the cancel button
-                        .backButton(R.string.back) // changes label of the back button
-                        .dynamicButtonColor(true) // defaults to true, false will disable changing action buttons' color to currently selected color
-                        .theme(Theme.DARK)
-                        .tag("dialog2")
-                        .customButton(R.string.custom)
-                        .presetsButton(R.string.presets)
-                        .show(activity) // an AppCompatActivity which implements ColorCallback
+                Preference.OnPreferenceClickListener {
+                    MaterialDialog(requireActivity()).show {
+                        title(R.string.accent_color_desc_title)
+                        colorChooser(
+                            colors = ColorPalette.Accent,
+                            subColors = ColorPalette.AccentSub
+                        ) { _, color ->
+                            Utils.setAccentColor(requireContext(), color)
+                            requireActivity().recreate()
+                            Utils.setColorSelection(requireContext(), true)
+                        }
+                    }
                     true
                 }
         }
 
         private fun handleOnlineSettings() {
-            val emailUs = findPreference("email_us") as ATEPreference
+            val emailUs = findPreference("email_us") as Preference
             emailUs.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                MaterialDialog.Builder(context!!)
-                    .title(R.string.pref_title_email_us)
-                    .content(R.string.pref_email_us_dialog_content)
-                    .negativeText(R.string.no)
-                    .positiveText(R.string.yes)
-                    .positiveColor(Utils.getAccentColor(context))
-                    .negativeColor(Utils.getAccentColor(context))
-                    .onPositive { dialog, which ->
-                        val intent = Intent(Intent.ACTION_SENDTO)
-                        intent.data = Uri.parse("mailto:")
-                        intent.putExtra(
-                            Intent.EXTRA_EMAIL,
-                            arrayOf("wolcanoapps@protonmail.com")
-                        )
-                        intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.email_us_title))
-                        startActivity(
-                            Intent.createChooser(
-                                intent,
-                                getString(R.string.email_us_via)
+                MaterialDialog(requireActivity()).show {
+                    title(R.string.pref_title_email_us)
+                    message(R.string.pref_email_us_dialog_content)
+                        .negativeButton(R.string.no)
+                        .positiveButton(R.string.yes) {
+                            val intent = Intent(Intent.ACTION_SENDTO)
+                            intent.data = Uri.parse("mailto:")
+                            intent.putExtra(
+                                Intent.EXTRA_EMAIL,
+                                arrayOf("wolcanoapps@protonmail.com")
                             )
-                        )
-                    }
-                    .theme(Theme.DARK)
-                    .show()
+                            intent.putExtra(
+                                Intent.EXTRA_SUBJECT,
+                                getString(R.string.email_us_title)
+                            )
+                            startActivity(
+                                Intent.createChooser(
+                                    intent,
+                                    getString(R.string.email_us_via)
+                                )
+                            )
+                        }
+                }
                 true
             }
-            val deleteHistory = findPreference("delete_history") as ATEPreference
+            val deleteHistory = findPreference("delete_history") as Preference
             deleteHistory.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                MaterialDialog.Builder(context!!)
-                    .title(R.string.pref_title_delete_history)
-                    .content(R.string.pref_delete_history_dialog_content)
-                    .negativeText(R.string.no)
-                    .positiveText(R.string.yes)
-                    .positiveColor(Utils.getAccentColor(context))
-                    .negativeColor(Utils.getAccentColor(context))
-                    .onPositive { dialog, which ->
+                MaterialDialog(requireActivity()).show {
+                    title(R.string.pref_title_delete_history)
+                    message(R.string.pref_delete_history_dialog_content)
+                    negativeButton(R.string.no)
+                    positiveButton(R.string.yes) {
                         Utils.removeSearchHistory(
-                            context
+                            requireContext()
                         )
                     }
-                    .theme(Theme.DARK)
-                    .show()
+                }
                 true
             }
-            val backupHistory = findPreference("backup_history") as ATEPreference
+            val backupHistory = findPreference("backup_history") as Preference
             backupHistory.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                MaterialDialog.Builder(context!!)
-                    .title(R.string.pref_title_backup_history)
-                    .content(R.string.pref_backup_history_dialog_content)
-                    .negativeText(R.string.no)
-                    .positiveText(R.string.yes)
-                    .positiveColor(Utils.getAccentColor(context))
-                    .negativeColor(Utils.getAccentColor(context))
-                    .onPositive { dialog, which ->
+                MaterialDialog(requireActivity()).show {
+                    title(R.string.pref_title_backup_history)
+                    message(R.string.pref_backup_history_dialog_content)
+                    negativeButton(R.string.no)
+                    positiveButton(R.string.yes) {
                         var isSuccessful = false
                         isSuccessful = if (FileUtils.writeToFile(
-                                context, Utils.getSearchQuery(
-                                    context
-                                ), context!!.getString(R.string.backup_search_history_file_name)
+                                requireContext(),
+                                Utils.getSearchQuery(
+                                    requireContext()
+                                ),
+                                requireContext().getString(R.string.backup_search_history_file_name)
                             )
                         ) {
                             true
@@ -323,8 +284,8 @@ class SettingsActivity: BaseActivitySettings(), ColorCallback {
                             false
                         }
                         isSuccessful = if (FileUtils.writeToFile(
-                                context, Utils.getLastSearch(
-                                    context
+                                requireContext(), Utils.getLastSearch(
+                                    requireContext()
                                 ), getString(R.string.backup_last_searches_file_name)
                             )
                         ) {
@@ -334,49 +295,46 @@ class SettingsActivity: BaseActivitySettings(), ColorCallback {
                         }
                         if (isSuccessful) {
                             Toast.makeText(
-                                context,
-                                context!!.getString(R.string.backup_success),
+                                requireContext(),
+                                requireContext().getString(R.string.backup_success),
                                 Toast.LENGTH_SHORT
                             ).show()
                         } else {
                             Toast.makeText(
-                                context,
-                                context!!.getString(R.string.backup_fail),
+                                requireContext(),
+                                requireContext().getString(R.string.backup_fail),
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
                     }
-                    .theme(Theme.DARK)
-                    .show()
+                }
+
                 true
             }
-            val importHistory = findPreference("import_history") as ATEPreference
+            val importHistory = findPreference("import_history") as Preference
             importHistory.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                MaterialDialog.Builder(context!!)
-                    .title(R.string.pref_title_import_history)
-                    .content(R.string.pref_backup_import_dialog_content)
-                    .negativeText(R.string.no)
-                    .positiveText(R.string.yes)
-                    .positiveColor(Utils.getAccentColor(context))
-                    .negativeColor(Utils.getAccentColor(context))
-                    .onPositive { dialog, which ->
+                MaterialDialog(requireActivity()).show {
+                    title(R.string.pref_title_import_history)
+                    message(R.string.pref_backup_import_dialog_content)
+                    negativeButton(R.string.no)
+                    positiveButton(R.string.yes) {
                         val directoryPath1 = (Environment.getExternalStorageDirectory()
                             .toString() + File.separator
-                                + context!!.getString(R.string.folder_name) + File.separator + context!!.getString(
+                                + requireContext().getString(R.string.folder_name) + File.separator + requireContext().getString(
                             R.string.folder_search_history
                         )
                                 + File.separator
-                                + context!!.getString(R.string.backup_search_history_file_name) + ".txt")
+                                + requireContext().getString(R.string.backup_search_history_file_name) + ".txt")
                         val directoryPath2 = (Environment.getExternalStorageDirectory()
                             .toString() + File.separator
-                                + context!!.getString(R.string.folder_name) + File.separator + context!!.getString(
+                                + requireContext().getString(R.string.folder_name) + File.separator + requireContext().getString(
                             R.string.folder_search_history
                         )
                                 + File.separator
-                                + context!!.getString(R.string.backup_last_searches_file_name) + ".txt")
+                                + requireContext().getString(R.string.backup_last_searches_file_name) + ".txt")
                         try {
                             FileUtils.readFileData(
-                                context,
+                                requireContext(),
                                 directoryPath1,
                                 directoryPath2
                             )
@@ -384,16 +342,15 @@ class SettingsActivity: BaseActivitySettings(), ColorCallback {
                             e.printStackTrace()
                         }
                     }
-                    .theme(Theme.DARK)
-                    .show()
+                }
                 true
             }
             val autoSearch = findPreference("remember_last_search") as TwoStatePreference
-            autoSearch.isChecked = Utils.getAutoSearch(context)
+            autoSearch.isChecked = Utils.getAutoSearch(requireContext())
             autoSearch.onPreferenceChangeListener =
-                Preference.OnPreferenceChangeListener { preference: Preference?, newValue: Any ->
+                Preference.OnPreferenceChangeListener { _: Preference?, newValue: Any ->
                     Utils.setAutoSearch(
-                        context,
+                        requireContext(),
                         newValue as Boolean
                     )
                     true

@@ -13,7 +13,7 @@ object GeneralCache {
     private val activityList: MutableList<Activity> = ArrayList()
 
     fun initializeCache(application: Application) {
-        SongCover.get().init(application.applicationContext)
+        SongCover.init(application.applicationContext)
         application.registerActivityLifecycleCallbacks(SchemeActivities())
     }
 

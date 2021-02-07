@@ -17,7 +17,6 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.afollestad.materialdialogs.DialogAction
 import com.afollestad.materialdialogs.MaterialDialog
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Picasso.LoadedFrom
@@ -39,7 +38,7 @@ class PlaylistSongAdapter(
     private val songList: MutableList<Song>,
     private val playlistID: Long,
     private val playlistListener: PlaylistListener
-): RecyclerView.Adapter<PlaylistSongAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<PlaylistSongAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -150,23 +149,12 @@ class PlaylistSongAdapter(
                                             ), """$title
 """.length, wholeStr.length, 0
                                         )
-                                        MaterialDialog.Builder(context)
-                                            .title(spanTitle)
-                                            .content(content)
-                                            .positiveText(R.string.yes)
-                                            .negativeText(R.string.no)
-                                            .positiveColor(
-                                                Utils.getAccentColor(
-                                                    context
-                                                )
-                                            )
-                                            .negativeColor(
-                                                Utils.getAccentColor(
-                                                    context
-                                                )
-                                            )
-                                            .onPositive { dialog: MaterialDialog?, which: DialogAction? ->
-                                                if (context == null) return@onPositive
+                                        MaterialDialog(context).show {
+                                            title(text = spanTitle.toString())
+                                            message(content)
+                                            negativeButton(R.string.no)
+                                            positiveButton(R.string.yes) {
+                                                if (context == null) return@positiveButton
                                                 deleteFromRemotePlay(
                                                     context,
                                                     songList.size,
@@ -183,10 +171,10 @@ class PlaylistSongAdapter(
                                                 songList.removeAt(position)
                                                 notifyItemRemoved(position)
                                                 notifyItemRangeChanged(position, itemCount)
+
                                             }
-                                            .icon(albumart)
-                                            .limitIconToDefaultSize()
-                                            .show()
+                                            icon(drawable = albumart)
+                                        }
                                     }
                                 })
                         }

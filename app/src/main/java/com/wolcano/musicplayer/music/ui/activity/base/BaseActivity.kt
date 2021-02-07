@@ -11,12 +11,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import com.hwangjr.rxbus.RxBus
-import com.kabouzeid.appthemehelper.ATH
-import com.kabouzeid.appthemehelper.util.ColorUtil
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.content.Binder
 import com.wolcano.musicplayer.music.provider.MusicService
 import com.wolcano.musicplayer.music.provider.MusicService.ServiceInit
+import com.wolcano.musicplayer.music.utils.ATH
+import com.wolcano.musicplayer.music.utils.ColorUtils
 import com.wolcano.musicplayer.music.utils.PermissionUtils
 import com.wolcano.musicplayer.music.utils.Utils
 import com.wolcano.musicplayer.music.widgets.StatusBarView
@@ -67,9 +67,7 @@ open class BaseActivity : DataBindingActivity() {
 
     private fun setView() {
         Binder.bindIt(this)
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true)
-        }
+        actionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private inner class RemoteServiceConn : ServiceConnection {
@@ -150,24 +148,20 @@ open class BaseActivity : DataBindingActivity() {
     }
 
     open fun setLightStatusbarAuto(bgColor: Int) {
-        setLightStatusbar(ColorUtil.isColorLight(bgColor))
+        setLightStatusbar(ColorUtils.isColorLight(bgColor))
     }
 
     open fun setStatusbarColor(color: Int, statusBarView: StatusBarView?) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (statusBarView != null) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    statusBarView.setBackgroundColor(ColorUtil.darkenColor(color))
+                    statusBarView.setBackgroundColor(ColorUtils.darkenColor(color))
                     setLightStatusbarAuto(color)
                 } else {
                     statusBarView.setBackgroundColor(color)
                 }
             }
         }
-    }
-
-    open fun setStatusbarColorAuto(statusBarView: StatusBarView?, color: Int) {
-        setStatusbarColor(color, statusBarView)
     }
 
 }

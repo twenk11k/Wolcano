@@ -5,5 +5,4 @@
         android:id="@+id/copy_to_clipboard"
         android:title="@string/copytoclipboard" />
 
-
 </menu>

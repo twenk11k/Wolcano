@@ -1,6 +1,5 @@
 package com.wolcano.musicplayer.music.widgets;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -39,7 +38,6 @@ import com.wolcano.musicplayer.music.ui.adapter.SearchAdapter;
 
 import java.lang.reflect.Field;
 import java.util.List;
-
 
 public class MaterialSearchLast extends FrameLayout implements Filter.FilterListener {
 
@@ -80,6 +78,7 @@ public class MaterialSearchLast extends FrameLayout implements Filter.FilterList
     public MaterialSearchLast(Context context) {
         this(context, null);
     }
+
     public MaterialSearchLast(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
@@ -196,6 +195,7 @@ public class MaterialSearchLast extends FrameLayout implements Filter.FilterList
             }
         });
     }
+
     public String getListPosSend(int position) {
         String gonder = suggestionListView.getAdapter().getItem(position).toString();
         return gonder;
@@ -235,7 +235,7 @@ public class MaterialSearchLast extends FrameLayout implements Filter.FilterList
 
         } else {
             emptyBtn.setVisibility(GONE);
-            if(onQueryChangeListener!=null){
+            if (onQueryChangeListener != null) {
                 onQueryChangeListener.onQueryTextChange("");
             }
             return;
@@ -273,7 +273,7 @@ public class MaterialSearchLast extends FrameLayout implements Filter.FilterList
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-    public  void showKeyboard() {
+    public void showKeyboard() {
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.GINGERBREAD_MR1 && searchSrcTextView.hasFocus()) {
             searchSrcTextView.clearFocus();
         }
@@ -314,15 +314,19 @@ public class MaterialSearchLast extends FrameLayout implements Filter.FilterList
     public void setCloseIcon(Drawable drawable) {
         emptyBtn.setImageDrawable(drawable);
     }
+
     public void setCloseIconTint(int color) {
         emptyBtn.setColorFilter(color, PorterDuff.Mode.SRC_IN);
     }
+
     public void setBackIcon(Drawable drawable) {
         backBtn.setImageDrawable(drawable);
     }
+
     public void setBackIconTint(int color) {
         backBtn.setColorFilter(color, PorterDuff.Mode.SRC_IN);
     }
+
     public void setSuggestionIcon(Drawable drawable) {
         suggestionIcon = drawable;
     }
@@ -338,9 +342,11 @@ public class MaterialSearchLast extends FrameLayout implements Filter.FilterList
     public void setSuggestionIconTint(int color) {
         suggestionIcon.setColorFilter(color, PorterDuff.Mode.SRC_IN);
     }
+
     public void setSuggestionRemoveTint(int color) {
         suggestionRemove.setColorFilter(color, PorterDuff.Mode.SRC_IN);
     }
+
     public void setSuggestionSendTint(int color) {
         suggestionSend.setColorFilter(color, PorterDuff.Mode.SRC_IN);
     }
@@ -354,7 +360,7 @@ public class MaterialSearchLast extends FrameLayout implements Filter.FilterList
     }
 
     public void setSuggestionBackgroundColor(int color) {
-            suggestionListView.setBackgroundColor(color);
+        suggestionListView.setBackgroundColor(color);
     }
 
     public void setCursorDrawable(int drawable) {
@@ -421,7 +427,7 @@ public class MaterialSearchLast extends FrameLayout implements Filter.FilterList
     public void setSuggestions(String[] suggestions, String[] lastSearches, boolean isFirst, SetSearchQuery callback, int textColor) {
         if (suggestions != null && suggestions.length > 0) {
             tintView.setVisibility(VISIBLE);
-            final SearchAdapter adapter = new SearchAdapter(context, suggestions, suggestionIcon, suggestionSend, ellipsize, lastSearches, isFirst, callback,textColor,this);
+            final SearchAdapter adapter = new SearchAdapter(context, suggestions, suggestionIcon, suggestionSend, ellipsize, lastSearches, isFirst, callback, textColor, this);
             setAdapter(adapter);
 
             tintView.setVisibility(GONE);
@@ -726,6 +732,5 @@ public class MaterialSearchLast extends FrameLayout implements Filter.FilterList
 
         void onSearchViewClosed();
     }
-
 
 }

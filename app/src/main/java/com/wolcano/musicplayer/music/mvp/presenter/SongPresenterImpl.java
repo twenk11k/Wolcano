@@ -3,6 +3,7 @@ package com.wolcano.musicplayer.music.mvp.presenter;
 import android.app.Activity;
 
 import androidx.fragment.app.Fragment;
+
 import com.wolcano.musicplayer.music.mvp.interactor.SongInteractorImpl;
 import com.wolcano.musicplayer.music.mvp.interactor.interfaces.SongInteractor;
 import com.wolcano.musicplayer.music.mvp.models.Song;
@@ -13,6 +14,7 @@ import com.wolcano.musicplayer.music.ui.fragment.library.detail.FragmentAlbumDet
 import com.wolcano.musicplayer.music.ui.fragment.library.detail.FragmentArtistDetail;
 import com.wolcano.musicplayer.music.ui.fragment.library.detail.FragmentGenreDetail;
 import com.wolcano.musicplayer.music.ui.fragment.library.detail.FragmentPlaylistDetail;
+
 import java.util.List;
 
 

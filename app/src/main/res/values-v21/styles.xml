@@ -1,7 +1,5 @@
 <resources>
 
-
-
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="android:windowNoTitle">true</item>
@@ -11,19 +9,22 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-
+        <item name="md_color_button_text">@color/colorAccent</item>
+        <item name="md_ripple_color">?android:colorControlHighlight</item>
         <!-- Overflow Button Style. -->
         <item name="actionOverflowButtonStyle">@style/OverflowStyle</item>
         <!-- Album and Artist Listener -->
         <item name="preferenceTheme">@style/preferenceTheme2</item>
 
     </style>
+
     <style name="preferenceTheme2" parent="PreferenceThemeOverlay.v14.Material">
         <item name="android:textColor">#ffffff</item>
         <item name="android:textColorSecondary">@color/grey0</item>
         <item name="android:textColorPrimary">#ffffff</item>
 
     </style>
+
     <style name="NoBorderButton" parent="@android:style/Widget.Material.Button.Borderless.Small">
         <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
     </style>

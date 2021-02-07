@@ -16,7 +16,6 @@ public class UriFilesUtils {
     private static final String DOWNLOADS_AUTHORITY = "com.android.providers.downloads.documents";
     private static final String MEDIA_AUTHORITY = "com.android.providers.media.documents";
 
-
     public static String getPathFromUri(Context context, Uri contentUri) {
         if ("file".equals(contentUri.getScheme())) {
             return contentUri.getPath();
@@ -68,7 +67,7 @@ public class UriFilesUtils {
 
     private static String getPathFromMediaStore(Context context, Uri uri, String id) {
         String[] projection = {MediaStore.MediaColumns.DATA};
-        String selection = MediaStore.MediaColumns._ID +  " = ?";
+        String selection = MediaStore.MediaColumns._ID + " = ?";
         String[] selectionArgs = {id};
 
         Cursor cur = context.getContentResolver().query(uri, projection, selection,
@@ -103,4 +102,5 @@ public class UriFilesUtils {
             }
         }
     }
+
 }

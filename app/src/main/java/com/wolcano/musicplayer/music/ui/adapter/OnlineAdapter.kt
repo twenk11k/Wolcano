@@ -32,16 +32,16 @@ import java.util.*
 
 class OnlineAdapter(
     private val activity: AppCompatActivity,
-    songOnlineList: ArrayList<SongOnline?>?
+    songOnlineList: ArrayList<SongOnline>?
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var songOnlineList: ArrayList<SongOnline?>? = null
+    private var songOnlineList: ArrayList<SongOnline>? = null
     private var showLoader = false
     private var downloadCount = 0
 
     init {
         if (songOnlineList == null) {
-            this.songOnlineList = ArrayList<SongOnline?>()
+            this.songOnlineList = ArrayList<SongOnline>()
         } else {
             this.songOnlineList = songOnlineList
         }
@@ -177,7 +177,7 @@ class OnlineAdapter(
 
 
     inner class ViewHolder(val binding: ItemSongOnlineBinding) :
-        RecyclerView.ViewHolder(binding.getRoot()),
+        RecyclerView.ViewHolder(binding.root),
         View.OnClickListener {
 
         override fun onClick(v: View) {
@@ -186,15 +186,15 @@ class OnlineAdapter(
             handler.postDelayed({
                 object : PlayModelLocal(activity, songOnlineList) {
                     override fun onPrepare() {}
-                    override fun onTaskDone(alist: List<Song>) {
+                    override fun onTaskDone(songList: List<Song>?) {
                         if (adapterPosition != -1) playAdd(
                             activity,
-                            alist,
-                            alist[adapterPosition]
+                            songList!!,
+                            songList[adapterPosition]
                         )
                     }
 
-                    override fun onTaskFail(e: java.lang.Exception) {
+                    override fun onTaskFail(e: Exception?) {
                         ToastUtils.show(activity.applicationContext, R.string.cannot_play)
                     }
                 }.onTask()
@@ -206,14 +206,14 @@ class OnlineAdapter(
         }
     }
 
-    inner class LoaderViewHolder(itemView: View?) : RecyclerView.ViewHolder(
-        itemView!!
+    inner class LoaderViewHolder(itemView: View) : RecyclerView.ViewHolder(
+        itemView
     ) {
         @BindView(R.id.progress_bar)
         var progressBar: ProgressBar? = null
 
         init {
-            ButterKnife.bind(this, itemView!!)
+            ButterKnife.bind(this, itemView)
         }
     }
 

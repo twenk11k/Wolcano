@@ -1,12 +1,15 @@
 package com.wolcano.musicplayer.music.mvp.presenter;
 
 import android.app.Activity;
+
 import androidx.fragment.app.Fragment;
+
 import com.wolcano.musicplayer.music.mvp.interactor.PlaylistInteractorImpl;
 import com.wolcano.musicplayer.music.mvp.interactor.interfaces.PlaylistInteractor;
 import com.wolcano.musicplayer.music.mvp.models.Playlist;
 import com.wolcano.musicplayer.music.mvp.presenter.interfaces.PlaylistPresenter;
 import com.wolcano.musicplayer.music.ui.fragment.FragmentPlaylist;
+
 import java.util.List;
 
 

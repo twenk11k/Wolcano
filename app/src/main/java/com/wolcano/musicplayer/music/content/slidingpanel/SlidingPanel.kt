@@ -34,7 +34,8 @@ import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
-class SlidingPanel(view: View, private val activity: Activity): OnServiceListener, View.OnClickListener {
+class SlidingPanel(view: View, private val activity: Activity) : OnServiceListener,
+    View.OnClickListener {
 
     var disposable: Disposable? = null
     private var placeholderDrawable: Drawable? = null
@@ -70,7 +71,7 @@ class SlidingPanel(view: View, private val activity: Activity): OnServiceListene
         if (getPlayMusic(activity.applicationContext) != null) {
             val contentURI = "content://media/external/audio/media/" + getPlayMusic(
                 activity.applicationContext
-            )!!.songId + "/albumart"
+            )?.songId + "/albumart"
             Picasso.get()
                 .load(contentURI)
                 .into(modelImage)
@@ -95,7 +96,7 @@ class SlidingPanel(view: View, private val activity: Activity): OnServiceListene
             PorterDuff.Mode.SRC_IN
         )
         play.setOnClickListener(this)
-        slidingUpPanelTop1?.setOnTouchListener(object : OnSwipeTouchListener(activity) {
+        slidingUpPanelTop1.setOnTouchListener(object : OnSwipeTouchListener(activity) {
             override fun onClick() {
                 super.onClick()
                 (activity as MainActivity).expandPanel()
@@ -157,7 +158,7 @@ class SlidingPanel(view: View, private val activity: Activity): OnServiceListene
 
     private fun loadBitmap(song: Song?, imageView: ImageView) {
         val bitmapObservable = Observable.fromCallable {
-            SongCover.get().loadBlurred(
+            SongCover.loadBlurred(
                 activity.applicationContext, song
             )
         }.throttleFirst(500, TimeUnit.MILLISECONDS)

@@ -1,25 +1,22 @@
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.wolcano.musicplayer.music.prefs.CustomPreferenceCategory
-        android:title="@string/pref_header_colors"
-        >
-        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEColorPreference
+    <com.wolcano.musicplayer.music.prefs.CustomPreferenceCategory android:title="@string/pref_header_colors">
+        <com.wolcano.musicplayer.music.prefs.ColorPreference
             android:key="primary_color"
             android:persistent="false"
             android:summary="@string/primary_color_desc"
+            android:title="@string/primary_color"
             app:allowDividerAbove="false"
-            app:allowDividerBelow="false"
-            android:title="@string/primary_color" />
+            app:allowDividerBelow="false" />
 
-        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEColorPreference
+        <com.wolcano.musicplayer.music.prefs.ColorPreference
             android:key="accent_color"
             android:persistent="false"
             android:summary="@string/accent_color_desc"
+            android:title="@string/accent_color"
             app:allowDividerAbove="false"
-            app:allowDividerBelow="true"
-            android:title="@string/accent_color" />
-
+            app:allowDividerBelow="true" />
 
     </com.wolcano.musicplayer.music.prefs.CustomPreferenceCategory>
 

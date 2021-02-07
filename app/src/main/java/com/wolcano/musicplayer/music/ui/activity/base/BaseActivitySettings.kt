@@ -13,10 +13,9 @@ import android.view.View
 import androidx.annotation.ColorInt
 import androidx.core.app.ActivityCompat
 import com.google.android.material.snackbar.Snackbar
-import com.kabouzeid.appthemehelper.ATH
-import com.kabouzeid.appthemehelper.ThemeStore
-import com.kabouzeid.appthemehelper.util.ColorUtil
 import com.wolcano.musicplayer.music.R
+import com.wolcano.musicplayer.music.utils.ATH
+import com.wolcano.musicplayer.music.utils.ColorUtils
 import com.wolcano.musicplayer.music.utils.Utils
 import com.wolcano.musicplayer.music.widgets.StatusBarView
 
@@ -114,7 +113,7 @@ open class BaseActivitySettings : DataBindingActivity() {
                             Snackbar.LENGTH_INDEFINITE
                         )
                             .setAction(R.string.action_grant) { requestPermissions() }
-                            .setActionTextColor(ThemeStore.accentColor(this))
+                            .setActionTextColor(Utils.getAccentColor(this))
                             .show()
                     } else {
                         // User has deny permission and checked never show permission dialog so you can redirect to Application settings page
@@ -133,7 +132,7 @@ open class BaseActivitySettings : DataBindingActivity() {
                                 intent.data = uri
                                 startActivity(intent)
                             }
-                            .setActionTextColor(ThemeStore.accentColor(this))
+                            .setActionTextColor(Utils.getAccentColor(this))
                             .show()
                     }
                     return
@@ -146,7 +145,7 @@ open class BaseActivitySettings : DataBindingActivity() {
     fun setStatusbarColor(color: Int, statusBarView: StatusBarView?) {
         if (statusBarView != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                statusBarView.setBackgroundColor(ColorUtil.darkenColor(color))
+                statusBarView.setBackgroundColor(ColorUtils.darkenColor(color))
                 setLightStatusbarAuto(color)
             } else {
                 statusBarView.setBackgroundColor(color)
@@ -159,7 +158,7 @@ open class BaseActivitySettings : DataBindingActivity() {
     }
 
     fun setLightStatusbarAuto(bgColor: Int) {
-        setLightStatusbar(ColorUtil.isColorLight(bgColor))
+        setLightStatusbar(ColorUtils.isColorLight(bgColor))
     }
 
     protected fun setDrawUnderStatusbar(drawUnderStatusbar: Boolean) {

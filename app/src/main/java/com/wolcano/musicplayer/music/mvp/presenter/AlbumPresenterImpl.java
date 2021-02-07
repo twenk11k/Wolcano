@@ -12,8 +12,6 @@ import com.wolcano.musicplayer.music.ui.fragment.library.FragmentAlbums;
 
 import java.util.List;
 
-import io.reactivex.disposables.Disposable;
-
 public class AlbumPresenterImpl implements AlbumPresenter, AlbumInteractor.OnGetAlbumListener {
 
     private Fragment fragment;

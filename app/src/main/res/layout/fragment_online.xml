@@ -63,7 +63,7 @@
             app:fastScrollThumbColor="@color/colorAccent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+        <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

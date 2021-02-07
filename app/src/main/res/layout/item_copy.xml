@@ -1,43 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
-        <variable name="copy"
-            type="com.wolcano.musicplayer.music.mvp.models.Copy"/>
+
+        <variable
+            name="copy"
+            type="com.wolcano.musicplayer.music.mvp.models.Copy" />
     </data>
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:foreground="@drawable/rect_selector"
-    android:descendantFocusability="blocksDescendants">
-
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/icon"
-        android:textColor="@color/grey0"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/md_listitem_margin_left"
-        android:layout_marginStart="@dimen/md_listitem_margin_left"
-        android:textSize="@dimen/md_listitem_textsize" />
-    <ImageView
-        android:id="@+id/icon"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:textColor="@color/grey0"
-        android:layout_centerVertical="true"
-        android:tint="@color/grey0"
-        android:layout_marginBottom="4dp"
-        android:layout_marginEnd="@dimen/md_dialog_frame_margin"
-        android:layout_marginRight="@dimen/md_dialog_frame_margin"
-        android:layout_marginTop="4dp"
-        />
+        android:descendantFocusability="blocksDescendants"
+        android:foreground="@drawable/rect_selector">
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/md_listitem_margin_left"
+            android:layout_marginLeft="@dimen/md_listitem_margin_left"
+            android:layout_toLeftOf="@+id/icon"
+            android:textColor="@color/grey0"
+            android:textSize="@dimen/md_listitem_textsize" />
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="@dimen/md_dialog_frame_margin_horizontal"
+            android:layout_marginBottom="4dp"
+            android:textColor="@color/grey0"
+            app:tint="@color/grey0" />
+
+    </RelativeLayout>
 
 </layout>

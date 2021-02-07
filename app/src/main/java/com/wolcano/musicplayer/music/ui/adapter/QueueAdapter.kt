@@ -14,7 +14,6 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.afollestad.materialdialogs.DialogAction
 import com.afollestad.materialdialogs.MaterialDialog
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Picasso.LoadedFrom
@@ -162,23 +161,12 @@ class QueueAdapter(
                                         ), """$title
 """.length, wholeStr.length, 0
                                     )
-                                    MaterialDialog.Builder(activity)
-                                        .title(spanTitle)
-                                        .content(content)
-                                        .positiveText(R.string.yes)
-                                        .negativeText(R.string.no)
-                                        .positiveColor(
-                                            Utils.getAccentColor(
-                                                activity.applicationContext
-                                            )
-                                        )
-                                        .negativeColor(
-                                            Utils.getAccentColor(
-                                                activity.applicationContext
-                                            )
-                                        )
-                                        .onPositive { dialog: MaterialDialog?, which: DialogAction? ->
-                                            if (activity == null) return@onPositive
+                                    MaterialDialog(activity).show {
+                                        title(text = spanTitle.toString())
+                                        message(content)
+                                        negativeButton(R.string.no)
+                                        positiveButton(R.string.yes) {
+                                            if (activity == null) return@positiveButton
                                             deleteFromRemotePlay(
                                                 activity,
                                                 songList.size,
@@ -195,10 +183,10 @@ class QueueAdapter(
                                             songList.removeAt(position)
                                             notifyItemRemoved(position)
                                             notifyItemRangeChanged(position, itemCount - position)
+
                                         }
-                                        .icon(albumart)
-                                        .limitIconToDefaultSize()
-                                        .show()
+                                        icon(drawable = albumart)
+                                    }
                                 }
                             })
                         }
@@ -296,4 +284,5 @@ class QueueAdapter(
             binding.root.setOnClickListener(::onClick)
         }
     }
+
 }

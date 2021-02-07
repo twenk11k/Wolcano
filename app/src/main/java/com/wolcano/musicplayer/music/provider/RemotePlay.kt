@@ -295,7 +295,7 @@ object RemotePlay {
     }
 
     fun getPlayMusic(context: Context): Song? {
-        return if (songList!!.isEmpty()) {
+        return if (songList == null || songList!!.isEmpty()) {
             null
         } else songList!![getRemotePlayPos(context)]
     }
@@ -333,6 +333,5 @@ object RemotePlay {
 
         override fun onServiceDisconnected(name: ComponentName) {}
     }
-
 
 }

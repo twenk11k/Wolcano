@@ -22,5 +22,4 @@ public class ModelBitmap {
         return id;
     }
 
-
 }
