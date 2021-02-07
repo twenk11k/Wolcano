@@ -112,6 +112,9 @@ class QueueActivity : BaseActivity(), OnItemClickListener, OnServiceListener, Pl
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menu_sleeptimer) {
             SleepTimerDialog().show(supportFragmentManager, "SET_SLEEP_TIMER")
+        } else if (item.itemId == android.R.id.home) {
+            onBackPressed()
+            return true
         }
         return super.onOptionsItemSelected(item)
     }
