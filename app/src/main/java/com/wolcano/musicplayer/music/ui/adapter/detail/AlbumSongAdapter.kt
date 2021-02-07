@@ -31,7 +31,7 @@ import kotlin.collections.ArrayList
 
 class AlbumSongAdapter(
     private val context: Context,
-    val songList: MutableList<Song>,
+    val songList: ArrayList<Song>?,
     private val playlistListener: PlaylistListener
 ) : RecyclerView.Adapter<AlbumSongAdapter.ViewHolder>() {
 
@@ -48,7 +48,7 @@ class AlbumSongAdapter(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.binding.song = songList[position]
+        holder.binding.song = songList?.get(position)
         holder.binding.executePendingBindings()
 
         val song: Song? = holder.binding.song
@@ -59,9 +59,10 @@ class AlbumSongAdapter(
             e.printStackTrace()
         }
 
-        holder.binding.line2.text = (if (duration.isEmpty()) "" else "$duration | ") + songList.get(
-            position
-        ).artist
+        holder.binding.line2.text =
+            (if (duration.isEmpty()) "" else "$duration | ") + songList?.get(
+                position
+            )?.artist
         holder.binding.line1.text = song?.title
         val albumUri = "content://media/external/audio/media/" + song?.songId + "/albumart"
         Picasso.get()
@@ -85,10 +86,10 @@ class AlbumSongAdapter(
                     when (item.itemId) {
                         R.id.copy_to_clipboard -> Dialogs.copyDialog(
                             context,
-                            songList[position]
+                            songList?.get(position)
                         )
                         R.id.delete -> {
-                            val song: Song = songList[position]
+                            val song: Song = songList!![position]
                             val title: CharSequence
                             val artist: CharSequence
                             title = song.title
@@ -163,12 +164,12 @@ class AlbumSongAdapter(
                         }
                         R.id.set_as_ringtone -> Utils.setRingtone(
                             context,
-                            songList[position].songId
+                            songList!![position].songId
                         )
                         R.id.add_to_playlist -> playlistListener.handlePlaylistDialog(
-                            songList[position]
+                            songList!![position]
                         )
-                        R.id.share -> Dialogs.shareDialog(context, songList.get(position), false)
+                        R.id.share -> Dialogs.shareDialog(context, songList?.get(position), false)
                         else -> {
                         }
                     }
@@ -181,7 +182,7 @@ class AlbumSongAdapter(
     }
 
     override fun getItemCount(): Int {
-        return songList.size
+        return songList!!.size
     }
 
     inner class ViewHolder(val binding: ItemSongBinding) : RecyclerView.ViewHolder(
@@ -189,7 +190,7 @@ class AlbumSongAdapter(
     ),
         View.OnClickListener {
         override fun onClick(v: View) {
-            val song: Song = songList[adapterPosition]
+            val song: Song = songList!![adapterPosition]
             playAdd(context, songList, song)
         }
 

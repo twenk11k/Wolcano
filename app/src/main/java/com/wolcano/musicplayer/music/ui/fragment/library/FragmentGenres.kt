@@ -90,7 +90,7 @@ class FragmentGenres : BaseFragmentInject(), GenreView, OnOffsetChangedListener 
                 DividerItemDecoration.VERTICAL
             )
         )
-        genrePresenter?.getGenres()
+        genrePresenter?.genres
     }
 
     private fun runLayoutAnimation(recyclerView: RecyclerView) {
@@ -134,7 +134,7 @@ class FragmentGenres : BaseFragmentInject(), GenreView, OnOffsetChangedListener 
         )
     }
 
-    override fun setGenreList(genreList: MutableList<Genre>?) {
+    override fun setGenreList(genreList: ArrayList<Genre>?) {
         if (genreList!!.size <= 30) {
             binding.recyclerview.setThumbEnabled(false)
         } else {

@@ -1,54 +1,39 @@
-package com.wolcano.musicplayer.music.mvp.presenter;
+package com.wolcano.musicplayer.music.mvp.presenter
 
-import android.app.Activity;
+import android.app.Activity
+import androidx.fragment.app.Fragment
+import com.wolcano.musicplayer.music.mvp.interactor.AlbumInteractorImpl
+import com.wolcano.musicplayer.music.mvp.interactor.interfaces.AlbumInteractor
+import com.wolcano.musicplayer.music.mvp.interactor.interfaces.AlbumInteractor.OnGetAlbumListener
+import com.wolcano.musicplayer.music.mvp.models.Album
+import com.wolcano.musicplayer.music.mvp.presenter.interfaces.AlbumPresenter
+import com.wolcano.musicplayer.music.ui.fragment.library.FragmentAlbums
 
-import androidx.fragment.app.Fragment;
+class AlbumPresenterImpl(
+    private val fragment: Fragment,
+    private val activity: Activity,
+    private val sort: String,
+    albumInteractor: AlbumInteractorImpl
+) : AlbumPresenter, OnGetAlbumListener {
+    private val albumInteractor: AlbumInteractor
+    override val albums: Unit
+        get() {
+            albumInteractor.getAlbum(activity, sort, this)
+        }
 
-import com.wolcano.musicplayer.music.mvp.interactor.AlbumInteractorImpl;
-import com.wolcano.musicplayer.music.mvp.interactor.interfaces.AlbumInteractor;
-import com.wolcano.musicplayer.music.mvp.models.Album;
-import com.wolcano.musicplayer.music.mvp.presenter.interfaces.AlbumPresenter;
-import com.wolcano.musicplayer.music.ui.fragment.library.FragmentAlbums;
-
-import java.util.List;
-
-public class AlbumPresenterImpl implements AlbumPresenter, AlbumInteractor.OnGetAlbumListener {
-
-    private Fragment fragment;
-    private Activity activity;
-    private String sort;
-    private AlbumInteractor albumInteractor;
-
-    public AlbumPresenterImpl(Fragment fragment, Activity activity, String sort, AlbumInteractorImpl albumInteractor) {
-
-        this.fragment = fragment;
-        this.activity = activity;
-        this.sort = sort;
-        this.albumInteractor = albumInteractor;
-
-    }
-
-    @Override
-    public void getAlbums() {
-        albumInteractor.getAlbum(activity,sort,this);
-
-    }
-
-    @Override
-    public void sendAlbum(List<Album> albumList) {
-        if(fragment instanceof FragmentAlbums){
-            FragmentAlbums fragmentAlbums = (FragmentAlbums) fragment;
-            fragmentAlbums.setAlbumList(albumList);
+    override fun sendAlbum(albumList: ArrayList<Album>?) {
+        if (fragment is FragmentAlbums) {
+            fragment.setAlbumList(albumList)
         }
     }
 
-    @Override
-    public void controlIfEmpty() {
-        if(fragment instanceof FragmentAlbums){
-            FragmentAlbums fragmentAlbums = (FragmentAlbums) fragment;
-            fragmentAlbums.controlIfEmpty();
+    override fun controlIfEmpty() {
+        if (fragment is FragmentAlbums) {
+            fragment.controlIfEmpty()
         }
     }
 
-
+    init {
+        this.albumInteractor = albumInteractor
+    }
 }

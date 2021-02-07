@@ -74,7 +74,7 @@ class FragmentSongs : BaseFragmentInject(), SongView, FilterListener, OnOffsetCh
             )
         )
 
-        songPresenter?.getSongs()
+        songPresenter?.songs
 
         return binding.root
     }
@@ -88,7 +88,7 @@ class FragmentSongs : BaseFragmentInject(), SongView, FilterListener, OnOffsetCh
         getLibraryFragment()?.addOnAppBarOffsetChangedListener(this)
     }
 
-    override fun setSongList(songList: MutableList<Song>?) {
+    override fun setSongList(songList: ArrayList<Song>?) {
         adapter = SongAdapter(
             (activity as MainActivity?)!!,
             songList!!,

@@ -1,57 +1,56 @@
-package com.wolcano.musicplayer.music.mvp.interactor;
+package com.wolcano.musicplayer.music.mvp.interactor
 
-import android.Manifest;
-import android.app.Activity;
+import android.Manifest
+import android.app.Activity
+import com.hwangjr.rxbus.annotation.Subscribe
+import com.hwangjr.rxbus.annotation.Tag
+import com.wolcano.musicplayer.music.R
+import com.wolcano.musicplayer.music.constants.Constants.SONG_LIBRARY
+import com.wolcano.musicplayer.music.mvp.DisposableManager.add
+import com.wolcano.musicplayer.music.mvp.interactor.interfaces.PlaylistInteractor
+import com.wolcano.musicplayer.music.mvp.interactor.interfaces.PlaylistInteractor.OnGetPlaylistListener
+import com.wolcano.musicplayer.music.mvp.models.Playlist
+import com.wolcano.musicplayer.music.utils.PermissionUtils
+import com.wolcano.musicplayer.music.utils.PermissionUtils.PermInterface
+import com.wolcano.musicplayer.music.utils.SongUtils.scanPlaylist
+import com.wolcano.musicplayer.music.utils.ToastUtils
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 
-import com.hwangjr.rxbus.annotation.Subscribe;
-import com.hwangjr.rxbus.annotation.Tag;
-import com.wolcano.musicplayer.music.R;
-import com.wolcano.musicplayer.music.mvp.DisposableManager;
-import com.wolcano.musicplayer.music.mvp.interactor.interfaces.PlaylistInteractor;
-import com.wolcano.musicplayer.music.mvp.models.Playlist;
-import com.wolcano.musicplayer.music.utils.PermissionUtils;
-import com.wolcano.musicplayer.music.utils.SongUtils;
-import com.wolcano.musicplayer.music.utils.ToastUtils;
+class PlaylistInteractorImpl : PlaylistInteractor {
 
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-
-import static com.wolcano.musicplayer.music.constants.Constants.SONG_LIBRARY;
-
-public class PlaylistInteractorImpl implements PlaylistInteractor {
-
-    @Subscribe(tags = {@Tag(SONG_LIBRARY)})
-    @Override
-    public void getPlaylists(Activity activity, String sort, OnGetPlaylistListener onGetPlaylistListener) {
-        PermissionUtils.with(activity)
-                .permissions(Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .result(new PermissionUtils.PermInterface() {
-                    @Override
-                    public void onPermGranted() {
-                        Observable<List<Playlist>> observable =
-                                Observable.fromCallable(() -> SongUtils.scanPlaylist(activity)).throttleFirst(500, TimeUnit.MILLISECONDS);
-
-                        Disposable disposable = observable.
-                                subscribeOn(Schedulers.io()).
-                                observeOn(AndroidSchedulers.mainThread()).
-                                subscribe(onGetPlaylistListener::sendPlaylists);
-
-                        DisposableManager.add(disposable);
+    @Subscribe(tags = [Tag(SONG_LIBRARY)])
+    override fun getPlaylists(
+        activity: Activity?,
+        sort: String?,
+        onGetPlaylistListener: OnGetPlaylistListener?
+    ) {
+        PermissionUtils.with(activity!!)
+            .permissions(
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+            .result(object : PermInterface {
+                override fun onPermGranted() {
+                    val observable =
+                        Observable.fromCallable { scanPlaylist(activity) }
+                            .throttleFirst(500, TimeUnit.MILLISECONDS)
+                    val disposable = observable.subscribeOn(Schedulers.io()).observeOn(
+                        AndroidSchedulers.mainThread()
+                    ).subscribe { playlistList: ArrayList<Playlist>? ->
+                        onGetPlaylistListener?.sendPlaylists(playlistList)
                     }
+                    add(disposable)
+                }
 
-                    @Override
-                    public void onPermUnapproved() {
-                        onGetPlaylistListener.controlIfEmpty();
-                        ToastUtils.show(activity.getApplicationContext(), R.string.no_perm_storage);
-                    }
-                })
-                .reqPerm();
+                override fun onPermUnapproved() {
+                    onGetPlaylistListener?.controlIfEmpty()
+                    ToastUtils.show(activity.applicationContext, R.string.no_perm_storage)
+                }
+            })
+            .reqPerm()
     }
 
 }

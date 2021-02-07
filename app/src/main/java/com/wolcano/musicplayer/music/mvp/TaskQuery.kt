@@ -1,38 +1,36 @@
+package com.wolcano.musicplayer.music.mvp
 
-package com.wolcano.musicplayer.music.mvp;
+import android.content.ContentResolver
+import android.database.Cursor
+import android.net.Uri
 
-import android.content.ContentResolver;
-import android.database.Cursor;
-import android.net.Uri;
+class TaskQuery(
+    private val uri: Uri,
+    private val projection: Array<String>,
+    private val selection: String,
+    private val selectionArgs: Array<String>?,
+    private val sort_order: String
+) {
+    fun runQuery(resolver: ContentResolver): Cursor? {
+        return queryResolver(resolver, uri, projection, selection, selectionArgs, sort_order)
+    }
 
-public class TaskQuery {
-
-	private final String[] projection;
-	private final String[] selectionArgs;
-	private final String selection;
-	private Uri uri;
-	private String sort_order;
-
-	public TaskQuery(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder)
-	{
-		this.uri = uri;
-		this.projection = projection;
-		this.selection = selection;
-		this.selectionArgs = selectionArgs;
-		this.sort_order = sortOrder;
-	}
-	private static Cursor queryResolver(ContentResolver resolver, Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder)
-	{
-		Cursor cursor = null;
-		try {
-			cursor = resolver.query(uri, projection, selection, selectionArgs, sortOrder);
-		} catch(SecurityException e) {
-			e.printStackTrace();
-		}
-		return cursor;
-	}
-	public Cursor runQuery(ContentResolver resolver)
-	{
-			return queryResolver(resolver, uri, projection, selection, selectionArgs, sort_order);
-	}
+    companion object {
+        private fun queryResolver(
+            resolver: ContentResolver,
+            uri: Uri,
+            projection: Array<String>,
+            selection: String,
+            selectionArgs: Array<String>?,
+            sortOrder: String
+        ): Cursor? {
+            var cursor: Cursor? = null
+            try {
+                cursor = resolver.query(uri, projection, selection, selectionArgs, sortOrder)
+            } catch (e: SecurityException) {
+                e.printStackTrace()
+            }
+            return cursor
+        }
+    }
 }

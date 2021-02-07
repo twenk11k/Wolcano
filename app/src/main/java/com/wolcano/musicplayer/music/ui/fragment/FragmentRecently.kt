@@ -41,7 +41,6 @@ import javax.inject.Inject
 class FragmentRecently : BaseFragmentInject(), SongView, PlaylistListener {
 
     private var adapter: RecentlyAddedAdapter? = null
-    private var color = 0
     private var disposable: Disposable? = null
     private lateinit var binding: FragmentBaseSongBinding
 
@@ -68,7 +67,7 @@ class FragmentRecently : BaseFragmentInject(), SongView, PlaylistListener {
                 DividerItemDecoration.VERTICAL
             )
         )
-        songPresenter?.getSongs()
+        songPresenter?.songs
 
         return binding.root
     }
@@ -154,7 +153,7 @@ class FragmentRecently : BaseFragmentInject(), SongView, PlaylistListener {
             }
     }
 
-    override fun setSongList(songList: MutableList<Song>?) {
+    override fun setSongList(songList: ArrayList<Song>?) {
         if (songList!!.size >= 60) {
             songList.subList(60, songList.size).clear()
         }

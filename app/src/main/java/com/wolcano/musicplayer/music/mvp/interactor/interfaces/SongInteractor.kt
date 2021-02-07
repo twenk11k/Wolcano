@@ -1,25 +1,42 @@
-package com.wolcano.musicplayer.music.mvp.interactor.interfaces;
+package com.wolcano.musicplayer.music.mvp.interactor.interfaces
 
-import android.app.Activity;
+import android.app.Activity
+import com.wolcano.musicplayer.music.mvp.models.Song
 
-import com.wolcano.musicplayer.music.mvp.models.Song;
+interface SongInteractor {
 
-import java.util.List;
-
-import io.reactivex.disposables.Disposable;
-
-public interface SongInteractor {
-
-    interface OnGetSongListener{
-        void sendSongList(List<Song> songList);
-        void controlIfEmpty();
+    interface OnGetSongListener {
+        fun sendSongList(songList: ArrayList<Song>?)
+        fun controlIfEmpty()
     }
 
-    void getSongs(Activity activity,String sort, OnGetSongListener onGetSongListener);
-    void getPlaylistSongs(Activity activity,String sort,long playlistID,OnGetSongListener onGetSongListener);
-    void getAlbumSongs(Activity activity,String sort,long albumID,OnGetSongListener onGetSongListener);
-    void getArtistSongs(Activity activity,String sort,long artistID,OnGetSongListener onGetSongListener);
-    void getGenreSongs(Activity activity,String sort,long genreID,OnGetSongListener onGetSongListener);
+    fun getSongs(activity: Activity?, sort: String?, onGetSongListener: OnGetSongListener?)
+    fun getPlaylistSongs(
+        activity: Activity?,
+        sort: String?,
+        playlistID: Long,
+        onGetSongListener: OnGetSongListener?
+    )
 
+    fun getAlbumSongs(
+        activity: Activity?,
+        sort: String?,
+        albumID: Long,
+        onGetSongListener: OnGetSongListener?
+    )
+
+    fun getArtistSongs(
+        activity: Activity?,
+        sort: String?,
+        artistID: Long,
+        onGetSongListener: OnGetSongListener?
+    )
+
+    fun getGenreSongs(
+        activity: Activity?,
+        sort: String?,
+        genreID: Long,
+        onGetSongListener: OnGetSongListener?
+    )
 
 }

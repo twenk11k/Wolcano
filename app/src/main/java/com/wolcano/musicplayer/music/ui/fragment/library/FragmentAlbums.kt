@@ -90,7 +90,7 @@ class FragmentAlbums : BaseFragmentInject(), AlbumView, OnOffsetChangedListener 
                 DividerItemDecoration.VERTICAL
             )
         )
-        albumPresenter?.getAlbums()
+        albumPresenter?.albums
     }
 
     private fun runLayoutAnimation(recyclerView: RecyclerView) {

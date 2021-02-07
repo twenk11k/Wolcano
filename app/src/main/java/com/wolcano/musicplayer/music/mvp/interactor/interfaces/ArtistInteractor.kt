@@ -1,19 +1,15 @@
-package com.wolcano.musicplayer.music.mvp.interactor.interfaces;
+package com.wolcano.musicplayer.music.mvp.interactor.interfaces
 
-import android.app.Activity;
+import android.app.Activity
+import com.wolcano.musicplayer.music.mvp.models.Artist
 
-import com.wolcano.musicplayer.music.mvp.models.Artist;
-import java.util.List;
-import io.reactivex.disposables.Disposable;
+interface ArtistInteractor {
 
-public interface ArtistInteractor {
-
-    interface OnGetArtistListener{
-        void sendArtist(List<Artist> artistList);
-        void controlIfEmpty();
+    interface OnGetArtistListener {
+        fun sendArtist(artistList: ArrayList<Artist>?)
+        fun controlIfEmpty()
     }
 
-    void getArtist(Activity activity, String sort, OnGetArtistListener onGetArtistListener);
-
+    fun getArtist(activity: Activity?, sort: String?, onGetArtistListener: OnGetArtistListener?)
 
 }

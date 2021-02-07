@@ -121,7 +121,7 @@ class FragmentArtistDetail : BaseFragment(), SongView, PlaylistListener {
             )
         )
 
-        songPresenter?.getArtistSongs()
+        songPresenter?.artistSongs
         setupToolbar()
     }
 
@@ -174,7 +174,7 @@ class FragmentArtistDetail : BaseFragment(), SongView, PlaylistListener {
             }
     }
 
-    override fun setSongList(songList: MutableList<Song>?) {
+    override fun setSongList(songList: ArrayList<Song>?) {
         if (songList!!.size <= 30) {
             binding.recyclerview.setThumbEnabled(false)
         } else {

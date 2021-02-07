@@ -1,19 +1,15 @@
-package com.wolcano.musicplayer.music.mvp.interactor.interfaces;
+package com.wolcano.musicplayer.music.mvp.interactor.interfaces
 
-import android.app.Activity;
+import android.app.Activity
+import com.wolcano.musicplayer.music.mvp.models.Genre
 
-import com.wolcano.musicplayer.music.mvp.models.Genre;
-import java.util.List;
-import io.reactivex.disposables.Disposable;
+interface GenreInteractor {
 
-
-public interface GenreInteractor {
-
-    interface OnGetGenreListener{
-        void sendGenres(List<Genre> genreList);
-        void controlIfEmpty();
+    interface OnGetGenreListener {
+        fun sendGenres(genreList: ArrayList<Genre>?)
+        fun controlIfEmpty()
     }
 
-    void getGenres(Activity activity, String sort, OnGetGenreListener OnGetGenreListener);
+    fun getGenres(activity: Activity?, sort: String?, OnGetGenreListener: OnGetGenreListener?)
 
 }

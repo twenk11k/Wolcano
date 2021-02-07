@@ -1,10 +1,7 @@
-package com.wolcano.musicplayer.music.mvp.view;
+package com.wolcano.musicplayer.music.mvp.view
 
-import com.wolcano.musicplayer.music.mvp.models.Album;
-import com.wolcano.musicplayer.music.mvp.models.Artist;
+import com.wolcano.musicplayer.music.mvp.models.Album
 
-import java.util.List;
-
-public interface AlbumView {
-    void setAlbumList(List<Album> albumList);
+interface AlbumView {
+    fun setAlbumList(albumList: MutableList<Album>?)
 }

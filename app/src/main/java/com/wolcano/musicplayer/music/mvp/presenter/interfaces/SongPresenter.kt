@@ -1,11 +1,9 @@
-package com.wolcano.musicplayer.music.mvp.presenter.interfaces;
+package com.wolcano.musicplayer.music.mvp.presenter.interfaces
 
-public interface SongPresenter {
-
-    void getSongs();
-    void getPlaylistSongs();
-    void getAlbumSongs();
-    void getArtistSongs();
-    void getGenreSongs();
-
+interface SongPresenter {
+    val songs: Unit
+    val playlistSongs: Unit
+    val albumSongs: Unit
+    val artistSongs: Unit
+    val genreSongs: Unit
 }

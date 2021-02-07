@@ -69,7 +69,7 @@ class FragmentArtists : BaseFragmentInject(), ArtistView, OnOffsetChangedListene
                 DividerItemDecoration.VERTICAL
             )
         )
-        artistPresenter?.getArtists()
+        artistPresenter?.artists
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

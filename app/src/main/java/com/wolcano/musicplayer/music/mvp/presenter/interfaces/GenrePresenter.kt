@@ -1,5 +1,5 @@
-package com.wolcano.musicplayer.music.mvp.presenter.interfaces;
+package com.wolcano.musicplayer.music.mvp.presenter.interfaces
 
-public interface GenrePresenter {
-    void getGenres();
+interface GenrePresenter {
+    val genres: Unit
 }

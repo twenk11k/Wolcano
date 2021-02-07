@@ -36,7 +36,6 @@ import com.wolcano.musicplayer.music.di.module.AlbumSongModule
 import com.wolcano.musicplayer.music.mvp.DisposableManager
 import com.wolcano.musicplayer.music.mvp.interactor.SongInteractorImpl
 import com.wolcano.musicplayer.music.mvp.listener.PlaylistListener
-import com.wolcano.musicplayer.music.mvp.models.Playlist
 import com.wolcano.musicplayer.music.mvp.models.Song
 import com.wolcano.musicplayer.music.mvp.presenter.interfaces.SongPresenter
 import com.wolcano.musicplayer.music.mvp.view.SongView
@@ -145,7 +144,7 @@ class FragmentAlbumDetail : BaseFragment(), SongView, PlaylistListener, View.OnC
         )
 
 
-        songPresenter?.getAlbumSongs()
+        songPresenter?.albumSongs
 
         showAlbumArt()
         setupToolbar()
@@ -304,7 +303,7 @@ class FragmentAlbumDetail : BaseFragment(), SongView, PlaylistListener, View.OnC
     }
 
     override fun handlePlaylistDialog(song: Song?) {
-        disposable = Observable.fromCallable<List<Playlist>> { SongUtils.scanPlaylist(activity) }
+        disposable = Observable.fromCallable { SongUtils.scanPlaylist(activity) }
             .subscribeOn(
                 Schedulers.io()
             ).observeOn(
@@ -318,7 +317,7 @@ class FragmentAlbumDetail : BaseFragment(), SongView, PlaylistListener, View.OnC
             }
     }
 
-    override fun setSongList(songList: MutableList<Song>) {
+    override fun setSongList(songList: ArrayList<Song>?) {
         adapter = AlbumSongAdapter(requireContext(), songList, this@FragmentAlbumDetail)
         recyclerView?.adapter = adapter
         runLayoutAnimation(recyclerView!!)
@@ -347,9 +346,11 @@ class FragmentAlbumDetail : BaseFragment(), SongView, PlaylistListener, View.OnC
             handlerFab = Handler()
             runnableFab = Runnable {
                 if (adapter != null) {
-                    if (adapter!!.songList.size != 0) {
-                        val song = adapter!!.songList[0]
-                        RemotePlay.playAdd(context!!, adapter!!.songList, song)
+                    if (adapter!!.songList?.size != 0) {
+                        val song = adapter!!.songList?.get(0)
+                        if (song != null) {
+                            RemotePlay.playAdd(context!!, adapter!!.songList!!, song)
+                        }
                     }
                 }
             }

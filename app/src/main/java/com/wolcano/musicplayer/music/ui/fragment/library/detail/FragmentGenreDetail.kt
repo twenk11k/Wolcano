@@ -124,7 +124,7 @@ class FragmentGenreDetail : BaseFragment(), SongView, PlaylistListener {
             )
         )
 
-        songPresenter?.getGenreSongs()
+        songPresenter?.genreSongs
         setupToolbar()
     }
 
@@ -138,11 +138,9 @@ class FragmentGenreDetail : BaseFragment(), SongView, PlaylistListener {
     }
 
     fun controlIfEmpty() {
-        if (binding.empty != null) {
-            binding.empty.setText(R.string.no_song)
-            binding.empty.visibility =
-                if (adapter == null || adapter?.itemCount == 0) View.VISIBLE else View.GONE
-        }
+        binding.empty.setText(R.string.no_song)
+        binding.empty.visibility =
+            if (adapter == null || adapter?.itemCount == 0) View.VISIBLE else View.GONE
     }
 
     override fun onDestroyView() {
@@ -156,10 +154,10 @@ class FragmentGenreDetail : BaseFragment(), SongView, PlaylistListener {
     }
 
     private fun setupToolbar() {
-        (getActivity() as AppCompatActivity?)!!.setSupportActionBar(binding.toolbar)
-        val ab = (getActivity() as AppCompatActivity?)!!.supportActionBar
-        ab!!.setDisplayHomeAsUpEnabled(true)
-        binding.toolbar.setNavigationOnClickListener { getActivity()!!.supportFragmentManager.popBackStack() }
+        (requireActivity() as AppCompatActivity?)!!.setSupportActionBar(binding.toolbar)
+        val ab = (requireActivity() as AppCompatActivity?)?.supportActionBar
+        ab?.setDisplayHomeAsUpEnabled(true)
+        binding.toolbar.setNavigationOnClickListener { requireActivity().supportFragmentManager.popBackStack() }
     }
 
     override fun handlePlaylistDialog(song: Song?) {
@@ -175,14 +173,14 @@ class FragmentGenreDetail : BaseFragment(), SongView, PlaylistListener {
             }
     }
 
-    override fun setSongList(songList: MutableList<Song>?) {
+    override fun setSongList(songList: ArrayList<Song>?) {
         if (songList!!.size <= 30) {
             binding.recyclerview.setThumbEnabled(false)
         } else {
             binding.recyclerview.setThumbEnabled(true)
         }
         adapter = RecentlyAddedAdapter(
-            (getActivity() as MainActivity?)!!,
+            (requireActivity() as MainActivity?)!!,
             songList,
             this@FragmentGenreDetail
         )

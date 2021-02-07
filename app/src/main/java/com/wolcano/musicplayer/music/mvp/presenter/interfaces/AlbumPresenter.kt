@@ -1,5 +1,5 @@
-package com.wolcano.musicplayer.music.mvp.presenter.interfaces;
+package com.wolcano.musicplayer.music.mvp.presenter.interfaces
 
-public interface AlbumPresenter {
-    void getAlbums();
+interface AlbumPresenter {
+    val albums: Unit
 }

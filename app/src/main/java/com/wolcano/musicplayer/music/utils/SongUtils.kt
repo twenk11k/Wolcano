@@ -17,7 +17,6 @@ import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.constants.Constants.SONG_ONLY_SELECTION
 import com.wolcano.musicplayer.music.mvp.models.*
 import java.io.File
-import java.util.*
 
 object SongUtils {
 
@@ -25,8 +24,8 @@ object SongUtils {
     private var mContentValuesCache: Array<ContentValues?>? = null
 
     @JvmStatic
-    fun scanSongs(context: Context?, sort: String?): List<Song> {
-        val alist: MutableList<Song> = ArrayList()
+    fun scanSongs(context: Context?, sort: String?): ArrayList<Song> {
+        val alist = ArrayList<Song>()
         if (context != null) {
             val cursor = context.contentResolver.query(
                 MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, arrayOf(
@@ -133,8 +132,8 @@ object SongUtils {
     }
 
     @JvmStatic
-    fun scanSongsforAlbum(context: Context?, sortOrder: String?, albumid: Long): List<Song> {
-        val alist: MutableList<Song> = ArrayList()
+    fun scanSongsforAlbum(context: Context?, sortOrder: String?, albumid: Long): ArrayList<Song> {
+        val alist = ArrayList<Song>()
         if (context != null) {
             val selection = "is_music=1 AND title != '' AND album_id=$albumid"
             val cursor = context.contentResolver.query(
@@ -195,8 +194,8 @@ object SongUtils {
     }
 
     @JvmStatic
-    fun scanSongsforArtist(context: Context?, sort: String?, artistID: Long): List<Song> {
-        val alist: MutableList<Song> = ArrayList()
+    fun scanSongsforArtist(context: Context?, sort: String?, artistID: Long): ArrayList<Song> {
+        val alist = ArrayList<Song>()
         if (context != null) {
             val selection = "is_music=1 AND title != '' AND artist_id=$artistID"
             val cursor = context.contentResolver.query(
@@ -257,8 +256,8 @@ object SongUtils {
     }
 
     @JvmStatic
-    fun scanSongsforGenre(context: Context?, sort: String?, genreID: Long): List<Song> {
-        val alist: MutableList<Song> = ArrayList()
+    fun scanSongsforGenre(context: Context?, sort: String?, genreID: Long): ArrayList<Song> {
+        val alist = ArrayList<Song>()
         if (context != null) {
             val selection = "is_music=1 AND title != '' AND genre_id=$genreID"
             val cursor = context.contentResolver.query(
@@ -323,8 +322,8 @@ object SongUtils {
     }
 
     @JvmStatic
-    fun scanSongsforPlaylist(context: Context?, sort: String?, playlistID: Long): List<Song> {
-        val alist: MutableList<Song> = ArrayList()
+    fun scanSongsforPlaylist(context: Context?, sort: String?, playlistID: Long): ArrayList<Song> {
+        val alist = ArrayList<Song>()
         if (context != null) {
             val mSelection = StringBuilder()
             mSelection.append(MediaStore.Audio.AudioColumns.IS_MUSIC + "=1")
@@ -392,8 +391,8 @@ object SongUtils {
     }
 
     @JvmStatic
-    fun scanPlaylist(context: Context?): List<Playlist> {
-        val playlistList: MutableList<Playlist> = ArrayList()
+    fun scanPlaylist(context: Context?): ArrayList<Playlist> {
+        val playlistList = ArrayList<Playlist>()
         if (context != null) {
             val cursor = context.contentResolver.query(
                 Playlists.EXTERNAL_CONTENT_URI, arrayOf(
@@ -663,8 +662,8 @@ object SongUtils {
     }
 
     @JvmStatic
-    fun scanGenre(context: Context?): List<Genre> {
-        val genreList: MutableList<Genre> = ArrayList()
+    fun scanGenre(context: Context?): ArrayList<Genre> {
+        val genreList = ArrayList<Genre>()
         if (context != null) {
             val cursor = context.contentResolver.query(
                 MediaStore.Audio.Genres.EXTERNAL_CONTENT_URI, arrayOf(
@@ -697,8 +696,8 @@ object SongUtils {
     }
 
     @JvmStatic
-    fun scanArtists(context: Context?): List<Artist> {
-        val artists: MutableList<Artist> = ArrayList()
+    fun scanArtists(context: Context?): ArrayList<Artist> {
+        val artists = ArrayList<Artist>()
         if (context != null) {
             val cursor = context.contentResolver.query(
                 MediaStore.Audio.Artists.EXTERNAL_CONTENT_URI, arrayOf(
@@ -724,8 +723,8 @@ object SongUtils {
     }
 
     @JvmStatic
-    fun scanAlbums(context: Context?): List<Album> {
-        val albums: MutableList<Album> = ArrayList()
+    fun scanAlbums(context: Context?): ArrayList<Album> {
+        val albums = ArrayList<Album>()
         if (context != null) {
             val cursor = context.contentResolver.query(
                 MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI, arrayOf(

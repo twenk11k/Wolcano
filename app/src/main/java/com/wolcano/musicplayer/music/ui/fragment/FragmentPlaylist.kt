@@ -34,7 +34,6 @@ import javax.inject.Inject
 class FragmentPlaylist : BaseFragmentInject(), PlaylistView {
 
     private var adapter: PlaylistAdapter? = null
-    private var color = 0
     private lateinit var binding: FragmentBaseSongBinding
 
     var playlistPresenter: PlaylistPresenter? = null @Inject set
@@ -60,7 +59,7 @@ class FragmentPlaylist : BaseFragmentInject(), PlaylistView {
             )
         )
 
-        playlistPresenter?.getPlaylists()
+        playlistPresenter?.playlists
 
         return binding.root
     }

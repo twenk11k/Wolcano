@@ -130,7 +130,7 @@ class FragmentPlaylistDetail : BaseFragment(), SongView, PlaylistListener {
 
         binding.recyclerview.adapter = adapter
 
-        songPresenter!!.getPlaylistSongs()
+        songPresenter!!.playlistSongs
         setupToolbar()
     }
 
@@ -179,7 +179,7 @@ class FragmentPlaylistDetail : BaseFragment(), SongView, PlaylistListener {
         }
     }
 
-    override fun setSongList(songList: MutableList<Song>?) {
+    override fun setSongList(songList: ArrayList<Song>?) {
         if (songList!!.size <= 30) {
             binding.recyclerview.setThumbEnabled(false)
         } else {

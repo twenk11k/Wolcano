@@ -1,13 +1,9 @@
-package com.wolcano.musicplayer.music.mvp.presenter.interfaces;
+package com.wolcano.musicplayer.music.mvp.presenter.interfaces
 
+import com.wolcano.musicplayer.music.mvp.view.BaseView
 
-import com.wolcano.musicplayer.music.mvp.view.BaseView;
-
-public interface BasePresenter<T extends BaseView>{
-
-    void attachView(T view);
-
-    void subscribe();
-
-    void unsubscribe();
+interface BasePresenter<T : BaseView?> {
+    fun attachView(view: T)
+    fun subscribe()
+    fun unsubscribe()
 }
