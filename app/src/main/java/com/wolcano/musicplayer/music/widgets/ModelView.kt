@@ -22,7 +22,6 @@ class ModelView : View, AnimatorUpdateListener {
     private var isPlaying = false
     private val discPoint = Point()
     private val modelCoverPnt = Point()
-    private lateinit var discBitmap: Bitmap
     private var aboveLine: Drawable? = null
     private val helperCntPnt = Point()
     private val modelCoverCntPnt = Point()
@@ -38,8 +37,9 @@ class ModelView : View, AnimatorUpdateListener {
     private var playAnim: ValueAnimator? = null
     private var pauseAnim: ValueAnimator? = null
     private var discRtt = 0.0f
+    private var discBitmap: Bitmap? = null
     private var modelBitmap: Bitmap? = null
-    private lateinit var helperBitmap: Bitmap
+    private var helperBitmap: Bitmap? = null
     private val delay = 50L
 
     constructor(context: Context) : super(context, null)
@@ -89,13 +89,15 @@ class ModelView : View, AnimatorUpdateListener {
         modelB?.setBounds(
             discPoint.x - modelBWidth,
             discPoint.y - modelBWidth,
-            discPoint.x + discBitmap.width + modelBWidth,
-            discPoint.y + discBitmap.height + modelBWidth
+            discPoint.x + discBitmap!!.width + modelBWidth,
+            discPoint.y + discBitmap!!.height + modelBWidth
         )
         modelB?.draw(canvas)
         discMatrix.setRotate(discRtt, discCntPnt.x.toFloat(), discCntPnt.y.toFloat())
         discMatrix.preTranslate(discPoint.x.toFloat(), discPoint.y.toFloat())
-        canvas.drawBitmap(discBitmap, discMatrix, null)
+        if (discBitmap != null) {
+            canvas.drawBitmap(discBitmap, discMatrix, null)
+        }
         modelMatrix.setRotate(discRtt, modelCoverCntPnt.x.toFloat(), modelCoverCntPnt.y.toFloat())
         modelMatrix.preTranslate(modelCoverPnt.x.toFloat(), modelCoverPnt.y.toFloat())
         if (modelBitmap != null) {
@@ -103,7 +105,9 @@ class ModelView : View, AnimatorUpdateListener {
         }
         helperMatrix.setRotate(helperRtte, helperCntPnt.x.toFloat(), helperCntPnt.y.toFloat())
         helperMatrix.preTranslate(helperPnt.x.toFloat(), helperPnt.y.toFloat())
-        canvas.drawBitmap(helperBitmap, helperMatrix, null)
+        if (helperBitmap != null) {
+            canvas.drawBitmap(helperBitmap, helperMatrix, null)
+        }
     }
 
 
@@ -116,15 +120,15 @@ class ModelView : View, AnimatorUpdateListener {
         discBitmap = ImageUtils.chgImage(discBitmap, unit * 6, unit * 6)
         modelBitmap = ImageUtils.chgImage(modelBitmap, unit * 4, unit * 4)
         helperBitmap = ImageUtils.chgImage(helperBitmap, unit * 2, unit * 3)
-        val discOffsetY = helperBitmap.height / 2
-        discPoint.x = (width - discBitmap.width) / 2
+        val discOffsetY = helperBitmap!!.height / 2
+        discPoint.x = (width - discBitmap!!.width) / 2
         discPoint.y = discOffsetY
         modelCoverPnt.x = (width - modelBitmap?.width!!) / 2
-        modelCoverPnt.y = discOffsetY + (discBitmap.height - modelBitmap?.height!!) / 2
-        helperPnt.x = width / 2 - helperBitmap.width / 6
-        helperPnt.y = -helperBitmap.width / 6
+        modelCoverPnt.y = discOffsetY + (discBitmap!!.height - modelBitmap?.height!!) / 2
+        helperPnt.x = width / 2 - helperBitmap?.width!! / 6
+        helperPnt.y = -helperBitmap?.width!! / 6
         discCntPnt.x = width / 2
-        discCntPnt.y = discBitmap.height / 2 + discOffsetY
+        discCntPnt.y = discBitmap!!.height / 2 + discOffsetY
         modelCoverCntPnt.x = discCntPnt.x
         modelCoverCntPnt.y = discCntPnt.y
         helperCntPnt.x = discCntPnt.x

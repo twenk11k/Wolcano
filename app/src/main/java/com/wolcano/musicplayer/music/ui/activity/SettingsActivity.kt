@@ -91,12 +91,12 @@ class SettingsActivity : BaseActivitySettings() {
             super.onViewCreated(view, savedInstanceState)
             listView.setPadding(0, 0, 0, 0)
             invalidateSettings()
-            PrefUtils.getInstance(requireActivity()).registerOnSharedPreferenceChangedListener(this)
+            PrefUtils(requireActivity()).registerOnSharedPreferenceChangedListener(this)
         }
 
         override fun onDestroyView() {
             super.onDestroyView()
-            PrefUtils.getInstance(requireActivity())
+            PrefUtils(requireActivity())
                 .unregisterOnSharedPreferenceChangedListener(this)
         }
 

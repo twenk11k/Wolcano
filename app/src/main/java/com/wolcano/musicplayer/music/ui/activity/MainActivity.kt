@@ -16,6 +16,7 @@ import android.view.animation.DecelerateInterpolator
 import android.widget.*
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.afollestad.materialdialogs.MaterialDialog
@@ -200,16 +201,18 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
     private fun startPlaybackFromUri(songUri: Uri) {
         val songPath = UriFilesUtils.getPathFromUri(this, songUri)
-        val intentList: List<Song?> = buildQueueFromFileUri(songUri)
-        for (i in intentList.indices) {
-            if (intentList[i]!!.path == songPath) {
-                playAdd(context, intentList, intentList[i]!!)
-                break
+        val intentList: List<Song?>? = buildQueueFromFileUri(songUri)
+        if (intentList != null) {
+            for (i in intentList.indices) {
+                if (intentList[i]!!.path == songPath) {
+                    playAdd(context, intentList, intentList[i]!!)
+                    break
+                }
             }
         }
     }
 
-    private fun buildQueueFromFileUri(fileUri: Uri): List<Song?> {
+    private fun buildQueueFromFileUri(fileUri: Uri): List<Song?>? {
         val path = UriFilesUtils.getPathFromUri(this, fileUri)
         if (path == null || path.trim { it <= ' ' }.isEmpty()) {
             return emptyList()
@@ -254,18 +257,16 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     }
 
     private fun initViews2() {
-        if (binding.navView != null) {
-            NavigationViewUtils.setItemIconColors(
-                binding.navView,
-                ColorUtils.getOppositeColor(Utils.getPrimaryColor(this)),
-                Utils.getAccentColor(this)
-            )
-            NavigationViewUtils.setItemTextColors(
-                binding.navView,
-                ColorUtils.getOppositeColor(Utils.getPrimaryColor(this)),
-                Utils.getAccentColor(this)
-            )
-        }
+        NavigationViewUtils.setItemIconColors(
+            binding.navView,
+            ColorUtils.getOppositeColor(Utils.getPrimaryColor(this)),
+            Utils.getAccentColor(this)
+        )
+        NavigationViewUtils.setItemTextColors(
+            binding.navView,
+            ColorUtils.getOppositeColor(Utils.getPrimaryColor(this)),
+            Utils.getAccentColor(this)
+        )
         binding.navView.setBackgroundColor(Utils.getPrimaryColor(context))
         binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.seekbar.progressDrawable.setColorFilter(
             Utils.getAccentColor(this),
@@ -277,11 +278,10 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             ), PorterDuff.Mode.SRC_IN
         )
         binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.queue.setColorFilter(
-            resources.getColor(
-                R.color.grey0
-            )
+            ContextCompat.getColor(this, R.color.grey0)
         )
-        placeholder = resources.getDrawable(R.drawable.album_default)
+
+        placeholder = ContextCompat.getDrawable(this, R.drawable.album_default)
         placeholder?.setColorFilter(Utils.getPrimaryColor(this), PorterDuff.Mode.MULTIPLY)
     }
 
@@ -344,7 +344,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     }
 
     fun getPanelState(): PanelState? {
-        return if (binding.slidinguppanel.slidinguppanellayout == null) null else binding.slidinguppanel.slidinguppanellayout!!.panelState
+        return binding.slidinguppanel.slidinguppanellayout.panelState
     }
 
     fun setSlidingPanelLayout() {

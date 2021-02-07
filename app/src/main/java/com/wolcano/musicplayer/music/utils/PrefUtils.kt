@@ -1,36 +1,20 @@
-package com.wolcano.musicplayer.music.utils;
+package com.wolcano.musicplayer.music.utils
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import androidx.annotation.NonNull;
+import android.content.Context
+import android.content.SharedPreferences
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener
+import android.preference.PreferenceManager
 
-public class PrefUtils {
+class PrefUtils constructor(context: Context) {
 
-    private static PrefUtils instance;
+    private val prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
-    private final SharedPreferences prefs;
-
-    public static PrefUtils getInstance(@NonNull final Context context) {
-        if (instance == null) {
-            instance = new PrefUtils(context);
-        }
-        return instance;
+    fun unregisterOnSharedPreferenceChangedListener(sharedPreferenceChangeListener: OnSharedPreferenceChangeListener?) {
+        prefs.unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
     }
 
-
-    private PrefUtils(@NonNull final Context context) {
-        prefs = PreferenceManager.getDefaultSharedPreferences(context);
+    fun registerOnSharedPreferenceChangedListener(sharedPreferenceChangeListener: OnSharedPreferenceChangeListener?) {
+        prefs.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener)
     }
-
-    public void unregisterOnSharedPreferenceChangedListener(SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener) {
-        prefs.unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
-    }
-
-    public void registerOnSharedPreferenceChangedListener(SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener) {
-        prefs.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
-    }
-
-
 
 }

@@ -27,7 +27,6 @@ import static com.wolcano.musicplayer.music.constants.Constants.SONG_LIBRARY;
 
 public class SongInteractorImpl implements SongInteractor {
 
-
     @Subscribe(tags = {@Tag(SONG_LIBRARY)})
     @Override
     public void getSongs(Activity activity, String sort, OnGetSongListener onGetSongListener) {
@@ -60,13 +59,11 @@ public class SongInteractorImpl implements SongInteractor {
 
                 })
                 .reqPerm();
-
     }
 
     @Subscribe(tags = {@Tag(SONG_LIBRARY)})
     @Override
     public void getPlaylistSongs(Activity activity, String sort, long playlistID, OnGetSongListener onGetSongListener) {
-
 
         PermissionUtils.with(activity)
                 .permissions(Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -79,7 +76,7 @@ public class SongInteractorImpl implements SongInteractor {
                                 Observable.fromCallable(() -> SongUtils.scanSongsforPlaylist(activity, sort, playlistID))
                                         .throttleFirst(500, TimeUnit.MILLISECONDS)
                                         .doOnError(throwable -> {
-                                            Log.e(ERROR_TAG,"Message: "+throwable.getMessage());
+                                            Log.e(ERROR_TAG, "Message: " + throwable.getMessage());
                                         });
 
                         Disposable disposable = observable.
