@@ -10,7 +10,7 @@ import android.widget.*
 import com.afollestad.materialdialogs.MaterialDialog
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.mvp.listener.SetSearchQuery
-import com.wolcano.musicplayer.music.widgets.MaterialSearchLast
+import com.wolcano.musicplayer.music.widgets.MaterialSearchView
 import java.util.*
 
 class SearchAdapter(
@@ -23,7 +23,7 @@ class SearchAdapter(
     private var isFirst: Boolean,
     private var callback: SetSearchQuery?,
     private var textColor: Int,
-    private var materialSearchLast: MaterialSearchLast?
+    private var materialSearchView: MaterialSearchView?
 ) : BaseAdapter(), Filterable {
 
     private var searchList: ArrayList<String>? = null
@@ -129,7 +129,7 @@ class SearchAdapter(
         viewHolder.imageView2?.setOnClickListener {
             isFirst = false
             callback?.onSearchQuery(position, false)
-            materialSearchLast?.showKeyboard()
+            materialSearchView?.showKeyboard()
         }
         return convertView
     }

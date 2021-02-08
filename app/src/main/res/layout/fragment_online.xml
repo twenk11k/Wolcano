@@ -32,7 +32,7 @@
                 app:popupTheme="@style/AppTheme.PopupOverlay"
                 app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-            <com.wolcano.musicplayer.music.widgets.MaterialSearchLast
+            <com.wolcano.musicplayer.music.widgets.MaterialSearchView
                 android:id="@+id/material_search_last"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />

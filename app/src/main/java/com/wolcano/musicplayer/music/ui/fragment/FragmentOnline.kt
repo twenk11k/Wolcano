@@ -43,7 +43,7 @@ import com.wolcano.musicplayer.music.utils.Utils.setLastSearch
 import com.wolcano.musicplayer.music.utils.Utils.setLastSingleSearch
 import com.wolcano.musicplayer.music.utils.Utils.setSearchQuery
 import com.wolcano.musicplayer.music.utils.Utils.setUpFastScrollRecyclerViewColor
-import com.wolcano.musicplayer.music.widgets.MaterialSearchLast
+import com.wolcano.musicplayer.music.widgets.MaterialSearchView
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -270,7 +270,8 @@ class FragmentOnline : BaseFragment(), SetSearchQuery {
             }
         })
         binding.materialSearchLast.setOnQueryTextListener(object :
-            MaterialSearchLast.OnQueryTextListener {
+            MaterialSearchView.OnQueryTextListener {
+
             override fun onQueryTextSubmit(query: String): Boolean {
                 val getLast = getLastSearch(
                     requireContext()
@@ -353,7 +354,7 @@ class FragmentOnline : BaseFragment(), SetSearchQuery {
             override fun onQueryTextChange(newText: String): Boolean {
                 if (newText == "") {
                     val arr: Array<String> = suggestionList!!.toTypedArray()
-                    MaterialSearchLast.isEmpty = true
+                    MaterialSearchView.isEmpty = true
                     val str = getLastSearch(
                         requireContext()
                     )
@@ -372,7 +373,7 @@ class FragmentOnline : BaseFragment(), SetSearchQuery {
                             colorTint
                         )
                     }
-                    MaterialSearchLast.isEmpty = false
+                    MaterialSearchView.isEmpty = false
                 } else {
                     binding.materialSearchLast.setSuggestions(
                         suggestionListStringsFromRemove,
@@ -395,6 +396,8 @@ class FragmentOnline : BaseFragment(), SetSearchQuery {
                 }
                 return false
             }
+
+
         })
     }
 
@@ -462,7 +465,7 @@ class FragmentOnline : BaseFragment(), SetSearchQuery {
         }
         suggestionListStringsFromRemove = suggestionList!!.toTypedArray()
         lastSearchesStringsFromRemove = lastSearches!!.toTypedArray()
-        MaterialSearchLast.isRemoved = true
+        MaterialSearchView.isRemoved = true
         val sb = java.lang.StringBuilder()
         for (i in suggestionListStringsFromRemove!!.indices) {
             sb.append(suggestionListStringsFromRemove!![i]).append(",")
@@ -473,7 +476,7 @@ class FragmentOnline : BaseFragment(), SetSearchQuery {
         }
         setSearchQuery(requireContext(), sb.toString())
         setLastSearch(requireContext(), sb2.toString())
-        MaterialSearchLast.isRemoved = false
+        MaterialSearchView.isRemoved = false
     }
 
 
