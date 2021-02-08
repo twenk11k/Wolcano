@@ -16,7 +16,6 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -158,12 +157,9 @@ public class MaterialSearchLast extends FrameLayout implements Filter.FilterList
     }
 
     private void initSearchView() {
-        searchSrcTextView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                onSubmitQuery();
-                return true;
-            }
+        searchSrcTextView.setOnEditorActionListener((v, actionId, event) -> {
+            onSubmitQuery();
+            return true;
         });
 
         searchSrcTextView.addTextChangedListener(new TextWatcher() {
@@ -197,8 +193,7 @@ public class MaterialSearchLast extends FrameLayout implements Filter.FilterList
     }
 
     public String getListPosSend(int position) {
-        String gonder = suggestionListView.getAdapter().getItem(position).toString();
-        return gonder;
+        return suggestionListView.getAdapter().getItem(position).toString();
     }
 
     public void startFilter(CharSequence s) {

@@ -1,59 +1,43 @@
-package com.wolcano.musicplayer.music.ui.adapter.statepager;
+package com.wolcano.musicplayer.music.ui.adapter.statepager
 
-import android.content.Context;
+import android.content.Context
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentStatePagerAdapter
+import com.wolcano.musicplayer.music.R
+import com.wolcano.musicplayer.music.ui.fragment.library.FragmentAlbums
+import com.wolcano.musicplayer.music.ui.fragment.library.FragmentArtists
+import com.wolcano.musicplayer.music.ui.fragment.library.FragmentGenres
+import com.wolcano.musicplayer.music.ui.fragment.library.FragmentSongs
 
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
+class LibraryFragmentPagerAdapter(private val context: Context, fm: FragmentManager) :
+    FragmentStatePagerAdapter(
+        fm
+    ) {
 
-import com.wolcano.musicplayer.music.R;
-import com.wolcano.musicplayer.music.ui.fragment.library.FragmentAlbums;
-import com.wolcano.musicplayer.music.ui.fragment.library.FragmentArtists;
-import com.wolcano.musicplayer.music.ui.fragment.library.FragmentGenres;
-import com.wolcano.musicplayer.music.ui.fragment.library.FragmentSongs;
-
-
-public class LibraryFragmentPagerAdapter extends FragmentStatePagerAdapter {
-
-    private Context context;
-
-    public LibraryFragmentPagerAdapter(Context context, FragmentManager fm) {
-        super(fm);
-        this.context = context;
-    }
-
-    @Override
-    public Fragment getItem(int position) {
-        if (position == 0) {
-            return new FragmentSongs();
+    override fun getItem(position: Int): Fragment {
+        return if (position == 0) {
+            FragmentSongs()
         } else if (position == 1) {
-            return new FragmentAlbums();
+            FragmentAlbums()
         } else if (position == 2) {
-            return new FragmentArtists();
+            FragmentArtists()
         } else {
-            return new FragmentGenres();
+            FragmentGenres()
         }
     }
 
-
-    @Override
-    public int getCount() {
-        return 4;
+    override fun getCount(): Int {
+        return 4
     }
 
-    @Override
-    public CharSequence getPageTitle(int position) {
-        switch (position) {
-            case 0:
-                return context.getString(R.string.songs);
-            case 1:
-                return context.getString(R.string.albums);
-            case 2:
-                return context.getString(R.string.artists);
-            case 3:
-                return context.getString(R.string.genres);
-            default:
-                return null;
+    override fun getPageTitle(position: Int): CharSequence? {
+        return when (position) {
+            0 -> context.getString(R.string.songs)
+            1 -> context.getString(R.string.albums)
+            2 -> context.getString(R.string.artists)
+            3 -> context.getString(R.string.genres)
+            else -> null
         }
     }
 

@@ -158,7 +158,7 @@ class FragmentGenres : BaseFragmentInject(), GenreView, OnOffsetChangedListener 
 
         val genreComponent = DaggerGenreComponent.builder()
             .applicationComponent(applicationComponent)
-            .genreModule(GenreModule(this, this, activity, sort, GenreInteractorImpl()))
+            .genreModule(GenreModule(this, this, requireActivity(), sort, GenreInteractorImpl()))
             .build()
 
         genreComponent.inject(this)

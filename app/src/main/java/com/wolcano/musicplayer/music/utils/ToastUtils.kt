@@ -1,23 +1,25 @@
-package com.wolcano.musicplayer.music.utils;
+package com.wolcano.musicplayer.music.utils
 
-import android.content.Context;
-import android.widget.Toast;
+import android.annotation.SuppressLint
+import android.content.Context
+import android.widget.Toast
 
-public class ToastUtils {
+object ToastUtils {
 
-    private static Toast toastMsg;
+    private var toastMsg: Toast? = null
 
-    public static void show(Context context, String str) {
+    @SuppressLint("ShowToast")
+    fun show(context: Context?, str: String?) {
         if (toastMsg == null) {
-            toastMsg = Toast.makeText(context, str, Toast.LENGTH_SHORT);
+            toastMsg = Toast.makeText(context, str, Toast.LENGTH_SHORT)
         } else {
-            toastMsg.setText(str);
+            toastMsg!!.setText(str)
         }
-        toastMsg.show();
+        toastMsg?.show()
     }
 
-    public static void show(Context context, int id) {
-        show(context, context.getString(id));
+    fun show(context: Context, id: Int) {
+        show(context, context.getString(id))
     }
 
 }

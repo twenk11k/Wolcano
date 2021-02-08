@@ -209,7 +209,7 @@ class FragmentPlaylistDetail : BaseFragment(), SongView, PlaylistListener {
                 PlaylistSongModule(
                     this,
                     this,
-                    getActivity(),
+                    requireActivity(),
                     sort,
                     playlistID,
                     SongInteractorImpl()

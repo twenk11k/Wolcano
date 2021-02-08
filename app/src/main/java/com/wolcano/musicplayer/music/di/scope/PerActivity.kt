@@ -1,11 +1,7 @@
-package com.wolcano.musicplayer.music.di.scope;
+package com.wolcano.musicplayer.music.di.scope
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
-import javax.inject.Scope;
+import javax.inject.Scope
 
 @Scope
-@Retention(RetentionPolicy.RUNTIME)
-public @interface PerActivity {
-}
+@kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
+annotation class PerActivity 

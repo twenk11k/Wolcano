@@ -331,7 +331,7 @@ class FragmentAlbumDetail : BaseFragment(), SongView, PlaylistListener, View.OnC
                 AlbumSongModule(
                     this,
                     this,
-                    activity,
+                    requireActivity(),
                     sort,
                     albumID,
                     SongInteractorImpl()

@@ -157,7 +157,7 @@ class FragmentArtists : BaseFragmentInject(), ArtistView, OnOffsetChangedListene
 
         val artistComponent = DaggerArtistComponent.builder()
             .applicationComponent(applicationComponent)
-            .artistModule(ArtistModule(this, this, activity, sort, ArtistInteractorImpl()))
+            .artistModule(ArtistModule(this, this, requireActivity(), sort, ArtistInteractorImpl()))
             .build()
 
         artistComponent.inject(this)

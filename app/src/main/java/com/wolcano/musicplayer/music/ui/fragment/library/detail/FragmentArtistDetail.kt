@@ -201,7 +201,7 @@ class FragmentArtistDetail : BaseFragment(), SongView, PlaylistListener {
                 ArtistSongModule(
                     this,
                     this,
-                    activity,
+                    requireActivity(),
                     sort,
                     artistId,
                     SongInteractorImpl()

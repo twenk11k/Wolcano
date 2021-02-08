@@ -206,7 +206,7 @@ class FragmentGenreDetail : BaseFragment(), SongView, PlaylistListener {
                 GenreSongModule(
                     this,
                     this,
-                    activity,
+                    requireActivity(),
                     sort,
                     genreID,
                     SongInteractorImpl()

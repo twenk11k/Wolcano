@@ -180,7 +180,7 @@ class FragmentRecently : BaseFragmentInject(), SongView, PlaylistListener {
 
         val songComponent = DaggerSongComponent.builder()
             .applicationComponent(applicationComponent)
-            .songModule(SongModule(this, this, getActivity(), sort, SongInteractorImpl()))
+            .songModule(SongModule(this, this, requireActivity(), sort, SongInteractorImpl()))
             .build()
 
         songComponent.inject(this)

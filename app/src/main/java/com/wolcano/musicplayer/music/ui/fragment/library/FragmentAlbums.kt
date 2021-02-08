@@ -156,7 +156,7 @@ class FragmentAlbums : BaseFragmentInject(), AlbumView, OnOffsetChangedListener 
         val sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER
         val albumComponent = DaggerAlbumComponent.builder()
             .applicationComponent(applicationComponent)
-            .albumModule(AlbumModule(this, this, activity, sort, AlbumInteractorImpl()))
+            .albumModule(AlbumModule(this, this, requireActivity(), sort, AlbumInteractorImpl()))
             .build()
 
         albumComponent.inject(this)

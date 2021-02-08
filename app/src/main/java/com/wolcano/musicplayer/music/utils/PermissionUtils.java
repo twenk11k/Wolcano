@@ -6,11 +6,13 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.util.SparseArray;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import android.util.SparseArray;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -23,11 +25,11 @@ public class PermissionUtils {
 
     public interface PermInterface {
         void onPermGranted();
+
         void onPermUnapproved();
     }
 
     private static Set<String> permSets;
-    private String[] perms;
     private PermInterface permInterface;
     private static AtomicInteger atomicInteger = new AtomicInteger(0);
     private Object object;
@@ -44,6 +46,8 @@ public class PermissionUtils {
     public static PermissionUtils with(@NonNull Fragment fragment) {
         return new PermissionUtils(fragment);
     }
+
+    private String[] perms;
 
     public PermissionUtils permissions(@NonNull String... perms) {
         this.perms = perms;

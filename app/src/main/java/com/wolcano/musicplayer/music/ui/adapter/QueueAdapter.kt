@@ -118,10 +118,9 @@ class QueueAdapter(
                             val song: Song = songList!![position]!!
                             val title: CharSequence
                             val artist: CharSequence
-                            val content: Int
                             title = song.title
                             artist = song.artist
-                            content = R.string.delete_song_content
+                            val content: Int = R.string.delete_song_content
                             val URI =
                                 Uri.parse("content://media/external/audio/media/" + song.songId + "/albumart")
                             Picasso.get().load(URI).into(object : Target {
@@ -166,7 +165,6 @@ class QueueAdapter(
                                         message(content)
                                         negativeButton(R.string.no)
                                         positiveButton(R.string.yes) {
-                                            if (activity == null) return@positiveButton
                                             deleteFromRemotePlay(
                                                 activity,
                                                 songList.size,

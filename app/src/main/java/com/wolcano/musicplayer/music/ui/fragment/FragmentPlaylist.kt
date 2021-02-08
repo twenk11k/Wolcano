@@ -141,7 +141,7 @@ class FragmentPlaylist : BaseFragmentInject(), PlaylistView {
 
         val playlistComponent = DaggerPlaylistComponent.builder()
             .applicationComponent(applicationComponent)
-            .playlistModule(PlaylistModule(this, this, activity, sort, PlaylistInteractorImpl()))
+            .playlistModule(PlaylistModule(this, this, requireActivity(), sort, PlaylistInteractorImpl()))
             .build()
 
         playlistComponent.inject(this)

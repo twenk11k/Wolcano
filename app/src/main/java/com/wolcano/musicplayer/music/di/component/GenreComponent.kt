@@ -1,15 +1,12 @@
-package com.wolcano.musicplayer.music.di.component;
+package com.wolcano.musicplayer.music.di.component
 
-import com.wolcano.musicplayer.music.di.module.GenreModule;
-import com.wolcano.musicplayer.music.di.scope.PerActivity;
-import com.wolcano.musicplayer.music.ui.fragment.library.FragmentGenres;
-
-import dagger.Component;
+import com.wolcano.musicplayer.music.di.module.GenreModule
+import com.wolcano.musicplayer.music.di.scope.PerActivity
+import com.wolcano.musicplayer.music.ui.fragment.library.FragmentGenres
+import dagger.Component
 
 @PerActivity
-@Component(dependencies = ApplicationComponent.class,modules = GenreModule.class)
-public interface GenreComponent {
-
-    void inject(FragmentGenres fragmentGenres);
-
+@Component(dependencies = [ApplicationComponent::class], modules = [GenreModule::class])
+interface GenreComponent {
+    fun inject(fragmentGenres: FragmentGenres?)
 }
