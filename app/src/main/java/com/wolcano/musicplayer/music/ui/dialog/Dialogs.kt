@@ -32,7 +32,6 @@ import com.wolcano.musicplayer.music.mvp.models.SongOnline
 import com.wolcano.musicplayer.music.ui.adapter.customdialog.CopyItemAdapter
 import com.wolcano.musicplayer.music.ui.adapter.customdialog.ShareItemAdapter
 import com.wolcano.musicplayer.music.utils.SongUtils
-import com.wolcano.musicplayer.music.utils.Utils
 import java.util.*
 
 object Dialogs {
@@ -40,13 +39,11 @@ object Dialogs {
     private var toast: Toast? = null
 
     fun copyDialog(context: Context, song: Song?) {
-        val copylist = ArrayList<Copy>()
-        if (song?.title != "<unknown>" && song?.title != "") copylist.add(Copy(song!!.title, 0))
-        if (song.artist != "<unknown>" && song.artist != "") copylist.add(Copy(song.artist, 1))
-        if (song.album != null) {
-            if (song.album != "<unknown>" && song.album != "") copylist.add(Copy(song!!.album, 2))
-        }
-        val adapter = CopyItemAdapter(context, copylist)
+        val copyList = ArrayList<Copy>()
+        if (song?.title != "<unknown>" && song?.title != "") copyList.add(Copy(song!!.title, 0))
+        if (song.artist != "<unknown>" && song.artist != "") copyList.add(Copy(song.artist, 1))
+        if (song.album != "<unknown>" && song.album != "") copyList.add(Copy(song.album, 2))
+        val adapter = CopyItemAdapter(context, copyList)
 
         val dialog = MaterialDialog(context).show {
             title(R.string.copy_question)
@@ -57,7 +54,7 @@ object Dialogs {
             override fun onItemClicked(itemIndex: Int) {
                 showToastCopy(
                     context,
-                    copylist[itemIndex].text,
+                    copyList[itemIndex].text,
                     dialog
                 )
             }
@@ -90,15 +87,15 @@ object Dialogs {
     }
 
     fun copyDialog(context: Context, song: SongOnline?) {
-        val copylist = ArrayList<Copy>()
-        if (song?.title != "<unknown>" && song?.title != "") copylist.add(Copy(song!!.title, 0))
-        if (song.artistName != "<unknown>" && song?.artistName != "") copylist.add(
+        val copyList = ArrayList<Copy>()
+        if (song?.title != "<unknown>" && song?.title != "") copyList.add(Copy(song!!.title, 0))
+        if (song.artistName != "<unknown>" && song.artistName != "") copyList.add(
             Copy(
                 song.artistName,
                 1
             )
         )
-        val adapter = CopyItemAdapter(context, copylist)
+        val adapter = CopyItemAdapter(context, copyList)
         val dialog = MaterialDialog(context).show {
             title(R.string.copy_question)
             // itemsColor(ContextCompat.getColor(context, R.color.grey0))
@@ -108,7 +105,7 @@ object Dialogs {
             override fun onItemClicked(itemIndex: Int) {
                 showToastCopy(
                     context,
-                    copylist[itemIndex].text,
+                    copyList[itemIndex].text,
                     dialog
                 )
             }
@@ -152,15 +149,6 @@ object Dialogs {
                     context.getString(R.string.share_name_ofsong)
                 )
             )
-        }
-        dialog.dismiss()
-    }
-
-    private fun showToastLike(context: Context, dialog: MaterialDialog, itemIndex: Int) {
-        if (itemIndex == 0) {
-            Utils.rateWolcano(context)
-        } else {
-            Utils.shareWolcano(context)
         }
         dialog.dismiss()
     }

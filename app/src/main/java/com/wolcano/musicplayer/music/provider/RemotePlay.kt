@@ -11,7 +11,7 @@ import com.wolcano.musicplayer.music.content.PlayerEnum
 import com.wolcano.musicplayer.music.content.managers.SessionManager.updateSessionMetaData
 import com.wolcano.musicplayer.music.content.managers.SessionManager.updateSessionPlaybackState
 import com.wolcano.musicplayer.music.content.managers.SoundManager
-import com.wolcano.musicplayer.music.mvp.db.DatabaseManager
+import com.wolcano.musicplayer.music.mvp.db.AppDatabase
 import com.wolcano.musicplayer.music.mvp.listener.OnServiceListener
 import com.wolcano.musicplayer.music.mvp.models.Song
 import com.wolcano.musicplayer.music.provider.MusicService.ServiceInit
@@ -43,10 +43,13 @@ object RemotePlay {
     private var serviceConnection: ServiceConnection? = null
 
     fun init(context: Context) {
-        songList = DatabaseManager.get().appDao.queryBuilder().build().list()
+
+        songList = AppDatabase.getInstance(context).songDao().getAll() as MutableList<Song?>
         soundManager = SoundManager(context)
         mediaPlayer = MediaPlayer()
         handler = Handler(Looper.getMainLooper())
+
+
         bindService(context)
         intentFilter = IntentFilter(AudioManager.ACTION_AUDIO_BECOMING_NOISY)
         mediaPlayer?.setOnCompletionListener {
@@ -78,8 +81,8 @@ object RemotePlay {
         songList?.clear()
         songList?.addAll(alist)
         val position = songList!!.indexOf(song)
-        DatabaseManager.get().appDao.deleteAll()
-        DatabaseManager.get().appDao.insert(song)
+        AppDatabase.getInstance(context).songDao().deleteAll()
+        AppDatabase.getInstance(context).songDao().insert(song)
         playSong(context, position)
     }
 
@@ -161,9 +164,7 @@ object RemotePlay {
             if (size == songList!!.size) {
                 if (song1!!.songId == song.songId) {
                     songList?.removeAt(position)
-                    if (DatabaseManager.get().appDao.hasKey(song1)) {
-                        DatabaseManager.get().appDao.delete(song1)
-                    }
+                    AppDatabase.getInstance(context).songDao().delete(song1)
                 }
             }
             if (song1!!.songId == song.songId) {
@@ -173,11 +174,10 @@ object RemotePlay {
                 } else if (playPosition == position) {
                     if (position == 0 && playPosition == 0) {
                         stopRemotePlay(context)
-                        musicService!!.getNotification()!!.stop()
+                        musicService?.getNotification()!!.stop()
                         for (listener in listenerList) {
                             listener.onChangeSong(getPlayMusic(context))
                         }
-                        isClosed = true
                     } else if (isPlaying() || isPreparing()) {
                         next(context, false)
                         setRemotePlayPos(context, playPosition - 1)
@@ -196,8 +196,7 @@ object RemotePlay {
         if (songList!!.isEmpty()) {
             return
         }
-        val mode = PlayerEnum.valueOf(Utils.getPlaylistId(context))
-        when (mode) {
+        when (PlayerEnum.valueOf(Utils.getPlaylistId(context))) {
             PlayerEnum.SHUFFLE -> playSong(context, Random().nextInt(songList!!.size))
             PlayerEnum.REPEAT -> playSong(context, getRemotePlayPos(context) - 1)
             PlayerEnum.NORMAL -> playSong(context, getRemotePlayPos(context) - 1)
@@ -210,10 +209,10 @@ object RemotePlay {
             return
         }
         if (soundManager!!.requestAudioFocus()) {
-            mediaPlayer!!.start()
-            musicService!!.registerReceiv()
+            mediaPlayer?.start()
+            musicService?.registerReceiv()
             state = PLAY
-            handler!!.post(remoteRunnable)
+            handler?.post(remoteRunnable)
             musicService?.getNotification()!!.update(getPlayMusic(context))
             updateSessionPlaybackState()
             for (listener in listenerList) {
@@ -230,13 +229,13 @@ object RemotePlay {
         if (!isPlaying()) {
             return
         }
-        mediaPlayer!!.pause()
+        mediaPlayer?.pause()
         state = PAUSE
-        handler!!.removeCallbacks(remoteRunnable)
-        musicService!!.getNotification()!!.update(getPlayMusic(context))
+        handler?.removeCallbacks(remoteRunnable)
+        musicService?.getNotification()!!.update(getPlayMusic(context))
         updateSessionPlaybackState()
         if (abandonAudioFocus) {
-            soundManager!!.abandonAudioFocus()
+            soundManager?.abandonAudioFocus()
         }
         for (listener in listenerList) {
             listener.onPlayPause()
@@ -251,7 +250,7 @@ object RemotePlay {
                     listener.onProgressChange(mediaPlayer!!.currentPosition)
                 }
             }
-            handler!!.postDelayed(this, GUNCEL)
+            handler?.postDelayed(this, GUNCEL)
         }
     }
 
@@ -260,7 +259,7 @@ object RemotePlay {
             return
         }
         pauseRemotePlay(context)
-        mediaPlayer!!.reset()
+        mediaPlayer?.reset()
         state = IDLE
     }
 
@@ -274,7 +273,7 @@ object RemotePlay {
 
     fun seekTo(msec: Int) {
         if (isPlaying() || isPausing()) {
-            mediaPlayer!!.seekTo(msec)
+            mediaPlayer?.seekTo(msec)
             updateSessionPlaybackState()
             for (listener in listenerList) {
                 listener.onProgressChange(msec)

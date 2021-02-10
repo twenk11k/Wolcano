@@ -77,7 +77,7 @@ class FragmentPlaylist : BaseFragmentInject(), PlaylistView {
             binding.toolbar.setTitleTextColor(Color.WHITE)
         }
         val ab = (activity as AppCompatActivity?)?.supportActionBar
-        ab?.setTitle(R.string.recentlyadded)
+        ab?.setTitle(R.string.playlists)
 
         if (binding.toolbar.navigationIcon != null) {
             binding.toolbar.navigationIcon = TintHelper.createTintedDrawable(

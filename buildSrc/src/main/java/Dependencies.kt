@@ -19,7 +19,6 @@ object Versions {
     const val RECYCLERVIEW_FASTSCROLL = "1.0.17"
     const val BUTTERKNIFE = "10.1.0"
     const val COMMONS_IO = "1.3.2"
-    const val GREENDAO = "3.2.2"
     const val RXBUS = "2.0.0"
     const val SLIDINGUPPANEL = "3.4.0"
     const val MATERIALSEARCHVIEW = "1.4.0"
@@ -34,6 +33,7 @@ object Versions {
     const val DAGGER_COMPILER = "2.29.1"
     const val DAGGER_ANDROID_SUPPORT = "2.21"
     const val LIFECYCLE_EXTENSIONS = "1.1.1"
+    const val ROOM = "2.2.6"
 }
 
 object BuildPluginsVersion {
@@ -46,12 +46,17 @@ object BuildPluginsVersion {
 
 object SupportLibs {
     const val ANDROIDX_APPCOMPAT = "androidx.appcompat:appcompat:${Versions.APPCOMPAT}"
-    const val ANDROIDX_CONSTRAINT_LAYOUT = "com.android.support.constraint:constraint-layout:${Versions.CONSTRAINT_LAYOUT}"
+    const val ANDROIDX_CONSTRAINT_LAYOUT =
+        "com.android.support.constraint:constraint-layout:${Versions.CONSTRAINT_LAYOUT}"
     const val ANDROIDX_CORE_KTX = "androidx.core:core-ktx:${Versions.CORE_KTX}"
-    const val ANDROIDX_LEGACY_SUPPORT_V4 = "androidx.legacy:legacy-support-v4:${Versions.LEGACY_SUPPORT_V4}"
-    const val ANDROIDX_VECTOR_DRAWABLE = "androidx.vectordrawable:vectordrawable:${Versions.VECTOR_DRAWABLE}"
-    const val ANDROIDX_PERCENT_LAYOUT = "androidx.percentlayout:percentlayout:${Versions.PERCENT_LAYOUT}"
-    const val ANDROIDX_LEGACY_PREFERENCE_V14 = "androidx.legacy:legacy-preference-v14:${Versions.LEGACY_PREFERENCE_V14}"
+    const val ANDROIDX_LEGACY_SUPPORT_V4 =
+        "androidx.legacy:legacy-support-v4:${Versions.LEGACY_SUPPORT_V4}"
+    const val ANDROIDX_VECTOR_DRAWABLE =
+        "androidx.vectordrawable:vectordrawable:${Versions.VECTOR_DRAWABLE}"
+    const val ANDROIDX_PERCENT_LAYOUT =
+        "androidx.percentlayout:percentlayout:${Versions.PERCENT_LAYOUT}"
+    const val ANDROIDX_LEGACY_PREFERENCE_V14 =
+        "androidx.legacy:legacy-preference-v14:${Versions.LEGACY_PREFERENCE_V14}"
     const val ANDROIDX_PALETTE = "androidx.palette:palette:${Versions.PALETTE}"
     const val ANDROIDX_RECYCLERVIEW = "androidx.recyclerview:recyclerview:${Versions.RECYCLERVIEW}"
     const val ANDROID_MATERIAL = "com.google.android.material:material:${Versions.MATERIAL}"
@@ -69,17 +74,21 @@ object AndroidTestingLib {
 
 object ThirdPartyLibs {
     const val JSOUP = "org.jsoup:jsoup:${Versions.JSOUP}"
-    const val MATERIAL_DIALOGS_CORE = "com.afollestad.material-dialogs:core:${Versions.MATERIAL_DIALOGS}"
-    const val MATERIAL_DIALOGS_INPUT = "com.afollestad.material-dialogs:input:${Versions.MATERIAL_DIALOGS}"
-    const val MATERIAL_DIALOGS_COLOR = "com.afollestad.material-dialogs:color:${Versions.MATERIAL_DIALOGS}"
-    const val RECYCLERVIEW_FASTSCROLL = "com.simplecityapps:recyclerview-fastscroll:${Versions.RECYCLERVIEW_FASTSCROLL}"
+    const val MATERIAL_DIALOGS_CORE =
+        "com.afollestad.material-dialogs:core:${Versions.MATERIAL_DIALOGS}"
+    const val MATERIAL_DIALOGS_INPUT =
+        "com.afollestad.material-dialogs:input:${Versions.MATERIAL_DIALOGS}"
+    const val MATERIAL_DIALOGS_COLOR =
+        "com.afollestad.material-dialogs:color:${Versions.MATERIAL_DIALOGS}"
+    const val RECYCLERVIEW_FASTSCROLL =
+        "com.simplecityapps:recyclerview-fastscroll:${Versions.RECYCLERVIEW_FASTSCROLL}"
     const val BUTTERKNIFE = "com.jakewharton:butterknife:${Versions.BUTTERKNIFE}"
     const val BUTTERKNIFE_COMPILER = "com.jakewharton:butterknife-compiler:${Versions.BUTTERKNIFE}"
     const val APACHE_COMMONS_IO = "org.apache.commons:commons-io:${Versions.COMMONS_IO}"
-    const val GREENDAO = "org.greenrobot:greendao:${Versions.GREENDAO}"
     const val RXBUS = "com.hwangjr.rxbus:rxbus:${Versions.RXBUS}"
     const val SLIDINGUPPANEL = "com.sothree.slidinguppanel:library:${Versions.SLIDINGUPPANEL}"
-    const val MATERIALSEARCHVIEW = "com.miguelcatalan:materialsearchview:${Versions.MATERIALSEARCHVIEW}"
+    const val MATERIALSEARCHVIEW =
+        "com.miguelcatalan:materialsearchview:${Versions.MATERIALSEARCHVIEW}"
     const val PICASSO = "com.squareup.picasso:picasso:${Versions.PICASSO}"
     const val SEEKARC = "com.github.kabouzeid:SeekArc:${Versions.SEEKARC}"
     const val SDP = "com.intuit.sdp:sdp-android:${Versions.SDP}"
@@ -92,6 +101,10 @@ object OtherLibs {
     const val RXANDROID = "io.reactivex:rxandroid:${Versions.RX_ANDROID}"
     const val DAGGER = "com.google.dagger:dagger:${Versions.DAGGER}"
     const val DAGGER_COMPILER = "com.google.dagger:dagger-compiler:${Versions.DAGGER_COMPILER}"
-    const val DAGGER_ANDROID_SUPPORT = "com.google.dagger:dagger-android-support:${Versions.DAGGER_ANDROID_SUPPORT}"
-    const val LIFECYCLE_EXTENSIONS = "android.arch.lifecycle:extensions:${Versions.LIFECYCLE_EXTENSIONS}"
+    const val DAGGER_ANDROID_SUPPORT =
+        "com.google.dagger:dagger-android-support:${Versions.DAGGER_ANDROID_SUPPORT}"
+    const val LIFECYCLE_EXTENSIONS =
+        "android.arch.lifecycle:extensions:${Versions.LIFECYCLE_EXTENSIONS}"
+    const val ROOM = "androidx.room:room-runtime:${Versions.ROOM}"
+    const val ROOM_COMPILER = "androidx.room:room-compiler:${Versions.ROOM}"
 }

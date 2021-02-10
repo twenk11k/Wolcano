@@ -178,7 +178,7 @@ class ModelView : View, AnimatorUpdateListener {
                 }
                 invalidate()
             }
-            handler.postDelayed(this, delay)
+            handler?.postDelayed(this, delay)
         }
     }
 

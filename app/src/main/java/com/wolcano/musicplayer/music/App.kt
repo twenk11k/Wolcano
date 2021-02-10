@@ -7,7 +7,6 @@ import com.wolcano.musicplayer.music.content.AppHandler
 import com.wolcano.musicplayer.music.di.component.ApplicationComponent
 import com.wolcano.musicplayer.music.di.component.DaggerApplicationComponent
 import com.wolcano.musicplayer.music.di.module.ApplicationModule
-import com.wolcano.musicplayer.music.mvp.db.DatabaseManager
 import com.wolcano.musicplayer.music.provider.MusicService
 
 class App : Application() {
@@ -29,7 +28,6 @@ class App : Application() {
 
         GeneralCache.initializeCache(this)
         AppHandler.setCallbacks(this)
-        DatabaseManager.get().init(this)
 
         val intent = Intent(this, MusicService::class.java)
         startService(intent)

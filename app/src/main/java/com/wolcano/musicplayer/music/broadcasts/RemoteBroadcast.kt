@@ -23,4 +23,5 @@ class RemoteBroadcast : BroadcastReceiver() {
             KeyEvent.KEYCODE_MEDIA_PREVIOUS -> prev(context)
         }
     }
+
 }

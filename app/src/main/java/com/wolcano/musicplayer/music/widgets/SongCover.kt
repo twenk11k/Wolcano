@@ -67,7 +67,6 @@ object SongCover {
     }
 
     private fun loadCoverModelBitmap(context: Context, song: Song?, type: Tip): ModelBitmap? {
-        val modelBitmap = ModelBitmap()
         var bm: Bitmap?
         val strKey: String? = getStrKey(song)
         val bmStore: LruCache<String, Bitmap>? =
@@ -75,28 +74,20 @@ object SongCover {
         if (TextUtils.isEmpty(strKey)) {
             bm = bmStore!![NULL_VAL]
             if (bm != null) {
-                modelBitmap.id = 1
-                modelBitmap.bitmap = bm
-                return modelBitmap
+                return ModelBitmap(1, bm)
             }
             bm = getMainModel(context, type)
             bmStore.put(NULL_VAL, bm)
-            modelBitmap.id = 1
-            modelBitmap.bitmap = bm
-            return modelBitmap
+            return ModelBitmap(1, bm)
         }
         bm = bmStore!![strKey!!]
         if (bm != null) {
-            modelBitmap.id = 0
-            modelBitmap.bitmap = bm
-            return modelBitmap
+            return ModelBitmap(0, bm)
         }
         bm = loadModelwT(context, song, type)
         if (bm != null) {
-            modelBitmap.id = 0
-            modelBitmap.bitmap = bm
             bmStore.put(strKey, bm)
-            return modelBitmap
+            return ModelBitmap(0, bm)
         }
         return null
     }

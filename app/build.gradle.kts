@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    id("kotlin-android-extensions")
     kotlin("kapt")
 }
 
@@ -45,6 +46,7 @@ android {
     kapt {
         generateStubs = true
     }
+
 }
 
 repositories {
@@ -78,7 +80,6 @@ dependencies {
     implementation(ThirdPartyLibs.BUTTERKNIFE)
     annotationProcessor(ThirdPartyLibs.BUTTERKNIFE_COMPILER)
     implementation(ThirdPartyLibs.APACHE_COMMONS_IO)
-    implementation(ThirdPartyLibs.GREENDAO)
     implementation(ThirdPartyLibs.RXBUS)
     implementation(ThirdPartyLibs.SLIDINGUPPANEL)
     implementation(ThirdPartyLibs.MATERIALSEARCHVIEW)
@@ -94,4 +95,7 @@ dependencies {
     kapt(OtherLibs.DAGGER_COMPILER)
     implementation(OtherLibs.DAGGER_ANDROID_SUPPORT)
     implementation(OtherLibs.LIFECYCLE_EXTENSIONS)
+    implementation(OtherLibs.ROOM)
+    kapt(OtherLibs.ROOM_COMPILER)
+
 }
