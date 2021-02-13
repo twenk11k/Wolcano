@@ -111,7 +111,7 @@ class SearchAdapter(
             MaterialDialog(context!!).show {
                 title(text = viewHolder.textView?.text.toString())
                 message(text = context.getString(R.string.question_remove_history))
-                negativeButton(text = context.getString(R.string.cancelU))
+                negativeButton(android.R.string.cancel)
                 positiveButton(text = context.getString(R.string.removeU)) {
                     callback?.onRemoveSuggestion(position, whichList)
                     removeItem(position)

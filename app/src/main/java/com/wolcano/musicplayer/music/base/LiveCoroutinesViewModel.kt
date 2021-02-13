@@ -9,7 +9,8 @@ import kotlinx.coroutines.flow.Flow
 
 abstract class LiveCoroutinesViewModel : ViewModel() {
 
-  fun <T> Flow<T>.asLiveDataOnViewModelScope(): LiveData<T> {
-    return asLiveData(viewModelScope.coroutineContext + Dispatchers.IO)
-  }
+    fun <T> Flow<T>.asLiveDataOnViewModelScope(): LiveData<T> {
+        return asLiveData(viewModelScope.coroutineContext + Dispatchers.IO)
+    }
+
 }

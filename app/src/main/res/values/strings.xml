@@ -26,7 +26,7 @@
     <string name="itsstart">Save starting&#8230;</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="sharesong">Share Song</string>
+    <string name="sharesong" translatable="false">Share Song</string>
     <string name="albums">ALBUMS</string>
     <string name="artists">ARTISTS</string>
     <string name="genres">GENRES</string>
@@ -41,7 +41,7 @@
     <string name="no_perm_open_settings">Unable to access settings because the required permission is not granted.</string>
     <string name="no_perm_add_playlist">This action cannot be performed because the required permission is not granted.</string>
 
-    <string name="start">00:00</string>
+    <string name="start" translatable="false">00:00</string>
 
     <string name="cancel">Cancel</string>
     <plurals name="Nsongs">
@@ -141,8 +141,7 @@
     <string name="action_previous">Previous</string>
     <string name="action_next">Next</string>
     <string name="question_remove_history">Remove from search history?</string>
-    <string name="queue_act">queue</string>
-    <string name="cancelU">CANCEL</string>
+    <string name="queue_act" translatable="false">queue</string>
     <string name="removeU">REMOVE</string>
 
     <string name="colors">Colors</string>
@@ -162,7 +161,7 @@
     <string name="cancel_current_timer">Cancel current timer</string>
     <string name="settings_sleeptimer_pause">Pause playing song</string>
     <string name="settings_sleeptimer_stop">Stop playing song</string>
-    <string name="base_path_prefix">_(mp3.pm)</string>
+    <string name="base_path_prefix" translatable="false">_(mp3.pm)</string>
     <string name="pref_title_sleeptimer">Sleep timer behavior</string>
     <string name="pref_summary_sleeptimer">Change the sleep timer behavior.</string>
     <string name="sleeptimer_set_pause"><![CDATA[Sleep timer behavior set to &quot;<b>Pause playing song</b>&quot;.]]></string>
@@ -186,8 +185,8 @@
     <string name="form_never">Never</string>
     <string name="feedback_submit">Thanks for your feedback!</string>
     <string name="errorinter">An error occurred while loading ad. Please try again later.</string>
-    <string name="please">Playing queue is empty.</string>
-    <string name="http_error">HTTP error fetching URL</string>
+    <string name="please" translatable="false">Playing queue is empty.</string>
+    <string name="http_error" translatable="false">HTTP error fetching URL</string>
     <string name="email_us_title">Copyright Notice</string>
     <string name="email_us_via">Send Email</string>
     <string name="pref_summary_howtouse">Learn how to use Wolcano Music.</string>
@@ -203,15 +202,15 @@ an email with your name and we will get back to you as soon as possible then we 
 process on the search engine. Please do not send false notice.
 In an emergency, the process may take a while. Thank you for your understanding.\n
 You can press yes if you want to send email to us.</string>
-    <string name="playing_notification_description">The playing notification provides actions for play/pause etc.</string>
+    <string name="playing_notification_description" translatable="false">The playing notification provides actions for play/pause etc.</string>
 
     <string name="pref_title_rate_app">Rate App</string>
     <string name="pref_title_share_app">Share App</string>
     <string name="pref_summary_rate_app">Rate the app on Google Play.</string>
     <string name="pref_summary_share_app">Share this app to your friends.</string>
     <string name="pref_header_other_2">Other</string>
-    <string name="no_perm_save_file">Song cannot save because required permissions are not setted.</string>
-    <string name="sharefile">Share Song</string>
+    <string name="no_perm_save_file" translatable="false">Song cannot save because required permissions are not setted.</string>
+    <string name="sharefile" translatable="false">Share Song</string>
     <string name="pref_header_online">Online Player</string>
     <string name="lastadded">Last Added</string>
 
