@@ -18,8 +18,8 @@ import butterknife.ButterKnife
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.constants.Type
 import com.wolcano.musicplayer.music.databinding.ItemSongOnlineBinding
-import com.wolcano.musicplayer.music.mvp.models.Song
-import com.wolcano.musicplayer.music.mvp.models.SongOnline
+import com.wolcano.musicplayer.music.model.Song
+import com.wolcano.musicplayer.music.model.SongOnline
 import com.wolcano.musicplayer.music.mvp.other.PlayModelLocal
 import com.wolcano.musicplayer.music.provider.RemotePlay.playAdd
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs
@@ -82,7 +82,7 @@ class OnlineAdapter(
                                     )
                                 }
                             })
-                            .reqPerm()
+                            .requestPermissions()
                         else -> {
                         }
                     }

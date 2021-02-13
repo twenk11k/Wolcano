@@ -23,7 +23,7 @@ import static com.wolcano.musicplayer.music.constants.Constants.PLAYLIST_ID;
 import static com.wolcano.musicplayer.music.constants.Constants.PLAYLIST_NAME;
 import static com.wolcano.musicplayer.music.constants.Constants.SONG_LIBRARY;
 import static com.wolcano.musicplayer.music.constants.Constants.SONG_ONLY_SELECTION;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class ConstantsTest {
 
@@ -120,7 +120,5 @@ public class ConstantsTest {
     public void isErrorTagCorrect(){
         assertEquals("error_tag",ERROR_TAG);
     }
-
-
 
 }

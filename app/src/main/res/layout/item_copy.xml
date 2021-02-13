@@ -6,7 +6,7 @@
 
         <variable
             name="copy"
-            type="com.wolcano.musicplayer.music.mvp.models.Copy" />
+            type="com.wolcano.musicplayer.music.model.Copy" />
     </data>
 
     <RelativeLayout

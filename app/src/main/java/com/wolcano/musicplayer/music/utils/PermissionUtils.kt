@@ -31,7 +31,7 @@ class PermissionUtils private constructor(private val `object`: Any) {
         return this
     }
 
-    fun reqPerm() {
+    fun requestPermissions() {
         val act = getAct(
             `object`
         ) ?: throw IllegalArgumentException("permission error")
@@ -55,7 +55,7 @@ class PermissionUtils private constructor(private val `object`: Any) {
         }
         val reqCode = genRequestCode()
         val unapprovedPerms = unapprovedPermsList.toTypedArray()
-        reqPerms(`object`, unapprovedPerms, reqCode)
+        requestPermissionss(`object`, unapprovedPerms, reqCode)
         sparseArray.put(reqCode, permInterface)
     }
 
@@ -89,7 +89,7 @@ class PermissionUtils private constructor(private val `object`: Any) {
         }
 
         @TargetApi(Build.VERSION_CODES.M)
-        private fun reqPerms(`object`: Any, permissions: Array<String>, requestCode: Int) {
+        private fun requestPermissionss(`object`: Any, permissions: Array<String>, requestCode: Int) {
             if (`object` is Activity) {
                 `object`.requestPermissions(permissions, requestCode)
             } else if (`object` is Fragment) {

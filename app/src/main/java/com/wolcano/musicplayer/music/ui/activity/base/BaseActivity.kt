@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import com.hwangjr.rxbus.RxBus
 import com.wolcano.musicplayer.music.R
+import com.wolcano.musicplayer.music.base.DataBindingActivity
 import com.wolcano.musicplayer.music.content.Binder
 import com.wolcano.musicplayer.music.provider.MusicService
 import com.wolcano.musicplayer.music.provider.MusicService.ServiceInit
@@ -94,9 +95,8 @@ open class BaseActivity : DataBindingActivity() {
                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             window.statusBarColor = Color.TRANSPARENT
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        } else
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -123,7 +123,7 @@ open class BaseActivity : DataBindingActivity() {
         if (receiverRegistered) {
             receiverRegistered = false
         }
-        if (Build.VERSION.SDK_INT > 19) RxBus.get().unregister(this)
+        RxBus.get().unregister(this)
         super.onDestroy()
     }
 
@@ -152,14 +152,12 @@ open class BaseActivity : DataBindingActivity() {
     }
 
     open fun setStatusbarColor(color: Int, statusBarView: StatusBarView?) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (statusBarView != null) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    statusBarView.setBackgroundColor(ColorUtils.darkenColor(color))
-                    setLightStatusbarAuto(color)
-                } else {
-                    statusBarView.setBackgroundColor(color)
-                }
+        if (statusBarView != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                statusBarView.setBackgroundColor(ColorUtils.darkenColor(color))
+                setLightStatusbarAuto(color)
+            } else {
+                statusBarView.setBackgroundColor(color)
             }
         }
     }

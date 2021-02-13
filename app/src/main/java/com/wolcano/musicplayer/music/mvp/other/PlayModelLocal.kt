@@ -1,8 +1,8 @@
 package com.wolcano.musicplayer.music.mvp.other
 
 import android.app.Activity
-import com.wolcano.musicplayer.music.mvp.models.Song
-import com.wolcano.musicplayer.music.mvp.models.SongOnline
+import com.wolcano.musicplayer.music.model.Song
+import com.wolcano.musicplayer.music.model.SongOnline
 
 abstract class PlayModelLocal(activity: Activity, private val songOnlineList: List<SongOnline>?) :
     PlayModelOnline(

@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable name="genre"
-            type="com.wolcano.musicplayer.music.mvp.models.Genre"/>
+            type="com.wolcano.musicplayer.music.model.Genre"/>
     </data>
     <RelativeLayout
         android:id="@+id/item_genre_relative"

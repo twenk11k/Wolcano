@@ -7,7 +7,7 @@ import android.os.Looper
 import androidx.fragment.app.Fragment
 import com.hwangjr.rxbus.RxBus
 import com.wolcano.musicplayer.music.content.Binder
-import com.wolcano.musicplayer.music.ui.activity.MainActivity
+import com.wolcano.musicplayer.music.ui.activity.main.MainActivity
 import com.wolcano.musicplayer.music.utils.ColorUtils
 import com.wolcano.musicplayer.music.utils.PermissionUtils
 import com.wolcano.musicplayer.music.widgets.StatusBarView

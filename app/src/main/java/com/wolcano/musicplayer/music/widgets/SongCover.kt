@@ -8,8 +8,8 @@ import android.net.Uri
 import android.text.TextUtils
 import androidx.collection.LruCache
 import com.wolcano.musicplayer.music.R
-import com.wolcano.musicplayer.music.mvp.models.ModelBitmap
-import com.wolcano.musicplayer.music.mvp.models.Song
+import com.wolcano.musicplayer.music.model.ModelBitmap
+import com.wolcano.musicplayer.music.model.Song
 import com.wolcano.musicplayer.music.utils.ImageUtils
 import com.wolcano.musicplayer.music.utils.Utils.getDeviceScrWidth
 import com.wolcano.musicplayer.music.utils.Utils.getPrimaryColor

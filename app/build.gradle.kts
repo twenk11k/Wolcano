@@ -1,7 +1,8 @@
 plugins {
     id("com.android.application")
     kotlin("android")
-    id("kotlin-android-extensions")
+    id("kotlin-parcelize")
+    id("dagger.hilt.android.plugin")
     kotlin("kapt")
 }
 
@@ -21,13 +22,16 @@ android {
         renderscriptSupportModeEnabled = true
         multiDexEnabled = true
     }
+
     buildFeatures {
         dataBinding = true
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
@@ -36,6 +40,15 @@ android {
                 "proguard-rules.pro"
             )
         }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 
     lintOptions {
@@ -66,11 +79,21 @@ dependencies {
     implementation(SupportLibs.ANDROIDX_PALETTE)
     implementation(SupportLibs.ANDROIDX_RECYCLERVIEW)
     implementation(SupportLibs.ANDROID_MATERIAL)
+    implementation(SupportLibs.ANDROIDX_FRAGMENT_KTX)
+    implementation(SupportLibs.ANDROIDX_LIFECYCLE_EXTENSIONS)
+    implementation(SupportLibs.ANDROIDX_LIFECYCLE_VIEWMODEL_KTX)
+    implementation(SupportLibs.ANDROIDX_LIFECYCLE_VIEWMODEL_SAVEDSTATE)
+    implementation(SupportLibs.ANDROIDX_LIFECYCLE_RUNTIME_KTX)
+    implementation(SupportLibs.ANDROIDX_LIFECYCLE_LIVEDATA_KTX)
+    implementation(SupportLibs.ANDROIDX_HILT_COMMON)
+    implementation(SupportLibs.ANDROIDX_HILT_VIEWMODEL)
+    kapt(SupportLibs.ANDROIDX_HILT_COMPILER)
 
     testImplementation(TestingLib.JUNIT)
     androidTestImplementation(AndroidTestingLib.ANDROIDX_TEST_EXT_JUNIT)
     androidTestImplementation(AndroidTestingLib.ANDROIDX_TEST_RULES)
     androidTestImplementation(AndroidTestingLib.ESPRESSO_CORE)
+    androidTestImplementation(OtherLibs.DAGGER_HILT_TESTING)
 
     implementation(ThirdPartyLibs.JSOUP)
     implementation(ThirdPartyLibs.MATERIAL_DIALOGS_CORE)
@@ -86,16 +109,16 @@ dependencies {
     implementation(ThirdPartyLibs.PICASSO)
     implementation(ThirdPartyLibs.SEEKARC)
     implementation(ThirdPartyLibs.SDP)
-
+    implementation(ThirdPartyLibs.SANDWICH)
+    implementation(ThirdPartyLibs.WHATIF)
     implementation(OtherLibs.RETROFIT)
     implementation(OtherLibs.RXJAVA2_ANDROID)
     implementation(OtherLibs.RXJAVA2)
     implementation(OtherLibs.RXANDROID)
-    implementation(OtherLibs.DAGGER)
-    kapt(OtherLibs.DAGGER_COMPILER)
-    implementation(OtherLibs.DAGGER_ANDROID_SUPPORT)
     implementation(OtherLibs.LIFECYCLE_EXTENSIONS)
     implementation(OtherLibs.ROOM)
     kapt(OtherLibs.ROOM_COMPILER)
+    implementation(OtherLibs.DAGGER_HILT)
+    kapt(OtherLibs.DAGGER_HILT_COMPILER)
 
 }

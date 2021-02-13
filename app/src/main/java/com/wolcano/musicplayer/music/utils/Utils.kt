@@ -30,11 +30,11 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
 import com.wolcano.musicplayer.music.App
 import com.wolcano.musicplayer.music.R
-import com.wolcano.musicplayer.music.mvp.models.Song
-import com.wolcano.musicplayer.music.ui.fragment.library.detail.FragmentAlbumDetail
-import com.wolcano.musicplayer.music.ui.fragment.library.detail.FragmentArtistDetail
-import com.wolcano.musicplayer.music.ui.fragment.library.detail.FragmentGenreDetail
-import com.wolcano.musicplayer.music.ui.fragment.library.detail.FragmentPlaylistDetail
+import com.wolcano.musicplayer.music.model.Song
+import com.wolcano.musicplayer.music.ui.fragment.library.album.AlbumDetailFragment
+import com.wolcano.musicplayer.music.ui.fragment.library.artist.ArtistDetailFragment
+import com.wolcano.musicplayer.music.ui.fragment.library.genre.GenreDetailFragment
+import com.wolcano.musicplayer.music.ui.fragment.playlist.PlaylistDetailFragment
 import com.wolcano.musicplayer.music.widgets.StatusBarView
 import java.io.File
 import java.util.*
@@ -462,7 +462,7 @@ object Utils {
     fun navigateToAlbum(context: Activity, albumID: Long, albumName: String?) {
         val transaction = (context as AppCompatActivity).supportFragmentManager.beginTransaction()
         val fragment: Fragment
-        fragment = FragmentAlbumDetail.newInstance(albumID, albumName)
+        fragment = AlbumDetailFragment.newInstance(albumID, albumName)
         fragment.setEnterTransition(Slide(Gravity.RIGHT))
         fragment.setExitTransition(Slide(Gravity.LEFT))
         transaction.hide(context.supportFragmentManager.findFragmentById(R.id.fragment)!!)
@@ -474,7 +474,7 @@ object Utils {
     fun navigateToArtist(context: Activity, artistID: Long, artistName: String?) {
         val transaction = (context as AppCompatActivity).supportFragmentManager.beginTransaction()
         val fragment: Fragment
-        fragment = FragmentArtistDetail.newInstance(artistID, artistName)
+        fragment = ArtistDetailFragment.newInstance(artistID, artistName)
         fragment.setEnterTransition(Slide(Gravity.RIGHT))
         fragment.setExitTransition(Slide(Gravity.LEFT))
         transaction.hide(context.supportFragmentManager.findFragmentById(R.id.fragment)!!)
@@ -486,7 +486,7 @@ object Utils {
     fun navigateToGenre(context: Context, genreID: Long, genreName: String?) {
         val transaction = (context as AppCompatActivity).supportFragmentManager.beginTransaction()
         val fragment: Fragment
-        fragment = FragmentGenreDetail.newInstance(genreID, genreName)
+        fragment = GenreDetailFragment.newInstance(genreID, genreName)
         fragment.setEnterTransition(Slide(Gravity.RIGHT))
         fragment.setExitTransition(Slide(Gravity.LEFT))
         transaction.hide(context.supportFragmentManager.findFragmentById(R.id.fragment)!!)
@@ -498,7 +498,7 @@ object Utils {
     fun navigateToPlaylist(context: Context, playlistID: Long, playlistName: String?) {
         val transaction = (context as AppCompatActivity).supportFragmentManager.beginTransaction()
         val fragment: Fragment
-        fragment = FragmentPlaylistDetail.newInstance(playlistID, playlistName)
+        fragment = PlaylistDetailFragment.newInstance(playlistID, playlistName)
         fragment.setEnterTransition(Slide(Gravity.RIGHT))
         fragment.setExitTransition(Slide(Gravity.LEFT))
         transaction.hide(context.supportFragmentManager.findFragmentById(R.id.fragment)!!)

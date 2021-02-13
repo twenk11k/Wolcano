@@ -14,6 +14,7 @@ import androidx.annotation.ColorInt
 import androidx.core.app.ActivityCompat
 import com.google.android.material.snackbar.Snackbar
 import com.wolcano.musicplayer.music.R
+import com.wolcano.musicplayer.music.base.DataBindingActivity
 import com.wolcano.musicplayer.music.utils.ATH
 import com.wolcano.musicplayer.music.utils.ColorUtils
 import com.wolcano.musicplayer.music.utils.Utils

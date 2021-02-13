@@ -6,7 +6,7 @@
 
         <variable
             name="album"
-            type="com.wolcano.musicplayer.music.mvp.models.Album" />
+            type="com.wolcano.musicplayer.music.model.Album" />
     </data>
 
     <RelativeLayout

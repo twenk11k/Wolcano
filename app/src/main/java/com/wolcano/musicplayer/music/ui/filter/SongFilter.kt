@@ -1,7 +1,7 @@
 package com.wolcano.musicplayer.music.ui.filter
 
 import android.widget.Filter
-import com.wolcano.musicplayer.music.mvp.models.Song
+import com.wolcano.musicplayer.music.model.Song
 import com.wolcano.musicplayer.music.ui.adapter.SongAdapter
 import java.util.*
 import kotlin.collections.ArrayList

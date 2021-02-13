@@ -5,10 +5,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.wolcano.musicplayer.music.R
-import com.wolcano.musicplayer.music.ui.fragment.library.FragmentAlbums
-import com.wolcano.musicplayer.music.ui.fragment.library.FragmentArtists
-import com.wolcano.musicplayer.music.ui.fragment.library.FragmentGenres
-import com.wolcano.musicplayer.music.ui.fragment.library.FragmentSongs
+import com.wolcano.musicplayer.music.ui.fragment.library.album.AlbumFragment
+import com.wolcano.musicplayer.music.ui.fragment.library.artist.ArtistFragment
+import com.wolcano.musicplayer.music.ui.fragment.library.genre.GenreFragment
+import com.wolcano.musicplayer.music.ui.fragment.library.song.SongFragment
 
 class LibraryFragmentPagerAdapter(private val context: Context, fm: FragmentManager) :
     FragmentStatePagerAdapter(
@@ -17,13 +17,13 @@ class LibraryFragmentPagerAdapter(private val context: Context, fm: FragmentMana
 
     override fun getItem(position: Int): Fragment {
         return if (position == 0) {
-            FragmentSongs()
+            SongFragment()
         } else if (position == 1) {
-            FragmentAlbums()
+            AlbumFragment()
         } else if (position == 2) {
-            FragmentArtists()
+            ArtistFragment()
         } else {
-            FragmentGenres()
+            GenreFragment()
         }
     }
 

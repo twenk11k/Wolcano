@@ -4,14 +4,13 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 import com.wolcano.musicplayer.music.content.AppHandler
-import com.wolcano.musicplayer.music.di.component.ApplicationComponent
-import com.wolcano.musicplayer.music.di.component.DaggerApplicationComponent
-import com.wolcano.musicplayer.music.di.module.ApplicationModule
 import com.wolcano.musicplayer.music.provider.MusicService
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class App : Application() {
 
-    private var applicationComponent: ApplicationComponent? = null
+    //private var applicationComponent: ApplicationComponent? = null
 
     companion object {
         lateinit var application: Application
@@ -24,7 +23,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         application = this
-        setupInjector()
+        //setupInjector()
 
         GeneralCache.initializeCache(this)
         AppHandler.setCallbacks(this)
@@ -34,6 +33,7 @@ class App : Application() {
 
     }
 
+    /*
     private fun setupInjector() {
         applicationComponent = DaggerApplicationComponent.builder()
             .applicationModule(ApplicationModule(this))
@@ -43,5 +43,7 @@ class App : Application() {
     fun getApplicationComponent(): ApplicationComponent? {
         return applicationComponent
     }
+
+     */
 
 }

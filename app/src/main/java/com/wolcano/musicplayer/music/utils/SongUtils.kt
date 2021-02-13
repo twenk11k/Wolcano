@@ -15,12 +15,12 @@ import android.webkit.URLUtil
 import android.widget.Toast
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.constants.Constants.SONG_ONLY_SELECTION
-import com.wolcano.musicplayer.music.mvp.models.*
+import com.wolcano.musicplayer.music.model.*
 import java.io.File
 
 object SongUtils {
 
-    private const val SELECTION = MediaStore.Audio.Media.IS_MUSIC + " != 0"
+    const val SELECTION = MediaStore.Audio.Media.IS_MUSIC + " != 0"
     private var mContentValuesCache: Array<ContentValues?>? = null
 
     @JvmStatic

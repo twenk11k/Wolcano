@@ -29,11 +29,14 @@ object Versions {
     const val RX_JAVA_2 = "2.2.8"
     const val RX_JAVA_2_RX_ANDROID = "2.1.0"
     const val RX_ANDROID = "1.2.1"
-    const val DAGGER = "2.31.1"
-    const val DAGGER_COMPILER = "2.29.1"
-    const val DAGGER_ANDROID_SUPPORT = "2.21"
     const val LIFECYCLE_EXTENSIONS = "1.1.1"
     const val ROOM = "2.2.6"
+    const val HILT = "2.31-alpha"
+    const val HILT_ANDROIDX = "1.0.0-alpha03"
+    const val SANDWICH = "1.0.9"
+    const val WHATIF = "1.0.9"
+    const val FRAGMENT_KTX = "1.2.5"
+    const val LIFECYCLE = "2.2.0"
 }
 
 object BuildPluginsVersion {
@@ -60,6 +63,15 @@ object SupportLibs {
     const val ANDROIDX_PALETTE = "androidx.palette:palette:${Versions.PALETTE}"
     const val ANDROIDX_RECYCLERVIEW = "androidx.recyclerview:recyclerview:${Versions.RECYCLERVIEW}"
     const val ANDROID_MATERIAL = "com.google.android.material:material:${Versions.MATERIAL}"
+    const val ANDROIDX_HILT_COMMON = "androidx.hilt:hilt-common:${Versions.HILT_ANDROIDX}"
+    const val ANDROIDX_HILT_VIEWMODEL = "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.HILT_ANDROIDX}"
+    const val ANDROIDX_HILT_COMPILER = "androidx.hilt:hilt-compiler:${Versions.HILT_ANDROIDX}"
+    const val ANDROIDX_FRAGMENT_KTX = "androidx.fragment:fragment-ktx:${Versions.FRAGMENT_KTX}"
+    const val ANDROIDX_LIFECYCLE_EXTENSIONS = "androidx.lifecycle:lifecycle-extensions:${Versions.LIFECYCLE}"
+    const val ANDROIDX_LIFECYCLE_VIEWMODEL_KTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.LIFECYCLE}"
+    const val ANDROIDX_LIFECYCLE_VIEWMODEL_SAVEDSTATE = "androidx.lifecycle:lifecycle-viewmodel-savedstate:${Versions.LIFECYCLE}"
+    const val ANDROIDX_LIFECYCLE_RUNTIME_KTX = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.LIFECYCLE}"
+    const val ANDROIDX_LIFECYCLE_LIVEDATA_KTX = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.LIFECYCLE}"
 }
 
 object TestingLib {
@@ -92,6 +104,8 @@ object ThirdPartyLibs {
     const val PICASSO = "com.squareup.picasso:picasso:${Versions.PICASSO}"
     const val SEEKARC = "com.github.kabouzeid:SeekArc:${Versions.SEEKARC}"
     const val SDP = "com.intuit.sdp:sdp-android:${Versions.SDP}"
+    const val SANDWICH = "com.github.skydoves:sandwich:${Versions.SANDWICH}"
+    const val WHATIF = "com.github.skydoves:whatif:${Versions.WHATIF}"
 }
 
 object OtherLibs {
@@ -99,12 +113,12 @@ object OtherLibs {
     const val RXJAVA2_ANDROID = "io.reactivex.rxjava2:rxandroid:${Versions.RX_JAVA_2_RX_ANDROID}"
     const val RXJAVA2 = "io.reactivex.rxjava2:rxjava:${Versions.RX_JAVA_2}"
     const val RXANDROID = "io.reactivex:rxandroid:${Versions.RX_ANDROID}"
-    const val DAGGER = "com.google.dagger:dagger:${Versions.DAGGER}"
-    const val DAGGER_COMPILER = "com.google.dagger:dagger-compiler:${Versions.DAGGER_COMPILER}"
-    const val DAGGER_ANDROID_SUPPORT =
-        "com.google.dagger:dagger-android-support:${Versions.DAGGER_ANDROID_SUPPORT}"
     const val LIFECYCLE_EXTENSIONS =
         "android.arch.lifecycle:extensions:${Versions.LIFECYCLE_EXTENSIONS}"
     const val ROOM = "androidx.room:room-runtime:${Versions.ROOM}"
     const val ROOM_COMPILER = "androidx.room:room-compiler:${Versions.ROOM}"
+    const val DAGGER_HILT = "com.google.dagger:hilt-android:${Versions.HILT}"
+    const val DAGGER_HILT_TESTING = "com.google.dagger:hilt-android-testing:${Versions.HILT}"
+    const val DAGGER_HILT_COMPILER = "com.google.dagger:hilt-android-compiler:${Versions.HILT}"
+
 }

@@ -37,7 +37,7 @@
         </receiver>
 
         <activity
-            android:name=".ui.activity.MainActivity"
+            android:name=".ui.activity.main.MainActivity"
             android:label="@string/appname"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -110,11 +110,11 @@
         </receiver>
 
         <activity
-            android:name=".ui.activity.QueueActivity"
+            android:name=".ui.activity.queue.QueueActivity"
             android:label="@string/queue_act"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activity.SettingsActivity"
+            android:name=".ui.activity.settings.SettingsActivity"
             android:label="@string/title_activity_settings" />
 
     </application>

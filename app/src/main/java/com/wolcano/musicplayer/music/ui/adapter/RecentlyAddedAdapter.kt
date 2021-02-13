@@ -21,8 +21,8 @@ import com.squareup.picasso.Picasso.LoadedFrom
 import com.squareup.picasso.Target
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.databinding.ItemSongBinding
+import com.wolcano.musicplayer.music.model.Song
 import com.wolcano.musicplayer.music.mvp.listener.PlaylistListener
-import com.wolcano.musicplayer.music.mvp.models.Song
 import com.wolcano.musicplayer.music.provider.RemotePlay.deleteFromRemotePlay
 import com.wolcano.musicplayer.music.provider.RemotePlay.playAdd
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs

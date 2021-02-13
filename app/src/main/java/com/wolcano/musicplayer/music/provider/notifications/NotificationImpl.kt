@@ -17,7 +17,7 @@ import com.wolcano.musicplayer.music.constants.Constants.ACTION_QUIT
 import com.wolcano.musicplayer.music.constants.Constants.ACTION_REWIND
 import com.wolcano.musicplayer.music.constants.Constants.ACTION_SKIP
 import com.wolcano.musicplayer.music.constants.Constants.ACTION_TOGGLE_PAUSE
-import com.wolcano.musicplayer.music.mvp.models.Song
+import com.wolcano.musicplayer.music.model.Song
 import com.wolcano.musicplayer.music.provider.MusicService
 import com.wolcano.musicplayer.music.provider.RemotePlay.isPlaying
 

@@ -5,7 +5,7 @@
 
         <variable
             name="song"
-            type="com.wolcano.musicplayer.music.mvp.models.Song" />
+            type="com.wolcano.musicplayer.music.model.Song" />
     </data>
 
 
