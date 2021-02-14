@@ -1,4 +1,4 @@
-package com.wolcano.musicplayer.music.mvp
+package com.wolcano.musicplayer.music.content
 
 import android.content.ContentResolver
 import android.database.Cursor

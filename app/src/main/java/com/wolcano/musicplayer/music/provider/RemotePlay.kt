@@ -11,8 +11,8 @@ import com.wolcano.musicplayer.music.content.PlayerEnum
 import com.wolcano.musicplayer.music.content.managers.SessionManager.updateSessionMetaData
 import com.wolcano.musicplayer.music.content.managers.SessionManager.updateSessionPlaybackState
 import com.wolcano.musicplayer.music.content.managers.SoundManager
+import com.wolcano.musicplayer.music.listener.OnServiceListener
 import com.wolcano.musicplayer.music.model.Song
-import com.wolcano.musicplayer.music.mvp.listener.OnServiceListener
 import com.wolcano.musicplayer.music.persistence.AppDatabase
 import com.wolcano.musicplayer.music.provider.MusicService.ServiceInit
 import com.wolcano.musicplayer.music.utils.ToastUtils

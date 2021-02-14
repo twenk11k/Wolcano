@@ -1,4 +1,4 @@
-package com.wolcano.musicplayer.music.mvp.listener
+package com.wolcano.musicplayer.music.listener
 
 import com.wolcano.musicplayer.music.model.Song
 

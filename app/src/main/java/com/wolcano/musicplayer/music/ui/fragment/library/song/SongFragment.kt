@@ -15,9 +15,9 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.databinding.FragmentSongsBinding
+import com.wolcano.musicplayer.music.listener.FilterListener
+import com.wolcano.musicplayer.music.listener.PlaylistListener
 import com.wolcano.musicplayer.music.model.Song
-import com.wolcano.musicplayer.music.mvp.listener.FilterListener
-import com.wolcano.musicplayer.music.mvp.listener.PlaylistListener
 import com.wolcano.musicplayer.music.ui.activity.main.MainActivity
 import com.wolcano.musicplayer.music.ui.adapter.SongAdapter
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs.addPlaylistDialog

@@ -1,4 +1,4 @@
-package com.wolcano.musicplayer.music.mvp.listener
+package com.wolcano.musicplayer.music.listener
 
 interface SetSearchQuery {
     fun onSearchQuery(position: Int, isFirst: Boolean)

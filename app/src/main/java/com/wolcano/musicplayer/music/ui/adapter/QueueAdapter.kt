@@ -20,8 +20,8 @@ import com.squareup.picasso.Picasso.LoadedFrom
 import com.squareup.picasso.Target
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.databinding.QueueAdapterItemBinding
+import com.wolcano.musicplayer.music.listener.PlaylistListener
 import com.wolcano.musicplayer.music.model.Song
-import com.wolcano.musicplayer.music.mvp.listener.PlaylistListener
 import com.wolcano.musicplayer.music.provider.RemotePlay.deleteFromRemotePlay
 import com.wolcano.musicplayer.music.provider.RemotePlay.getRemotePlayPos
 import com.wolcano.musicplayer.music.provider.RemotePlay.playSong

@@ -20,11 +20,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.constants.Constants.MAIN_BASE_URL
 import com.wolcano.musicplayer.music.constants.Constants.MAIN_BASE_URL_2
+import com.wolcano.musicplayer.music.content.managers.DisposableManager
 import com.wolcano.musicplayer.music.databinding.FragmentOnlineBinding
+import com.wolcano.musicplayer.music.listener.RecyclerViewScrollListener
+import com.wolcano.musicplayer.music.listener.SetSearchQuery
 import com.wolcano.musicplayer.music.model.SongOnline
-import com.wolcano.musicplayer.music.mvp.DisposableManager
-import com.wolcano.musicplayer.music.mvp.listener.RecyclerViewScrollListener
-import com.wolcano.musicplayer.music.mvp.listener.SetSearchQuery
 import com.wolcano.musicplayer.music.ui.adapter.OnlineAdapter
 import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragment
 import com.wolcano.musicplayer.music.ui.helper.TintHelper

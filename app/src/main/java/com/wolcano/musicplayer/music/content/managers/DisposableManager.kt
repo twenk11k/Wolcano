@@ -1,4 +1,4 @@
-package com.wolcano.musicplayer.music.mvp
+package com.wolcano.musicplayer.music.content.managers
 
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable

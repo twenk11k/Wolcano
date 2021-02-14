@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.*
 import com.afollestad.materialdialogs.MaterialDialog
 import com.wolcano.musicplayer.music.R
-import com.wolcano.musicplayer.music.mvp.listener.SetSearchQuery
+import com.wolcano.musicplayer.music.listener.SetSearchQuery
 import com.wolcano.musicplayer.music.widgets.MaterialSearchView
 import java.util.*
 

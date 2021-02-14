@@ -1,4 +1,4 @@
-package com.wolcano.musicplayer.music.mvp.listener
+package com.wolcano.musicplayer.music.listener
 
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager

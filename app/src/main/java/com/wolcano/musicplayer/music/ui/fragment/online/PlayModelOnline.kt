@@ -1,11 +1,11 @@
-package com.wolcano.musicplayer.music.mvp.other
+package com.wolcano.musicplayer.music.ui.fragment.online
 
 import android.app.Activity
 import android.app.Dialog
 import androidx.appcompat.app.AlertDialog
 import com.wolcano.musicplayer.music.R
+import com.wolcano.musicplayer.music.listener.TaskInterface
 import com.wolcano.musicplayer.music.model.Song
-import com.wolcano.musicplayer.music.mvp.listener.TaskInterface
 import com.wolcano.musicplayer.music.utils.NetworkUtils
 import com.wolcano.musicplayer.music.utils.Utils
 

@@ -25,7 +25,7 @@ import android.widget.AdapterView.OnItemClickListener
 import android.widget.AdapterView.OnItemLongClickListener
 import com.miguelcatalan.materialsearchview.utils.AnimationUtil
 import com.wolcano.musicplayer.music.R
-import com.wolcano.musicplayer.music.mvp.listener.SetSearchQuery
+import com.wolcano.musicplayer.music.listener.SetSearchQuery
 import com.wolcano.musicplayer.music.ui.adapter.SearchAdapter
 
 class MaterialSearchView @JvmOverloads constructor(

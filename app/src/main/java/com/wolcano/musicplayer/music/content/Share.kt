@@ -10,7 +10,6 @@ import android.os.StrictMode.VmPolicy
 import android.provider.MediaStore
 import android.widget.Toast
 import com.wolcano.musicplayer.music.R
-import com.wolcano.musicplayer.music.mvp.TaskQuery
 import java.io.File
 
 object Share {

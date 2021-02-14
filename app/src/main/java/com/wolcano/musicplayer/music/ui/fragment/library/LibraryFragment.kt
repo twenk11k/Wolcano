@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.wolcano.musicplayer.music.R
+import com.wolcano.musicplayer.music.content.managers.DisposableManager
 import com.wolcano.musicplayer.music.databinding.FragmentLibraryBinding
-import com.wolcano.musicplayer.music.mvp.DisposableManager
 import com.wolcano.musicplayer.music.ui.adapter.statepager.LibraryFragmentPagerAdapter
 import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragment
 import com.wolcano.musicplayer.music.ui.fragment.library.album.AlbumFragment

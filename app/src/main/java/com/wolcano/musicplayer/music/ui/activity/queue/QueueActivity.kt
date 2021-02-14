@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.RecyclerView.AdapterDataObserver
 import butterknife.ButterKnife
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.databinding.ActivityQueueBinding
+import com.wolcano.musicplayer.music.listener.OnServiceListener
+import com.wolcano.musicplayer.music.listener.PlaylistListener
 import com.wolcano.musicplayer.music.model.Song
-import com.wolcano.musicplayer.music.mvp.listener.OnServiceListener
-import com.wolcano.musicplayer.music.mvp.listener.PlaylistListener
 import com.wolcano.musicplayer.music.provider.RemotePlay
 import com.wolcano.musicplayer.music.ui.activity.base.BaseActivity
 import com.wolcano.musicplayer.music.ui.adapter.QueueAdapter

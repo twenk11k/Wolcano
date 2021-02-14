@@ -20,9 +20,9 @@ import com.wolcano.musicplayer.music.constants.Type
 import com.wolcano.musicplayer.music.databinding.ItemSongOnlineBinding
 import com.wolcano.musicplayer.music.model.Song
 import com.wolcano.musicplayer.music.model.SongOnline
-import com.wolcano.musicplayer.music.mvp.other.PlayModelLocal
 import com.wolcano.musicplayer.music.provider.RemotePlay.playAdd
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs
+import com.wolcano.musicplayer.music.ui.fragment.online.PlayModelLocal
 import com.wolcano.musicplayer.music.utils.PermissionUtils
 import com.wolcano.musicplayer.music.utils.PermissionUtils.PermInterface
 import com.wolcano.musicplayer.music.utils.SongUtils

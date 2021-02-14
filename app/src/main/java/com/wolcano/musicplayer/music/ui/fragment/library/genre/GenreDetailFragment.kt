@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView.AdapterDataObserver
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.constants.Constants
 import com.wolcano.musicplayer.music.databinding.FragmentBaseSongBinding
+import com.wolcano.musicplayer.music.listener.PlaylistListener
 import com.wolcano.musicplayer.music.model.Song
-import com.wolcano.musicplayer.music.mvp.listener.PlaylistListener
 import com.wolcano.musicplayer.music.ui.activity.main.MainActivity
 import com.wolcano.musicplayer.music.ui.adapter.RecentlyAddedAdapter
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs

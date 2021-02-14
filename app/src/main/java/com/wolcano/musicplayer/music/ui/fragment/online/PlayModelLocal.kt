@@ -1,4 +1,4 @@
-package com.wolcano.musicplayer.music.mvp.other
+package com.wolcano.musicplayer.music.ui.fragment.online
 
 import android.app.Activity
 import com.wolcano.musicplayer.music.model.Song

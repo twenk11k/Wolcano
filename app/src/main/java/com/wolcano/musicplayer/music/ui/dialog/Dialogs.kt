@@ -24,11 +24,11 @@ import com.squareup.picasso.Target
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.content.Share
 import com.wolcano.musicplayer.music.content.Share.shareSong
+import com.wolcano.musicplayer.music.listener.ItemCallback
 import com.wolcano.musicplayer.music.model.Copy
 import com.wolcano.musicplayer.music.model.Playlist
 import com.wolcano.musicplayer.music.model.Song
 import com.wolcano.musicplayer.music.model.SongOnline
-import com.wolcano.musicplayer.music.mvp.listener.ItemCallback
 import com.wolcano.musicplayer.music.ui.adapter.customdialog.CopyItemAdapter
 import com.wolcano.musicplayer.music.ui.adapter.customdialog.ShareItemAdapter
 import com.wolcano.musicplayer.music.utils.SongUtils

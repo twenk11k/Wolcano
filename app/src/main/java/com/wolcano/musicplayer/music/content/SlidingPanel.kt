@@ -1,4 +1,4 @@
-package com.wolcano.musicplayer.music.content.slidingpanel
+package com.wolcano.musicplayer.music.content
 
 import android.app.Activity
 import android.content.res.Resources
@@ -13,11 +13,10 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.squareup.picasso.Picasso
 import com.wolcano.musicplayer.music.R
-import com.wolcano.musicplayer.music.content.Binder
+import com.wolcano.musicplayer.music.listener.Bind
+import com.wolcano.musicplayer.music.listener.OnServiceListener
+import com.wolcano.musicplayer.music.listener.OnSwipeTouchListener
 import com.wolcano.musicplayer.music.model.Song
-import com.wolcano.musicplayer.music.mvp.listener.Bind
-import com.wolcano.musicplayer.music.mvp.listener.OnServiceListener
-import com.wolcano.musicplayer.music.mvp.listener.OnSwipeTouchListener
 import com.wolcano.musicplayer.music.provider.RemotePlay.buttonClick
 import com.wolcano.musicplayer.music.provider.RemotePlay.getPlayMusic
 import com.wolcano.musicplayer.music.provider.RemotePlay.getPlayerCurrentPosition
