@@ -41,4 +41,10 @@ class RepositoryModule {
         return PlaylistRepository()
     }
 
+    @Provides
+    @ActivityRetainedScoped
+    fun provideMainRepository(): MainRepository {
+        return MainRepository()
+    }
+
 }

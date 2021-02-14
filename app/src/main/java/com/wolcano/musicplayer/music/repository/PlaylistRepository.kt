@@ -7,7 +7,9 @@ import com.skydoves.whatif.whatIfNotNull
 import com.wolcano.musicplayer.music.App
 import com.wolcano.musicplayer.music.constants.Constants
 import com.wolcano.musicplayer.music.model.Playlist
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 
 class PlaylistRepository {
 
@@ -35,7 +37,7 @@ class PlaylistRepository {
                 emit(it)
             }
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
     private fun getSongCountForPlaylist(playlistId: Long): Int {
         val c = App.getContext().contentResolver.query(

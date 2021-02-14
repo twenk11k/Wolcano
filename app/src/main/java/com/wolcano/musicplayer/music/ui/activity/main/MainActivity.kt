@@ -1,8 +1,6 @@
 package com.wolcano.musicplayer.music.ui.activity.main
 
 import android.Manifest
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
@@ -15,6 +13,7 @@ import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.*
 import android.widget.SeekBar.OnSeekBarChangeListener
+import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -31,7 +30,6 @@ import com.wolcano.musicplayer.music.databinding.ActivityMainBinding
 import com.wolcano.musicplayer.music.listener.OnServiceListener
 import com.wolcano.musicplayer.music.listener.PlaylistListener
 import com.wolcano.musicplayer.music.model.ModelBitmap
-import com.wolcano.musicplayer.music.model.Playlist
 import com.wolcano.musicplayer.music.model.Song
 import com.wolcano.musicplayer.music.provider.RemotePlay.buttonClick
 import com.wolcano.musicplayer.music.provider.RemotePlay.getPlayMusic
@@ -60,13 +58,8 @@ import com.wolcano.musicplayer.music.utils.PermissionUtils.PermInterface
 import com.wolcano.musicplayer.music.widgets.ModelView
 import com.wolcano.musicplayer.music.widgets.SongCover
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import java.io.File
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelectedListener,
@@ -76,21 +69,18 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     private var isDragging = false
     private var slidingPanel: SlidingPanel? = null
     private var isExpand = false
-    private lateinit var context: Context
     private var lightStatusbar = false
     private var mIsResumed = true
-    private var activity: Activity? = null
-    private var disposable: Disposable? = null
     private var placeholder: Drawable? = null
     private var handlerCollapse: Handler? = null
     private var currentFrag = 0
     private var typeReturn = false
     private val binding: ActivityMainBinding by binding(R.layout.activity_main)
 
+    val viewModel: MainViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        context = this
-        activity = this
         setDrawerOptions()
         initViews()
         displayDialog()
@@ -117,7 +107,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     }
 
     private fun displayDialog() {
-        val first = Utils.getFirst(context)
+        val first = Utils.getFirst(this)
         if (first) {
             val str = if (Build.VERSION.SDK_INT >= 23) {
                 getString(R.string.first_dec)
@@ -131,23 +121,23 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 cancelOnTouchOutside(false)
             }
 
-            Utils.setFirst(context, false)
+            Utils.setFirst(this, false)
         }
     }
 
     private fun prev() {
-        prev(context)
+        prev(this)
     }
 
     private fun setLeftButtonMode() {
-        var mode = PlayerEnum.valueOf(Utils.getPlaylistId(context))
+        var mode = PlayerEnum.valueOf(Utils.getPlaylistId(this))
         mode = when (mode) {
             PlayerEnum.NORMAL -> PlayerEnum.SHUFFLE
             PlayerEnum.SHUFFLE -> PlayerEnum.REPEAT
             PlayerEnum.REPEAT -> PlayerEnum.NORMAL
             else -> PlayerEnum.NORMAL
         }
-        Utils.setPlaylistId(context, mode.value)
+        Utils.setPlaylistId(this, mode.value)
         setLeftButton()
     }
 
@@ -191,7 +181,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         if (intentList != null) {
             for (i in intentList.indices) {
                 if (intentList[i]!!.path == songPath) {
-                    playAdd(context, intentList, intentList[i]!!)
+                    playAdd(this, intentList, intentList[i]!!)
                     break
                 }
             }
@@ -210,10 +200,9 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     fun showPlayView() {
         binding.slidinguppanel.slidinguppanelChild2.modelcover.initHelper(isPlaying())
         setLeftButton()
-        onSongChange(getPlayMusic(context))
+        onSongChange(getPlayMusic(this))
         onListener(this)
     }
-
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
@@ -253,7 +242,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             ColorUtils.getOppositeColor(Utils.getPrimaryColor(this)),
             Utils.getAccentColor(this)
         )
-        binding.navView.setBackgroundColor(Utils.getPrimaryColor(context))
+        binding.navView.setBackgroundColor(Utils.getPrimaryColor(this))
         binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.seekbar.progressDrawable.setColorFilter(
             Utils.getAccentColor(this),
             PorterDuff.Mode.SRC_IN
@@ -301,7 +290,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             binding.slidinguppanel.slidinguppanellayout.panelState = PanelState.COLLAPSED
         }
         if (Utils.getColorSelection(this)) {
-            SongCover.setCacheDefault(context)
+            SongCover.setCacheDefault(this)
             Utils.setColorSelection(this, false)
             Utils.setRecreated(this, true)
             updateUiSettings()
@@ -375,7 +364,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     }
 
     private operator fun next() {
-        next(context, false)
+        next(this, false)
     }
 
     fun expandPanel() {
@@ -388,9 +377,6 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
     override fun onDestroy() {
         removeListener(this)
-        if (disposable != null && !disposable!!.isDisposed) {
-            disposable?.dispose()
-        }
         if (slidingPanel!!.disposable != null && !slidingPanel!!.disposable!!.isDisposed) {
             slidingPanel?.disposable?.dispose()
         }
@@ -502,16 +488,16 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     override fun onClick(v: View) {
         when (v.id) {
             R.id.back -> onBackPressed()
-            R.id.menu -> if (getPlayMusic(context) != null) {
-                if (getPlayMusic(context)!!.type == Song.Tip.MODEL0) {
+            R.id.menu -> if (getPlayMusic(this) != null) {
+                if (getPlayMusic(this)!!.type == Song.Tip.MODEL0) {
                     SongHelperMenu.handleMenuLocal(
                         this,
                         v,
-                        getPlayMusic(context)!!,
+                        getPlayMusic(this)!!,
                         this
                     )
                 } else {
-                    SongHelperMenu.handleMenuOnline(this, v, getPlayMusic(context))
+                    SongHelperMenu.handleMenuOnline(this, v, getPlayMusic(this))
                 }
             }
             R.id.innerLinearTopOne -> onBackPressed()
@@ -532,11 +518,11 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     }
 
     private fun play() {
-        buttonClick(context)
+        buttonClick(this)
     }
 
     fun setLeftButton() {
-        val mode = Utils.getPlaylistId(context)
+        val mode = Utils.getPlaylistId(this)
         binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.leftbutton.setImageLevel(
             mode
         )
@@ -563,34 +549,29 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             imageView.setImageBitmap(blur.bitmap)
         }
         if (round == null) {
-            modelCoverView.setRoundBitmap(SongCover.getMainModel(context, SongCover.Tip.OVAL))
+            modelCoverView.setRoundBitmap(SongCover.getMainModel(this, SongCover.Tip.OVAL))
         } else {
             if (round.id == 0) {
                 modelCoverView.setRoundBitmap(round.bitmap)
             } else if (round.id == 1) {
                 modelCoverView.setRoundBitmap(
-                    SongCover.getMainModel(context, SongCover.Tip.OVAL)
+                    SongCover.getMainModel(this, SongCover.Tip.OVAL)
                 )
             }
         }
     }
 
     fun loadBitmap(song: Song?, imageView: ImageView, modelCoverView: ModelView) {
-        val bitmapObservable = Observable.fromCallable<List<ModelBitmap?>> {
-            val bitmapList: MutableList<ModelBitmap?> = ArrayList()
-            bitmapList.add(SongCover.loadBlurredModel(context, song))
-            bitmapList.add(SongCover.loadOvalModel(context, song))
-            bitmapList
-        }.throttleFirst(500, TimeUnit.MILLISECONDS)
-        disposable =
-            bitmapObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe { list: List<ModelBitmap?> ->
-                    setBitmap(
-                        list,
-                        imageView,
-                        modelCoverView
-                    )
-                }
+        viewModel.retrieveBitmaps(song)
+        viewModel.bitmapsLiveData.observe(this, {
+            if (it != null) {
+                setBitmap(
+                    it,
+                    imageView,
+                    modelCoverView
+                )
+            }
+        })
     }
 
     fun onSongChange(song: Song?) {
@@ -630,18 +611,16 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
 
     override fun handlePlaylistDialog(song: Song?) {
-        disposable = Observable.fromCallable {
-            SongUtils.scanPlaylist(
-                activity
-            )
-        }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-            .subscribe { playlists: List<Playlist> ->
+        viewModel.retrievePlaylists()
+        viewModel.playlistsLiveData.observe(this, {
+            if (it != null) {
                 Dialogs.addPlaylistDialog(
                     this,
                     song,
-                    playlists
+                    it
                 )
             }
+        })
     }
 
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
