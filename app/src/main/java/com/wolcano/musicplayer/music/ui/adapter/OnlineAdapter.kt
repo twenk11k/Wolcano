@@ -9,14 +9,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
-import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import butterknife.BindView
-import butterknife.ButterKnife
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.constants.Type
+import com.wolcano.musicplayer.music.databinding.FooterViewBinding
 import com.wolcano.musicplayer.music.databinding.ItemSongOnlineBinding
 import com.wolcano.musicplayer.music.model.Song
 import com.wolcano.musicplayer.music.model.SongOnline
@@ -35,18 +33,13 @@ class OnlineAdapter(
     songOnlineList: ArrayList<SongOnline>?
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var songOnlineList: ArrayList<SongOnline>? = null
+    private var songOnlineList: ArrayList<SongOnline>? = ArrayList<SongOnline>()
     private var showLoader = false
     private var downloadCount = 0
 
     init {
-        if (songOnlineList == null) {
-            this.songOnlineList = ArrayList<SongOnline>()
-        } else {
-            this.songOnlineList = songOnlineList
-        }
+        this.songOnlineList = songOnlineList
     }
-
 
     private fun setOnPopupMenuListener(viewHolder: OnlineAdapter.ViewHolder, pos: Int) {
         viewHolder.binding.more.setOnClickListener { v ->
@@ -94,7 +87,6 @@ class OnlineAdapter(
         }
     }
 
-
     fun clear() {
         val size = songOnlineList!!.size
         songOnlineList?.clear()
@@ -103,7 +95,6 @@ class OnlineAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         var viewHolder: RecyclerView.ViewHolder? = null
-        val v: View
         when (viewType) {
             Type.TYPE_SONG -> {
                 val binding: ItemSongOnlineBinding = DataBindingUtil.inflate(
@@ -115,27 +106,30 @@ class OnlineAdapter(
                 viewHolder = ViewHolder(binding)
             }
             Type.TYPE_FOOTER -> {
-                v = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.thefooter_view, parent, false)
-                viewHolder = LoaderViewHolder(v)
+                val binding: FooterViewBinding = DataBindingUtil.inflate(
+                    LayoutInflater.from(parent.context),
+                    R.layout.footer_view,
+                    parent,
+                    false
+                )
+                viewHolder = LoaderViewHolder(binding)
             }
         }
         return viewHolder!!
     }
-
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == Type.TYPE_FOOTER) {
             if (holder is LoaderViewHolder) {
                 val loaderViewHolder: LoaderViewHolder = holder
                 if (showLoader) {
-                    loaderViewHolder.progressBar?.visibility = View.VISIBLE
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) loaderViewHolder.progressBar?.indeterminateTintList =
+                    loaderViewHolder.binding.progressBar.visibility = View.VISIBLE
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) loaderViewHolder.binding.progressBar.indeterminateTintList =
                         ColorStateList.valueOf(
                             Utils.getAccentColor(activity)
                         )
                 } else {
-                    loaderViewHolder.progressBar?.visibility = View.GONE
+                    loaderViewHolder.binding.progressBar.visibility = View.GONE
                 }
             }
         } else {
@@ -158,23 +152,20 @@ class OnlineAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (songOnlineList!!.size == position + 1 && songOnlineList!!.size >= 50) {
+        return if (songOnlineList!!.size == position + 1 && songOnlineList!!.size >= 49) {
             Type.TYPE_FOOTER
         } else {
             Type.TYPE_SONG
         }
     }
 
-
     override fun getItemCount(): Int {
         return if (null != songOnlineList) songOnlineList!!.size else 0
     }
 
-
     fun showLoading(status: Boolean) {
         showLoader = status
     }
-
 
     inner class ViewHolder(val binding: ItemSongOnlineBinding) :
         RecyclerView.ViewHolder(binding.root),
@@ -206,15 +197,8 @@ class OnlineAdapter(
         }
     }
 
-    inner class LoaderViewHolder(itemView: View) : RecyclerView.ViewHolder(
-        itemView
-    ) {
-        @BindView(R.id.progress_bar)
-        var progressBar: ProgressBar? = null
-
-        init {
-            ButterKnife.bind(this, itemView)
-        }
-    }
+    inner class LoaderViewHolder(val binding: FooterViewBinding) : RecyclerView.ViewHolder(
+        binding.root
+    )
 
 }

@@ -7,10 +7,10 @@ import android.graphics.drawable.ColorDrawable
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Bundle
-import android.os.Handler
+import android.util.Log
 import android.view.*
+import android.view.View.GONE
 import android.view.animation.AnimationUtils
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -51,6 +51,7 @@ import io.reactivex.schedulers.Schedulers
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import java.util.*
+import kotlin.collections.HashMap
 
 class OnlineFragment : BaseFragment(), SetSearchQuery {
 
@@ -61,38 +62,34 @@ class OnlineFragment : BaseFragment(), SetSearchQuery {
     private var errorStr: String? = null
     private var array: IntArray? = null
     private var isApproved = false
+
     private var arrayList: ArrayList<String>? = null
+    private var arrayList2: ArrayList<String>? = null
     private var arrayTitleList: ArrayList<String>? = null
     private var arrayArtistList: ArrayList<String>? = null
     private var arraySearchList: ArrayList<String>? = null
     private var lastSearches: ArrayList<String>? = null
-    private var arrayList2: ArrayList<String>? = null
-    private var arrayDuraList: ArrayList<String>? = null
+    private var arrayDurationList: ArrayList<String>? = null
     private var suggestionList: ArrayList<String>? = null
     private var arraySongOnlineList: ArrayList<SongOnline>? = null
+
     private var cInt = 1
     private var loadMore = false
-    private var adt: ArrayAdapter<String>? = null
-    private var adtTitle: ArrayAdapter<String>? = null
-    private var adtDuration: ArrayAdapter<String>? = null
-    private var adtArtist: ArrayAdapter<String>? = null
-    private var adtSearchList: ArrayAdapter<String>? = null
-    private var adt2: ArrayAdapter<String>? = null
-    private var adtSongOnline: ArrayAdapter<SongOnline>? = null
+
     private var disposable: Disposable? = null
     private var onlineAdapter: OnlineAdapter? = null
+
     private var suggestionListStringsFromRemove: Array<String>? = null
     private var lastSearchesStringsFromRemove: Array<String>? = null
     private val durationQuery = "em.cplayer-data-sound-time"
     private var footerView: View? = null
     private var lastSearchList: List<String>? = null
     private var color = 0
-    private var isitRemoved = false
+    private var isItRemoved = false
     private val titleQuery = "b.cplayer-data-sound-title"
     private val baseQuery = "li[data-sound-url]"
     private val artistQuery = "i.cplayer-data-sound-author"
     private val singleQuery = "data-sound-url"
-    private val `val` = "shine"
 
     private lateinit var binding: FragmentOnlineBinding
 
@@ -147,19 +144,19 @@ class OnlineFragment : BaseFragment(), SetSearchQuery {
             )
         }
 
-        footerView = inflater.inflate(R.layout.thefooter_view, container, false)
+        footerView = inflater.inflate(R.layout.footer_view, container, false)
         arrayList = ArrayList()
         arrayArtistList = ArrayList()
         arraySearchList = ArrayList()
         arrayList2 = ArrayList()
-        arrayDuraList = ArrayList()
+        arrayDurationList = ArrayList()
         arraySongOnlineList = ArrayList()
         arrayTitleList = ArrayList()
 
         binding.viewEmpty.visibility = View.VISIBLE
         setSearchView()
         binding.emptyText.text = requireContext().resources.getString(R.string.search_info)
-        binding.recyclerView.visibility = View.GONE
+        binding.recyclerView.visibility = GONE
 
         return binding.root
     }
@@ -167,21 +164,20 @@ class OnlineFragment : BaseFragment(), SetSearchQuery {
     private fun loadMoreData() {
         if (!loadMore) {
             if (cInt <= 5 && arrayList!!.size >= 50 && !isApproved) {
-                if (!loadMore) {
-                    loadMore = true
-                    cInt++
-                    positionMore = binding.recyclerView.adapter!!.itemCount - 1
-                    if (!control) {
-                        isApproved = false
-                        executeTask()
-                    } else {
-                        loadMore = false
-                    }
+                loadMore = true
+                cInt++
+                positionMore = binding.recyclerView.adapter!!.itemCount - 1
+                if (!control) {
+                    isApproved = false
+                    executeTask()
+                } else {
+                    loadMore = false
                 }
             } else {
                 loadMore = false
             }
         }
+
     }
 
     private fun setSearchView() {
@@ -328,24 +324,7 @@ class OnlineFragment : BaseFragment(), SetSearchQuery {
                 }
                 setSearchQuery(requireContext(), sbf.toString())
                 setLastSingleSearch(requireContext(), query.trim())
-                if (!query.trim().contains(`val`)) {
-                    setSearchQuery(query.trim())
-                } else if (query.trim().contains(`val`)) {
-                    if (query.trim().isNotEmpty()) {
-                        binding.toolbar.title = query.trim()
-                    }
-                    binding.viewEmpty.visibility = View.GONE
-                    binding.emptyText.visibility = View.GONE
-                    binding.progressBar.visibility = View.VISIBLE
-                    binding.recyclerView.visibility = View.GONE
-                    val delay = (2 + Random().nextInt(3)) * 1000
-                    val handler = Handler()
-                    handler.postDelayed({
-                        binding.progressBar.visibility = View.GONE
-                        binding.emptyText.setText(R.string.no_result)
-                        binding.emptyText.visibility = View.VISIBLE
-                    }, delay.toLong())
-                }
+                setSearchQuery(query.trim())
                 return false
             }
 
@@ -394,8 +373,6 @@ class OnlineFragment : BaseFragment(), SetSearchQuery {
                 }
                 return false
             }
-
-
         })
     }
 
@@ -405,25 +382,8 @@ class OnlineFragment : BaseFragment(), SetSearchQuery {
             val lastSingleSearch = getLastSingleSearch(
                 requireContext()
             )
-            if (lastSingleSearch!!.isNotEmpty() && !lastSingleSearch.trim()
-                    .contains(`val`)
-            ) {
+            if (lastSingleSearch!!.isNotEmpty()) {
                 setSearchQuery(lastSingleSearch.trim())
-            } else if (lastSingleSearch.trim().contains(`val`)) {
-                if (lastSingleSearch.isNotEmpty()) {
-                    binding.toolbar.title = lastSingleSearch.trim()
-                }
-                binding.recyclerView.visibility = View.GONE
-                binding.viewEmpty.visibility = View.GONE
-                binding.emptyText.visibility = View.GONE
-                binding.progressBar.visibility = View.VISIBLE
-                val delay = (2 + Random().nextInt(3)) * 1000
-                val handler = Handler()
-                handler.postDelayed({
-                    binding.progressBar.visibility = View.GONE
-                    binding.emptyText.setText(R.string.no_result)
-                    binding.emptyText.visibility = View.VISIBLE
-                }, delay.toLong())
             }
         }
     }
@@ -448,18 +408,10 @@ class OnlineFragment : BaseFragment(), SetSearchQuery {
             lastSearches?.addAll(list)
         }
         if (lastSearches!!.contains(text.trim())) {
-            while (lastSearches!!.iterator().hasNext()) {
-                if (lastSearches!!.iterator().next().contains(text.trim())) {
-                    lastSearches!!.iterator().remove()
-                }
-            }
+            lastSearches?.removeAt(lastSearches!!.indexOf(text.trim()))
         }
         if (suggestionList!!.contains(text.trim())) {
-            while (suggestionList!!.iterator().hasNext()) {
-                if (suggestionList!!.iterator().next().contains(text.trim())) {
-                    suggestionList!!.iterator().remove()
-                }
-            }
+            suggestionList?.removeAt(suggestionList!!.indexOf(text.trim()))
         }
         suggestionListStringsFromRemove = suggestionList!!.toTypedArray()
         lastSearchesStringsFromRemove = lastSearches!!.toTypedArray()
@@ -477,44 +429,22 @@ class OnlineFragment : BaseFragment(), SetSearchQuery {
         MaterialSearchView.isRemoved = false
     }
 
-
     private fun setSearchQuery(query: String) {
-        binding.viewEmpty.visibility = View.GONE
-        binding.emptyText.visibility = View.GONE
+        binding.viewEmpty.visibility = GONE
+        binding.emptyText.visibility = GONE
         binding.recyclerView.visibility = View.VISIBLE
         binding.toolbar.title = query
         RecyclerViewScrollListener.previousTotal = 0
         isApproved = true
         setGetSearch(requireContext(), query)
         if (!loadMore) {
-            if (arrayList != null && adt != null) {
-                arrayList?.clear()
-                adt?.notifyDataSetChanged()
-            }
-            if (arrayList2 != null && adt2 != null) {
-                arrayList2?.clear()
-                adt2?.notifyDataSetChanged()
-            }
-            if (arraySearchList != null && adtSearchList != null) {
-                arraySearchList?.clear()
-                adtSearchList?.notifyDataSetChanged()
-            }
-            if (arrayArtistList != null && adtArtist != null) {
-                arrayArtistList?.clear()
-                adtArtist?.notifyDataSetChanged()
-            }
-            if (arrayTitleList != null && adtTitle != null) {
-                arrayTitleList?.clear()
-                adtTitle?.notifyDataSetChanged()
-            }
-            if (arrayDuraList != null && adtDuration != null) {
-                arrayDuraList?.clear()
-                adtDuration?.notifyDataSetChanged()
-            }
-            if (arraySongOnlineList != null && adtSongOnline != null) {
-                arraySongOnlineList?.clear()
-                adtSongOnline?.notifyDataSetChanged()
-            }
+            arrayList?.clear()
+            arrayList2?.clear()
+            arraySearchList?.clear()
+            arrayArtistList?.clear()
+            arrayTitleList?.clear()
+            arrayDurationList?.clear()
+            arraySongOnlineList?.clear()
             onlineAdapter?.clear()
             disposable?.dispose()
             lCounter = 0
@@ -566,7 +496,6 @@ class OnlineFragment : BaseFragment(), SetSearchQuery {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-
     override fun onSearchQuery(position: Int, isFirst: Boolean) {
         binding.materialSearchLast.setQuery(
             binding.materialSearchLast.getListPosSend(position),
@@ -576,20 +505,6 @@ class OnlineFragment : BaseFragment(), SetSearchQuery {
 
     override fun onRemoveSuggestion(position: Int, whichList: Int) {
         removeSuggestion(binding.materialSearchLast.getListPosSend(position))
-    }
-
-
-    private fun addToArrayAdapter() {
-        adt = ArrayAdapter(requireActivity(), android.R.layout.simple_list_item_1, arrayList)
-        adt2 = ArrayAdapter(requireActivity(), android.R.layout.simple_list_item_1, arrayList2)
-        adtArtist =
-            ArrayAdapter(requireActivity(), android.R.layout.simple_list_item_1, arrayArtistList)
-        adtTitle =
-            ArrayAdapter(requireActivity(), android.R.layout.simple_list_item_1, arrayTitleList)
-        adtDuration =
-            ArrayAdapter(requireActivity(), android.R.layout.simple_list_item_1, arrayDuraList)
-        adtSearchList =
-            ArrayAdapter(requireActivity(), android.R.layout.simple_list_item_1, arraySearchList)
     }
 
     fun closeSearch() {
@@ -612,7 +527,7 @@ class OnlineFragment : BaseFragment(), SetSearchQuery {
         arraySearchList?.add(str2)
         arrayArtistList?.add(str3)
         arrayTitleList?.add(str4)
-        arrayDuraList?.add(str5)
+        arrayDurationList?.add(str5)
     }
 
     private fun executeTask() {
@@ -642,7 +557,6 @@ class OnlineFragment : BaseFragment(), SetSearchQuery {
                             val baseUrl = baseElements[j].attr(singleQuery)
                             addToArrayList("$title\n $artist\n", baseUrl, artist, title, duration)
                         }
-                        addToArrayAdapter()
                         checkAdapter()
                     }
                 }
@@ -651,24 +565,22 @@ class OnlineFragment : BaseFragment(), SetSearchQuery {
             }
             false
         }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(
-            { o: Boolean? -> postMain() }
+            { postMain() }
         ) { obj: Throwable -> obj.printStackTrace() }
     }
 
     private fun checkAdapter() {
-        control = adtSearchList!!.count < 49
+        control = arraySearchList!!.size < 49
     }
 
     private fun postMain() {
-        if (arraySongOnlineList != null && adtSongOnline != null) {
-            arraySongOnlineList?.clear()
-            adtSongOnline?.notifyDataSetChanged()
-        }
+        Log.d("asdgvsdsd", "postMain")
+        arraySongOnlineList?.clear()
         if (arrayList != null) {
             array = IntArray(arrayList!!.size)
             for (k in arrayList!!.indices) {
-                if (adtDuration != null) {
-                    val duration = java.lang.StringBuilder(adtDuration?.getItem(k))
+                if (arrayDurationList != null) {
+                    val duration = java.lang.StringBuilder(arrayDurationList!![k])
                     var i = 0
                     while (i < duration.length - 1) {
                         val current = duration[i]
@@ -687,35 +599,27 @@ class OnlineFragment : BaseFragment(), SetSearchQuery {
                     val finalStage = strStage1 * 60 + strStage2
                     array!![k] = k
                     val songOnline = SongOnline(
-                        adtSearchList!!.getItem(k), adtArtist!!.getItem(k), adtTitle!!.getItem(k),
+                        arraySearchList!![k], arrayArtistList!![k], arrayTitleList!![k],
                         finalStage.toLong()
                     )
                     arraySongOnlineList?.add(songOnline)
-                    adtSongOnline?.notifyDataSetInvalidated()
-                    adtSongOnline =
-                        ArrayAdapter(
-                            requireContext(),
-                            android.R.layout.simple_list_item_1,
-                            arraySongOnlineList
-                        )
                 }
             }
         }
         binding.recyclerView.requestLayout()
         binding.recyclerView.invalidate()
         loadMore = false
-        footerView?.visibility = View.GONE
+        footerView?.visibility = GONE
         if (!isConnected()) {
-            binding.progressBar.visibility = View.GONE
+            binding.progressBar.visibility = GONE
             Toast.makeText(
                 requireContext().applicationContext,
                 R.string.cnn_err,
                 Toast.LENGTH_SHORT
-            )
-                .show()
+            ).show()
         } else {
             if (arrayList?.size == 0) {
-                isitRemoved = true
+                isItRemoved = true
                 if (errorStr == getString(R.string.http_error)) {
                     Toast.makeText(
                         requireContext().applicationContext,
@@ -727,10 +631,10 @@ class OnlineFragment : BaseFragment(), SetSearchQuery {
                     controlIfEmpty()
                 }
             } else {
-                isitRemoved = false
+                isItRemoved = false
             }
-            if (!isitRemoved) {
-                binding.emptyText.visibility = View.GONE
+            if (!isItRemoved) {
+                binding.emptyText.visibility = GONE
                 if (positionMore == 0 && cInt == 1) {
                     if (binding.recyclerView.adapter == null) {
                         createOnlineAdapter()
@@ -750,10 +654,10 @@ class OnlineFragment : BaseFragment(), SetSearchQuery {
                     }
                     onlineAdapter?.notifyDataSetChanged()
                 }
-                if (lCounter == adtSearchList!!.count) {
+                if (lCounter == arraySearchList!!.size) {
                     control = true
                 }
-                lCounter = adtSearchList!!.count
+                lCounter = arraySearchList!!.size
                 if (!control && cInt <= 5) {
                     onlineAdapter?.showLoading(true)
                     if (arraySongOnlineList!!.size >= 15) {
@@ -761,26 +665,31 @@ class OnlineFragment : BaseFragment(), SetSearchQuery {
                     } else {
                         binding.recyclerView.setThumbEnabled(false)
                     }
+                    Log.d("asdgvsdsd", "if")
                     onlineAdapter?.notifyDataSetChanged()
                 } else {
+                    Log.d("asdgvsdsd", "else")
                     onlineAdapter?.showLoading(false)
+                    if(arraySongOnlineList!!.isNotEmpty()) {
+                        Log.d("asdgvsdsd", "is not empty")
+                    }
+                    var map = HashMap<Int, Int>()
+                    map.toSortedMap(compareByDescending { map[it] })
                     if (arraySongOnlineList!!.size >= 15) {
                         binding.recyclerView.setThumbEnabled(true)
                     } else {
                         binding.recyclerView.setThumbEnabled(false)
                     }
                     onlineAdapter?.notifyDataSetChanged()
-                    runLayoutAnimation(binding.recyclerView)
                 }
-                binding.progressBar.visibility = View.GONE
+                binding.progressBar.visibility = GONE
                 binding.recyclerView.visibility = View.VISIBLE
             } else {
-                binding.progressBar.visibility = View.GONE
+                binding.progressBar.visibility = GONE
                 binding.recyclerView.visibility = View.VISIBLE
             }
         }
     }
-
 
     private fun runLayoutAnimation(recyclerView: RecyclerView) {
         val context = recyclerView.context
@@ -794,7 +703,7 @@ class OnlineFragment : BaseFragment(), SetSearchQuery {
     private fun controlIfEmpty() {
         binding.emptyText.setText(R.string.no_result)
         binding.emptyText.visibility =
-            if (onlineAdapter == null || onlineAdapter?.itemCount == 0) View.VISIBLE else View.GONE
+            if (onlineAdapter == null || onlineAdapter?.itemCount == 0) View.VISIBLE else GONE
     }
 
     private fun setOnlineAdapter() {

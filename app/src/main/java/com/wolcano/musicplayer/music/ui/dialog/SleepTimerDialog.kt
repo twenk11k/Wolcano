@@ -15,12 +15,10 @@ import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
-import butterknife.ButterKnife
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.WhichButton
 import com.afollestad.materialdialogs.actions.setActionButtonEnabled
 import com.afollestad.materialdialogs.customview.customView
-import com.afollestad.materialdialogs.customview.getCustomView
 import com.triggertrap.seekarc.SeekArc
 import com.triggertrap.seekarc.SeekArc.OnSeekArcChangeListener
 import com.wolcano.musicplayer.music.R
@@ -125,8 +123,6 @@ class SleepTimerDialog : DialogFragment() {
         if (activity == null) {
             return materialDialog
         }
-
-        ButterKnife.bind(this, materialDialog.getCustomView())
 
         binding.seekArc.progressColor = getAccentColor(requireContext())
         binding.seekArc.setThumbColor(getAccentColor(requireContext()))

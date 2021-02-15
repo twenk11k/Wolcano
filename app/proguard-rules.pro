@@ -1,13 +1,6 @@
 # $ANDROID_HOME/tools/proguard/proguard-android.txt
 
 # Keep public classes and methods.
-# Rxbus
-
--keepattributes *Annotation*
--keepclassmembers class ** {
-    @com.hwangjr.rxbus.annotation.Subscribe public *;
-    @com.hwangjr.rxbus.annotation.Produce public *;
-}
 
 # rxjava
 -keep class rx.schedulers.Schedulers {
@@ -31,27 +24,6 @@
     long consumerNode;
 }
 
-# butterknife
-
--keep class butterknife.*
--keepclasseswithmembernames class * { @butterknife.* <methods>; }
--keepclasseswithmembernames class * { @butterknife.* <fields>; }
-
-
-# Glide
-
--keep public class * implements com.bumptech.glide.module.GlideModule
--keep public class * extends com.bumptech.glide.module.AppGlideModule
--keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
-  **[] $VALUES;
-  public *;
-}
-
-
- -keep class com.simplecityapps.** {*;}
- -dontwarn com.simplecityapps.**
-
-
 -keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
     rx.internal.util.atomic.LinkedQueueNode producerNode;
 }
@@ -61,8 +33,6 @@
 }
 
 -dontnote rx.internal.util.PlatformDependent
-
-
 
 # Retrofit
 
@@ -94,15 +64,3 @@
 # and replaces all potential values with null. Explicitly keeping the interfaces prevents this.
 -if interface * { @retrofit2.http.* <methods>; }
 -keep,allowobfuscation interface <1>
-
-# Greenrobot
--keepattributes *Annotation*
--keepclassmembers class * {
-    @org.greenrobot.eventbus.Subscribe <methods>;
-}
--keep enum org.greenrobot.eventbus.ThreadMode { *; }
-
-# Only required if you use AsyncExecutor
--keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
-    <init>(java.lang.Throwable);
-}

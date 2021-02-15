@@ -10,7 +10,6 @@ import androidx.activity.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.AdapterDataObserver
-import butterknife.ButterKnife
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.databinding.ActivityQueueBinding
 import com.wolcano.musicplayer.music.listener.OnServiceListener
@@ -38,7 +37,6 @@ class QueueActivity : BaseActivity(), OnItemClickListener, OnServiceListener, Pl
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_queue)
-        ButterKnife.bind(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

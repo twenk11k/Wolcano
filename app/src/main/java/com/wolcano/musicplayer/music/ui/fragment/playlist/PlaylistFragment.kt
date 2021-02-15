@@ -4,11 +4,13 @@ import android.Manifest
 import android.graphics.Color
 import android.os.Bundle
 import android.view.*
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.AdapterDataObserver
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.databinding.FragmentBaseSongBinding
@@ -127,6 +129,15 @@ class PlaylistFragment : BaseFragment() {
         return super.onOptionsItemSelected(item)
     }
 
+    private fun runLayoutAnimation(recyclerView: RecyclerView) {
+        val context = recyclerView.context
+        val controller =
+            AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fall_down)
+        recyclerView.layoutAnimation = controller
+        recyclerView.adapter?.notifyDataSetChanged()
+        recyclerView.scheduleLayoutAnimation()
+    }
+
     fun controlIfEmpty() {
         binding.empty.setText(R.string.no_playlist)
         binding.empty.visibility =
@@ -141,6 +152,7 @@ class PlaylistFragment : BaseFragment() {
         }
         adapter = PlaylistAdapter(requireActivity(), playlistList)
         binding.recyclerview.adapter = adapter
+        runLayoutAnimation(binding.recyclerview)
         controlIfEmpty()
         adapter?.registerAdapterDataObserver(object : AdapterDataObserver() {
             override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
