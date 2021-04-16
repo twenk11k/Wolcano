@@ -62,7 +62,7 @@ class ShareItemAdapter(private val context: Context, private val shareList: Arra
         ),
         View.OnClickListener {
         override fun onClick(v: View) {
-            itemCallback?.onItemClicked(adapterPosition)
+            itemCallback?.onItemClicked(absoluteAdapterPosition)
         }
 
         init {

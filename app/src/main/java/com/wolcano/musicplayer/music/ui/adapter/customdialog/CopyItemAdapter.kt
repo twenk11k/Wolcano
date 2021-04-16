@@ -55,8 +55,8 @@ class CopyItemAdapter(private val context: Context, private val copyList: ArrayL
     ),
         View.OnClickListener {
         override fun onClick(v: View) {
-            itemCallback?.onItemClicked(adapterPosition)
-            val replacedStr = copyList[adapterPosition].text.replace("\"".toRegex(), "")
+            itemCallback?.onItemClicked(absoluteAdapterPosition)
+            val replacedStr = copyList[absoluteAdapterPosition].text.replace("\"".toRegex(), "")
             val clipboard =
                 context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clip =

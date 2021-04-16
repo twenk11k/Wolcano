@@ -275,7 +275,7 @@ class QueueAdapter(
     ),
         View.OnClickListener {
         override fun onClick(v: View) {
-            playSong(activity, adapterPosition)
+            playSong(activity, absoluteAdapterPosition)
         }
 
         init {

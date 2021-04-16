@@ -190,7 +190,7 @@ class AlbumSongAdapter(
     ),
         View.OnClickListener {
         override fun onClick(v: View) {
-            val song: Song = songList!![adapterPosition]
+            val song: Song = songList!![absoluteAdapterPosition]
             playAdd(context, songList, song)
         }
 

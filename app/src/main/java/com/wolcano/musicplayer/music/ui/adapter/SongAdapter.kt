@@ -214,7 +214,7 @@ class SongAdapter(
         View.OnClickListener {
         override fun onClick(v: View) {
             Utils.hideKeyboard(context)
-            val song: Song = songList[adapterPosition]
+            val song: Song = songList[absoluteAdapterPosition]
             playAdd(context, songList, song)
         }
 

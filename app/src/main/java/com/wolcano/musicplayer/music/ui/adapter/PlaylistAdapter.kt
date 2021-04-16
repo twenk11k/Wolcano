@@ -82,11 +82,11 @@ class PlaylistAdapter(val context: Context, val playlistList: MutableList<Playli
                                         context,
                                         playlistList[position].id
                                     )
-                                    playlistList.removeAt(holder.adapterPosition)
-                                    notifyItemRemoved(holder.adapterPosition)
+                                    playlistList.removeAt(holder.absoluteAdapterPosition)
+                                    notifyItemRemoved(holder.absoluteAdapterPosition)
                                     notifyItemRangeChanged(
-                                        holder.adapterPosition,
-                                        itemCount - holder.adapterPosition
+                                        holder.absoluteAdapterPosition,
+                                        itemCount - holder.absoluteAdapterPosition
                                     )
                                     Toast.makeText(
                                         context,
@@ -116,7 +116,7 @@ class PlaylistAdapter(val context: Context, val playlistList: MutableList<Playli
     ),
         View.OnClickListener {
         override fun onClick(v: View) {
-            val playlist: Playlist = playlistList[adapterPosition]
+            val playlist: Playlist = playlistList[absoluteAdapterPosition]
             val playlistID = playlist.id
             val playlistName = playlist.name
             navigateToPlaylist(

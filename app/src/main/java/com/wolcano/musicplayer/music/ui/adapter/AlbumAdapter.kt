@@ -71,7 +71,7 @@ class AlbumAdapter(private val context: Activity, private val albumList: List<Al
         View.OnClickListener {
         override fun onClick(view: View) {
             try {
-                val album: Album = albumList[adapterPosition]
+                val album: Album = albumList[absoluteAdapterPosition]
                 navigateToAlbum(
                     context, album.id,
                     album.name

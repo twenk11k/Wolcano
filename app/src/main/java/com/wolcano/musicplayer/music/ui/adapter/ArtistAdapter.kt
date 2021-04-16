@@ -42,7 +42,7 @@ class ArtistAdapter(private val context: Activity, private val artistList: List<
     inner class ViewHolder(val binding: ItemArtistBinding) : RecyclerView.ViewHolder(binding.root),
         View.OnClickListener {
         override fun onClick(v: View) {
-            val artist: Artist = artistList[adapterPosition]
+            val artist: Artist = artistList[absoluteAdapterPosition]
             val artistId = artist.id
             val artistName = artist.name
             navigateToArtist(context, artistId, artistName)

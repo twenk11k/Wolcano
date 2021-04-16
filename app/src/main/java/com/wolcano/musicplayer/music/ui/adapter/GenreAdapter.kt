@@ -43,7 +43,7 @@ class GenreAdapter(private val context: Context, private val genreList: List<Gen
         RecyclerView.ViewHolder(binding.root),
         View.OnClickListener {
         override fun onClick(v: View) {
-            val genre: Genre = genreList[adapterPosition]
+            val genre: Genre = genreList[absoluteAdapterPosition]
             val genreId = genre.id
             val genreName = genre.name
             navigateToGenre(context, genreId, genreName)
