@@ -116,9 +116,9 @@ object OtherLibs {
     const val LIFECYCLE_EXTENSIONS =
         "android.arch.lifecycle:extensions:${Versions.LIFECYCLE_EXTENSIONS}"
     const val ROOM = "androidx.room:room-runtime:${Versions.ROOM}"
+    const val ROOM_KTX = "androidx.room:room-ktx:${Versions.ROOM}"
     const val ROOM_COMPILER = "androidx.room:room-compiler:${Versions.ROOM}"
     const val DAGGER_HILT = "com.google.dagger:hilt-android:${Versions.HILT}"
     const val DAGGER_HILT_TESTING = "com.google.dagger:hilt-android-testing:${Versions.HILT}"
     const val DAGGER_HILT_COMPILER = "com.google.dagger:hilt-android-compiler:${Versions.HILT}"
-
 }

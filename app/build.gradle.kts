@@ -117,8 +117,8 @@ dependencies {
     implementation(OtherLibs.RXANDROID)
     implementation(OtherLibs.LIFECYCLE_EXTENSIONS)
     implementation(OtherLibs.ROOM)
+    implementation(OtherLibs.ROOM_KTX)
     kapt(OtherLibs.ROOM_COMPILER)
     implementation(OtherLibs.DAGGER_HILT)
     kapt(OtherLibs.DAGGER_HILT_COMPILER)
-
 }
