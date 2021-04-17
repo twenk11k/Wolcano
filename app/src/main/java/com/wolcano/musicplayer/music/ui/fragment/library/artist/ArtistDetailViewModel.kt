@@ -27,7 +27,7 @@ class ArtistDetailViewModel @Inject constructor(private val songRepository: Song
 
     init {
         songsLiveData = _songsLiveData.switchMap {
-            songRepository.retrieveGenreSongs(
+            songRepository.retrieveArtistSongs(
                 sort,
                 artistId
             ).asLiveDataOnViewModelScope()
