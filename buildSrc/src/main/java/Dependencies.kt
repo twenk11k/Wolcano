@@ -12,7 +12,7 @@ object Versions {
     const val PERCENT_LAYOUT = "1.0.0"
     const val LEGACY_PREFERENCE_V14 = "1.0.0"
     const val PALETTE = "1.0.0"
-    const val RECYCLERVIEW = "1.1.0"
+    const val RECYCLERVIEW = "1.2.0"
     const val MATERIAL = "1.2.1"
     const val JSOUP = "1.11.2"
     const val MATERIAL_DIALOGS = "3.3.0"
@@ -31,10 +31,11 @@ object Versions {
     const val RX_ANDROID = "1.2.1"
     const val LIFECYCLE_EXTENSIONS = "1.1.1"
     const val ROOM = "2.2.6"
-    const val HILT = "2.31-alpha"
+    const val HILT = "2.32-alpha"
     const val HILT_ANDROIDX = "1.0.0-alpha03"
     const val SANDWICH = "1.0.9"
     const val WHATIF = "1.0.9"
+    const val BINDABLES = "1.0.5"
     const val FRAGMENT_KTX = "1.2.5"
     const val LIFECYCLE = "2.2.0"
 }
@@ -68,11 +69,16 @@ object SupportLibs {
         "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.HILT_ANDROIDX}"
     const val ANDROIDX_HILT_COMPILER = "androidx.hilt:hilt-compiler:${Versions.HILT_ANDROIDX}"
     const val ANDROIDX_FRAGMENT_KTX = "androidx.fragment:fragment-ktx:${Versions.FRAGMENT_KTX}"
-    const val ANDROIDX_LIFECYCLE_EXTENSIONS = "androidx.lifecycle:lifecycle-extensions:${Versions.LIFECYCLE}"
-    const val ANDROIDX_LIFECYCLE_VIEWMODEL_KTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.LIFECYCLE}"
-    const val ANDROIDX_LIFECYCLE_VIEWMODEL_SAVEDSTATE = "androidx.lifecycle:lifecycle-viewmodel-savedstate:${Versions.LIFECYCLE}"
-    const val ANDROIDX_LIFECYCLE_RUNTIME_KTX = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.LIFECYCLE}"
-    const val ANDROIDX_LIFECYCLE_LIVEDATA_KTX = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.LIFECYCLE}"
+    const val ANDROIDX_LIFECYCLE_EXTENSIONS =
+        "androidx.lifecycle:lifecycle-extensions:${Versions.LIFECYCLE}"
+    const val ANDROIDX_LIFECYCLE_VIEWMODEL_KTX =
+        "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.LIFECYCLE}"
+    const val ANDROIDX_LIFECYCLE_VIEWMODEL_SAVEDSTATE =
+        "androidx.lifecycle:lifecycle-viewmodel-savedstate:${Versions.LIFECYCLE}"
+    const val ANDROIDX_LIFECYCLE_RUNTIME_KTX =
+        "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.LIFECYCLE}"
+    const val ANDROIDX_LIFECYCLE_LIVEDATA_KTX =
+        "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.LIFECYCLE}"
 }
 
 object TestingLib {
@@ -107,6 +113,7 @@ object ThirdPartyLibs {
     const val SDP = "com.intuit.sdp:sdp-android:${Versions.SDP}"
     const val SANDWICH = "com.github.skydoves:sandwich:${Versions.SANDWICH}"
     const val WHATIF = "com.github.skydoves:whatif:${Versions.WHATIF}"
+    const val BINDABLES = "com.github.skydoves:bindables:${Versions.BINDABLES}"
 }
 
 object OtherLibs {

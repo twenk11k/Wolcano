@@ -106,6 +106,8 @@ dependencies {
     implementation(ThirdPartyLibs.SDP)
     implementation(ThirdPartyLibs.SANDWICH)
     implementation(ThirdPartyLibs.WHATIF)
+    implementation(ThirdPartyLibs.BINDABLES)
+
     implementation(OtherLibs.RETROFIT)
     implementation(OtherLibs.RXJAVA2_ANDROID)
     implementation(OtherLibs.RXJAVA2)
