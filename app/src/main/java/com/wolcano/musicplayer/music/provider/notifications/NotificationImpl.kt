@@ -43,9 +43,9 @@ class NotificationImpl: Notification() {
         stopped = false
         val isPlaying = isPlaying()
 
-        val notificationLayout = RemoteViews(service!!.packageName, R.layout.thenotification)
+        val notificationLayout = RemoteViews(service!!.packageName, R.layout.notification)
         val notificationLayoutExpanded =
-            RemoteViews(service!!.packageName, R.layout.thenotification_expanded)
+            RemoteViews(service!!.packageName, R.layout.notification_expanded)
 
         notificationLayout.setTextViewText(R.id.line1, song!!.title)
         notificationLayout.setTextViewText(R.id.line2, song!!.artist)

@@ -47,9 +47,9 @@ class NotificationOldImpl : Notification() {
     override fun update(song: Song?) {
         stopped = false
         val isPlaying = isPlaying()
-        val notificationLayout = RemoteViews(service!!.packageName, R.layout.thenotification_old_2)
+        val notificationLayout = RemoteViews(service!!.packageName, R.layout.notification_old)
         val notificationLayoutExpanded =
-            RemoteViews(service!!.packageName, R.layout.thenotification_old_2_2)
+            RemoteViews(service!!.packageName, R.layout.notification_old_expanded)
         notificationLayout.setTextViewText(R.id.line1, song?.title)
         notificationLayout.setTextViewText(R.id.line2, song?.artist)
         notificationLayoutExpanded.setTextViewText(R.id.line1, song?.title)
