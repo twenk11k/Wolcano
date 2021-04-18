@@ -363,8 +363,7 @@ class MaterialSearchView @JvmOverloads constructor(
      * @param suggestions array of suggestions
      */
     fun setSuggestions(
-        suggestions: Array<String>?,
-        lastSearches: Array<String>?,
+        suggestions: ArrayList<String>,
         isFirst: Boolean,
         callback: SetSearchQuery?,
         textColor: Int
@@ -377,7 +376,6 @@ class MaterialSearchView @JvmOverloads constructor(
                 suggestionIcon,
                 suggestionSend,
                 ellipsize,
-                lastSearches,
                 isFirst,
                 callback,
                 textColor,
@@ -388,6 +386,10 @@ class MaterialSearchView @JvmOverloads constructor(
         } else {
             tintView?.visibility = GONE
         }
+    }
+
+    fun addSuggestion(query: String) {
+        searchAdapter?.addSuggestion(query)
     }
 
     /**
@@ -637,11 +639,6 @@ class MaterialSearchView @JvmOverloads constructor(
     interface SearchViewListener {
         fun onSearchViewShown()
         fun onSearchViewClosed()
-    }
-
-    companion object {
-        var isRemoved = false
-        var isEmpty = false
     }
 
     init {

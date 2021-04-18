@@ -11,39 +11,33 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.listener.SetSearchQuery
 import com.wolcano.musicplayer.music.widgets.MaterialSearchView
-import java.util.*
 
 class SearchAdapter(
     private var context: Context?,
-    private var suggestions: Array<String>?,
+    private var suggestions: ArrayList<String>,
     private var suggestionIcon: Drawable?,
     private var suggestionSend: Drawable?,
     private var ellipsize: Boolean,
-    private var lastSearches: Array<String>?,
     private var isFirst: Boolean,
     private var callback: SetSearchQuery?,
     private var textColor: Int,
     private var materialSearchView: MaterialSearchView?
 ) : BaseAdapter(), Filterable {
 
-    private var searchList: ArrayList<String>? = null
-    private var inflater: LayoutInflater? = null
+    private var searchList: MutableList<String> = ArrayList()
+    private var inflater: LayoutInflater = LayoutInflater.from(context)
     private var whichList = 0
-
-    init {
-        inflater = LayoutInflater.from(context)
-        searchList = ArrayList()
-    }
 
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence): FilterResults {
                 val filterResults = FilterResults()
-                if (TextUtils.isEmpty(constraint) && isFirst) {
+                if (TextUtils.isEmpty(constraint)) {
                     whichList = 1
+                    val lastSearches = suggestions.reversed()
                     val searchData: MutableList<String> = ArrayList()
-                    for (i in lastSearches!!.indices) {
-                        searchData.add(lastSearches!!.get(i))
+                    for (i in lastSearches.indices) {
+                        searchData.add(lastSearches[i])
                     }
                     filterResults.values = searchData
                     filterResults.count = searchData.size
@@ -51,7 +45,7 @@ class SearchAdapter(
                     whichList = 2
                     // Retrieve the autocomplete results.
                     val searchData: MutableList<String> = ArrayList()
-                    for (string in suggestions!!) {
+                    for (string in suggestions.reversed()) {
                         if (string.toLowerCase().startsWith(constraint.toString().toLowerCase())) {
                             searchData.add(string)
                         }
@@ -65,7 +59,7 @@ class SearchAdapter(
 
             override fun publishResults(constraint: CharSequence, results: FilterResults) {
                 if (results.values != null) {
-                    searchList = results.values as ArrayList<String>?
+                    searchList = results.values as ArrayList<String>
                     notifyDataSetChanged()
                 }
             }
@@ -73,11 +67,11 @@ class SearchAdapter(
     }
 
     override fun getCount(): Int {
-        return searchList!!.size
+        return searchList.size
     }
 
-    override fun getItem(position: Int): Any? {
-        return searchList!![position]
+    override fun getItem(position: Int): Any {
+        return searchList[position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -85,8 +79,12 @@ class SearchAdapter(
     }
 
     private fun removeItem(position: Int) {
-        if (position < searchList!!.size) {
-            searchList!!.removeAt(position)
+        if (position < searchList.size) {
+            val item = searchList[position]
+            searchList.removeAt(position)
+            if (suggestions.contains(item)) {
+                suggestions.remove(item)
+            }
             notifyDataSetChanged()
         }
     }
@@ -95,19 +93,19 @@ class SearchAdapter(
         var convertView = convertView
         val viewHolder: SearchAdapter.SuggestionsViewHolder
         if (convertView == null) {
-            convertView = inflater?.inflate(R.layout.searchview_suggestion_item, parent, false)
+            convertView = inflater.inflate(R.layout.searchview_suggestion_item, parent, false)
             viewHolder = SuggestionsViewHolder(convertView)
             convertView?.tag = viewHolder
         } else {
             viewHolder = convertView.tag as SearchAdapter.SuggestionsViewHolder
         }
         convertView?.setOnClickListener {
-            if (searchList!!.size > 0) callback!!.onSearchQuery(
+            if (searchList.size > 0) callback!!.onSearchQuery(
                 position,
                 true
             )
         }
-        convertView!!.setOnLongClickListener {
+        convertView?.setOnLongClickListener {
             MaterialDialog(context!!).show {
                 title(text = viewHolder.textView?.text.toString())
                 message(text = context.getString(R.string.question_remove_history))
@@ -132,6 +130,14 @@ class SearchAdapter(
             materialSearchView?.showKeyboard()
         }
         return convertView
+    }
+
+    fun addSuggestion(query: String) {
+        if (suggestions.contains(query)) {
+            suggestions.remove(query)
+        }
+        suggestions.add(query)
+        notifyDataSetChanged()
     }
 
     inner class SuggestionsViewHolder(itemView: View?) {

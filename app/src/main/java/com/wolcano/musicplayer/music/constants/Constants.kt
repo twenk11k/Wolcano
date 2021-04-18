@@ -12,6 +12,11 @@ object Constants {
     const val PLAYLIST_ID = "playlist_id"
     const val PLAYLIST_NAME = "playlist_name"
     const val MAIN_BASE_URL = "https://wax.click/search/s/f/"
+    const val BASE_QUERY = "li[data-sound-url]"
+    const val TITLE_QUERY = "b.cplayer-data-sound-title"
+    const val ARTIST_QUERY = "i.cplayer-data-sound-author"
+    const val DURATION_QUERY = "em.cplayer-data-sound-time"
+    const val SINGLE_QUERY = "data-sound-url"
     const val SONG_ONLY_SELECTION = (MediaStore.Audio.AudioColumns.IS_MUSIC + "=1"
             + " AND " + MediaStore.Audio.AudioColumns.TITLE + " != ''")
     const val SONG_LIBRARY = "song_library"

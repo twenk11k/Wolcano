@@ -1,12 +1,20 @@
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
-        <import type="android.view.View" />
+        <variable
+            name="vm"
+            type="com.wolcano.musicplayer.music.ui.fragment.online.OnlineViewModel" />
+
+        <variable
+            name="adapter"
+            type="com.wolcano.musicplayer.music.ui.adapter.OnlineAdapter" />
+
     </data>
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/darkbg1"
@@ -16,76 +24,89 @@
             android:id="@+id/statusBarCustom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark" />
+            android:background="@color/colorPrimaryDark"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <FrameLayout
-            android:id="@+id/toolbar_container"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/statusBarCustom">
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_constraintTop_toBottomOf="@id/statusBarCustom"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-            <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay"
-                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-            <com.wolcano.musicplayer.music.widgets.MaterialSearchView
-                android:id="@+id/material_search_last"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        </FrameLayout>
-
-        <View
-            android:id="@+id/view_empty"
+        <com.wolcano.musicplayer.music.widgets.MaterialSearchView
+            android:id="@+id/material_search_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
+            android:layout_height="0dp"
             android:layout_marginBottom="@dimen/mini_player_height"
-            android:layout="@layout/layout_emptyview" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/statusBarCustom" />
+
+        <ImageView
+            android:id="@+id/image_empty"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginBottom="@dimen/mini_player_height"
+            android:src="@drawable/icon_empty_view"
+            app:gone="@{vm.isLoading || vm.searchOnlineListLiveData.size() > 0}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:tint="@color/grey0" />
+
+        <TextView
+            android:id="@+id/text_empty_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/image_empty"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="@string/search_info"
+            android:textColor="@color/grey0"
+            app:gone="@{vm.isLoading || vm.searchOnlineListLiveData.size() > 0}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_empty" />
 
         <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/toolbar_container"
+            android:layout_height="0dp"
             android:layout_marginBottom="@dimen/mini_player_height"
             android:background="@color/darkbg1"
             android:layoutAnimation="@anim/layout_animation_fall_down"
+            app:adapter="@{adapter}"
+            app:adapterOnlineList="@{vm.searchOnlineListLiveData}"
             app:fastScrollAutoHide="true"
             app:fastScrollAutoHideDelay="1500"
             app:fastScrollPopupTextColor="@android:color/primary_text_dark"
             app:fastScrollThumbColor="@color/colorAccent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            app:gone="@{vm.searchOnlineListLiveData.size() == 0}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:paginationOnlineList="@{vm}"
+            app:runLayoutAnimation="@{vm.searchOnlinePage}"
+            app:shouldClearList="@{vm.searchOnlinePage == 1}"
+            app:toast="@{vm.toastMessage}"
+            tools:listitem="@layout/item_song_online" />
 
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
+            android:layout_height="0dp"
             android:layout_marginBottom="@dimen/mini_player_height"
-            android:visibility="gone" />
+            app:gone="@{!vm.isLoading}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
-        <TextView
-            android:id="@+id/emptyText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_marginBottom="@dimen/mini_player_height"
-            android:fontFamily="sans-serif-light"
-            android:textColor="@color/grey0"
-            android:textSize="20sp"
-            android:visibility="gone" />
-
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

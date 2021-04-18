@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
-        <variable name="song_online"
-            type="com.wolcano.musicplayer.music.model.SongOnline"/>
+
+        <variable
+            name="data"
+            type="com.wolcano.musicplayer.music.model.SongOnline" />
+
     </data>
 
     <RelativeLayout
@@ -17,61 +21,54 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="1dp"
             android:orientation="horizontal">
-
 
             <ImageView
                 android:id="@+id/albumArt"
                 android:layout_width="46dp"
                 android:layout_height="46dp"
-                android:layout_marginLeft="10dp"
-                android:src="@drawable/album_art"
+                android:layout_marginStart="10dp"
                 android:scaleType="centerCrop"
-
-                />
+                android:src="@drawable/album_art" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="11dp">
-
+                android:layout_marginStart="11dp">
 
                 <ImageView
                     android:id="@+id/more"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
                     android:background="@drawable/btn_selector_wht"
-                    android:clickable="true"
-                    android:textSize="12sp"
-                    android:paddingBottom="8dp"
-                    android:layout_marginRight="10dp"
-                    android:paddingTop="8dp"
                     android:padding="8dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
                     android:scaleType="centerInside"
-                    android:tint="@color/grey0"
+                    android:textSize="12sp"
                     app:srcCompat="@drawable/menu_overflow"
-                    />
+                    app:tint="@color/grey0" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="5dp"
-                    android:layout_toLeftOf="@+id/more"
+                    android:layout_marginEnd="5dp"
+                    android:layout_toStartOf="@+id/more"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/line1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:singleLine="true"
                         android:layout_marginTop="2dp"
-
+                        android:singleLine="true"
+                        android:text="@{data.title}"
                         android:textColor="@color/md_white_1000"
                         android:textSize="16sp" />
 
@@ -81,16 +78,16 @@
                         android:layout_height="match_parent"
                         android:layout_marginTop="1dp"
                         android:singleLine="true"
-
                         android:textColor="@color/grey0"
-                        android:textSize="12sp" />
-                </LinearLayout>
+                        android:textSize="12sp"
+                        app:textArtist="@{data.artistName}"
+                        app:textDuration="@{data.duration}" />
 
+                </LinearLayout>
 
             </RelativeLayout>
 
         </LinearLayout>
-
 
     </RelativeLayout>
 

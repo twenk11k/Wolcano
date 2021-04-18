@@ -1,5 +1,6 @@
 package com.wolcano.musicplayer.music.di
 
+import com.wolcano.musicplayer.music.persistence.SearchHistoryDao
 import com.wolcano.musicplayer.music.repository.*
 import dagger.Module
 import dagger.Provides
@@ -45,6 +46,12 @@ class RepositoryModule {
     @ActivityRetainedScoped
     fun provideMainRepository(): MainRepository {
         return MainRepository()
+    }
+
+    @Provides
+    @ActivityRetainedScoped
+    fun provideOnlineRepository(searchHistoryDao: SearchHistoryDao): OnlineRepository {
+        return OnlineRepository(searchHistoryDao)
     }
 
 }
