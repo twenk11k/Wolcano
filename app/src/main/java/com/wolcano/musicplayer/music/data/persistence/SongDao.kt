@@ -1,10 +1,10 @@
-package com.wolcano.musicplayer.music.persistence
+package com.wolcano.musicplayer.music.data.persistence
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import com.wolcano.musicplayer.music.model.Song
+import com.wolcano.musicplayer.music.data.model.Song
 
 @Dao
 interface SongDao {

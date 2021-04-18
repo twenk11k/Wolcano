@@ -1,4 +1,4 @@
-package com.wolcano.musicplayer.music.model
+package com.wolcano.musicplayer.music.data.model
 
 import android.graphics.Bitmap
 

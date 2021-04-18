@@ -1,11 +1,11 @@
-package com.wolcano.musicplayer.music.persistence
+package com.wolcano.musicplayer.music.data.persistence
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.wolcano.musicplayer.music.model.SearchHistory
-import com.wolcano.musicplayer.music.model.Song
+import com.wolcano.musicplayer.music.data.model.SearchHistory
+import com.wolcano.musicplayer.music.data.model.Song
 
 @Database(entities = [Song::class, SearchHistory::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {

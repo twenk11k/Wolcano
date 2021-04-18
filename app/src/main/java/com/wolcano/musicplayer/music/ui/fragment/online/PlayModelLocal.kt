@@ -1,8 +1,8 @@
 package com.wolcano.musicplayer.music.ui.fragment.online
 
 import android.app.Activity
-import com.wolcano.musicplayer.music.model.Song
-import com.wolcano.musicplayer.music.model.SongOnline
+import com.wolcano.musicplayer.music.data.model.Song
+import com.wolcano.musicplayer.music.data.model.SongOnline
 
 abstract class PlayModelLocal(activity: Activity, private val songOnlineList: List<SongOnline>?) :
     PlayModelOnline(

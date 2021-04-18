@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="playlist"
-            type="com.wolcano.musicplayer.music.model.Playlist"/>
+            type="com.wolcano.musicplayer.music.data.model.Playlist"/>
     </data>
 
 <LinearLayout

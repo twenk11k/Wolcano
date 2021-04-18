@@ -17,7 +17,7 @@ import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.databinding.FragmentSongsBinding
 import com.wolcano.musicplayer.music.listener.FilterListener
 import com.wolcano.musicplayer.music.listener.PlaylistListener
-import com.wolcano.musicplayer.music.model.Song
+import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.ui.activity.main.MainActivity
 import com.wolcano.musicplayer.music.ui.adapter.SongAdapter
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs.addPlaylistDialog

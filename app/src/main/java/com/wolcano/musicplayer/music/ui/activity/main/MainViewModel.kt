@@ -5,11 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.switchMap
 import com.wolcano.musicplayer.music.base.LiveCoroutinesViewModel
-import com.wolcano.musicplayer.music.model.ModelBitmap
-import com.wolcano.musicplayer.music.model.Playlist
-import com.wolcano.musicplayer.music.model.Song
-import com.wolcano.musicplayer.music.repository.MainRepository
-import com.wolcano.musicplayer.music.repository.PlaylistRepository
+import com.wolcano.musicplayer.music.data.model.ModelBitmap
+import com.wolcano.musicplayer.music.data.model.Playlist
+import com.wolcano.musicplayer.music.data.model.Song
+import com.wolcano.musicplayer.music.data.repository.MainRepository
+import com.wolcano.musicplayer.music.data.repository.PlaylistRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

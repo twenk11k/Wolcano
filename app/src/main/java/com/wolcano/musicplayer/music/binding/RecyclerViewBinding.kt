@@ -4,10 +4,11 @@ import android.view.animation.AnimationUtils
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
+import com.skydoves.whatif.whatIfNotNullAs
 import com.skydoves.whatif.whatIfNotNullOrEmpty
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.base.RecyclerViewPaginator
-import com.wolcano.musicplayer.music.model.SongOnline
+import com.wolcano.musicplayer.music.data.model.SongOnline
 import com.wolcano.musicplayer.music.ui.adapter.OnlineAdapter
 import com.wolcano.musicplayer.music.ui.fragment.online.OnlineViewModel
 

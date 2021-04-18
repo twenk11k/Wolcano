@@ -1,10 +1,10 @@
-package com.wolcano.musicplayer.music.repository
+package com.wolcano.musicplayer.music.data.repository
 
 import androidx.annotation.WorkerThread
 import com.skydoves.whatif.whatIfNotNull
 import com.wolcano.musicplayer.music.App
-import com.wolcano.musicplayer.music.model.ModelBitmap
-import com.wolcano.musicplayer.music.model.Song
+import com.wolcano.musicplayer.music.data.model.ModelBitmap
+import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.widgets.SongCover
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow

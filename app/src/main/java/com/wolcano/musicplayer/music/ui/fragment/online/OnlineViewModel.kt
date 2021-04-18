@@ -8,9 +8,9 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import com.wolcano.musicplayer.music.base.LiveCoroutinesViewModel
-import com.wolcano.musicplayer.music.model.SearchHistory
-import com.wolcano.musicplayer.music.model.SongOnline
-import com.wolcano.musicplayer.music.repository.OnlineRepository
+import com.wolcano.musicplayer.music.data.model.SearchHistory
+import com.wolcano.musicplayer.music.data.model.SongOnline
+import com.wolcano.musicplayer.music.data.repository.OnlineRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch

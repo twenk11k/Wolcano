@@ -17,7 +17,7 @@ import com.wolcano.musicplayer.music.constants.Constants.ACTION_QUIT
 import com.wolcano.musicplayer.music.constants.Constants.ACTION_REWIND
 import com.wolcano.musicplayer.music.constants.Constants.ACTION_SKIP
 import com.wolcano.musicplayer.music.constants.Constants.ACTION_TOGGLE_PAUSE
-import com.wolcano.musicplayer.music.model.Song
+import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.provider.MusicService
 import com.wolcano.musicplayer.music.provider.RemotePlay.isPlaying
 
@@ -53,11 +53,8 @@ class NotificationImpl: Notification() {
         notificationLayoutExpanded.setTextViewText(R.id.line2, song!!.artist)
         notificationLayoutExpanded.setTextViewText(R.id.line3, song!!.album)
 
-
-
         linkButtons(notificationLayout)
         linkButtons(notificationLayoutExpanded)
-
 
         val action = service!!.packageManager
             .getLaunchIntentForPackage(service!!.packageName)
@@ -84,7 +81,7 @@ class NotificationImpl: Notification() {
         service?.runOnUiThread(object : Runnable {
             override fun run() {
                 val contentURI =
-                    "content://media/external/audio/media/" + song!!.songId + "/albumart"
+                    "content://media/external/audio/media/" + song.songId + "/albumart"
                 Picasso.get().load(contentURI).into(object : Target {
                     override fun onBitmapLoaded(bitmap: Bitmap, from: LoadedFrom) {
                         update(bitmap)
@@ -135,7 +132,6 @@ class NotificationImpl: Notification() {
         intent.component = serviceName
         return PendingIntent.getService(context, 0, intent, 0)
     }
-
 
     private fun linkButtons(notificationLayout: RemoteViews) {
         var pendingIntent: PendingIntent?

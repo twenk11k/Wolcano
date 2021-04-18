@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.databinding.ItemCopyBinding
 import com.wolcano.musicplayer.music.listener.ItemCallback
-import com.wolcano.musicplayer.music.model.Copy
+import com.wolcano.musicplayer.music.data.model.Copy
 import java.util.*
 
 class ShareItemAdapter(private val context: Context, private val shareList: ArrayList<Copy>) :

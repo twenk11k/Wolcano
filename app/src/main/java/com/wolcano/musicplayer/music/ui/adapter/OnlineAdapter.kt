@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.skydoves.bindables.binding
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.databinding.ItemSongOnlineBinding
-import com.wolcano.musicplayer.music.model.SongOnline
+import com.wolcano.musicplayer.music.data.model.SongOnline
 
 class OnlineAdapter(
     private val clickListener: OnlineAdapterClickListener

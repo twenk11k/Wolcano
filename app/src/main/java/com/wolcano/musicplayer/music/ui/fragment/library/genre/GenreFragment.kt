@@ -15,7 +15,7 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.databinding.FragmentInnerAlbumBinding
-import com.wolcano.musicplayer.music.model.Genre
+import com.wolcano.musicplayer.music.data.model.Genre
 import com.wolcano.musicplayer.music.ui.activity.main.MainActivity
 import com.wolcano.musicplayer.music.ui.adapter.GenreAdapter
 import com.wolcano.musicplayer.music.ui.dialog.SleepTimerDialog

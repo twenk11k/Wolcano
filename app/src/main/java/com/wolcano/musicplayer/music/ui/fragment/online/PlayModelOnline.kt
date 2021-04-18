@@ -5,7 +5,7 @@ import android.app.Dialog
 import androidx.appcompat.app.AlertDialog
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.listener.TaskInterface
-import com.wolcano.musicplayer.music.model.Song
+import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.utils.NetworkUtils
 import com.wolcano.musicplayer.music.utils.Utils
 

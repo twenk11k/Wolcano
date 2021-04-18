@@ -1,7 +1,7 @@
-package com.wolcano.musicplayer.music.persistence
+package com.wolcano.musicplayer.music.data.persistence
 
 import androidx.room.*
-import com.wolcano.musicplayer.music.model.SearchHistory
+import com.wolcano.musicplayer.music.data.model.SearchHistory
 
 @Dao
 interface SearchHistoryDao {

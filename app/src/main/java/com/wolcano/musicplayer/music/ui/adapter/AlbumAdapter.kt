@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.databinding.ItemAlbumBinding
-import com.wolcano.musicplayer.music.model.Album
+import com.wolcano.musicplayer.music.data.model.Album
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs.copyDialog
 import com.wolcano.musicplayer.music.utils.Utils.navigateToAlbum
 

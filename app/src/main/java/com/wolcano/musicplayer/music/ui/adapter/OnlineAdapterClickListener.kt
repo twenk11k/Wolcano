@@ -1,6 +1,6 @@
 package com.wolcano.musicplayer.music.ui.adapter
 
-import com.wolcano.musicplayer.music.model.SongOnline
+import com.wolcano.musicplayer.music.data.model.SongOnline
 
 interface OnlineAdapterClickListener {
     fun performDownload(song: SongOnline)

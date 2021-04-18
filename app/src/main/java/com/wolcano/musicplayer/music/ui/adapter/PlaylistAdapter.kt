@@ -11,7 +11,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.input.input
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.databinding.ItemPlaylistBinding
-import com.wolcano.musicplayer.music.model.Playlist
+import com.wolcano.musicplayer.music.data.model.Playlist
 import com.wolcano.musicplayer.music.utils.SongUtils
 import com.wolcano.musicplayer.music.utils.Utils.createStr
 import com.wolcano.musicplayer.music.utils.Utils.navigateToPlaylist

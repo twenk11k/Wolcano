@@ -1,4 +1,4 @@
-package com.wolcano.musicplayer.music.repository
+package com.wolcano.musicplayer.music.data.repository
 
 import android.provider.BaseColumns
 import android.provider.MediaStore
@@ -6,7 +6,7 @@ import androidx.annotation.WorkerThread
 import com.skydoves.whatif.whatIfNotNull
 import com.wolcano.musicplayer.music.App
 import com.wolcano.musicplayer.music.constants.Constants
-import com.wolcano.musicplayer.music.model.Playlist
+import com.wolcano.musicplayer.music.data.model.Playlist
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn

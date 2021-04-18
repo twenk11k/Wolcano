@@ -1,7 +1,7 @@
 package com.wolcano.musicplayer.music.di
 
-import com.wolcano.musicplayer.music.persistence.SearchHistoryDao
-import com.wolcano.musicplayer.music.repository.*
+import com.wolcano.musicplayer.music.data.persistence.SearchHistoryDao
+import com.wolcano.musicplayer.music.data.repository.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

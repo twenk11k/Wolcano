@@ -15,7 +15,7 @@ import android.webkit.URLUtil
 import android.widget.Toast
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.constants.Constants.SONG_ONLY_SELECTION
-import com.wolcano.musicplayer.music.model.*
+import com.wolcano.musicplayer.music.data.model.*
 import java.io.File
 
 object SongUtils {

@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.databinding.ItemArtistBinding
-import com.wolcano.musicplayer.music.model.Artist
+import com.wolcano.musicplayer.music.data.model.Artist
 import com.wolcano.musicplayer.music.utils.Utils.createStr
 import com.wolcano.musicplayer.music.utils.Utils.navigateToArtist
 

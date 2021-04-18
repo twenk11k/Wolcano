@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 <data>
     <variable name="artist"
-        type="com.wolcano.musicplayer.music.model.Artist"/>
+        type="com.wolcano.musicplayer.music.data.model.Artist"/>
 </data>
 <RelativeLayout
     android:id="@+id/item_artist_relative"

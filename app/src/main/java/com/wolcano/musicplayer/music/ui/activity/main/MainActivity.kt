@@ -29,8 +29,8 @@ import com.wolcano.musicplayer.music.content.managers.DisposableManager
 import com.wolcano.musicplayer.music.databinding.ActivityMainBinding
 import com.wolcano.musicplayer.music.listener.OnServiceListener
 import com.wolcano.musicplayer.music.listener.PlaylistListener
-import com.wolcano.musicplayer.music.model.ModelBitmap
-import com.wolcano.musicplayer.music.model.Song
+import com.wolcano.musicplayer.music.data.model.ModelBitmap
+import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.provider.RemotePlay.buttonClick
 import com.wolcano.musicplayer.music.provider.RemotePlay.getPlayMusic
 import com.wolcano.musicplayer.music.provider.RemotePlay.getPlayerCurrentPosition

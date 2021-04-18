@@ -1,4 +1,4 @@
-package com.wolcano.musicplayer.music.model
+package com.wolcano.musicplayer.music.data.model
 
 import android.os.Parcelable
 import android.text.TextUtils

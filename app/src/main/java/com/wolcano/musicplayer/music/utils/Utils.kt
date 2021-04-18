@@ -30,7 +30,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
 import com.wolcano.musicplayer.music.App
 import com.wolcano.musicplayer.music.R
-import com.wolcano.musicplayer.music.model.Song
+import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.ui.fragment.library.album.AlbumDetailFragment
 import com.wolcano.musicplayer.music.ui.fragment.library.artist.ArtistDetailFragment
 import com.wolcano.musicplayer.music.ui.fragment.library.genre.GenreDetailFragment

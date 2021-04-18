@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.databinding.FragmentOnlineBinding
 import com.wolcano.musicplayer.music.listener.SetSearchQuery
-import com.wolcano.musicplayer.music.model.Song
-import com.wolcano.musicplayer.music.model.SongOnline
+import com.wolcano.musicplayer.music.data.model.Song
+import com.wolcano.musicplayer.music.data.model.SongOnline
 import com.wolcano.musicplayer.music.provider.RemotePlay
 import com.wolcano.musicplayer.music.ui.adapter.OnlineAdapter
 import com.wolcano.musicplayer.music.ui.adapter.OnlineAdapterClickListener

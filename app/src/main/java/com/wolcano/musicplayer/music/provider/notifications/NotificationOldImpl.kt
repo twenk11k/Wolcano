@@ -18,11 +18,11 @@ import com.wolcano.musicplayer.music.constants.Constants.ACTION_REWIND
 import com.wolcano.musicplayer.music.constants.Constants.ACTION_SKIP
 import com.wolcano.musicplayer.music.constants.Constants.ACTION_STOP
 import com.wolcano.musicplayer.music.constants.Constants.ACTION_TOGGLE_PAUSE
-import com.wolcano.musicplayer.music.model.Song
+import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.provider.MusicService
 import com.wolcano.musicplayer.music.provider.RemotePlay.isPlaying
 
-class NotificationOldImpl: Notification() {
+class NotificationOldImpl : Notification() {
 
     private fun getPrevIcon(): Int {
         return R.drawable.baseline_skip_previous_black_36
@@ -75,7 +75,8 @@ class NotificationOldImpl: Notification() {
             .build()
         service!!.runOnUiThread(object : Runnable {
             override fun run() {
-                val contentURI = "content://media/external/audio/media/" + song?.songId + "/albumart"
+                val contentURI =
+                    "content://media/external/audio/media/" + song?.songId + "/albumart"
                 Picasso.get().load(contentURI).into(object : Target {
                     override fun onBitmapLoaded(bitmap: Bitmap, from: LoadedFrom) {
                         update(bitmap)

@@ -30,7 +30,7 @@ import com.wolcano.musicplayer.music.constants.Constants
 import com.wolcano.musicplayer.music.databinding.FragmentAlbumDetailBinding
 import com.wolcano.musicplayer.music.databinding.FragmentAlbumDetailOldBinding
 import com.wolcano.musicplayer.music.listener.PlaylistListener
-import com.wolcano.musicplayer.music.model.Song
+import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.provider.RemotePlay
 import com.wolcano.musicplayer.music.ui.adapter.detail.AlbumSongAdapter
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs
