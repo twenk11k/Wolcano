@@ -7,6 +7,7 @@ plugins {
     id("io.gitlab.arturbosch.detekt") version BuildPluginsVersion.DETEKT
     id("org.jlleitschuh.gradle.ktlint") version BuildPluginsVersion.KTLINT
     id("com.github.ben-manes.versions") version BuildPluginsVersion.VERSIONS_PLUGIN
+    id("name.remal.check-dependency-updates") version BuildPluginsVersion.CHECK_DEPENDENCY_UPDATES
 }
 
 buildscript {

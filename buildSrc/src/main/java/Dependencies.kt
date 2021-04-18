@@ -46,6 +46,7 @@ object BuildPluginsVersion {
     const val KOTLIN = "1.4.21"
     const val KTLINT = "9.4.1"
     const val VERSIONS_PLUGIN = "0.33.0"
+    const val CHECK_DEPENDENCY_UPDATES = "1.3.1"
 }
 
 object SupportLibs {
