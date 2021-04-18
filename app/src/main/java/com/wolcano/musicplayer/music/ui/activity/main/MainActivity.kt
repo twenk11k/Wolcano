@@ -512,8 +512,6 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 Toast.makeText(this, resources.getString(R.string.empty_queue), Toast.LENGTH_SHORT)
                     .show()
             }
-            R.id.nav_header_relative -> binding.slidinguppanel.slidinguppanellayout.panelState =
-                PanelState.EXPANDED
         }
     }
 
