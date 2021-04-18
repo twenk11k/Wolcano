@@ -64,7 +64,8 @@ object SupportLibs {
     const val ANDROIDX_RECYCLERVIEW = "androidx.recyclerview:recyclerview:${Versions.RECYCLERVIEW}"
     const val ANDROID_MATERIAL = "com.google.android.material:material:${Versions.MATERIAL}"
     const val ANDROIDX_HILT_COMMON = "androidx.hilt:hilt-common:${Versions.HILT_ANDROIDX}"
-    const val ANDROIDX_HILT_VIEWMODEL = "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.HILT_ANDROIDX}"
+    const val ANDROIDX_HILT_VIEWMODEL =
+        "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.HILT_ANDROIDX}"
     const val ANDROIDX_HILT_COMPILER = "androidx.hilt:hilt-compiler:${Versions.HILT_ANDROIDX}"
     const val ANDROIDX_FRAGMENT_KTX = "androidx.fragment:fragment-ktx:${Versions.FRAGMENT_KTX}"
     const val ANDROIDX_LIFECYCLE_EXTENSIONS = "androidx.lifecycle:lifecycle-extensions:${Versions.LIFECYCLE}"
