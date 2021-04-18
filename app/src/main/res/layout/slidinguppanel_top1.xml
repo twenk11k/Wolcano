@@ -1,107 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <import type="android.view.View" />
+
     </data>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/fl_play_bar"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/mini_player_height">
 
-    <ImageView
-        android:id="@+id/panel_top1bg"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/fl_play_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/mini_player_height"
-        android:layout_gravity="bottom"
-        android:clickable="true"
-        android:scaleType="centerCrop"
-
-        android:src="@drawable/album_default" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/black_u6"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_height="@dimen/mini_player_height">
 
         <ImageView
-            android:id="@+id/model_imageview"
-            android:layout_width="57dp"
-            android:layout_height="match_parent"
-            android:contentDescription="@null"
-            android:scaleType="fitXY"
-            android:src="@drawable/album_art" />
+            android:id="@+id/panel_top1bg"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/mini_player_height"
+            android:layout_gravity="bottom"
+            android:clickable="true"
+            android:focusable="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/album_default" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:background="@color/black_u6"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-            <ProgressBar
-                android:id="@+id/progressTop1"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_gravity="top"
-                android:progressDrawable="@drawable/progressbar" />
+            <ImageView
+                android:id="@+id/model_imageview"
+                android:layout_width="57dp"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                android:src="@drawable/album_art" />
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="4dp">
+                android:orientation="vertical">
 
-                <LinearLayout
-                    android:id="@+id/linear_line_top1"
+                <ProgressBar
+                    android:id="@+id/progressTop1"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_gravity="top"
+                    android:progressDrawable="@drawable/progressbar" />
+
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="4dp">
 
-                    android:layout_toLeftOf="@id/play"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/line1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="marquee"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
-                        android:marqueeRepeatLimit="marquee_forever"
-                        android:scrollHorizontally="true"
-                        android:singleLine="true"
-                        android:text="sampletext1"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_common" />
-
-                    <TextView
-                        android:id="@+id/line2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    <LinearLayout
+                        android:id="@+id/linear_line_top1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="10dp"
                         android:layout_marginTop="2dp"
-                        android:ellipsize="end"
-                        android:singleLine="true"
+                        android:layout_toStartOf="@id/play"
+                        android:orientation="vertical">
 
-                        android:text="sampletext2"
-                        android:textColor="@color/grey0"
-                        android:textSize="12sp" />
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/line1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="marquee"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            android:marqueeRepeatLimit="marquee_forever"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size_common"
+                            tools:title="title" />
 
-                <ImageView
-                    android:id="@+id/play"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginBottom="6dp"
-                    android:contentDescription="@null"
-                    android:src="@drawable/play_playpause_bar" />
-            </RelativeLayout>
+                        <TextView
+                            android:id="@+id/line2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:textColor="@color/grey0"
+                            android:textSize="12sp"
+                            tools:title="artist" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/play"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="6dp"
+                        android:contentDescription="@null"
+                        android:src="@drawable/play_playpause_bar" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
         </LinearLayout>
-    </LinearLayout>
 
-</FrameLayout>
+    </FrameLayout>
 
 </layout>

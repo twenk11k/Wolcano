@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:id="@+id/notification_base"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/notification_base"
     android:layout_width="match_parent"
     android:layout_height="64dp"
+    android:background="#ff263238"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:background="#ff263238"
-    tools:ignore="contentDescription"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    tools:ignore="contentDescription">
 
     <ImageView
         android:id="@+id/albumArt"
@@ -24,11 +24,9 @@
         android:layout_gravity="center_vertical"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:paddingBottom="4dp"
-        android:paddingLeft="8dp"
         android:paddingStart="8dp"
-        android:paddingRight="0dp"
-        android:paddingEnd="0dp">
+        android:paddingEnd="0dp"
+        android:paddingBottom="4dp">
 
         <TextView
             android:id="@+id/line1"
@@ -37,15 +35,15 @@
             android:fontFamily="sans-serif-medium"
             android:singleLine="true"
             android:textColor="@color/white"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/line2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:textColor="@color/white_2"
-            android:textAppearance="@android:style/TextAppearance.StatusBar.EventContent"/>
+            android:textAppearance="@android:style/TextAppearance.StatusBar.EventContent"
+            android:textColor="@color/white_2" />
 
     </LinearLayout>
 
@@ -53,41 +51,41 @@
         android:id="@+id/prev"
         android:layout_width="@dimen/not_old_button_size"
         android:layout_height="match_parent"
-        android:padding="0dp"
-        android:tint="@color/grey0"
-        android:scaleType="fitCenter"
         android:background="?android:selectableItemBackground"
-        android:src="@drawable/baseline_skip_previous_black_36"/>
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/baseline_skip_previous_black_36"
+        app:tint="@color/grey0" />
 
     <ImageButton
         android:id="@+id/playpause"
         android:layout_width="@dimen/not_old_button_size"
         android:layout_height="match_parent"
-        android:padding="0dp"
-        android:tint="@color/grey0"
-        android:scaleType="fitCenter"
         android:background="?android:selectableItemBackground"
-        android:src="@drawable/btn_pause_black_large"/>
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/btn_pause_black_large"
+        app:tint="@color/grey0" />
 
     <ImageButton
         android:id="@+id/next"
         android:layout_width="@dimen/not_old_button_size"
         android:layout_height="match_parent"
-        android:padding="0dp"
-        android:tint="@color/grey0"
-        android:scaleType="fitCenter"
         android:background="?android:selectableItemBackground"
-        android:src="@drawable/baseline_skip_next_black_36"/>
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/baseline_skip_next_black_36"
+        app:tint="@color/grey0" />
 
     <ImageButton
         android:id="@+id/close"
         android:layout_width="@dimen/not_old_button_size_close"
         android:layout_height="match_parent"
-        android:padding="0dp"
-        android:tint="@color/grey0"
-        android:layout_marginRight="5dp"
-        android:scaleType="fitCenter"
+        android:layout_marginEnd="5dp"
         android:background="?android:selectableItemBackground"
-        android:src="@drawable/baseline_close_black_18" />
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/baseline_close_black_18"
+        app:tint="@color/grey0" />
 
 </LinearLayout>

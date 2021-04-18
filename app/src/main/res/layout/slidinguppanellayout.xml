@@ -4,6 +4,7 @@
     <data>
 
         <import type="android.view.View" />
+
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -42,6 +43,7 @@
                     android:layout_height="match_parent"
                     android:background="?android:colorBackground"
                     android:clickable="true"
+                    android:focusable="true"
                     android:focusableInTouchMode="false" />
 
                 <RelativeLayout

@@ -1,39 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout  xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
     <data>
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
+
     </data>
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/darkbg1"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/relative_container"
-    >
-
-    <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
-        android:id="@+id/recyclerview"
+    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/relative_container"
         android:layout_width="match_parent"
-        android:layoutAnimation="@anim/layout_animation_fall_down"
         android:layout_height="match_parent"
-        app:fastScrollAutoHide="true"
-        app:fastScrollPopupTextColor="@android:color/primary_text_dark"
-        app:fastScrollThumbColor="@color/colorAccent"
-        app:fastScrollAutoHideDelay="1500"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:layout_marginBottom="@dimen/mini_player_height" />
-    <TextView
-        android:id="@+id/empty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerInParent="true"
-        android:layout_centerVertical="true"
-        android:paddingBottom="@dimen/mini_player_height"
-        android:fontFamily="sans-serif-light"
-        android:textColor="@color/grey0"
-        android:textSize="20sp"
-        android:visibility="gone" />
-</RelativeLayout>
+        android:background="@color/darkbg1">
+
+        <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/mini_player_height"
+            android:layoutAnimation="@anim/layout_animation_fall_down"
+            app:fastScrollAutoHide="true"
+            app:fastScrollAutoHideDelay="1500"
+            app:fastScrollPopupTextColor="@android:color/primary_text_dark"
+            app:fastScrollThumbColor="@color/colorAccent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        <TextView
+            android:id="@+id/empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:fontFamily="sans-serif-light"
+            android:paddingBottom="@dimen/mini_player_height"
+            android:textColor="@color/grey0"
+            android:textSize="20sp"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
 </layout>

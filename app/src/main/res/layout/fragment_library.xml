@@ -5,13 +5,13 @@
     <data>
 
         <import type="android.view.View" />
+
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/darkbg1"
-
         android:orientation="vertical">
 
         <com.wolcano.musicplayer.music.widgets.StatusBarView
@@ -32,7 +32,6 @@
                 android:layout_height="wrap_content"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
@@ -40,9 +39,7 @@
                     android:layout_below="@+id/statusBarCustom"
                     android:background="?attr/colorPrimary"
                     app:layout_scrollFlags="scroll|enterAlways"
-                    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-
-                    />
+                    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tab_layout"
@@ -51,12 +48,10 @@
                     android:layout_below="@+id/toolbar"
                     android:background="?attr/colorPrimary"
                     android:paddingBottom="4.0dip"
-
                     app:tabContentStart="42dp"
                     app:tabGravity="center"
-                    app:tabMode="scrollable"
+                    app:tabMode="scrollable" />
 
-                    />
             </com.google.android.material.appbar.AppBarLayout>
 
             <androidx.viewpager.widget.ViewPager
@@ -66,7 +61,9 @@
                 android:layout_below="@+id/appbar"
                 android:background="@android:color/white"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     </RelativeLayout>
+
 </layout>

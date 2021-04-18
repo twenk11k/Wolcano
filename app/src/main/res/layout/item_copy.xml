@@ -7,6 +7,7 @@
         <variable
             name="copy"
             type="com.wolcano.musicplayer.music.data.model.Copy" />
+
     </data>
 
     <RelativeLayout
@@ -22,8 +23,7 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/md_listitem_margin_left"
-            android:layout_marginLeft="@dimen/md_listitem_margin_left"
-            android:layout_toLeftOf="@+id/icon"
+            android:layout_toStartOf="@+id/icon"
             android:textColor="@color/grey0"
             android:textSize="@dimen/md_listitem_textsize" />
 
@@ -33,9 +33,8 @@
             android:layout_height="35dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginTop="4dp"
+            android:layout_marginVertical="4dp"
             android:layout_marginEnd="@dimen/md_dialog_frame_margin_horizontal"
-            android:layout_marginBottom="4dp"
             android:textColor="@color/grey0"
             app:tint="@color/grey0" />
 

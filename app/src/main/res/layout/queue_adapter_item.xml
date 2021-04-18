@@ -6,11 +6,10 @@
         <variable
             name="song"
             type="com.wolcano.musicplayer.music.data.model.Song" />
+
     </data>
 
-
-    <RelativeLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/relative_queue"
         android:layout_width="match_parent"
         android:layout_height="@dimen/adapter_item_height"
@@ -36,43 +35,39 @@
                 android:id="@+id/albumArt"
                 android:layout_width="46dp"
                 android:layout_height="46dp"
-                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/album_art"
-
-                />
+                android:src="@drawable/album_art" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="11dp">
-
+                android:layout_marginStart="11dp">
 
                 <ImageView
                     android:id="@+id/more"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
                     android:background="@drawable/btn_selector_wht"
                     android:clickable="true"
+                    android:focusable="true"
                     android:padding="8dp"
                     android:paddingTop="8dp"
-
                     android:paddingBottom="8dp"
                     android:scaleType="centerInside"
                     android:textSize="12sp"
-                    android:tint="@color/grey0"
-                    app:srcCompat="@drawable/menu_overflow" />
+                    app:srcCompat="@drawable/menu_overflow"
+                    app:tint="@color/grey0" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="5dp"
-                    android:layout_toLeftOf="@+id/more"
+                    android:layout_marginEnd="5dp"
+                    android:layout_toStartOf="@+id/more"
                     android:orientation="vertical">
 
                     <TextView
@@ -81,7 +76,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:singleLine="true"
-
                         android:textColor="@color/md_white_1000"
                         android:textSize="16sp" />
 
@@ -93,13 +87,13 @@
                         android:singleLine="true"
                         android:textColor="@color/grey0"
                         android:textSize="12sp" />
-                </LinearLayout>
 
+                </LinearLayout>
 
             </RelativeLayout>
 
         </LinearLayout>
 
-
     </RelativeLayout>
+
 </layout>

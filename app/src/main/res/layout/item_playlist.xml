@@ -1,76 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
-        <variable name="playlist"
-            type="com.wolcano.musicplayer.music.data.model.Playlist"/>
+
+        <variable
+            name="playlist"
+            type="com.wolcano.musicplayer.music.data.model.Playlist" />
+
     </data>
 
-<LinearLayout
-    android:id="@+id/playlist_linear"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/adapter_item_height"
-    android:gravity="center_vertical"
-    android:background="?android:attr/selectableItemBackground"
-    android:orientation="horizontal"
-    android:padding="11dp">
-
-    <ImageView
-        android:id="@+id/playlistImg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:src="@drawable/baseline_queue_music_white_24"
-        />
-
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/playlist_linear"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="11dp">
+        android:layout_height="@dimen/adapter_item_height"
+        android:background="?android:attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="11dp">
 
         <ImageView
-            android:id="@+id/more"
+            android:id="@+id/playlistImg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/btn_selector_wht"
-            android:clickable="true"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp"
-            android:padding="8dp"
-            android:layout_marginRight="5dp"
-            android:scaleType="centerInside"
-            app:srcCompat="@drawable/menu_overflow" />
+            android:layout_marginStart="10dp"
+            android:src="@drawable/baseline_queue_music_white_24" />
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/more"
-            android:orientation="vertical">
+            android:layout_marginStart="11dp">
 
-            <TextView
-                android:id="@+id/line1"
+            <ImageView
+                android:id="@+id/more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/btn_selector_wht"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="8dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/menu_overflow" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:textColor="@color/md_white_1000"
-                android:textSize="16sp" />
+                android:layout_toStartOf="@+id/more"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/line2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="2dp"
-                android:singleLine="true"
-                android:textColor="@color/grey0"
-                android:textSize="12sp" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/line1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:textColor="@color/md_white_1000"
+                    android:textSize="16sp" />
 
+                <TextView
+                    android:id="@+id/line2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="2dp"
+                    android:singleLine="true"
+                    android:textColor="@color/grey0"
+                    android:textSize="12sp" />
 
-    </RelativeLayout>
+            </LinearLayout>
 
+        </RelativeLayout>
 
-</LinearLayout>
+    </LinearLayout>
 
 </layout>

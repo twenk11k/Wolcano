@@ -4,9 +4,9 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/linear11"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/linear11"
         android:orientation="vertical">
 
         <LinearLayout
@@ -14,8 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
-            android:orientation="vertical"
-            />
+            android:orientation="vertical" />
 
     </LinearLayout>
 

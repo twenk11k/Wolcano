@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
+
     <data>
-        <variable name="genre"
-            type="com.wolcano.musicplayer.music.data.model.Genre"/>
+
+        <variable
+            name="genre"
+            type="com.wolcano.musicplayer.music.data.model.Genre" />
+
     </data>
+
     <RelativeLayout
         android:id="@+id/item_genre_relative"
         android:layout_width="match_parent"
@@ -15,19 +20,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:orientation="horizontal">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="11dp">
+                android:layout_marginStart="11dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -35,7 +40,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:singleLine="true"
-
                         android:textColor="@color/md_white_1000"
                         android:textSize="16sp" />
 
@@ -45,16 +49,15 @@
                         android:layout_height="match_parent"
                         android:layout_marginTop="2dp"
                         android:singleLine="true"
-
                         android:textColor="@color/grey0"
                         android:textSize="12sp" />
-                </LinearLayout>
 
+                </LinearLayout>
 
             </RelativeLayout>
 
         </LinearLayout>
 
-
     </RelativeLayout>
+
 </layout>
