@@ -28,7 +28,6 @@ import com.squareup.picasso.Picasso
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.constants.Constants
 import com.wolcano.musicplayer.music.databinding.FragmentAlbumDetailBinding
-import com.wolcano.musicplayer.music.databinding.FragmentAlbumDetailOldBinding
 import com.wolcano.musicplayer.music.listener.PlaylistListener
 import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.provider.RemotePlay
@@ -56,7 +55,7 @@ class AlbumDetailFragment : BaseFragment(), PlaylistListener, View.OnClickListen
     private var albumArt: ImageView? = null
     private var recyclerView: RecyclerView? = null
     private var gradient: View? = null
-    private val FAB_TIME = 150
+    private val fabTime = 150
     private var handlerFab: Handler? = null
     private var runnableFab: Runnable? = null
 
@@ -89,24 +88,10 @@ class AlbumDetailFragment : BaseFragment(), PlaylistListener, View.OnClickListen
     ): View {
         val root: View
 
-        val binding: FragmentAlbumDetailBinding
-        val bindingOld: FragmentAlbumDetailOldBinding
-
-        if (Build.VERSION.SDK_INT >= 21) {
-            binding =
-                DataBindingUtil.inflate(inflater, R.layout.fragment_album_detail, container, false)
-            setUpViews(binding)
-            root = binding.root
-        } else {
-            bindingOld = DataBindingUtil.inflate(
-                inflater,
-                R.layout.fragment_album_detail_old,
-                container,
-                false
-            )
-            setUpViewsOld(bindingOld)
-            root = bindingOld.root
-        }
+        val binding: FragmentAlbumDetailBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_album_detail, container, false)
+        setUpViews(binding)
+        root = binding.root
 
         val layoutParams = toolbar!!.layoutParams as CollapsingToolbarLayout.LayoutParams
         layoutParams.height += Utils.getStatHeight(requireContext())
@@ -141,6 +126,7 @@ class AlbumDetailFragment : BaseFragment(), PlaylistListener, View.OnClickListen
                 override fun onPermGranted() {
                     viewModel.retrieveAlbumSongs(albumId)
                 }
+
                 override fun onPermUnapproved() {
                     ToastUtils.show(requireContext(), R.string.no_perm_storage)
                 }
@@ -149,8 +135,9 @@ class AlbumDetailFragment : BaseFragment(), PlaylistListener, View.OnClickListen
 
     private fun handleViewModel() {
         viewModel.songsLiveData.observe(viewLifecycleOwner, {
-            if (it != null)
+            if (it != null) {
                 setSongList(it as ArrayList<Song>)
+            }
         })
     }
 
@@ -166,23 +153,12 @@ class AlbumDetailFragment : BaseFragment(), PlaylistListener, View.OnClickListen
     }
 
     fun show() {
-        if (Build.VERSION.SDK_INT >= 21) {
-            fabPlay.animate()
-                .scaleX(1f)
-                .scaleY(1f)
-                .setInterpolator(DecelerateInterpolator())
-                .start()
-        }
+        fabPlay.animate()
+            .scaleX(1f)
+            .scaleY(1f)
+            .setInterpolator(DecelerateInterpolator())
+            .start()
     }
-
-    private fun setUpViewsOld(binding: FragmentAlbumDetailOldBinding) {
-        toolbar = binding.toolbar
-        appBarLayout = binding.appbar
-        albumArt = binding.albumArt
-        gradient = binding.gradient
-        recyclerView = binding.recyclerview
-    }
-
 
     private fun setUpViews(binding: FragmentAlbumDetailBinding) {
         toolbar = binding.toolbar
@@ -262,7 +238,6 @@ class AlbumDetailFragment : BaseFragment(), PlaylistListener, View.OnClickListen
         super.onDestroyView()
     }
 
-
     private fun setStatusBarColor(color: Int) {
         if (Utils.isColorLight(color)) {
             ATH.setLightStatusbar(requireActivity(), true)
@@ -328,7 +303,7 @@ class AlbumDetailFragment : BaseFragment(), PlaylistListener, View.OnClickListen
                     }
                 }
             }
-            handlerFab?.postDelayed(runnableFab, FAB_TIME.toLong())
+            handlerFab?.postDelayed(runnableFab, fabTime.toLong())
         }
     }
 
