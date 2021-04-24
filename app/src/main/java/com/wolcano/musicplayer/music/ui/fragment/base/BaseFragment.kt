@@ -14,7 +14,7 @@ import com.wolcano.musicplayer.music.widgets.StatusBarView
 
 open class BaseFragment : Fragment() {
 
-    protected var handler: Handler? = null
+    private var handler: Handler? = null
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
