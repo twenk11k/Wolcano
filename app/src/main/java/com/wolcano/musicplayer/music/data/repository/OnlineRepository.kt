@@ -2,15 +2,15 @@ package com.wolcano.musicplayer.music.data.repository
 
 import androidx.annotation.WorkerThread
 import com.skydoves.whatif.whatIfNotNull
-import com.wolcano.musicplayer.music.constants.Constants
-import com.wolcano.musicplayer.music.constants.Constants.ARTIST_QUERY
-import com.wolcano.musicplayer.music.constants.Constants.BASE_QUERY
-import com.wolcano.musicplayer.music.constants.Constants.DURATION_QUERY
-import com.wolcano.musicplayer.music.constants.Constants.SINGLE_QUERY
-import com.wolcano.musicplayer.music.constants.Constants.TITLE_QUERY
 import com.wolcano.musicplayer.music.data.model.SearchHistory
 import com.wolcano.musicplayer.music.data.model.SongOnline
 import com.wolcano.musicplayer.music.data.persistence.SearchHistoryDao
+import com.wolcano.musicplayer.music.utils.Constants
+import com.wolcano.musicplayer.music.utils.Constants.ARTIST_QUERY
+import com.wolcano.musicplayer.music.utils.Constants.BASE_QUERY
+import com.wolcano.musicplayer.music.utils.Constants.DURATION_QUERY
+import com.wolcano.musicplayer.music.utils.Constants.SINGLE_QUERY
+import com.wolcano.musicplayer.music.utils.Constants.TITLE_QUERY
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn

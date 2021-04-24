@@ -12,20 +12,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.AdapterDataObserver
 import com.wolcano.musicplayer.music.R
-import com.wolcano.musicplayer.music.constants.Constants
+import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.databinding.FragmentBaseSongBinding
 import com.wolcano.musicplayer.music.listener.PlaylistListener
-import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.ui.activity.main.MainActivity
 import com.wolcano.musicplayer.music.ui.adapter.RecentlyAddedAdapter
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs
 import com.wolcano.musicplayer.music.ui.dialog.SleepTimerDialog
 import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragment
 import com.wolcano.musicplayer.music.ui.helper.ToolbarContentTintHelper
-import com.wolcano.musicplayer.music.utils.ColorUtils
-import com.wolcano.musicplayer.music.utils.PermissionUtils
-import com.wolcano.musicplayer.music.utils.ToastUtils
-import com.wolcano.musicplayer.music.utils.Utils
+import com.wolcano.musicplayer.music.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

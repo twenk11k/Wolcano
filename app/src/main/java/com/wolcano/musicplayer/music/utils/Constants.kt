@@ -1,4 +1,4 @@
-package com.wolcano.musicplayer.music.constants
+package com.wolcano.musicplayer.music.utils
 
 import android.provider.MediaStore
 

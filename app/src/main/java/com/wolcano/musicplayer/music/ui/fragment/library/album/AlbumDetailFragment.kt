@@ -26,7 +26,6 @@ import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.squareup.picasso.Picasso
 import com.wolcano.musicplayer.music.R
-import com.wolcano.musicplayer.music.constants.Constants
 import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.databinding.FragmentAlbumDetailBinding
 import com.wolcano.musicplayer.music.listener.PlaylistListener

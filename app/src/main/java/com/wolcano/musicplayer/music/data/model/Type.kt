@@ -1,4 +1,4 @@
-package com.wolcano.musicplayer.music.constants
+package com.wolcano.musicplayer.music.data.model
 
 object Type {
     const val TYPE_SONG = 1

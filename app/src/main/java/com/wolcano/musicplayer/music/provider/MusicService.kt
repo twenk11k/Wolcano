@@ -12,13 +12,13 @@ import android.os.Handler
 import android.os.IBinder
 import android.widget.Toast
 import com.wolcano.musicplayer.music.R
-import com.wolcano.musicplayer.music.constants.Constants
 import com.wolcano.musicplayer.music.content.managers.SessionManager
 import com.wolcano.musicplayer.music.content.managers.SessionManager.setSessionManager
 import com.wolcano.musicplayer.music.provider.notifications.Notification
 import com.wolcano.musicplayer.music.provider.notifications.NotificationImpl
 import com.wolcano.musicplayer.music.provider.notifications.NotificationLatestImpl
 import com.wolcano.musicplayer.music.provider.notifications.NotificationOldImpl
+import com.wolcano.musicplayer.music.utils.Constants
 
 class MusicService : Service() {
 

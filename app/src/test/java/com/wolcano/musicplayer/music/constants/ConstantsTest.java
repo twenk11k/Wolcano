@@ -4,25 +4,25 @@ import android.provider.MediaStore;
 
 import org.junit.Test;
 
-import static com.wolcano.musicplayer.music.constants.Constants.ACTION_PAUSE;
-import static com.wolcano.musicplayer.music.constants.Constants.ACTION_QUIT;
-import static com.wolcano.musicplayer.music.constants.Constants.ACTION_REWIND;
-import static com.wolcano.musicplayer.music.constants.Constants.ACTION_SKIP;
-import static com.wolcano.musicplayer.music.constants.Constants.ACTION_STOP;
-import static com.wolcano.musicplayer.music.constants.Constants.ACTION_STOP_SLEEP;
-import static com.wolcano.musicplayer.music.constants.Constants.ACTION_TOGGLE_PAUSE;
-import static com.wolcano.musicplayer.music.constants.Constants.ALBUM_ID;
-import static com.wolcano.musicplayer.music.constants.Constants.ALBUM_NAME;
-import static com.wolcano.musicplayer.music.constants.Constants.ERROR_TAG;
-import static com.wolcano.musicplayer.music.constants.Constants.GENRE_ID;
-import static com.wolcano.musicplayer.music.constants.Constants.GENRE_NAME;
-import static com.wolcano.musicplayer.music.constants.Constants.MAIN_BASE_URL;
-import static com.wolcano.musicplayer.music.constants.Constants.MAIN_BASE_URL_2;
-import static com.wolcano.musicplayer.music.constants.Constants.PACKAGE_NAME;
-import static com.wolcano.musicplayer.music.constants.Constants.PLAYLIST_ID;
-import static com.wolcano.musicplayer.music.constants.Constants.PLAYLIST_NAME;
-import static com.wolcano.musicplayer.music.constants.Constants.SONG_LIBRARY;
-import static com.wolcano.musicplayer.music.constants.Constants.SONG_ONLY_SELECTION;
+import static com.wolcano.musicplayer.music.utils.Constants.ACTION_PAUSE;
+import static com.wolcano.musicplayer.music.utils.Constants.ACTION_QUIT;
+import static com.wolcano.musicplayer.music.utils.Constants.ACTION_REWIND;
+import static com.wolcano.musicplayer.music.utils.Constants.ACTION_SKIP;
+import static com.wolcano.musicplayer.music.utils.Constants.ACTION_STOP;
+import static com.wolcano.musicplayer.music.utils.Constants.ACTION_STOP_SLEEP;
+import static com.wolcano.musicplayer.music.utils.Constants.ACTION_TOGGLE_PAUSE;
+import static com.wolcano.musicplayer.music.utils.Constants.ALBUM_ID;
+import static com.wolcano.musicplayer.music.utils.Constants.ALBUM_NAME;
+import static com.wolcano.musicplayer.music.utils.Constants.ERROR_TAG;
+import static com.wolcano.musicplayer.music.utils.Constants.GENRE_ID;
+import static com.wolcano.musicplayer.music.utils.Constants.GENRE_NAME;
+import static com.wolcano.musicplayer.music.utils.Constants.MAIN_BASE_URL;
+import static com.wolcano.musicplayer.music.utils.Constants.MAIN_BASE_URL_2;
+import static com.wolcano.musicplayer.music.utils.Constants.PACKAGE_NAME;
+import static com.wolcano.musicplayer.music.utils.Constants.PLAYLIST_ID;
+import static com.wolcano.musicplayer.music.utils.Constants.PLAYLIST_NAME;
+import static com.wolcano.musicplayer.music.utils.Constants.SONG_LIBRARY;
+import static com.wolcano.musicplayer.music.utils.Constants.SONG_ONLY_SELECTION;
 import static org.junit.Assert.assertEquals;
 
 public class ConstantsTest {

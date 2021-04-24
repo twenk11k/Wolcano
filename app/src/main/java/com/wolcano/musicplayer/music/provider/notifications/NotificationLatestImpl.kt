@@ -13,13 +13,13 @@ import com.squareup.picasso.Picasso
 import com.squareup.picasso.Picasso.LoadedFrom
 import com.squareup.picasso.Target
 import com.wolcano.musicplayer.music.R
-import com.wolcano.musicplayer.music.constants.Constants.ACTION_QUIT
-import com.wolcano.musicplayer.music.constants.Constants.ACTION_REWIND
-import com.wolcano.musicplayer.music.constants.Constants.ACTION_SKIP
-import com.wolcano.musicplayer.music.constants.Constants.ACTION_TOGGLE_PAUSE
 import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.provider.MusicService
 import com.wolcano.musicplayer.music.provider.RemotePlay.isPlaying
+import com.wolcano.musicplayer.music.utils.Constants.ACTION_QUIT
+import com.wolcano.musicplayer.music.utils.Constants.ACTION_REWIND
+import com.wolcano.musicplayer.music.utils.Constants.ACTION_SKIP
+import com.wolcano.musicplayer.music.utils.Constants.ACTION_TOGGLE_PAUSE
 
 class NotificationLatestImpl : Notification() {
 

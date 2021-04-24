@@ -22,10 +22,10 @@ import com.afollestad.materialdialogs.customview.customView
 import com.triggertrap.seekarc.SeekArc
 import com.triggertrap.seekarc.SeekArc.OnSeekArcChangeListener
 import com.wolcano.musicplayer.music.R
-import com.wolcano.musicplayer.music.constants.Constants.ACTION_PAUSE
-import com.wolcano.musicplayer.music.constants.Constants.ACTION_STOP_SLEEP
 import com.wolcano.musicplayer.music.databinding.DialogSleepTimerBinding
 import com.wolcano.musicplayer.music.provider.MusicService
+import com.wolcano.musicplayer.music.utils.Constants.ACTION_PAUSE
+import com.wolcano.musicplayer.music.utils.Constants.ACTION_STOP_SLEEP
 import com.wolcano.musicplayer.music.utils.Utils.getAccentColor
 import com.wolcano.musicplayer.music.utils.Utils.getLastSleepTimerValue
 import com.wolcano.musicplayer.music.utils.Utils.getNextSleepTimerElapsedRealTime

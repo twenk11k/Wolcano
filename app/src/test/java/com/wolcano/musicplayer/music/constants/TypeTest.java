@@ -2,9 +2,9 @@ package com.wolcano.musicplayer.music.constants;
 
 import org.junit.Test;
 
-import static com.wolcano.musicplayer.music.constants.Type.TYPE_FOOTER;
-import static com.wolcano.musicplayer.music.constants.Type.TYPE_SONG;
-import static org.junit.Assert.*;
+import static com.wolcano.musicplayer.music.data.model.Type.TYPE_FOOTER;
+import static com.wolcano.musicplayer.music.data.model.Type.TYPE_SONG;
+import static org.junit.Assert.assertEquals;
 
 public class TypeTest {
 
