@@ -355,7 +355,9 @@ object Utils {
             val values = ContentValues(2)
             values.put(MediaStore.Audio.AudioColumns.IS_RINGTONE, "1")
             values.put(MediaStore.Audio.AudioColumns.IS_ALARM, "1")
-            resolver.update(uri, values, null, null)
+            uri?.let {
+                resolver.update(it, values, null, null)
+            }
         } catch (ignored: UnsupportedOperationException) {
             return
         }
