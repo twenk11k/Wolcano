@@ -24,6 +24,7 @@ import com.wolcano.musicplayer.music.utils.ColorUtils.stripAlpha
 import java.lang.reflect.Field
 
 object TintHelper {
+
     // This returns a NEW Drawable because of the mutate() call. The mutate() call is necessary because Drawables with the same resource have shared states otherwise.
     @CheckResult
     @Nullable
@@ -192,14 +193,14 @@ object TintHelper {
         try {
             val fCursorDrawableRes: Field =
                 TextView::class.java.getDeclaredField("mCursorDrawableRes")
-            fCursorDrawableRes.setAccessible(true)
+            fCursorDrawableRes.isAccessible = true
             val mCursorDrawableRes: Int = fCursorDrawableRes.getInt(editText)
             val fEditor: Field = TextView::class.java.getDeclaredField("mEditor")
-            fEditor.setAccessible(true)
+            fEditor.isAccessible = true
             val editor: Any = fEditor.get(editText)
             val clazz: Class<*> = editor.javaClass
             val fCursorDrawable: Field = clazz.getDeclaredField("mCursorDrawable")
-            fCursorDrawable.setAccessible(true)
+            fCursorDrawable.isAccessible = true
             val drawables = arrayOfNulls<Drawable>(2)
             drawables[0] = ContextCompat.getDrawable(editText.context, mCursorDrawableRes)
             drawables[0] = createTintedDrawable(drawables[0], color)
