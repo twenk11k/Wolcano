@@ -49,14 +49,14 @@ class Song(
         var result = songId.hashCode()
         result = 31 * result + title.hashCode()
         result = 31 * result + artist.hashCode()
-        result = 31 * result + (covPath?.hashCode() ?: 0)
+        result = 31 * result + covPath.hashCode()
         result = 31 * result + type
         result = 31 * result + duration.hashCode()
         result = 31 * result + path.hashCode()
         result = 31 * result + (dosName?.hashCode() ?: 0)
         result = 31 * result + (id?.hashCode() ?: 0)
         result = 31 * result + dosSize.hashCode()
-        result = 31 * result + (album?.hashCode() ?: 0)
+        result = 31 * result + album.hashCode()
         result = 31 * result + albumId.hashCode()
         return result
     }
