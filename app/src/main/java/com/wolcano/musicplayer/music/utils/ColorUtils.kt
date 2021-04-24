@@ -57,7 +57,7 @@ object ColorUtils {
         return resolveColor(context, attr, 0)
     }
 
-    fun resolveColor(context: Context, @AttrRes attr: Int, fallback: Int): Int {
+    private fun resolveColor(context: Context, @AttrRes attr: Int, fallback: Int): Int {
         val a = context.theme.obtainStyledAttributes(intArrayOf(attr))
         return try {
             a.getColor(0, fallback)
