@@ -367,20 +367,18 @@ object Utils {
                 BaseColumns._ID + "=?", arrayOf(id.toString()),
                 null
             )
-            try {
-                if (cursor != null && cursor.count == 1) {
-                    cursor.moveToFirst()
+            cursor.use {
+                if (it != null && it.count == 1) {
+                    it.moveToFirst()
                     Settings.System.putString(resolver, Settings.System.RINGTONE, uri.toString())
                     val message: CharSequence = Html.fromHtml(
-                        context.getString(
-                            R.string.x_has_been_set_as_ringtone,
-                            cursor.getString(0)
-                        )
+                            context.getString(
+                                    R.string.x_has_been_set_as_ringtone,
+                                    it.getString(0)
+                            )
                     )
                     Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
                 }
-            } finally {
-                cursor?.close()
             }
         } catch (ignored: SecurityException) {
         }
