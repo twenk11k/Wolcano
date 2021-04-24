@@ -95,8 +95,6 @@ dependencies {
     implementation(ThirdPartyLibs.MATERIAL_DIALOGS_INPUT)
     implementation(ThirdPartyLibs.MATERIAL_DIALOGS_COLOR)
     implementation(ThirdPartyLibs.RECYCLERVIEW_FASTSCROLL)
-    implementation(ThirdPartyLibs.BUTTERKNIFE)
-    annotationProcessor(ThirdPartyLibs.BUTTERKNIFE_COMPILER)
     implementation(ThirdPartyLibs.APACHE_COMMONS_IO)
     implementation(ThirdPartyLibs.RXBUS)
     implementation(ThirdPartyLibs.SLIDINGUPPANEL)

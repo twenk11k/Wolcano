@@ -17,7 +17,6 @@ object Versions {
     const val JSOUP = "1.11.2"
     const val MATERIAL_DIALOGS = "3.3.0"
     const val RECYCLERVIEW_FASTSCROLL = "1.0.17"
-    const val BUTTERKNIFE = "10.1.0"
     const val COMMONS_IO = "1.3.2"
     const val RXBUS = "2.0.0"
     const val SLIDINGUPPANEL = "3.4.0"
