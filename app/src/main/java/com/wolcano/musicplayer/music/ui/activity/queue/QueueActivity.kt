@@ -11,10 +11,10 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.AdapterDataObserver
 import com.wolcano.musicplayer.music.R
+import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.databinding.ActivityQueueBinding
 import com.wolcano.musicplayer.music.listener.OnServiceListener
 import com.wolcano.musicplayer.music.listener.PlaylistListener
-import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.provider.RemotePlay
 import com.wolcano.musicplayer.music.ui.activity.base.BaseActivity
 import com.wolcano.musicplayer.music.ui.adapter.QueueAdapter
@@ -53,7 +53,7 @@ class QueueActivity : BaseActivity(), OnItemClickListener, OnServiceListener, Pl
 
     override fun onServiceConnection() {
         primaryColor = Utils.getPrimaryColor(this)
-        setStatusbarColor(primaryColor, binding.statusBarCustom)
+        setStatusBarColor(primaryColor, binding.statusBarCustom)
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

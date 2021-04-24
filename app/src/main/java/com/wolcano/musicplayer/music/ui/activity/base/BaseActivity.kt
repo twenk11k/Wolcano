@@ -26,7 +26,7 @@ open class BaseActivity : DataBindingActivity() {
 
     protected var musicService: MusicService? = null
     private var serviceConnection: ServiceConnection? = null
-    protected var baseHandler: Handler? = null
+    private var baseHandler: Handler? = null
     private var receiverRegistered = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,9 +62,8 @@ open class BaseActivity : DataBindingActivity() {
         val intent = Intent()
         intent.setClass(this, MusicService::class.java)
         serviceConnection = RemoteServiceConn()
-        bindService(intent, serviceConnection, BIND_AUTO_CREATE)
+        bindService(intent, serviceConnection!!, BIND_AUTO_CREATE)
     }
-
 
     private fun setView() {
         Binder.bindIt(this)
@@ -118,7 +117,7 @@ open class BaseActivity : DataBindingActivity() {
 
     override fun onDestroy() {
         if (serviceConnection != null) {
-            unbindService(serviceConnection)
+            unbindService(serviceConnection!!)
         }
         if (receiverRegistered) {
             receiverRegistered = false
@@ -133,10 +132,10 @@ open class BaseActivity : DataBindingActivity() {
             val intent = Intent()
             intent.setClass(this, MusicService::class.java)
             if (serviceConnection != null) {
-                bindService(intent, serviceConnection, BIND_AUTO_CREATE)
+                bindService(intent, serviceConnection!!, BIND_AUTO_CREATE)
             } else {
                 serviceConnection = RemoteServiceConn()
-                bindService(intent, serviceConnection, BIND_AUTO_CREATE)
+                bindService(intent, serviceConnection!!, BIND_AUTO_CREATE)
             }
         }
     }
@@ -151,7 +150,7 @@ open class BaseActivity : DataBindingActivity() {
         setLightStatusBar(ColorUtils.isColorLight(bgColor))
     }
 
-    open fun setStatusbarColor(color: Int, statusBarView: StatusBarView?) {
+    open fun setStatusBarColor(color: Int, statusBarView: StatusBarView?) {
         if (statusBarView != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 statusBarView.setBackgroundColor(ColorUtils.darkenColor(color))
