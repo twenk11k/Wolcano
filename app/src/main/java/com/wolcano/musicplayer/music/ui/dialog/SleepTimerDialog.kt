@@ -107,7 +107,7 @@ class SleepTimerDialog : DialogFragment() {
                     previous.cancel()
                     Toast.makeText(
                         requireActivity(),
-                        requireActivity().resources.getString(R.string.sleep_timer_canceled),
+                        requireActivity().getString(R.string.sleep_timer_canceled),
                         Toast.LENGTH_SHORT
                     ).show()
                 }

@@ -60,7 +60,7 @@ class QueueActivity : BaseActivity(), OnItemClickListener, OnServiceListener, Pl
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
         binding.toolbar.setBackgroundColor(primaryColor)
-        binding.toolbar.title = resources.getString(R.string.nowplaying)
+        binding.toolbar.title = getString(R.string.nowplaying)
         Utils.setUpFastScrollRecyclerViewColor(binding.recyclerview, Utils.getAccentColor(this))
         binding.recyclerview.layoutManager = LinearLayoutManager(this)
         binding.recyclerview.addItemDecoration(

@@ -508,7 +508,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 val intent = Intent(this, QueueActivity::class.java)
                 startActivity(intent)
             } else {
-                Toast.makeText(this, resources.getString(R.string.empty_queue), Toast.LENGTH_SHORT)
+                Toast.makeText(this, getString(R.string.empty_queue), Toast.LENGTH_SHORT)
                     .show()
             }
         }

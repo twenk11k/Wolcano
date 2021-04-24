@@ -200,8 +200,8 @@ object SongUtils {
             val fileStr =
                 URLUtil.guessFileName(path, null, MimeTypeMap.getFileExtensionFromUrl(path))
             val fileStr2: String? =
-                if (fileStr.contains(context.resources.getString(R.string.base_path_prefix))) {
-                    fileStr.replace(context.resources.getString(R.string.base_path_prefix), "")
+                if (fileStr.contains(context.getString(R.string.base_path_prefix))) {
+                    fileStr.replace(context.getString(R.string.base_path_prefix), "")
                 } else {
                     fileStr
                 }
@@ -235,8 +235,8 @@ object SongUtils {
         loadRequest.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
         val fileStr = URLUtil.guessFileName(path, null, MimeTypeMap.getFileExtensionFromUrl(path))
         val fileStr2 =
-            if (fileStr.contains(context.resources.getString(R.string.base_path_prefix))) {
-                fileStr.replace(context.resources.getString(R.string.base_path_prefix), "")
+            if (fileStr.contains(context.getString(R.string.base_path_prefix))) {
+                fileStr.replace(context.getString(R.string.base_path_prefix), "")
             } else {
                 fileStr
             }

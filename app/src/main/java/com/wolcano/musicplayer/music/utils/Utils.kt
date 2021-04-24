@@ -251,10 +251,10 @@ object Utils {
         val intent = Intent(Intent.ACTION_SEND)
         intent.type = "text/plain"
         intent.putExtra(Intent.EXTRA_SUBJECT, context.getString(appId))
-        val appName = context.resources.getString(R.string.appname)
+        val appName = context.getString(R.string.appname)
         val store = "https://play.google.com/store/apps/details?id=$pckg"
         intent.putExtra(Intent.EXTRA_TEXT, "$appName $store")
-        val str = context.resources.getString(R.string.sharewolcano)
+        val str = context.getString(R.string.sharewolcano)
         context.startActivity(Intent.createChooser(intent, str))
     }
 

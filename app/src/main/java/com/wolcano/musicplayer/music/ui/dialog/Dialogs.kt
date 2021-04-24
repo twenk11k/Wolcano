@@ -24,11 +24,11 @@ import com.squareup.picasso.Target
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.content.Share
 import com.wolcano.musicplayer.music.content.Share.shareSong
-import com.wolcano.musicplayer.music.listener.ItemCallback
 import com.wolcano.musicplayer.music.data.model.Copy
 import com.wolcano.musicplayer.music.data.model.Playlist
 import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.data.model.SongOnline
+import com.wolcano.musicplayer.music.listener.ItemCallback
 import com.wolcano.musicplayer.music.ui.adapter.customdialog.CopyItemAdapter
 import com.wolcano.musicplayer.music.ui.adapter.customdialog.ShareItemAdapter
 import com.wolcano.musicplayer.music.utils.SongUtils
@@ -211,7 +211,7 @@ object Dialogs {
 
     fun addPlaylistDialog(context: Context, song: Song?, playlistList: List<Playlist>) {
         val chars = mutableListOf<CharSequence>()
-        chars.add(context.resources.getString(R.string.create_new_playlist))
+        chars.add(context.getString(R.string.create_new_playlist))
         for (i in playlistList.indices) {
             chars.add(playlistList[i].name)
         }
