@@ -45,7 +45,7 @@ object UriFilesUtils {
         } else if (DOWNLOADS_AUTHORITY == uri.authority) {
             val id = DocumentsContract.getDocumentId(uri)
             val contentUri = ContentUris.withAppendedId(
-                Uri.parse("content://downloads/public_downloads"), java.lang.Long.valueOf(id)
+                    Uri.parse("content://downloads/public_downloads"), java.lang.Long.valueOf(id)
             )
             getPathFromGeneralUri(context, contentUri)
         } else if (MEDIA_AUTHORITY == uri.authority) {
@@ -61,8 +61,8 @@ object UriFilesUtils {
         val selection = MediaStore.MediaColumns._ID + " = ?"
         val selectionArgs = arrayOf(id)
         val cur = context.contentResolver.query(
-            uri, projection, selection,
-            selectionArgs, null
+                uri, projection, selection,
+                selectionArgs, null
         ) ?: return null
         var path: String? = null
         if (cur.moveToFirst()) {
@@ -74,15 +74,13 @@ object UriFilesUtils {
 
     private fun getPathFromGeneralUri(context: Context, uri: Uri): String? {
         val projection = arrayOf(MediaStore.MediaColumns.DATA)
-        val cur = context.contentResolver.query(uri, projection, null, null, null)
-        return try {
-            if (cur != null && cur.moveToFirst()) {
-                cur.getString(cur.getColumnIndex(MediaStore.Audio.Media.DATA))
+        val cursor = context.contentResolver.query(uri, projection, null, null, null)
+        return cursor.use {
+            if (it != null && it.moveToFirst()) {
+                it.getString(it.getColumnIndex(MediaStore.Audio.Media.DATA))
             } else {
                 null
             }
-        } finally {
-            cur?.close()
         }
     }
 
