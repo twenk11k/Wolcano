@@ -27,9 +27,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.squareup.picasso.Picasso
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.constants.Constants
+import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.databinding.FragmentAlbumDetailBinding
 import com.wolcano.musicplayer.music.listener.PlaylistListener
-import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.provider.RemotePlay
 import com.wolcano.musicplayer.music.ui.adapter.detail.AlbumSongAdapter
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs
@@ -240,9 +240,9 @@ class AlbumDetailFragment : BaseFragment(), PlaylistListener, View.OnClickListen
 
     private fun setStatusBarColor(color: Int) {
         if (Utils.isColorLight(color)) {
-            ATH.setLightStatusbar(requireActivity(), true)
+            ThemeUtils.setLightStatusBar(requireActivity(), true)
         } else {
-            ATH.setLightStatusbar(requireActivity(), false)
+            ThemeUtils.setLightStatusBar(requireActivity(), false)
         }
     }
 

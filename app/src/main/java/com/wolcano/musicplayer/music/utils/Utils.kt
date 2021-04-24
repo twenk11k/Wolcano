@@ -209,7 +209,7 @@ object Utils {
         return darkness < 0.4
     }
 
-    private fun setLightStatusbar2(activity: Activity, enabled: Boolean) {
+    private fun setLightStatusBar2(activity: Activity, enabled: Boolean) {
         if (Build.VERSION.SDK_INT >= 23) {
             val decorView = activity.window.decorView
             val systemUiVisibility = decorView.systemUiVisibility
@@ -221,13 +221,8 @@ object Utils {
         }
     }
 
-    private fun setLightStatusbarAuto(activity: Activity, bgColor: Int) {
-        setLightStatusbar(activity, isColorLight(bgColor))
-    }
-
-
-    private fun setLightStatusbar(activity: Activity, enabled: Boolean) {
-        setLightStatusbar2(activity, enabled)
+    private fun setLightStatusBar(activity: Activity, enabled: Boolean) {
+        setLightStatusBar2(activity, enabled)
     }
 
     fun rateWolcano(context: Context) {

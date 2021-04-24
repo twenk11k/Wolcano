@@ -310,10 +310,10 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         mIsResumed = false
     }
 
-    override fun setLightStatusbar(enabled: Boolean) {
+    override fun setLightStatusBar(enabled: Boolean) {
         lightStatusbar = enabled
         if (getPanelState() == PanelState.COLLAPSED) {
-            super.setLightStatusbar(enabled)
+            super.setLightStatusBar(enabled)
         }
     }
 
@@ -341,11 +341,11 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                         binding.slidinguppanel.slidinguppanelTop1.flPlayBar.visibility =
                             View.VISIBLE
                         isExpand = false
-                        ATH.setLightStatusbar(this@MainActivity, lightStatusbar)
+                        ThemeUtils.setLightStatusBar(this@MainActivity, lightStatusbar)
                     }
                     PanelState.EXPANDED -> {
                         binding.slidinguppanel.slidinguppanelTop1.flPlayBar.visibility = View.GONE
-                        ATH.setLightStatusbar(this@MainActivity, false)
+                        ThemeUtils.setLightStatusBar(this@MainActivity, false)
                         isExpand = true
                     }
                     PanelState.ANCHORED -> if (handlerCollapse != null) {

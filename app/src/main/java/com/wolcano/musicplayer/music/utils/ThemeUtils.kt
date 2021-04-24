@@ -5,14 +5,10 @@ import android.app.ActivityManager.TaskDescription
 import android.os.Build
 import android.view.View
 import androidx.annotation.ColorInt
-import com.wolcano.musicplayer.music.utils.Utils.getPrimaryColor
 
-object ATH {
-    fun setLightStatusbarAuto(activity: Activity, bgColor: Int) {
-        setLightStatusbar(activity, ColorUtils.isColorLight(bgColor))
-    }
+object ThemeUtils {
 
-    fun setLightStatusbar(activity: Activity, enabled: Boolean) {
+    fun setLightStatusBar(activity: Activity, enabled: Boolean) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val decorView = activity.window.decorView
             val systemUiVisibility = decorView.systemUiVisibility
@@ -24,10 +20,6 @@ object ATH {
                     systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
             }
         }
-    }
-
-    fun setTaskDescriptionColorAuto(activity: Activity) {
-        setTaskDescriptionColor(activity, getPrimaryColor(activity))
     }
 
     fun setTaskDescriptionColor(activity: Activity, @ColorInt color: Int) {

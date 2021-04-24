@@ -42,7 +42,7 @@ open class BaseFragment : Fragment() {
         if (statusBarView != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 statusBarView.setBackgroundColor(ColorUtils.darkenColor(color))
-                (activity as MainActivity?)!!.setLightStatusbarAuto(color)
+                (activity as MainActivity?)!!.setLightStatusBarAuto(color)
             } else {
                 statusBarView.setBackgroundColor(color)
             }

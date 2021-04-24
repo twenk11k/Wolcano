@@ -15,8 +15,8 @@ import androidx.core.app.ActivityCompat
 import com.google.android.material.snackbar.Snackbar
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.base.DataBindingActivity
-import com.wolcano.musicplayer.music.utils.ATH
 import com.wolcano.musicplayer.music.utils.ColorUtils
+import com.wolcano.musicplayer.music.utils.ThemeUtils
 import com.wolcano.musicplayer.music.utils.Utils
 import com.wolcano.musicplayer.music.widgets.StatusBarView
 
@@ -147,19 +147,19 @@ open class BaseActivitySettings : DataBindingActivity() {
         if (statusBarView != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 statusBarView.setBackgroundColor(ColorUtils.darkenColor(color))
-                setLightStatusbarAuto(color)
+                setLightStatusBarAuto(color)
             } else {
                 statusBarView.setBackgroundColor(color)
             }
         }
     }
 
-    fun setLightStatusbar(enabled: Boolean) {
-        ATH.setLightStatusbar(this, enabled)
+    fun setLightStatusBar(enabled: Boolean) {
+        ThemeUtils.setLightStatusBar(this, enabled)
     }
 
-    fun setLightStatusbarAuto(bgColor: Int) {
-        setLightStatusbar(ColorUtils.isColorLight(bgColor))
+    fun setLightStatusBarAuto(bgColor: Int) {
+        setLightStatusBar(ColorUtils.isColorLight(bgColor))
     }
 
     protected fun setDrawUnderStatusbar(drawUnderStatusbar: Boolean) {
@@ -171,7 +171,7 @@ open class BaseActivitySettings : DataBindingActivity() {
     }
 
     fun setTaskDescriptionColor(@ColorInt color: Int) {
-        ATH.setTaskDescriptionColor(this, color)
+        ThemeUtils.setTaskDescriptionColor(this, color)
     }
 
 }

@@ -16,9 +16,9 @@ import com.wolcano.musicplayer.music.base.DataBindingActivity
 import com.wolcano.musicplayer.music.content.Binder
 import com.wolcano.musicplayer.music.provider.MusicService
 import com.wolcano.musicplayer.music.provider.MusicService.ServiceInit
-import com.wolcano.musicplayer.music.utils.ATH
 import com.wolcano.musicplayer.music.utils.ColorUtils
 import com.wolcano.musicplayer.music.utils.PermissionUtils
+import com.wolcano.musicplayer.music.utils.ThemeUtils
 import com.wolcano.musicplayer.music.utils.Utils
 import com.wolcano.musicplayer.music.widgets.StatusBarView
 
@@ -143,19 +143,19 @@ open class BaseActivity : DataBindingActivity() {
 
     protected open fun handleListener() {}
 
-    open fun setLightStatusbar(enabled: Boolean) {
-        ATH.setLightStatusbar(this, enabled)
+    open fun setLightStatusBar(enabled: Boolean) {
+        ThemeUtils.setLightStatusBar(this, enabled)
     }
 
-    open fun setLightStatusbarAuto(bgColor: Int) {
-        setLightStatusbar(ColorUtils.isColorLight(bgColor))
+    open fun setLightStatusBarAuto(bgColor: Int) {
+        setLightStatusBar(ColorUtils.isColorLight(bgColor))
     }
 
     open fun setStatusbarColor(color: Int, statusBarView: StatusBarView?) {
         if (statusBarView != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 statusBarView.setBackgroundColor(ColorUtils.darkenColor(color))
-                setLightStatusbarAuto(color)
+                setLightStatusBarAuto(color)
             } else {
                 statusBarView.setBackgroundColor(color)
             }
