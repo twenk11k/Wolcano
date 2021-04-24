@@ -28,17 +28,14 @@ import androidx.palette.graphics.Palette
 import androidx.palette.graphics.Palette.Swatch
 import com.afollestad.materialdialogs.MaterialDialog
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
-import com.wolcano.musicplayer.music.App
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.ui.fragment.library.album.AlbumDetailFragment
 import com.wolcano.musicplayer.music.ui.fragment.library.artist.ArtistDetailFragment
 import com.wolcano.musicplayer.music.ui.fragment.library.genre.GenreDetailFragment
 import com.wolcano.musicplayer.music.ui.fragment.playlist.PlaylistDetailFragment
-import com.wolcano.musicplayer.music.widgets.StatusBarView
 import java.io.File
 import java.util.*
-import kotlin.math.ceil
 
 object Utils {
 
@@ -90,12 +87,6 @@ object Utils {
         settings = context.getSharedPreferences("VALUES", Context.MODE_PRIVATE)
         return settings.getBoolean("app_mobile_interet", false)
     }
-
-    fun setMobileInternet(context: Context, `val`: Boolean) {
-        settings = context.getSharedPreferences("VALUES", Context.MODE_PRIVATE)
-        settings.edit().putBoolean("app_mobile_interet", `val`).apply()
-    }
-
 
     fun getPlaylistPos(context: Context): Int {
         settings = context.getSharedPreferences("VALUES", Context.MODE_PRIVATE)
@@ -193,16 +184,6 @@ object Utils {
         return settings.getLong("next_sleep_timer_elapsed_real_time", -1)
     }
 
-    fun setFirstFrag(context: Context, `val`: Boolean) {
-        settings = context.getSharedPreferences("VALUES", Context.MODE_PRIVATE)
-        settings.edit().putBoolean("app_first_frag", `val`).apply()
-    }
-
-    fun getFirstFrag(context: Context): Boolean {
-        settings = context.getSharedPreferences("VALUES", Context.MODE_PRIVATE)
-        return settings.getBoolean("app_first_frag", false)
-    }
-
     fun setNextSleepTimerElapsedRealtime(context: Context, value: Long) {
         settings = context.getSharedPreferences("VALUES", Context.MODE_PRIVATE)
         settings.edit().putLong("next_sleep_timer_elapsed_real_time", value).apply()
@@ -240,31 +221,6 @@ object Utils {
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.KITKAT)
-    fun setStatusBarTranslucent(window: Window) {
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
-            WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
-        )
-    }
-
-    fun setStatusbarColorAuto(statusBarView: StatusBarView?, color: Int, activity: Activity) {
-        setStatusbarColor(color, statusBarView, activity)
-    }
-
-    private fun setStatusbarColor(color: Int, statusBarView: StatusBarView?, activity: Activity) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (statusBarView != null) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    statusBarView.setBackgroundColor(ColorUtils.darkenColor(color))
-                    setLightStatusbarAuto(activity, color)
-                } else {
-                    statusBarView.setBackgroundColor(color)
-                }
-            }
-        }
-    }
-
     private fun setLightStatusbarAuto(activity: Activity, bgColor: Int) {
         setLightStatusbar(activity, isColorLight(bgColor))
     }
@@ -273,7 +229,6 @@ object Utils {
     private fun setLightStatusbar(activity: Activity, enabled: Boolean) {
         setLightStatusbar2(activity, enabled)
     }
-
 
     fun rateWolcano(context: Context) {
         val url = Uri.parse("market://details?id=" + context.packageName)
@@ -453,11 +408,6 @@ object Utils {
         )
     }
 
-
-    fun isLollipop(): Boolean {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
-    }
-
     @TargetApi(21)
     fun navigateToAlbum(context: Activity, albumID: Long, albumName: String?) {
         val transaction = (context as AppCompatActivity).supportFragmentManager.beginTransaction()
@@ -549,6 +499,11 @@ object Utils {
         return settings.getString("searchquery", "")
     }
 
+    fun setLastSearch(context: Context, query: String?) {
+        settings = context.getSharedPreferences("VALUES", Context.MODE_PRIVATE)
+        settings.edit().putString("lastsearch", query).apply()
+    }
+
     fun getLastSearch(context: Context): String? {
         settings = context.getSharedPreferences("VALUES", Context.MODE_PRIVATE)
         return settings.getString("lastsearch", "")
@@ -557,26 +512,6 @@ object Utils {
     fun setSearchQuery(context: Context, query: String?) {
         settings = context.getSharedPreferences("VALUES", Context.MODE_PRIVATE)
         settings.edit().putString("searchquery", query).apply()
-    }
-
-    fun setGetSearch(context: Context, query: String?) {
-        settings = context.getSharedPreferences("VALUES", Context.MODE_PRIVATE)
-        settings.edit().putString("getsearch", query).apply()
-    }
-
-    fun setLastSearch(context: Context, query: String?) {
-        settings = context.getSharedPreferences("VALUES", Context.MODE_PRIVATE)
-        settings.edit().putString("lastsearch", query).apply()
-    }
-
-    fun setLastSingleSearch(context: Context, query: String?) {
-        settings = context.getSharedPreferences("VALUES", Context.MODE_PRIVATE)
-        settings.edit().putString("last_single_search", query).apply()
-    }
-
-    fun getLastSingleSearch(context: Context): String? {
-        settings = context.getSharedPreferences("VALUES", Context.MODE_PRIVATE)
-        return settings.getString("last_single_search", "")
     }
 
     fun getDuraStr(elapsedSeconds: Long, context: Context): String {
@@ -608,21 +543,9 @@ object Utils {
         }
     }
 
-    fun getReadableDura(millis: Long): String? {
-        var minutes = millis / 1000 / 60
-        val seconds = millis / 1000 % 60
-        return if (minutes < 60) {
-            String.format("%01d:%02d", minutes, seconds)
-        } else {
-            val hours = minutes / 60
-            minutes = minutes % 60
-            String.format("%d:%02d:%02d", hours, minutes, seconds)
-        }
-    }
-
     private fun initFormatStrings(context: Context) {
         synchronized(sLock) {
-            Utils.initFormatStringsLocked(
+            initFormatStringsLocked(
                 context
             )
         }
@@ -648,19 +571,6 @@ object Utils {
             String.format("%02d:%02d", minutes, seconds)
         }
     }
-
-
-    fun dp(value: Float): Int {
-        return if (value == 0f) {
-            0
-        } else ceil((getDisplayDensity() * value).toDouble())
-            .toInt()
-    }
-
-    private fun getDisplayDensity(): Float {
-        return App.application.applicationContext.resources.displayMetrics.density
-    }
-
 
     fun setServiceDestroy(context: Context, `val`: Boolean) {
         settings = context.getSharedPreferences("VALUES", Context.MODE_PRIVATE)

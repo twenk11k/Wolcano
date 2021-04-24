@@ -26,11 +26,11 @@ import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.content.PlayerEnum
 import com.wolcano.musicplayer.music.content.SlidingPanel
 import com.wolcano.musicplayer.music.content.managers.DisposableManager
+import com.wolcano.musicplayer.music.data.model.ModelBitmap
+import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.databinding.ActivityMainBinding
 import com.wolcano.musicplayer.music.listener.OnServiceListener
 import com.wolcano.musicplayer.music.listener.PlaylistListener
-import com.wolcano.musicplayer.music.data.model.ModelBitmap
-import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.provider.RemotePlay.buttonClick
 import com.wolcano.musicplayer.music.provider.RemotePlay.getPlayMusic
 import com.wolcano.musicplayer.music.provider.RemotePlay.getPlayerCurrentPosition
@@ -213,7 +213,6 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     fun initViews() {
         setSlidingPanelLayout()
         val openingVal: Int = Utils.getOpeningVal(this@MainActivity)
-        Utils.setFirstFrag(this.applicationContext, true)
         setFragment(openingVal)
         binding.navView.menu.getItem(openingVal)?.isChecked = true
         binding.navView.setOnNavigationItemSelectedListener { menuItem: MenuItem ->
@@ -625,7 +624,6 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         Utils.hideKeyboard(this@MainActivity)
         val id = menuItem.itemId
         binding.slidinguppanel.slidinguppanellayout.panelState = PanelState.COLLAPSED
-        Utils.setFirstFrag(this@MainActivity, false)
         typeReturn = false
         when (id) {
             R.id.nav_onlineplayer -> {
