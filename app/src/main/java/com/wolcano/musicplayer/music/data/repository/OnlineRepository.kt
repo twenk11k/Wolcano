@@ -32,7 +32,7 @@ class OnlineRepository @Inject constructor(private val searchHistoryDao: SearchH
         onComplete: () -> Unit,
         onError: (String?) -> Unit
     ) = flow {
-        if (searchText != null && searchText.isNotEmpty()) {
+        if (!searchText.isNullOrEmpty()) {
             if (!isAutoSearch) {
                 searchHistoryDao.insert(SearchHistory(searchText))
             }
