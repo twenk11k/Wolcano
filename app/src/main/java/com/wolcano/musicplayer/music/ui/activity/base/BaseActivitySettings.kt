@@ -14,7 +14,7 @@ import androidx.annotation.ColorInt
 import androidx.core.app.ActivityCompat
 import com.google.android.material.snackbar.Snackbar
 import com.wolcano.musicplayer.music.R
-import com.wolcano.musicplayer.music.base.DataBindingActivity
+import com.wolcano.musicplayer.music.binding.DataBindingActivity
 import com.wolcano.musicplayer.music.utils.ColorUtils
 import com.wolcano.musicplayer.music.utils.ThemeUtils
 import com.wolcano.musicplayer.music.utils.Utils
@@ -143,7 +143,7 @@ open class BaseActivitySettings : DataBindingActivity() {
         }
     }
 
-    fun setStatusbarColor(color: Int, statusBarView: StatusBarView?) {
+    fun setStatusBarColor(color: Int, statusBarView: StatusBarView?) {
         if (statusBarView != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 statusBarView.setBackgroundColor(ColorUtils.darkenColor(color))

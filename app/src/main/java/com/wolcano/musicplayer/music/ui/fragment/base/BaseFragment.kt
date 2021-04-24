@@ -32,13 +32,12 @@ open class BaseFragment : Fragment() {
         PermissionUtils.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
-
     override fun onDestroy() {
         RxBus.get().unregister(this)
         super.onDestroy()
     }
 
-    open fun setStatusbarColor(color: Int, statusBarView: StatusBarView?) {
+    open fun setStatusBarColor(color: Int, statusBarView: StatusBarView?) {
         if (statusBarView != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 statusBarView.setBackgroundColor(ColorUtils.darkenColor(color))

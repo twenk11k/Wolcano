@@ -63,7 +63,7 @@ class ArtistDetailFragment : BaseFragment(), PlaylistListener {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_base_song, container, false)
 
         primaryColor = Utils.getPrimaryColor(requireContext())
-        setStatusbarColor(primaryColor, binding.statusBarCustom)
+        setStatusBarColor(primaryColor, binding.statusBarCustom)
 
         (activity as AppCompatActivity?)?.setSupportActionBar(binding.toolbar)
 

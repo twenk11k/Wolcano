@@ -40,7 +40,7 @@ class LibraryFragment : BaseFragment() {
 
         setHasOptionsMenu(true)
         val color = getPrimaryColor(requireContext())
-        setStatusbarColor(color, binding.statusBarCustom)
+        setStatusBarColor(color, binding.statusBarCustom)
 
         (activity as AppCompatActivity?)?.setSupportActionBar(binding.toolbar)
 

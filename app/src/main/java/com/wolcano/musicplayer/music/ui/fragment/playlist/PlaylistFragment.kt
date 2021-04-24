@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.AdapterDataObserver
 import com.wolcano.musicplayer.music.R
-import com.wolcano.musicplayer.music.databinding.FragmentBaseSongBinding
 import com.wolcano.musicplayer.music.data.model.Playlist
+import com.wolcano.musicplayer.music.databinding.FragmentBaseSongBinding
 import com.wolcano.musicplayer.music.ui.adapter.PlaylistAdapter
 import com.wolcano.musicplayer.music.ui.dialog.SleepTimerDialog
 import com.wolcano.musicplayer.music.ui.fragment.base.BaseFragment
@@ -89,7 +89,7 @@ class PlaylistFragment : BaseFragment() {
     private fun setStatusBarAndToolbar() {
         val color = getPrimaryColor(requireContext())
 
-        setStatusbarColor(color, binding.statusBarCustom)
+        setStatusBarColor(color, binding.statusBarCustom)
 
         (activity as AppCompatActivity?)?.setSupportActionBar(binding.toolbar)
         binding.toolbar.setBackgroundColor(color)

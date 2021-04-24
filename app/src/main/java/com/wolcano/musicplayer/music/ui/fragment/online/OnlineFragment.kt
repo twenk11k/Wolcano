@@ -12,10 +12,10 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.wolcano.musicplayer.music.R
-import com.wolcano.musicplayer.music.databinding.FragmentOnlineBinding
-import com.wolcano.musicplayer.music.listener.SetSearchQuery
 import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.data.model.SongOnline
+import com.wolcano.musicplayer.music.databinding.FragmentOnlineBinding
+import com.wolcano.musicplayer.music.listener.SetSearchQuery
 import com.wolcano.musicplayer.music.provider.RemotePlay
 import com.wolcano.musicplayer.music.ui.adapter.OnlineAdapter
 import com.wolcano.musicplayer.music.ui.adapter.OnlineAdapterClickListener
@@ -57,7 +57,7 @@ class OnlineFragment : BaseFragment(), SetSearchQuery, OnlineAdapterClickListene
         color = getPrimaryColor(requireContext())
         binding.materialSearchView.bringToFront()
 
-        setStatusbarColor(color, binding.statusBarCustom)
+        setStatusBarColor(color, binding.statusBarCustom)
         setUpFastScrollRecyclerViewColor(
             binding.recyclerView, getAccentColor(
                 requireContext()

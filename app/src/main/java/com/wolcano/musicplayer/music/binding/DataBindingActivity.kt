@@ -1,4 +1,4 @@
-package com.wolcano.musicplayer.music.base
+package com.wolcano.musicplayer.music.binding
 
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity

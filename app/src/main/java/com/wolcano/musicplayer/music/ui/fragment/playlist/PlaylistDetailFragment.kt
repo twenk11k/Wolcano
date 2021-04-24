@@ -64,8 +64,8 @@ class PlaylistDetailFragment : BaseFragment(), PlaylistListener {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_base_song, container, false)
         primaryColor = Utils.getPrimaryColor(requireContext())
-        accentColor = Utils.getAccentColor(requireContext())
-        setStatusbarColor(primaryColor, binding.statusBarCustom)
+        accentColor = Utils.getAccentColor(requireContext(  ))
+        setStatusBarColor(primaryColor, binding.statusBarCustom)
 
         (activity as AppCompatActivity?)?.setSupportActionBar(binding.toolbar)
 

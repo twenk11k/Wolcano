@@ -44,7 +44,7 @@ class SettingsActivity : BaseActivitySettings() {
         setDrawUnderStatusbar(true)
 
         color = getPrimaryColor(this)
-        setStatusbarColor(color, binding.statusBarCustom)
+        setStatusBarColor(color, binding.statusBarCustom)
 
         setTaskDescriptionColorAuto()
         binding.toolbar.setBackgroundColor(color)

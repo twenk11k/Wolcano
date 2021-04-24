@@ -12,7 +12,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import com.hwangjr.rxbus.RxBus
 import com.wolcano.musicplayer.music.R
-import com.wolcano.musicplayer.music.base.DataBindingActivity
+import com.wolcano.musicplayer.music.binding.DataBindingActivity
 import com.wolcano.musicplayer.music.content.Binder
 import com.wolcano.musicplayer.music.provider.MusicService
 import com.wolcano.musicplayer.music.provider.MusicService.ServiceInit
