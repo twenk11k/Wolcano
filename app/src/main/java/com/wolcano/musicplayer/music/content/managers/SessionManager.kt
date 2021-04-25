@@ -29,7 +29,7 @@ object SessionManager {
     fun updateSessionPlaybackState() {
         val state =
             if (RemotePlay.isPlaying() || RemotePlay.isPreparing()) PlaybackStateCompat.STATE_PLAYING else PlaybackStateCompat.STATE_PAUSED
-        val MEDIA_SESSION_ACTIONS = (PlaybackStateCompat.ACTION_PLAY
+        val mediaSessionActions = (PlaybackStateCompat.ACTION_PLAY
                 or PlaybackStateCompat.ACTION_SEEK_TO
                 or PlaybackStateCompat.ACTION_PLAY_PAUSE
                 or PlaybackStateCompat.ACTION_PAUSE
@@ -38,7 +38,7 @@ object SessionManager {
                 or PlaybackStateCompat.ACTION_STOP)
         mediaSessionCompat?.setPlaybackState(
             PlaybackStateCompat.Builder()
-                .setActions(MEDIA_SESSION_ACTIONS)
+                .setActions(mediaSessionActions)
                 .setState(state, RemotePlay.getPlayerCurrentPosition(), 1f)
                 .build()
         )
