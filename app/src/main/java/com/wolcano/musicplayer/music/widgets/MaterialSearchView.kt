@@ -1,14 +1,12 @@
 package com.wolcano.musicplayer.music.widgets
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.PorterDuff
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Parcel
 import android.os.Parcelable
-import android.speech.RecognizerIntent
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
@@ -21,19 +19,17 @@ import android.view.View.OnClickListener
 import android.view.View.OnFocusChangeListener
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
-import android.widget.AdapterView.OnItemClickListener
-import android.widget.AdapterView.OnItemLongClickListener
 import com.miguelcatalan.materialsearchview.utils.AnimationUtil
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.listener.SetSearchQuery
 import com.wolcano.musicplayer.music.ui.adapter.SearchAdapter
 
 class MaterialSearchView @JvmOverloads constructor(
-    context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+        context: Context,
+        attrs: AttributeSet? = null,
+        defStyleAttr: Int = 0
 ) : FrameLayout(
-    context, attrs
+        context, attrs
 ), Filter.FilterListener {
     private var menuItem: MenuItem? = null
 
@@ -70,30 +66,30 @@ class MaterialSearchView @JvmOverloads constructor(
 
     private fun initStyle(attrs: AttributeSet?, defStyleAttr: Int) {
         val a = context.obtainStyledAttributes(
-            attrs,
-            com.miguelcatalan.materialsearchview.R.styleable.MaterialSearchView,
-            defStyleAttr,
-            0
+                attrs,
+                com.miguelcatalan.materialsearchview.R.styleable.MaterialSearchView,
+                defStyleAttr,
+                0
         )
         if (a != null) {
             if (a.hasValue(com.miguelcatalan.materialsearchview.R.styleable.MaterialSearchView_searchBackground)) {
                 background =
-                    a.getDrawable(com.miguelcatalan.materialsearchview.R.styleable.MaterialSearchView_searchBackground)
+                        a.getDrawable(com.miguelcatalan.materialsearchview.R.styleable.MaterialSearchView_searchBackground)
             }
             if (a.hasValue(com.miguelcatalan.materialsearchview.R.styleable.MaterialSearchView_android_textColor)) {
                 setTextColor(
-                    a.getColor(
-                        com.miguelcatalan.materialsearchview.R.styleable.MaterialSearchView_android_textColor,
-                        0
-                    )
+                        a.getColor(
+                                com.miguelcatalan.materialsearchview.R.styleable.MaterialSearchView_android_textColor,
+                                0
+                        )
                 )
             }
             if (a.hasValue(com.miguelcatalan.materialsearchview.R.styleable.MaterialSearchView_android_textColorHint)) {
                 setHintTextColor(
-                    a.getColor(
-                        com.miguelcatalan.materialsearchview.R.styleable.MaterialSearchView_android_textColorHint,
-                        0
-                    )
+                        a.getColor(
+                                com.miguelcatalan.materialsearchview.R.styleable.MaterialSearchView_android_textColorHint,
+                                0
+                        )
                 )
             }
             if (a.hasValue(com.miguelcatalan.materialsearchview.R.styleable.MaterialSearchView_searchCloseIcon)) {
@@ -190,13 +186,10 @@ class MaterialSearchView @JvmOverloads constructor(
         if (hasText) {
             emptyBtn?.visibility = VISIBLE
             onQueryChangeListener?.onQueryTextChange(newText.toString())
-            //SearchAdapter.isFirst = false;
         } else {
             emptyBtn?.visibility = GONE
             onQueryChangeListener?.onQueryTextChange("")
             return
-        }
-        if (onQueryChangeListener != null && !TextUtils.equals(newText, oldQueryText)) {
         }
         oldQueryText = newText.toString()
     }
@@ -211,18 +204,6 @@ class MaterialSearchView @JvmOverloads constructor(
         }
     }
 
-    private val isVoiceAvailable: Boolean
-        private get() {
-            if (isInEditMode) {
-                return true
-            }
-            val pm = context.packageManager
-            val activities = pm.queryIntentActivities(
-                Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0
-            )
-            return activities.size != 0
-        }
-
     fun hideKeyboard(view: View) {
         val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view.windowToken, 0)
@@ -231,7 +212,7 @@ class MaterialSearchView @JvmOverloads constructor(
     fun showKeyboard() {
         searchSrcTextView?.requestFocus()
         val imm =
-            searchSrcTextView?.context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                searchSrcTextView?.context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.showSoftInput(searchSrcTextView, 0)
     }
 
@@ -304,16 +285,6 @@ class MaterialSearchView @JvmOverloads constructor(
         suggestionListView!!.setBackgroundColor(color)
     }
 
-    fun setCursorDrawable(drawable: Int) {
-        try {
-            // https://github.com/android/platform_frameworks_base/blob/kitkat-release/core/java/android/widget/TextView.java#L562-564
-            val f = TextView::class.java.getDeclaredField("mCursorDrawableRes")
-            f.isAccessible = true
-            f[searchSrcTextView] = drawable
-        } catch (ignored: Exception) {
-        }
-    }
-
     fun setVoiceSearch(voiceSearch: Boolean) {
         allowVoiceSearch = voiceSearch
     }
@@ -334,19 +305,6 @@ class MaterialSearchView @JvmOverloads constructor(
     }
 
     /**
-     * Set Suggest List OnItemClickListener
-     *
-     * @param listener
-     */
-    fun setOnItemClickListener(listener: OnItemClickListener?) {
-        suggestionListView?.onItemClickListener = listener
-    }
-
-    fun setOnItemLongClickListener(listener: OnItemLongClickListener?) {
-        suggestionListView?.onItemLongClickListener = listener
-    }
-
-    /**
      * Set Adapter for suggestions list. Should implement Filterable.
      *
      * @param adapter
@@ -363,23 +321,23 @@ class MaterialSearchView @JvmOverloads constructor(
      * @param suggestions array of suggestions
      */
     fun setSuggestions(
-        suggestions: ArrayList<String>,
-        isFirst: Boolean,
-        callback: SetSearchQuery?,
-        textColor: Int
+            suggestions: ArrayList<String>,
+            isFirst: Boolean,
+            callback: SetSearchQuery?,
+            textColor: Int
     ) {
-        if (suggestions != null && suggestions.isNotEmpty()) {
+        if (suggestions.isNotEmpty()) {
             tintView?.visibility = VISIBLE
             val adapter = SearchAdapter(
-                context,
-                suggestions,
-                suggestionIcon,
-                suggestionSend,
-                ellipsize,
-                isFirst,
-                callback,
-                textColor,
-                this
+                    context,
+                    suggestions,
+                    suggestionIcon,
+                    suggestionSend,
+                    ellipsize,
+                    isFirst,
+                    callback,
+                    textColor,
+                    this
             )
             setAdapter(adapter)
             tintView?.visibility = GONE
@@ -463,26 +421,23 @@ class MaterialSearchView @JvmOverloads constructor(
         isSearchOpen = true
     }
 
-    fun removeFromList(v: View?) {}
+    private fun removeFromList(v: View?) {}
 
     private fun setVisibleWithAnimation() {
         val animationListener: AnimationUtil.AnimationListener =
-            object : AnimationUtil.AnimationListener {
-                override fun onAnimationStart(view: View): Boolean {
-                    return false
-                }
+                object : AnimationUtil.AnimationListener {
+                    override fun onAnimationStart(view: View): Boolean {
+                        return false
+                    }
 
-                override fun onAnimationEnd(view: View): Boolean {
-                    // if (searchViewListener != null) {
-                    // searchViewListener.onSearchViewShown();
-                    // }
-                    return false
-                }
+                    override fun onAnimationEnd(view: View): Boolean {
+                        return false
+                    }
 
-                override fun onAnimationCancel(view: View): Boolean {
-                    return false
+                    override fun onAnimationCancel(view: View): Boolean {
+                        return false
+                    }
                 }
-            }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             searchLayout?.visibility = VISIBLE
             AnimationUtil.reveal(searchTopBar, animationListener)
@@ -515,24 +470,6 @@ class MaterialSearchView @JvmOverloads constructor(
         onQueryChangeListener = listener
     }
 
-    /**
-     * Set this listener to listen to Search View open and close events
-     *
-     * @param listener
-     */
-    fun setOnSearchViewListener(listener: SearchViewListener?) {
-        searchViewListener = listener
-    }
-
-    /**
-     * Ellipsize suggestions longer than one line.
-     *
-     * @param ellipsize
-     */
-    fun setEllipsize(ellipsize: Boolean) {
-        this.ellipsize = ellipsize
-    }
-
     override fun onFilterComplete(count: Int) {
         if (count > 0) {
             showSuggestions()
@@ -546,8 +483,8 @@ class MaterialSearchView @JvmOverloads constructor(
         if (clearingFocus) return false
         // Check if SearchView is focusable.
         return if (!isFocusable) false else searchSrcTextView!!.requestFocus(
-            direction,
-            previouslyFocusedRect
+                direction,
+                previouslyFocusedRect
         )
     }
 
@@ -600,15 +537,15 @@ class MaterialSearchView @JvmOverloads constructor(
             //required field that makes Parcelables from a Parcel
             @JvmField
             val CREATOR: Parcelable.Creator<SavedState?> =
-                object : Parcelable.Creator<SavedState?> {
-                    override fun createFromParcel(`in`: Parcel): SavedState {
-                        return SavedState(`in`)
-                    }
+                    object : Parcelable.Creator<SavedState?> {
+                        override fun createFromParcel(`in`: Parcel): SavedState {
+                            return SavedState(`in`)
+                        }
 
-                    override fun newArray(size: Int): Array<SavedState?> {
-                        return arrayOfNulls(size)
+                        override fun newArray(size: Int): Array<SavedState?> {
+                            return arrayOfNulls(size)
+                        }
                     }
-                }
         }
     }
 
