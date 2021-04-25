@@ -9,10 +9,10 @@ import android.os.Environment
 import android.provider.BaseColumns
 import android.provider.MediaStore
 import android.provider.MediaStore.Audio.Playlists
-import android.text.Html
 import android.webkit.MimeTypeMap
 import android.webkit.URLUtil
 import android.widget.Toast
+import androidx.core.text.HtmlCompat
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.data.model.SongOnline
@@ -97,12 +97,13 @@ object SongUtils {
                 numinserted += resolver.bulkInsert(uri, mContentValuesCache)
                 offSet += 1000
             }
-            val message: CharSequence = Html.fromHtml(
+            val message: CharSequence = HtmlCompat.fromHtml(
                 context.getString(
                     R.string.number_song_add_playlist,
                     musicTitle,
                     getNameFromPlaylist(context, playlistid)
-                )
+                ),
+                HtmlCompat.FROM_HTML_MODE_LEGACY
             )
             Toast.makeText(context, message, Toast.LENGTH_LONG).show()
         }

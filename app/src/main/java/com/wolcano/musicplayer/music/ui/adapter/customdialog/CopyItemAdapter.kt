@@ -3,18 +3,18 @@ package com.wolcano.musicplayer.music.ui.adapter.customdialog
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.text.HtmlCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.wolcano.musicplayer.music.R
+import com.wolcano.musicplayer.music.data.model.Copy
 import com.wolcano.musicplayer.music.databinding.ItemCopyBinding
 import com.wolcano.musicplayer.music.listener.ItemCallback
-import com.wolcano.musicplayer.music.data.model.Copy
 import java.util.*
 
 class CopyItemAdapter(private val context: Context, private val copyList: ArrayList<Copy>): RecyclerView.Adapter<CopyItemAdapter.ViewHolder>() {
@@ -64,7 +64,7 @@ class CopyItemAdapter(private val context: Context, private val copyList: ArrayL
             clipboard.primaryClip = clip
             Toast.makeText(
                 context,
-                Html.fromHtml(context.getString(R.string.copy_to_clipboard, replacedStr)),
+                HtmlCompat.fromHtml(context.getString(R.string.copy_to_clipboard, replacedStr), HtmlCompat.FROM_HTML_MODE_LEGACY),
                 Toast.LENGTH_SHORT
             ).show()
         }

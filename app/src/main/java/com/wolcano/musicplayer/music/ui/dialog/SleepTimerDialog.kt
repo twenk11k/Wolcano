@@ -9,10 +9,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.SystemClock
-import android.text.Html
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import android.widget.Toast
+import androidx.core.text.HtmlCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.afollestad.materialdialogs.MaterialDialog
@@ -74,22 +74,24 @@ class SleepTimerDialog : DialogFragment() {
                 if (minutes == 1) {
                     Toast.makeText(
                         requireActivity(),
-                        Html.fromHtml(
+                        HtmlCompat.fromHtml(
                             requireContext().getString(
                                 R.string.sleep_timer_set_one,
                                 minutes
-                            )
+                            ),
+                            HtmlCompat.FROM_HTML_MODE_LEGACY
                         ),
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
                     Toast.makeText(
                         requireActivity(),
-                        Html.fromHtml(
+                        HtmlCompat.fromHtml(
                             requireContext().getString(
                                 R.string.sleep_timer_set,
                                 minutes
-                            )
+                            ),
+                            HtmlCompat.FROM_HTML_MODE_LEGACY
                         ),
                         Toast.LENGTH_SHORT
                     ).show()

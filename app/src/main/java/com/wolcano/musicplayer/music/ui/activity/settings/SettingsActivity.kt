@@ -7,12 +7,12 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.text.Html
 import android.text.Spanned
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.core.text.HtmlCompat
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -176,9 +176,9 @@ class SettingsActivity : BaseActivitySettings() {
 
         private fun getSleepTimerStr(`val`: Int): Spanned {
             return if (`val` == 1) {
-                Html.fromHtml(getString(R.string.sleeptimer_set_stop))
+                HtmlCompat.fromHtml(getString(R.string.sleeptimer_set_stop), HtmlCompat.FROM_HTML_MODE_LEGACY)
             } else {
-                Html.fromHtml(getString(R.string.sleeptimer_set_pause))
+                HtmlCompat.fromHtml(getString(R.string.sleeptimer_set_pause), HtmlCompat.FROM_HTML_MODE_LEGACY)
             }
         }
 

@@ -12,7 +12,6 @@ import android.os.Build
 import android.provider.BaseColumns
 import android.provider.MediaStore
 import android.provider.Settings
-import android.text.Html
 import android.transition.Slide
 import android.view.Gravity
 import android.view.View
@@ -23,6 +22,7 @@ import android.widget.Toast
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.palette.graphics.Palette
 import androidx.palette.graphics.Palette.Swatch
@@ -279,11 +279,12 @@ object Utils {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (!Settings.System.canWrite(context)) {
                 val content: CharSequence
-                content = Html.fromHtml(
+                content = HtmlCompat.fromHtml(
                     context.getString(
                         R.string.set_ringtone_message_first,
                         context.getString(R.string.appname)
-                    )
+                    ),
+                    HtmlCompat.FROM_HTML_MODE_LEGACY
                 )
                 MaterialDialog(context).show {
                     title(R.string.setasringtone)
@@ -321,11 +322,12 @@ object Utils {
                 if (it != null && it.count == 1) {
                     it.moveToFirst()
                     Settings.System.putString(resolver, Settings.System.RINGTONE, uri.toString())
-                    val message: CharSequence = Html.fromHtml(
+                    val message: CharSequence = HtmlCompat.fromHtml(
                             context.getString(
                                     R.string.x_has_been_set_as_ringtone,
                                     it.getString(0)
-                            )
+                            ),
+                            HtmlCompat.FROM_HTML_MODE_LEGACY
                     )
                     Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
                 }

@@ -9,11 +9,11 @@ import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.text.Html
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.text.HtmlCompat
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.input.input
 import com.afollestad.materialdialogs.list.customListAdapter
@@ -120,7 +120,7 @@ object Dialogs {
         clipboard.primaryClip = clip
         toast = Toast.makeText(
             context,
-            Html.fromHtml(context.getString(R.string.copy_to_clipboard, message)),
+            HtmlCompat.fromHtml(context.getString(R.string.copy_to_clipboard, message), HtmlCompat.FROM_HTML_MODE_LEGACY),
             Toast.LENGTH_SHORT
         )
         toast?.show()
@@ -153,14 +153,15 @@ object Dialogs {
 
     fun shareDialog(context: Context, song: Song?, isModel1: Boolean) {
         val secondItem: CharSequence = if (song?.artist == "<unknown>") {
-            Html.fromHtml(context.getString(R.string.share_song_info_plain, song.title))
+            HtmlCompat.fromHtml(context.getString(R.string.share_song_info_plain, song.title), HtmlCompat.FROM_HTML_MODE_LEGACY)
         } else {
-            Html.fromHtml(
+            HtmlCompat.fromHtml(
                 context.getString(
                     R.string.share_song_info_wartist,
                     song?.title,
                     song?.artist
-                )
+                ),
+                HtmlCompat.FROM_HTML_MODE_LEGACY
             )
         }
         val shareListModel1 = ArrayList<Copy>()
