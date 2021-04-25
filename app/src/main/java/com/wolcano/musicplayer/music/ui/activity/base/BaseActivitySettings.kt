@@ -59,17 +59,17 @@ open class BaseActivitySettings : DataBindingActivity() {
         return super.dispatchKeyEvent(event)
     }
 
-    protected fun showOverflowMenu() {}
+    private fun showOverflowMenu() {}
 
-    protected fun getPermissionsToRequest(): Array<String?>? {
+    private fun getPermissionsToRequest(): Array<String?>? {
         return null
     }
 
-    protected fun getSnackBarContainer(): View? {
+    private fun getSnackBarContainer(): View? {
         return window.decorView
     }
 
-    protected fun setPermissionDeniedMessage(message: String?) {
+    private fun setPermissionDeniedMessage(message: String?) {
         permissionDeniedMessage = message
     }
 
@@ -83,7 +83,7 @@ open class BaseActivitySettings : DataBindingActivity() {
         }
     }
 
-    protected fun hasPermissions(): Boolean {
+    private fun hasPermissions(): Boolean {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && permissions != null) {
             for (permission in permissions!!) {
                 if (checkSelfPermission(permission!!) != PackageManager.PERMISSION_GRANTED) {
@@ -154,15 +154,15 @@ open class BaseActivitySettings : DataBindingActivity() {
         }
     }
 
-    fun setLightStatusBar(enabled: Boolean) {
+    private fun setLightStatusBar(enabled: Boolean) {
         ThemeUtils.setLightStatusBar(this, enabled)
     }
 
-    fun setLightStatusBarAuto(bgColor: Int) {
+    private fun setLightStatusBarAuto(bgColor: Int) {
         setLightStatusBar(ColorUtils.isColorLight(bgColor))
     }
 
-    protected fun setDrawUnderStatusbar(drawUnderStatusbar: Boolean) {
+    protected fun setDrawUnderStatusBar() {
         Utils.setAllowDrawUnderStatusBar(window)
     }
 
@@ -170,7 +170,7 @@ open class BaseActivitySettings : DataBindingActivity() {
         setTaskDescriptionColor(Utils.getPrimaryColor(this))
     }
 
-    fun setTaskDescriptionColor(@ColorInt color: Int) {
+    private fun setTaskDescriptionColor(@ColorInt color: Int) {
         ThemeUtils.setTaskDescriptionColor(this, color)
     }
 

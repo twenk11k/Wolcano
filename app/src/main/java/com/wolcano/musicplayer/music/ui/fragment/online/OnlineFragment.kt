@@ -77,8 +77,7 @@ class OnlineFragment : BaseFragment(), SetSearchQuery, OnlineAdapterClickListene
         } else {
             binding.toolbar.setTitleTextColor(Color.WHITE)
         }
-        val ab = (requireActivity() as AppCompatActivity?)?.supportActionBar
-        ab?.setTitle(R.string.onlineplayer)
+        (requireActivity() as AppCompatActivity?)?.supportActionBar?.setTitle(R.string.onlineplayer)
 
         binding.toolbar.navigationIcon = TintHelper.createTintedDrawable(
             binding.toolbar.navigationIcon, ToolbarContentTintHelper.toolbarContentColor(

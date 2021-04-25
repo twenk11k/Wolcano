@@ -14,10 +14,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.wolcano.musicplayer.music.R
+import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.databinding.FragmentSongsBinding
 import com.wolcano.musicplayer.music.listener.FilterListener
 import com.wolcano.musicplayer.music.listener.PlaylistListener
-import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.ui.activity.main.MainActivity
 import com.wolcano.musicplayer.music.ui.adapter.SongAdapter
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs.addPlaylistDialog
@@ -102,7 +102,7 @@ class SongFragment : BaseFragment(), FilterListener, OnOffsetChangedListener,
 
     private fun setSongList(songList: ArrayList<Song>?) {
         adapter = SongAdapter(
-            (activity as MainActivity?)!!,
+            (requireActivity() as MainActivity?)!!,
             songList!!,
             this, this
         )
@@ -159,8 +159,8 @@ class SongFragment : BaseFragment(), FilterListener, OnOffsetChangedListener,
     }
 
     fun handleOptionsMenu() {
-        val toolbar = (activity as MainActivity?)!!.getToolbar()
-        (activity as MainActivity?)?.setSupportActionBar(toolbar)
+        val toolbar = (requireActivity() as MainActivity?)?.getToolbar()
+        (requireActivity() as MainActivity?)?.setSupportActionBar(toolbar)
         setHasOptionsMenu(true)
     }
 

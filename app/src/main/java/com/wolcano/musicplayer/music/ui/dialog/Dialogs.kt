@@ -59,8 +59,6 @@ object Dialogs {
                 )
             }
         })
-
-
     }
 
     fun copyDialog(context: Context, album: String?, artist: String) {
@@ -236,7 +234,7 @@ object Dialogs {
                 if (bitmap == null) {
                     bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.album_art)
                 }
-                val albumart: Drawable = BitmapDrawable(context.resources, bitmap)
+                val albumArt: Drawable = BitmapDrawable(context.resources, bitmap)
                 val wholeStr = """
                 $title
                 $artist
@@ -264,13 +262,10 @@ object Dialogs {
                             song.title
                         )
                         dialog.dismiss()
-
                     }
-                    icon(drawable = albumart)
+                    icon(drawable = albumArt)
                 }
-
             }
-
         })
     }
 
@@ -291,7 +286,6 @@ object Dialogs {
                 }
             }
         }
-
     }
 
 }

@@ -5,7 +5,6 @@ import android.content.ContentUris
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.provider.MediaStore
@@ -247,9 +246,7 @@ class AlbumDetailFragment : BaseFragment(), PlaylistListener, View.OnClickListen
 
     override fun onResume() {
         super.onResume()
-        if (Build.VERSION.SDK_INT >= 21) {
-            RotateFabBehavior.show(fabPlay, accentColor, true)
-        }
+        RotateFabBehavior.show(fabPlay, accentColor, true)
 
         toolbar?.setBackgroundColor(Color.TRANSPARENT)
         collapsingToolbarLayout?.setContentScrimColor(primaryColor)

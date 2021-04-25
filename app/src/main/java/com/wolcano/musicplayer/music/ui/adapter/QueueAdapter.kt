@@ -19,9 +19,9 @@ import com.squareup.picasso.Picasso
 import com.squareup.picasso.Picasso.LoadedFrom
 import com.squareup.picasso.Target
 import com.wolcano.musicplayer.music.R
+import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.databinding.QueueAdapterItemBinding
 import com.wolcano.musicplayer.music.listener.PlaylistListener
-import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.provider.RemotePlay.deleteFromRemotePlay
 import com.wolcano.musicplayer.music.provider.RemotePlay.getRemotePlayPos
 import com.wolcano.musicplayer.music.provider.RemotePlay.playSong
@@ -207,7 +207,6 @@ class QueueAdapter(
         }
     }
 
-
     private fun setOnOnlinePopupMenuListener(viewHolder: QueueAdapter.ViewHolder, position: Int) {
         viewHolder.binding.more.setOnClickListener { v ->
             try {
@@ -268,7 +267,6 @@ class QueueAdapter(
     override fun getItemCount(): Int {
         return songList?.size ?: 0
     }
-
 
     inner class ViewHolder(val binding: QueueAdapterItemBinding) : RecyclerView.ViewHolder(
         binding.root

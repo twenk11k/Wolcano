@@ -26,13 +26,13 @@ class PlaylistDetailViewModel @Inject constructor(
     val playlistsLiveData: LiveData<List<Playlist>>
 
 
-    val sort = MediaStore.Audio.Media.DEFAULT_SORT_ORDER
+    private val sortOrder = MediaStore.Audio.Media.DEFAULT_SORT_ORDER
     private var playlistId: Long? = null
 
     init {
         songsLiveData = _songsLiveData.switchMap {
             songRepository.retrievePlaylistSongs(
-                sort,
+                sortOrder,
                 playlistId
             ).asLiveDataOnViewModelScope()
         }

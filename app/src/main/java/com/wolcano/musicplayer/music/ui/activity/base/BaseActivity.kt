@@ -31,17 +31,12 @@ open class BaseActivity : DataBindingActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // status bar
         setStatusBar()
-        // volume control
         volumeControlStream = AudioManager.STREAM_MUSIC
-        // handler
         baseHandler = Handler(Looper.getMainLooper())
-        // service connection
         connectService()
         RxBus.get().register(this)
     }
-
 
     override fun setContentView(layoutResID: Int) {
         super.setContentView(layoutResID)

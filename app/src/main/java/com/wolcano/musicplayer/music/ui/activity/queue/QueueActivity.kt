@@ -1,6 +1,5 @@
 package com.wolcano.musicplayer.music.ui.activity.queue
 
-import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -34,19 +33,14 @@ class QueueActivity : BaseActivity(), OnItemClickListener, OnServiceListener, Pl
 
     val viewModel: QueueViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_queue)
-    }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menu?.clear()
         menuInflater.inflate(R.menu.menu_sleeptimer, menu)
         ToolbarContentTintHelper.handleOnCreateOptionsMenu(
-            this,
-            binding.toolbar,
-            menu,
-            ColorUtils.getToolbarBackgroundColor(binding.toolbar)
+                this,
+                binding.toolbar,
+                menu,
+                ColorUtils.getToolbarBackgroundColor(binding.toolbar)
         )
         return super.onCreateOptionsMenu(menu)
     }
@@ -64,10 +58,10 @@ class QueueActivity : BaseActivity(), OnItemClickListener, OnServiceListener, Pl
         Utils.setUpFastScrollRecyclerViewColor(binding.recyclerview, Utils.getAccentColor(this))
         binding.recyclerview.layoutManager = LinearLayoutManager(this)
         binding.recyclerview.addItemDecoration(
-            DividerItemDecoration(
-                this,
-                DividerItemDecoration.VERTICAL
-            )
+                DividerItemDecoration(
+                        this,
+                        DividerItemDecoration.VERTICAL
+                )
         )
 
         if (RemotePlay.getSongList()!!.size <= 30) {
@@ -105,21 +99,18 @@ class QueueActivity : BaseActivity(), OnItemClickListener, OnServiceListener, Pl
     private fun controlIfEmpty() {
         binding.empty.setText(R.string.no_queue)
         binding.empty.visibility =
-            if (adapter == null || adapter!!.itemCount == 0) View.VISIBLE else View.GONE
-    }
-
-    override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if (adapter == null || adapter!!.itemCount == 0) View.VISIBLE else View.GONE
     }
 
     override fun onChangeSong(song: Song?) {
         adapter?.notifyDataSetChanged()
     }
 
-    override fun onPlayStart() {
-    }
+    override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {}
 
-    override fun onPlayPause() {
-    }
+    override fun onPlayStart() {}
+
+    override fun onPlayPause() {}
 
     override fun onProgressChange(progress: Int) {}
 
@@ -135,9 +126,9 @@ class QueueActivity : BaseActivity(), OnItemClickListener, OnServiceListener, Pl
         viewModel.playlistsLiveData.observe(this, {
             if (it != null) {
                 Dialogs.addPlaylistDialog(
-                    this,
-                    song,
-                    it
+                        this,
+                        song,
+                        it
                 )
             }
         })

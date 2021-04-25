@@ -152,9 +152,8 @@ class GenreDetailFragment : BaseFragment(), PlaylistListener {
     }
 
     private fun setupToolbar() {
-        (requireActivity() as AppCompatActivity?)!!.setSupportActionBar(binding.toolbar)
-        val ab = (requireActivity() as AppCompatActivity?)?.supportActionBar
-        ab?.setDisplayHomeAsUpEnabled(true)
+        (requireActivity() as AppCompatActivity?)?.setSupportActionBar(binding.toolbar)
+        (requireActivity() as AppCompatActivity?)?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.toolbar.setNavigationOnClickListener { requireActivity().supportFragmentManager.popBackStack() }
     }
 

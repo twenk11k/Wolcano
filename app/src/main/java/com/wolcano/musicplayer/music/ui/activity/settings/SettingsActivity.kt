@@ -41,7 +41,7 @@ class SettingsActivity : BaseActivitySettings() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setDrawUnderStatusbar(true)
+        setDrawUnderStatusBar()
 
         color = getPrimaryColor(this)
         setStatusBarColor(color, binding.statusBarCustom)
@@ -137,8 +137,8 @@ class SettingsActivity : BaseActivitySettings() {
                     )
                     true
                 }
-            val howtouse = findPreference("howtouse") as Preference
-            howtouse.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+            val howToUse = findPreference("howtouse") as Preference
+            howToUse.onPreferenceClickListener = Preference.OnPreferenceClickListener {
                 val content: String = if (Build.VERSION.SDK_INT >= 23) {
                     getString(R.string.first_dec)
                 } else {
@@ -152,13 +152,13 @@ class SettingsActivity : BaseActivitySettings() {
                 }
                 true
             }
-            val sleeptimer = findPreference("sleeptimerbehav") as ListPreference
-            sleeptimer.setValueIndex(
+            val sleepTimer = findPreference("sleeptimerbehav") as ListPreference
+            sleepTimer.setValueIndex(
                 Utils.getOpeningValSleep(
                     requireContext()
                 )
             )
-            sleeptimer.onPreferenceChangeListener =
+            sleepTimer.onPreferenceChangeListener =
                 Preference.OnPreferenceChangeListener { _: Preference?, o: Any ->
                     Utils.setOpeningValSleep(
                         requireContext(),
@@ -271,28 +271,11 @@ class SettingsActivity : BaseActivitySettings() {
                     negativeButton(R.string.no)
                     positiveButton(R.string.yes) {
                         var isSuccessful = false
-                        isSuccessful = if (FileUtils.writeToFile(
-                                requireContext(),
-                                Utils.getSearchQuery(
-                                    requireContext()
-                                ),
-                                requireContext().getString(R.string.backup_search_history_file_name)
-                            )
-                        ) {
-                            true
-                        } else {
-                            false
-                        }
-                        isSuccessful = if (FileUtils.writeToFile(
+                        isSuccessful = FileUtils.writeToFile(
                                 requireContext(), Utils.getLastSearch(
                                     requireContext()
                                 ), getString(R.string.backup_last_searches_file_name)
                             )
-                        ) {
-                            true
-                        } else {
-                            false
-                        }
                         if (isSuccessful) {
                             Toast.makeText(
                                 requireContext(),

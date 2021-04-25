@@ -22,12 +22,12 @@ class RecentlyViewModel @Inject constructor(private val songRepository: SongRepo
     private var _playlistsLiveData: MutableLiveData<Boolean> = MutableLiveData()
     val playlistsLiveData: LiveData<List<Playlist>>
 
-    val sort = MediaStore.Audio.Media.DATE_ADDED + " DESC"
+    private val sortOrder = MediaStore.Audio.Media.DATE_ADDED + " DESC"
 
     init {
         songsLiveData = _songsLiveData.switchMap {
             songRepository.retrieveSongs(
-                sort
+                sortOrder
             ).asLiveDataOnViewModelScope()
         }
         playlistsLiveData = _playlistsLiveData.switchMap {

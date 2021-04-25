@@ -23,10 +23,10 @@ import com.squareup.picasso.Picasso
 import com.squareup.picasso.Picasso.LoadedFrom
 import com.squareup.picasso.Target
 import com.wolcano.musicplayer.music.R
+import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.databinding.ItemSongBinding
 import com.wolcano.musicplayer.music.listener.FilterListener
 import com.wolcano.musicplayer.music.listener.PlaylistListener
-import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.provider.RemotePlay.deleteFromRemotePlay
 import com.wolcano.musicplayer.music.provider.RemotePlay.playAdd
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs
@@ -137,7 +137,7 @@ class SongAdapter(
                                                 R.drawable.album_art
                                             )
                                         }
-                                        val albumart: Drawable =
+                                        val albumArt: Drawable =
                                             BitmapDrawable(context.resources, bitmap)
                                         val wholeStr =
                                             """
@@ -163,19 +163,19 @@ class SongAdapter(
                                                     position,
                                                     song
                                                 )
-                                                val alist: MutableList<Song> =
+                                                val songList: MutableList<Song> =
                                                     ArrayList()
-                                                alist.add(song)
+                                                songList.add(song)
                                                 Utils.deleteTracks(
                                                     context,
-                                                    alist
+                                                    songList
                                                 )
                                                 songList.removeAt(position)
                                                 notifyItemRemoved(position)
                                                 notifyItemRangeChanged(position, itemCount)
 
                                             }
-                                            icon(drawable = albumart)
+                                            icon(drawable = albumArt)
                                         }
 
                                     }

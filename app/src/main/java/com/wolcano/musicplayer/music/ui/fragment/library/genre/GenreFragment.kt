@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView.AdapterDataObserver
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.wolcano.musicplayer.music.R
-import com.wolcano.musicplayer.music.databinding.FragmentInnerAlbumBinding
 import com.wolcano.musicplayer.music.data.model.Genre
+import com.wolcano.musicplayer.music.databinding.FragmentInnerAlbumBinding
 import com.wolcano.musicplayer.music.ui.activity.main.MainActivity
 import com.wolcano.musicplayer.music.ui.adapter.GenreAdapter
 import com.wolcano.musicplayer.music.ui.dialog.SleepTimerDialog
@@ -64,8 +64,8 @@ class GenreFragment : BaseFragment(), OnOffsetChangedListener {
     }
 
     fun handleOptionsMenu() {
-        val toolbar = (activity as MainActivity?)!!.getToolbar()
-        (activity as MainActivity?)!!.setSupportActionBar(toolbar)
+        val toolbar = (requireActivity() as MainActivity?)?.getToolbar()
+        (requireActivity() as MainActivity?)?.setSupportActionBar(toolbar)
         setHasOptionsMenu(true)
     }
 
@@ -119,7 +119,7 @@ class GenreFragment : BaseFragment(), OnOffsetChangedListener {
         val controller =
             AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fall_down)
         recyclerView.layoutAnimation = controller
-        recyclerView.adapter!!.notifyDataSetChanged()
+        recyclerView.adapter?.notifyDataSetChanged()
         recyclerView.scheduleLayoutAnimation()
     }
 

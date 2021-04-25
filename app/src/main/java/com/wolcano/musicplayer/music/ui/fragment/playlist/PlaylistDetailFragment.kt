@@ -64,10 +64,10 @@ class PlaylistDetailFragment : BaseFragment(), PlaylistListener {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_base_song, container, false)
         primaryColor = Utils.getPrimaryColor(requireContext())
-        accentColor = Utils.getAccentColor(requireContext(  ))
+        accentColor = Utils.getAccentColor(requireContext())
         setStatusBarColor(primaryColor, binding.statusBarCustom)
 
-        (activity as AppCompatActivity?)?.setSupportActionBar(binding.toolbar)
+        (requireActivity() as AppCompatActivity?)?.setSupportActionBar(binding.toolbar)
 
         binding.toolbar.setBackgroundColor(primaryColor)
         binding.toolbar.title = playlistName
@@ -144,7 +144,7 @@ class PlaylistDetailFragment : BaseFragment(), PlaylistListener {
         val controller =
             AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fall_down)
         recyclerView.layoutAnimation = controller
-        recyclerView.adapter!!.notifyDataSetChanged()
+        recyclerView.adapter?.notifyDataSetChanged()
         recyclerView.scheduleLayoutAnimation()
     }
 

@@ -91,15 +91,14 @@ class PlaylistFragment : BaseFragment() {
 
         setStatusBarColor(color, binding.statusBarCustom)
 
-        (activity as AppCompatActivity?)?.setSupportActionBar(binding.toolbar)
+        (requireActivity() as AppCompatActivity?)?.setSupportActionBar(binding.toolbar)
         binding.toolbar.setBackgroundColor(color)
         if (Utils.isColorLight(color)) {
             binding.toolbar.setTitleTextColor(Color.BLACK)
         } else {
             binding.toolbar.setTitleTextColor(Color.WHITE)
         }
-        val ab = (activity as AppCompatActivity?)?.supportActionBar
-        ab?.setTitle(R.string.playlists)
+        (requireActivity() as AppCompatActivity?)?.supportActionBar?.setTitle(R.string.playlists)
 
         if (binding.toolbar.navigationIcon != null) {
             binding.toolbar.navigationIcon = TintHelper.createTintedDrawable(

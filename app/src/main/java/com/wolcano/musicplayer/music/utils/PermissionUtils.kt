@@ -12,6 +12,7 @@ import java.util.*
 import java.util.concurrent.atomic.AtomicInteger
 
 class PermissionUtils private constructor(private val `object`: Any) {
+
     interface PermInterface {
         fun onPermGranted()
         fun onPermUnapproved()

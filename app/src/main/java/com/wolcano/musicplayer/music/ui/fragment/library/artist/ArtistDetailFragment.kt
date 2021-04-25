@@ -56,16 +56,16 @@ class ArtistDetailFragment : BaseFragment(), PlaylistListener {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_base_song, container, false)
 
         primaryColor = Utils.getPrimaryColor(requireContext())
         setStatusBarColor(primaryColor, binding.statusBarCustom)
 
-        (activity as AppCompatActivity?)?.setSupportActionBar(binding.toolbar)
+        (requireActivity() as AppCompatActivity?)?.setSupportActionBar(binding.toolbar)
 
         binding.toolbar.setBackgroundColor(primaryColor)
         binding.toolbar.title = artistName
@@ -77,9 +77,9 @@ class ArtistDetailFragment : BaseFragment(), PlaylistListener {
         menu.clear()
         inflater.inflate(R.menu.menu_sleeptimer, menu)
         ToolbarContentTintHelper.handleOnCreateOptionsMenu(
-            requireActivity(), binding.toolbar, menu, ColorUtils.getToolbarBackgroundColor(
+                requireActivity(), binding.toolbar, menu, ColorUtils.getToolbarBackgroundColor(
                 binding.toolbar
-            )
+        )
         )
     }
 
@@ -95,15 +95,15 @@ class ArtistDetailFragment : BaseFragment(), PlaylistListener {
 
         binding.recyclerview.adapter = adapter
         Utils.setUpFastScrollRecyclerViewColor(
-            binding.recyclerview,
-            Utils.getAccentColor(requireContext())
+                binding.recyclerview,
+                Utils.getAccentColor(requireContext())
         )
         binding.recyclerview.layoutManager = LinearLayoutManager(requireActivity())
         binding.recyclerview.addItemDecoration(
-            DividerItemDecoration(
-                requireContext(),
-                DividerItemDecoration.VERTICAL
-            )
+                DividerItemDecoration(
+                        requireContext(),
+                        DividerItemDecoration.VERTICAL
+                )
         )
         handlePermissionsAndRetrieveSongsForArtist()
         handleViewModel()
@@ -112,17 +112,18 @@ class ArtistDetailFragment : BaseFragment(), PlaylistListener {
 
     private fun handlePermissionsAndRetrieveSongsForArtist() {
         PermissionUtils.with(requireActivity())
-            .permissions(
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-            ).result(object : PermissionUtils.PermInterface {
-                override fun onPermGranted() {
-                    viewModel.retrieveArtistSongs(artistId)
-                }
-                override fun onPermUnapproved() {
-                    ToastUtils.show(requireContext(), R.string.no_perm_storage)
-                }
-            }).requestPermissions()
+                .permissions(
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ).result(object : PermissionUtils.PermInterface {
+                    override fun onPermGranted() {
+                        viewModel.retrieveArtistSongs(artistId)
+                    }
+
+                    override fun onPermUnapproved() {
+                        ToastUtils.show(requireContext(), R.string.no_perm_storage)
+                    }
+                }).requestPermissions()
     }
 
     private fun handleViewModel() {
@@ -135,10 +136,10 @@ class ArtistDetailFragment : BaseFragment(), PlaylistListener {
 
     private fun runLayoutAnimation(recyclerView: RecyclerView) {
         val controller =
-            AnimationUtils.loadLayoutAnimation(
-                recyclerView.context,
-                R.anim.layout_animation_fall_down
-            )
+                AnimationUtils.loadLayoutAnimation(
+                        recyclerView.context,
+                        R.anim.layout_animation_fall_down
+                )
         recyclerView.layoutAnimation = controller
         recyclerView.adapter?.notifyDataSetChanged()
         recyclerView.scheduleLayoutAnimation()
@@ -147,13 +148,12 @@ class ArtistDetailFragment : BaseFragment(), PlaylistListener {
     fun controlIfEmpty() {
         binding.empty.setText(R.string.no_song)
         binding.empty.visibility =
-            if (adapter == null || adapter?.itemCount == 0) View.VISIBLE else View.GONE
+                if (adapter == null || adapter?.itemCount == 0) View.VISIBLE else View.GONE
     }
 
     private fun setupToolbar() {
-        (activity as AppCompatActivity?)!!.setSupportActionBar(binding.toolbar)
-        val ab = (activity as AppCompatActivity?)!!.supportActionBar
-        ab!!.setDisplayHomeAsUpEnabled(true)
+        (requireActivity() as AppCompatActivity?)?.setSupportActionBar(binding.toolbar)
+        (requireActivity() as AppCompatActivity?)?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.toolbar.setNavigationOnClickListener { requireActivity().supportFragmentManager.popBackStack() }
     }
 
@@ -162,9 +162,9 @@ class ArtistDetailFragment : BaseFragment(), PlaylistListener {
         viewModel.playlistsLiveData.observe(viewLifecycleOwner, {
             if (it != null) {
                 Dialogs.addPlaylistDialog(
-                    requireContext(),
-                    song,
-                    it
+                        requireContext(),
+                        song,
+                        it
                 )
             }
         })
