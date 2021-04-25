@@ -70,9 +70,7 @@ class QueueAdapter(
         ) View.VISIBLE else View.INVISIBLE
         holder.binding.indicator.setBackgroundColor(Utils.getAccentColor(activity.applicationContext))
         holder.binding.line1.text = song?.title
-        holder.binding.line2.text = (if (duration.isEmpty()) "" else "$duration | ") + songList.get(
-            position
-        )?.artist
+        holder.binding.line2.text = (if (duration.isEmpty()) "" else "$duration | ") + songList[position]?.artist
         val albumUri = "content://media/external/audio/media/" + song?.songId + "/albumart"
         Picasso.get()
             .load(albumUri)

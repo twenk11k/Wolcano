@@ -66,9 +66,7 @@ class PlaylistSongAdapter(
         } catch (e: NumberFormatException) {
             e.printStackTrace()
         }
-        holder.binding.line2.text = (if (duration.isEmpty()) "" else "$duration | ") + songList.get(
-            position
-        ).artist
+        holder.binding.line2.text = (if (duration.isEmpty()) "" else "$duration | ") + songList[position].artist
         holder.binding.line1.text = song?.title
         val contentURI = "content://media/external/audio/media/" + song?.songId + "/albumart"
         Picasso.get()

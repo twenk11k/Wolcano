@@ -20,9 +20,9 @@ import com.squareup.picasso.Picasso
 import com.squareup.picasso.Picasso.LoadedFrom
 import com.squareup.picasso.Target
 import com.wolcano.musicplayer.music.R
+import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.databinding.ItemSongBinding
 import com.wolcano.musicplayer.music.listener.PlaylistListener
-import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.provider.RemotePlay.deleteFromRemotePlay
 import com.wolcano.musicplayer.music.provider.RemotePlay.playAdd
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs
@@ -63,9 +63,7 @@ class RecentlyAddedAdapter(
         } catch (e: NumberFormatException) {
             e.printStackTrace()
         }
-        holder.binding.line2.text = (if (duration.isEmpty()) "" else "$duration | ") + songList.get(
-            position
-        ).artist
+        holder.binding.line2.text = (if (duration.isEmpty()) "" else "$duration | ") + songList[position].artist
         holder.binding.line1.text = song?.title
         val albumUri = "content://media/external/audio/media/" + song?.songId + "/albumart"
         Picasso.get()
