@@ -21,7 +21,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         application = this
-        GeneralCache.initializeCache(this)
+        AppCache.initializeCache(this)
         AppHandler.setCallbacks(this)
         startService(Intent(this, MusicService::class.java))
     }

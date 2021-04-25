@@ -7,7 +7,7 @@ import android.os.Bundle
 import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.widgets.SongCover
 
-object GeneralCache {
+object AppCache {
 
     val songList: List<Song> = ArrayList()
     private val activityList: MutableList<Activity> = ArrayList()

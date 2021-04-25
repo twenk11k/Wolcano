@@ -41,14 +41,6 @@ object ToolbarContentTintHelper {
     fun setToolbarContentColorBasedOnToolbarColor(
         context: Context,
         toolbar: Toolbar?,
-        toolbarColor: Int
-    ) {
-        setToolbarContentColorBasedOnToolbarColor(context, toolbar, null, toolbarColor)
-    }
-
-    fun setToolbarContentColorBasedOnToolbarColor(
-        context: Context,
-        toolbar: Toolbar?,
         @Nullable menu: Menu?,
         toolbarColor: Int
     ) {
@@ -298,9 +290,9 @@ object ToolbarContentTintHelper {
             private fun tintImageView(target: Any, field: Field, @ColorInt color: Int) {
                 field.isAccessible = true
                 val imageView: ImageView = field[target] as ImageView
-                if (imageView.getDrawable() != null) imageView.setImageDrawable(
+                if (imageView.drawable != null) imageView.setImageDrawable(
                     createTintedDrawable(
-                        imageView.getDrawable(),
+                        imageView.drawable,
                         color
                     )
                 )

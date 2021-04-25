@@ -10,7 +10,7 @@ import android.support.v4.media.session.PlaybackStateCompat
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Picasso.LoadedFrom
 import com.squareup.picasso.Target
-import com.wolcano.musicplayer.music.GeneralCache
+import com.wolcano.musicplayer.music.AppCache
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.provider.MusicService
@@ -110,7 +110,7 @@ object SessionManager {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     metaData.putLong(
                         MediaMetadataCompat.METADATA_KEY_NUM_TRACKS,
-                        GeneralCache.songList.size.toLong()
+                        AppCache.songList.size.toLong()
                     )
                 }
                 mediaSessionCompat?.setMetadata(metaData.build())
