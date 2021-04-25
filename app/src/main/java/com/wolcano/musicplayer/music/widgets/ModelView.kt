@@ -117,9 +117,9 @@ class ModelView : View, AnimatorUpdateListener {
         }
         val unit = min(width, height) / 8
         setOvalLength(unit * 4)
-        discBitmap = ImageUtils.chgImage(discBitmap, unit * 6, unit * 6)
-        modelBitmap = ImageUtils.chgImage(modelBitmap, unit * 4, unit * 4)
-        helperBitmap = ImageUtils.chgImage(helperBitmap, unit * 2, unit * 3)
+        discBitmap = ImageUtils.updateImage(discBitmap, unit * 6, unit * 6)
+        modelBitmap = ImageUtils.updateImage(modelBitmap, unit * 4, unit * 4)
+        helperBitmap = ImageUtils.updateImage(helperBitmap, unit * 2, unit * 3)
         val discOffsetY = helperBitmap!!.height / 2
         discPoint.x = (width - discBitmap!!.width) / 2
         discPoint.y = discOffsetY

@@ -158,7 +158,7 @@ object SongCover {
             }
             Tip.OVAL -> {
                 var bm = BitmapFactory.decodeResource(context.resources, R.drawable.album_art_round)
-                bm = ImageUtils.chgImage(bm, ovalSize, ovalSize)
+                bm = ImageUtils.updateImage(bm, ovalSize, ovalSize)
                 bm
             }
             else -> BitmapFactory.decodeResource(context.resources, R.drawable.album_art)
@@ -175,7 +175,7 @@ object SongCover {
         return when (tip) {
             Tip.BLURRED -> ImageUtils.blur(bm)
             Tip.OVAL -> {
-                bm = ImageUtils.chgImage(bm, ovalSize, ovalSize)
+                bm = ImageUtils.updateImage(bm, ovalSize, ovalSize)
                 ImageUtils.appendOvalImg(bm)
             }
         }

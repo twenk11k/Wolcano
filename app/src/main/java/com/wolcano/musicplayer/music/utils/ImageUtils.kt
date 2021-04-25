@@ -9,7 +9,7 @@ object ImageUtils {
 
     private const val RADIAN = 50
 
-    fun chgImage(bitmap: Bitmap?, destWidth: Int, destHeight: Int): Bitmap? {
+    fun updateImage(bitmap: Bitmap?, destWidth: Int, destHeight: Int): Bitmap? {
         if (bitmap == null) {
             return null
         }
