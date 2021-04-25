@@ -150,8 +150,8 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 if (fragments == 1) {
                     moveTaskToBack(true)
                 } else {
-                    if (fragmentManager.backStackEntryCount > 1) {
-                        fragmentManager.popBackStack()
+                    if (supportFragmentManager.backStackEntryCount > 1) {
+                        supportFragmentManager.popBackStack()
                     } else {
                         super.onBackPressed()
                     }
