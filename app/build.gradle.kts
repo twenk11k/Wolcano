@@ -101,7 +101,6 @@ dependencies {
     implementation(ThirdPartyLibs.MATERIALSEARCHVIEW)
     implementation(ThirdPartyLibs.PICASSO)
     implementation(ThirdPartyLibs.SEEKARC)
-    implementation(ThirdPartyLibs.SDP)
     implementation(ThirdPartyLibs.SANDWICH)
     implementation(ThirdPartyLibs.WHATIF)
     implementation(ThirdPartyLibs.BINDABLES)

@@ -31,7 +31,6 @@
             android:layout_alignParentBottom="true"
             android:background="@color/darkbg1"
             android:fitsSystemWindows="false"
-            app:itemIconSize="@dimen/_22sdp"
             app:itemIconTint="@color/drawer_item"
             app:itemTextColor="@color/drawer_item"
             app:labelVisibilityMode="unlabeled"
