@@ -25,7 +25,7 @@ object Share {
         val resolver = ctx.contentResolver
         val projection = arrayOf(MediaStore.Audio.Media._ID, MediaStore.Audio.Media.DATA)
         val cursor: Cursor =
-            buildQuery(type, id, projection, null)?.runQuery(resolver)
+            buildQuery(type, id, projection, null).runQuery(resolver)
                 ?: return
         try {
             while (cursor.moveToNext()) {

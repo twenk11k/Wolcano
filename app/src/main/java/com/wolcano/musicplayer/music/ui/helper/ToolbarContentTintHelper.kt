@@ -223,7 +223,7 @@ object ToolbarContentTintHelper {
         ) {
             try {
                 if (menuPopupHelper != null) {
-                    val listView: ListView = (menuPopupHelper!!.popup as ShowableListMenu).listView
+                    val listView: ListView = (menuPopupHelper.popup as ShowableListMenu).listView
                     listView.viewTreeObserver
                         .addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
                             override fun onGlobalLayout() {

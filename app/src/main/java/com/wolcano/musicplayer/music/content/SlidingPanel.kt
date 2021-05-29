@@ -13,10 +13,10 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.squareup.picasso.Picasso
 import com.wolcano.musicplayer.music.R
+import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.listener.Bind
 import com.wolcano.musicplayer.music.listener.OnServiceListener
 import com.wolcano.musicplayer.music.listener.OnSwipeTouchListener
-import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.provider.RemotePlay.buttonClick
 import com.wolcano.musicplayer.music.provider.RemotePlay.getPlayMusic
 import com.wolcano.musicplayer.music.provider.RemotePlay.getPlayerCurrentPosition
@@ -58,8 +58,8 @@ class SlidingPanel(view: View, private val activity: Activity) : OnServiceListen
     private lateinit var modelImage: ImageView
 
     init {
-        Binder.bindIt(this, view);
-        setViews();
+        Binder.bindIt(this, view)
+        setViews()
     }
 
     fun setViews() {

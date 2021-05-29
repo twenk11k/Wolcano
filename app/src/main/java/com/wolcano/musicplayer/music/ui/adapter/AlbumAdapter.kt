@@ -7,8 +7,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.wolcano.musicplayer.music.R
-import com.wolcano.musicplayer.music.databinding.ItemAlbumBinding
 import com.wolcano.musicplayer.music.data.model.Album
+import com.wolcano.musicplayer.music.databinding.ItemAlbumBinding
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs.copyDialog
 import com.wolcano.musicplayer.music.utils.Utils.navigateToAlbum
 
@@ -75,7 +75,7 @@ class AlbumAdapter(private val context: Activity, private val albumList: List<Al
                 navigateToAlbum(
                     context, album.id,
                     album.name
-                );
+                )
 
             } catch (e: java.lang.Exception) {
                 e.printStackTrace()

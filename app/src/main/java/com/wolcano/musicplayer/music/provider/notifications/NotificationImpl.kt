@@ -48,10 +48,10 @@ class NotificationImpl: Notification() {
             RemoteViews(service!!.packageName, R.layout.notification_expanded)
 
         notificationLayout.setTextViewText(R.id.line1, song!!.title)
-        notificationLayout.setTextViewText(R.id.line2, song!!.artist)
-        notificationLayoutExpanded.setTextViewText(R.id.line1, song!!.title)
-        notificationLayoutExpanded.setTextViewText(R.id.line2, song!!.artist)
-        notificationLayoutExpanded.setTextViewText(R.id.line3, song!!.album)
+        notificationLayout.setTextViewText(R.id.line2, song.artist)
+        notificationLayoutExpanded.setTextViewText(R.id.line1, song.title)
+        notificationLayoutExpanded.setTextViewText(R.id.line2, song.artist)
+        notificationLayoutExpanded.setTextViewText(R.id.line3, song.album)
 
         linkButtons(notificationLayout)
         linkButtons(notificationLayoutExpanded)

@@ -521,7 +521,7 @@ class MaterialSearchView @JvmOverloads constructor(
         var query: String? = null
         var isSearchOpen = false
 
-        constructor(superState: Parcelable?) : super(superState) {}
+        constructor(superState: Parcelable?) : super(superState)
         private constructor(`in`: Parcel) : super(`in`) {
             query = `in`.readString()
             isSearchOpen = `in`.readInt() == 1

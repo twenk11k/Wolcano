@@ -20,7 +20,7 @@ class RecyclerViewPaginator(
                 val visibleItemCount = it.childCount
                 val totalItemCount = it.itemCount
                 if (it is LinearLayoutManager) {
-                    val pastVisibleItems = it.findFirstVisibleItemPosition();
+                    val pastVisibleItems = it.findFirstVisibleItemPosition()
                     if (!isLoading()) {
                         if ((visibleItemCount + pastVisibleItems) >= totalItemCount && totalItemCount % 50 == 0) {
                             loadMore()
