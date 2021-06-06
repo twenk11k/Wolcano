@@ -138,8 +138,8 @@ class PlaylistFragment : BaseFragment() {
     }
 
     fun controlIfEmpty() {
-        binding.empty.setText(R.string.no_playlist)
-        binding.empty.visibility =
+        binding.txtEmpty.setText(R.string.no_playlist)
+        binding.txtEmpty.visibility =
             if (adapter == null || adapter?.itemCount == 0) View.VISIBLE else View.GONE
     }
 

@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.wolcano.musicplayer.music.R
-import com.wolcano.musicplayer.music.databinding.ItemGenreBinding
 import com.wolcano.musicplayer.music.data.model.Genre
+import com.wolcano.musicplayer.music.databinding.ItemGenreBinding
 import com.wolcano.musicplayer.music.utils.Utils.createStr
 import com.wolcano.musicplayer.music.utils.Utils.navigateToGenre
 
@@ -31,8 +31,8 @@ class GenreAdapter(private val context: Context, private val genreList: List<Gen
 
         val genre: Genre? = holder.binding.genre
 
-        holder.binding.line1.text = genre?.name
-        holder.binding.line2.text = createStr(context, R.plurals.Nsongs, genre!!.songCount)
+        holder.binding.txtLine1.text = genre?.name
+        holder.binding.txtLine2.text = createStr(context, R.plurals.Nsongs, genre!!.songCount)
     }
 
     override fun getItemCount(): Int {

@@ -8,9 +8,9 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.wolcano.musicplayer.music.R
+import com.wolcano.musicplayer.music.data.model.Copy
 import com.wolcano.musicplayer.music.databinding.ItemCopyBinding
 import com.wolcano.musicplayer.music.listener.ItemCallback
-import com.wolcano.musicplayer.music.data.model.Copy
 import java.util.*
 
 class ShareItemAdapter(private val context: Context, private val shareList: ArrayList<Copy>) :
@@ -32,14 +32,14 @@ class ShareItemAdapter(private val context: Context, private val shareList: Arra
         holder.binding.copy = shareList[position]
         holder.binding.executePendingBindings()
         val share: Copy? = holder.binding.copy
-        holder.binding.text.text = share?.text
-        if (share?.icon == 0) holder.binding.icon.setImageDrawable(
+        holder.binding.txtName.text = share?.text
+        if (share?.icon == 0) holder.binding.imgIcon.setImageDrawable(
             ContextCompat.getDrawable(
                 context,
                 R.drawable.baseline_insert_drive_file_white_24
             )
         )
-        if (share?.icon == 1) holder.binding.icon.setImageDrawable(
+        if (share?.icon == 1) holder.binding.imgIcon.setImageDrawable(
             ContextCompat.getDrawable(
                 context,
                 R.drawable.baseline_text_format_white_24
@@ -54,7 +54,6 @@ class ShareItemAdapter(private val context: Context, private val shareList: Arra
     fun setCallback(callback: ItemCallback?) {
         itemCallback = callback
     }
-
 
     inner class ViewHolder(val binding: ItemCopyBinding) :
         RecyclerView.ViewHolder(

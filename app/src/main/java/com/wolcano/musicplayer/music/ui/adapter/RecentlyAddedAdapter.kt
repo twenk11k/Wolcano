@@ -10,7 +10,6 @@ import android.net.Uri
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.view.*
-import android.widget.RelativeLayout
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -63,19 +62,20 @@ class RecentlyAddedAdapter(
         } catch (e: NumberFormatException) {
             e.printStackTrace()
         }
-        holder.binding.line2.text = (if (duration.isEmpty()) "" else "$duration | ") + songList[position].artist
-        holder.binding.line1.text = song?.title
+        holder.binding.txtLine2.text =
+            (if (duration.isEmpty()) "" else "$duration | ") + songList[position].artist
+        holder.binding.txtLine1.text = song?.title
         val albumUri = "content://media/external/audio/media/" + song?.songId + "/albumart"
         Picasso.get()
             .load(albumUri)
             .placeholder(R.drawable.album_art)
-            .into(holder.binding.albumArt)
+            .into(holder.binding.imgAlbumArt)
 
         setOnPopupMenuListener(holder, position)
     }
 
     private fun setOnPopupMenuListener(holder: RecentlyAddedAdapter.ViewHolder, position: Int) {
-        holder.binding.more.setOnClickListener { v ->
+        holder.binding.imgMore.setOnClickListener { v ->
             try {
                 val contextThemeWrapper =
                     ContextThemeWrapper(v.context, R.style.PopupMenuToolbar)
@@ -195,8 +195,7 @@ class RecentlyAddedAdapter(
         }
 
         init {
-            binding.root.findViewById<RelativeLayout>(R.id.item_relative)
-                .setOnClickListener(::onClick)
+            binding.root.setOnClickListener(::onClick)
         }
     }
 

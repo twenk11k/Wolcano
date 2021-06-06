@@ -55,19 +55,18 @@ class QueueActivity : BaseActivity(), OnItemClickListener, OnServiceListener, Pl
 
         binding.toolbar.setBackgroundColor(primaryColor)
         binding.toolbar.title = getString(R.string.nowplaying)
-        Utils.setUpFastScrollRecyclerViewColor(binding.recyclerview, Utils.getAccentColor(this))
-        binding.recyclerview.layoutManager = LinearLayoutManager(this)
-        binding.recyclerview.addItemDecoration(
+        Utils.setUpFastScrollRecyclerViewColor(binding.recyclerView, Utils.getAccentColor(this))
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.addItemDecoration(
                 DividerItemDecoration(
                         this,
                         DividerItemDecoration.VERTICAL
                 )
         )
-
         if (RemotePlay.getSongList()!!.size <= 30) {
-            binding.recyclerview.setThumbEnabled(false)
+            binding.recyclerView.setThumbEnabled(false)
         } else {
-            binding.recyclerview.setThumbEnabled(true)
+            binding.recyclerView.setThumbEnabled(true)
         }
         adapter = QueueAdapter(this, RemotePlay.getSongList(), this)
         controlIfEmpty()
@@ -77,10 +76,9 @@ class QueueActivity : BaseActivity(), OnItemClickListener, OnServiceListener, Pl
                 controlIfEmpty()
             }
         })
-
-        binding.recyclerview.adapter = adapter
+        binding.recyclerView.adapter = adapter
         if (musicService != null) {
-            binding.recyclerview.scrollToPosition(RemotePlay.getRemotePlayPos(musicService!!))
+            binding.recyclerView.scrollToPosition(RemotePlay.getRemotePlayPos(musicService!!))
         }
         adapter?.setIsPlaylist(true)
         RemotePlay.onListener(this)

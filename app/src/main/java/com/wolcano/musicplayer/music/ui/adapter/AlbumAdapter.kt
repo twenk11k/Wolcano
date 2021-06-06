@@ -31,10 +31,10 @@ class AlbumAdapter(private val context: Activity, private val albumList: List<Al
 
         val album = holder.binding.album
 
-        holder.binding.line1.text = album?.name
-        holder.binding.line2.text = album?.artist
+        holder.binding.txtLine1.text = album?.name
+        holder.binding.txtLine2.text = album?.artist
         val albumUri = "content://media/external/audio/albumart/" + album?.id
-        Picasso.get().load(albumUri).placeholder(R.drawable.album_art).into(holder.binding.albumArt)
+        Picasso.get().load(albumUri).placeholder(R.drawable.album_art).into(holder.binding.imgAlbumArt)
         setOnPopupMenuListener(holder, position)
     }
 
@@ -43,7 +43,7 @@ class AlbumAdapter(private val context: Activity, private val albumList: List<Al
     }
 
     private fun setOnPopupMenuListener(holder: ViewHolder, position: Int) {
-        holder.binding.more.setOnClickListener { v ->
+        holder.binding.imgMore.setOnClickListener { v ->
             try {
                 val contextThemeWrapper =
                     ContextThemeWrapper(v.context, R.style.PopupMenuToolbar)

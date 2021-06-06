@@ -160,10 +160,10 @@ class AlbumDetailFragment : BaseFragment(), PlaylistListener, View.OnClickListen
 
     private fun setUpViews(binding: FragmentAlbumDetailBinding) {
         toolbar = binding.toolbar
-        collapsingToolbarLayout = binding.collapsingtoolbar
-        appBarLayout = binding.appbar
+        collapsingToolbarLayout = binding.collapsingToolbar
+        appBarLayout = binding.appBar
         fabPlay = binding.fabPlay
-        albumArt = binding.albumArt
+        albumArt = binding.imgAlbumArt
         recyclerView = binding.recyclerview
         gradient = binding.gradient
         fabPlay.setOnClickListener(this)

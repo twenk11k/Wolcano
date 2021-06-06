@@ -62,8 +62,8 @@ import java.util.*
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelectedListener,
-        View.OnClickListener,
-        OnSeekBarChangeListener, OnServiceListener, PlaylistListener {
+    View.OnClickListener,
+    OnSeekBarChangeListener, OnServiceListener, PlaylistListener {
 
     private var isDragging = false
     private var slidingPanel: SlidingPanel? = null
@@ -191,7 +191,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         binding.navView.menu.getItem(openingVal)?.isChecked = true
         binding.navView.setOnNavigationItemSelectedListener { menuItem: MenuItem ->
             onNavigationItemSelected(
-                    menuItem
+                menuItem
             )
         }
         initViews2()
@@ -199,29 +199,28 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
     private fun initViews2() {
         NavigationViewUtils.setItemIconColors(
-                binding.navView,
-                ColorUtils.getOppositeColor(Utils.getPrimaryColor(this)),
-                Utils.getAccentColor(this)
+            binding.navView,
+            ColorUtils.getOppositeColor(Utils.getPrimaryColor(this)),
+            Utils.getAccentColor(this)
         )
         NavigationViewUtils.setItemTextColors(
-                binding.navView,
-                ColorUtils.getOppositeColor(Utils.getPrimaryColor(this)),
-                Utils.getAccentColor(this)
+            binding.navView,
+            ColorUtils.getOppositeColor(Utils.getPrimaryColor(this)),
+            Utils.getAccentColor(this)
         )
         binding.navView.setBackgroundColor(Utils.getPrimaryColor(this))
         binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.seekbar.progressDrawable.setColorFilter(
-                Utils.getAccentColor(this),
-                PorterDuff.Mode.SRC_IN
+            Utils.getAccentColor(this),
+            PorterDuff.Mode.SRC_IN
         )
         binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.seekbar.thumb?.setColorFilter(
-                Utils.getAccentColor(
-                        this
-                ), PorterDuff.Mode.SRC_IN
+            Utils.getAccentColor(
+                this
+            ), PorterDuff.Mode.SRC_IN
         )
         binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.queue.setColorFilter(
-                ContextCompat.getColor(this, R.color.grey0)
+            ContextCompat.getColor(this, R.color.grey0)
         )
-
         placeholder = ContextCompat.getDrawable(this, R.drawable.album_default)
         placeholder?.setColorFilter(Utils.getPrimaryColor(this), PorterDuff.Mode.MULTIPLY)
     }
@@ -240,7 +239,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
     private fun setSlidingPanelLayout() {
         binding.slidinguppanel.slidinguppanellayout.addPanelSlideListener(object :
-                SlidingUpPanelLayout.PanelSlideListener {
+            SlidingUpPanelLayout.PanelSlideListener {
             override fun onPanelSlide(panel: View, slideOffset: Float) {
                 if (slideOffset >= 0 && slideOffset < 1) {
                     binding.slidinguppanel.slidinguppanelTop1.flPlayBar.visibility = View.VISIBLE
@@ -249,14 +248,14 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             }
 
             override fun onPanelStateChanged(
-                    panel: View,
-                    previousState: PanelState,
-                    newState: PanelState
+                panel: View,
+                previousState: PanelState,
+                newState: PanelState
             ) {
                 when (newState) {
                     PanelState.COLLAPSED -> {
                         binding.slidinguppanel.slidinguppanelTop1.flPlayBar.visibility =
-                                View.VISIBLE
+                            View.VISIBLE
                         isExpand = false
                         ThemeUtils.setLightStatusBar(this@MainActivity, lightStatusbar)
                     }
@@ -272,10 +271,10 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             }
         })
         binding.slidinguppanel.slidinguppanelChild2.child2linear.setPadding(
-                0,
-                Utils.getStatHeight(this),
-                0,
-                0
+            0,
+            Utils.getStatHeight(this),
+            0,
+            0
         )
     }
 
@@ -310,8 +309,8 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         when (position) {
             0 -> {
                 if (mIsResumed) supportFragmentManager.popBackStack(
-                        null,
-                        FragmentManager.POP_BACK_STACK_INCLUSIVE
+                    null,
+                    FragmentManager.POP_BACK_STACK_INCLUSIVE
                 )
                 val fragmentMain: Fragment = OnlineFragment()
                 fragmentTransaction.replace(R.id.fragment, fragmentMain)
@@ -320,8 +319,8 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             }
             1 -> {
                 if (mIsResumed) supportFragmentManager.popBackStack(
-                        null,
-                        FragmentManager.POP_BACK_STACK_INCLUSIVE
+                    null,
+                    FragmentManager.POP_BACK_STACK_INCLUSIVE
                 )
                 val fragmentRecently: Fragment = RecentlyFragment()
                 fragmentTransaction.replace(R.id.fragment, fragmentRecently)
@@ -330,8 +329,8 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             }
             2 -> {
                 if (mIsResumed) supportFragmentManager.popBackStack(
-                        null,
-                        FragmentManager.POP_BACK_STACK_INCLUSIVE
+                    null,
+                    FragmentManager.POP_BACK_STACK_INCLUSIVE
                 )
                 val fragmentLibrary: Fragment = LibraryFragment()
                 fragmentTransaction.replace(R.id.fragment, fragmentLibrary)
@@ -340,8 +339,8 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             }
             3 -> {
                 if (mIsResumed) supportFragmentManager.popBackStack(
-                        null,
-                        FragmentManager.POP_BACK_STACK_INCLUSIVE
+                    null,
+                    FragmentManager.POP_BACK_STACK_INCLUSIVE
                 )
                 val fragmentPlaylists: Fragment = PlaylistFragment()
                 fragmentTransaction.replace(R.id.fragment, fragmentPlaylists)
@@ -358,22 +357,22 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     private fun setLeftButton() {
         val mode = Utils.getPlaylistId(this)
         binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.leftbutton.setImageLevel(
-                mode
+            mode
         )
     }
 
     private fun setAlbumCover(song: Song?) {
         loadBitmap(
-                song,
-                binding.slidinguppanel.slidinguppanelChild2.child2bg,
-                binding.slidinguppanel.slidinguppanelChild2.modelcover
+            song,
+            binding.slidinguppanel.slidinguppanelChild2.child2bg,
+            binding.slidinguppanel.slidinguppanelChild2.modelcover
         )
     }
 
     private fun setBitmap(
-            bitmapList: List<ModelBitmap?>,
-            imageView: ImageView,
-            modelCoverView: ModelView
+        bitmapList: List<ModelBitmap?>,
+        imageView: ImageView,
+        modelCoverView: ModelView
     ) {
         val blur: ModelBitmap? = bitmapList[0]
         val round: ModelBitmap? = bitmapList[1]
@@ -389,7 +388,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 modelCoverView.setRoundBitmap(round.bitmap)
             } else if (round.id == 1) {
                 modelCoverView.setRoundBitmap(
-                        SongCover.getMainModel(this, SongCover.Tip.OVAL)
+                    SongCover.getMainModel(this, SongCover.Tip.OVAL)
                 )
             }
         }
@@ -400,9 +399,9 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         viewModel.bitmapsLiveData.observe(this, {
             if (it != null) {
                 setBitmap(
-                        it,
-                        imageView,
-                        modelCoverView
+                    it,
+                    imageView,
+                    modelCoverView
                 )
             }
         })
@@ -410,35 +409,35 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
     private fun onSongChange(song: Song?) {
         if (song == null) {
-            binding.slidinguppanel.slidinguppanelChild2.title.text = ""
-            binding.slidinguppanel.slidinguppanelChild2.artist.text = ""
+            binding.slidinguppanel.slidinguppanelChild2.txtTitle.text = ""
+            binding.slidinguppanel.slidinguppanelChild2.txtArtist.text = ""
             binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.current.setText(R.string.start)
             binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.total.setText(R.string.start)
             binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.seekbar.secondaryProgress =
-                    0
+                0
             binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.seekbar.progress =
-                    0
+                0
             binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.seekbar.max = 0
             setAlbumCover(song)
             return
         }
-        binding.slidinguppanel.slidinguppanelChild2.title.text = song.title
-        binding.slidinguppanel.slidinguppanelChild2.artist.text = song.artist
+        binding.slidinguppanel.slidinguppanelChild2.txtTitle.text = song.title
+        binding.slidinguppanel.slidinguppanelChild2.txtArtist.text = song.artist
         binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.seekbar.progress =
-                getPlayerCurrentPosition().toInt()
+            getPlayerCurrentPosition().toInt()
         binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.seekbar.secondaryProgress =
-                0
+            0
         binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.seekbar.max =
-                song.duration.toInt()
+            song.duration.toInt()
         binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.current.setText(R.string.start)
         binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.total.text =
-                Utils.getDuraStr(song.duration / 1000, this)
+            Utils.getDuraStr(song.duration / 1000, this)
         setAlbumCover(song)
         if (isPlaying() || isPreparing()) {
-            binding.slidinguppanel.slidinguppanelTop1.play.isSelected = true
+            binding.slidinguppanel.slidinguppanelTop1.imgPlay.isSelected = true
             binding.slidinguppanel.slidinguppanelChild2.modelcover.start()
         } else {
-            binding.slidinguppanel.slidinguppanelTop1.play.isSelected = false
+            binding.slidinguppanel.slidinguppanelTop1.imgPlay.isSelected = false
             binding.slidinguppanel.slidinguppanelChild2.modelcover.pause()
         }
     }
@@ -453,31 +452,31 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
         if (seekBar === binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.seekbar) {
             binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.current.text =
-                    Utils.getDuraStr((progress / 1000).toLong(), this)
+                Utils.getDuraStr((progress / 1000).toLong(), this)
         }
     }
 
     override fun handleListener() {
-        binding.slidinguppanel.slidinguppanelChild2.back.setOnClickListener(this)
-        binding.slidinguppanel.slidinguppanelChild2.menu.setOnClickListener(this)
+        binding.slidinguppanel.slidinguppanelChild2.imgBack.setOnClickListener(this)
+        binding.slidinguppanel.slidinguppanelChild2.imgMenu.setOnClickListener(this)
         binding.slidinguppanel.slidinguppanelChild2.innerLinearTopOne.setOnClickListener(this)
         binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.leftbutton.setOnClickListener(
-                this
+            this
         )
         binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.play.setOnClickListener(
-                this
+            this
         )
         binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.prev.setOnClickListener(
-                this
+            this
         )
         binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.next.setOnClickListener(
-                this
+            this
         )
         binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.queue.setOnClickListener(
-                this
+            this
         )
         binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.seekbar.setOnSeekBarChangeListener(
-                this
+            this
         )
     }
 
@@ -523,25 +522,25 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     override fun onProgressChange(progress: Int) {
         if (!isDragging) {
             binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.seekbar.progress =
-                    progress
+                progress
         }
     }
 
     override fun onBufferingUpdate(percent: Int) {
         if (percent != 0) binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.seekbar.secondaryProgress =
-                binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.seekbar.max * 100 / percent
+            binding.slidinguppanel.slidinguppanelChild2.slidinguppanelController.seekbar.max * 100 / percent
     }
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.back -> onBackPressed()
-            R.id.menu -> if (getPlayMusic(this) != null) {
+            R.id.img_back -> onBackPressed()
+            R.id.img_menu -> if (getPlayMusic(this) != null) {
                 if (getPlayMusic(this)!!.type == Song.Tip.MODEL0) {
                     SongHelperMenu.handleMenuLocal(
-                            this,
-                            v,
-                            getPlayMusic(this)!!,
-                            this
+                        this,
+                        v,
+                        getPlayMusic(this)!!,
+                        this
                     )
                 } else {
                     SongHelperMenu.handleMenuOnline(this, v, getPlayMusic(this))
@@ -557,7 +556,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 startActivity(intent)
             } else {
                 Toast.makeText(this, getString(R.string.empty_queue), Toast.LENGTH_SHORT)
-                        .show()
+                    .show()
             }
         }
     }
@@ -567,9 +566,9 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         viewModel.playlistsLiveData.observe(this, {
             if (it != null) {
                 Dialogs.addPlaylistDialog(
-                        this,
-                        song,
-                        it
+                    this,
+                    song,
+                    it
                 )
             }
         })
@@ -599,21 +598,21 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 typeReturn = true
             }
             R.id.nav_settings -> PermissionUtils.with(this@MainActivity)
-                    .permissions(
-                            Manifest.permission.READ_EXTERNAL_STORAGE,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE
-                    )
-                    .result(object : PermInterface {
-                        override fun onPermGranted() {
-                            val intent = Intent(this@MainActivity, SettingsActivity::class.java)
-                            startActivity(intent)
-                        }
+                .permissions(
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                )
+                .result(object : PermInterface {
+                    override fun onPermGranted() {
+                        val intent = Intent(this@MainActivity, SettingsActivity::class.java)
+                        startActivity(intent)
+                    }
 
-                        override fun onPermUnapproved() {
-                            ToastUtils.show(applicationContext, R.string.no_perm_open_settings)
-                        }
-                    })
-                    .requestPermissions()
+                    override fun onPermUnapproved() {
+                        ToastUtils.show(applicationContext, R.string.no_perm_open_settings)
+                    }
+                })
+                .requestPermissions()
         }
         return typeReturn
     }

@@ -10,7 +10,7 @@ import com.wolcano.musicplayer.music.widgets.BorderCircleView
 
 class ColorPreference(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) :
     Preference(context, attrs, defStyleAttr) {
-    private var mView: View? = null
+    private var view: View? = null
     private var color = 0
     private var border = 0
 
@@ -30,7 +30,7 @@ class ColorPreference(context: Context?, attrs: AttributeSet?, defStyleAttr: Int
 
     override fun onBindViewHolder(holder: PreferenceViewHolder) {
         super.onBindViewHolder(holder)
-        mView = holder.itemView
+        view = holder.itemView
         invalidateColor()
     }
 
@@ -41,8 +41,8 @@ class ColorPreference(context: Context?, attrs: AttributeSet?, defStyleAttr: Int
     }
 
     private fun invalidateColor() {
-        if (mView != null) {
-            val circle = mView!!.findViewById<View>(R.id.circle) as BorderCircleView
+        if (view != null) {
+            val circle = view!!.findViewById<View>(R.id.circle) as BorderCircleView
             if (color != 0) {
                 circle.visibility = View.VISIBLE
                 circle.setBackgroundColor(color)
@@ -53,7 +53,4 @@ class ColorPreference(context: Context?, attrs: AttributeSet?, defStyleAttr: Int
         }
     }
 
-    init {
-        init(context, attrs)
-    }
 }

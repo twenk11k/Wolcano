@@ -7,11 +7,12 @@
 
     </data>
 
-    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         app:behavior_hideable="true"
         app:behavior_peekHeight="120dp"
         app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
@@ -21,14 +22,13 @@
             android:id="@+id/slidinguppanel"
             layout="@layout/slidinguppanellayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/navView" />
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/navView"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_alignParentBottom="true"
             android:background="@color/darkbg1"
             android:fitsSystemWindows="false"
             app:itemIconTint="@color/drawer_item"
@@ -38,6 +38,6 @@
 
         </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </layout>

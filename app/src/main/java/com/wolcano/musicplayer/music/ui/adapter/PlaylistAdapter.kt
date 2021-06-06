@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.input.input
 import com.wolcano.musicplayer.music.R
-import com.wolcano.musicplayer.music.databinding.ItemPlaylistBinding
 import com.wolcano.musicplayer.music.data.model.Playlist
+import com.wolcano.musicplayer.music.databinding.ItemPlaylistBinding
 import com.wolcano.musicplayer.music.utils.SongUtils
 import com.wolcano.musicplayer.music.utils.Utils.createStr
 import com.wolcano.musicplayer.music.utils.Utils.navigateToPlaylist
@@ -35,14 +35,14 @@ class PlaylistAdapter(val context: Context, val playlistList: MutableList<Playli
 
         val playlist: Playlist? = holder.binding.playlist
 
-        holder.binding.line1.text = playlist?.name
-        holder.binding.line2.text = createStr(context, R.plurals.Nsongs, playlist!!.songCount)
-        holder.binding.playlistImg.setColorFilter(ContextCompat.getColor(context, R.color.grey0))
+        holder.binding.txtLine1.text = playlist?.name
+        holder.binding.txtLine2.text = createStr(context, R.plurals.Nsongs, playlist!!.songCount)
+        holder.binding.imgPlaylist.setColorFilter(ContextCompat.getColor(context, R.color.grey0))
         setOnPopupMenuListener(holder, position)
     }
 
     private fun setOnPopupMenuListener(holder: ViewHolder, position: Int) {
-        holder.binding.more.setOnClickListener { v ->
+        holder.binding.imgMore.setOnClickListener { v ->
             try {
                 val contextThemeWrapper =
                     ContextThemeWrapper(v.context, R.style.PopupMenuToolbar)
@@ -64,7 +64,7 @@ class PlaylistAdapter(val context: Context, val playlistList: MutableList<Playli
                                         input.toString()
                                     )
                                     playlistList[position].name = input.toString()
-                                    holder.binding.line1.text = input.toString()
+                                    holder.binding.txtLine1.text = input.toString()
                                     Toast.makeText(
                                         context,
                                         R.string.rename_playlist_success,

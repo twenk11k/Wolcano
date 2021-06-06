@@ -11,7 +11,7 @@
     tools:ignore="contentDescription">
 
     <ImageView
-        android:id="@+id/albumArt"
+        android:id="@+id/img_album_art"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
@@ -29,7 +29,7 @@
         android:paddingBottom="4dp">
 
         <TextView
-            android:id="@+id/line1"
+            android:id="@+id/txt_line_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
@@ -38,7 +38,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/line2"
+            android:id="@+id/txt_line_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
@@ -48,7 +48,7 @@
     </LinearLayout>
 
     <ImageButton
-        android:id="@+id/prev"
+        android:id="@+id/img_prev"
         android:layout_width="@dimen/not_old_button_size"
         android:layout_height="match_parent"
         android:background="?android:selectableItemBackground"
@@ -58,7 +58,7 @@
         app:tint="@color/grey0" />
 
     <ImageButton
-        android:id="@+id/playpause"
+        android:id="@+id/img_play_pause"
         android:layout_width="@dimen/not_old_button_size"
         android:layout_height="match_parent"
         android:background="?android:selectableItemBackground"
@@ -68,7 +68,7 @@
         app:tint="@color/grey0" />
 
     <ImageButton
-        android:id="@+id/next"
+        android:id="@+id/img_next"
         android:layout_width="@dimen/not_old_button_size"
         android:layout_height="match_parent"
         android:background="?android:selectableItemBackground"
@@ -78,7 +78,7 @@
         app:tint="@color/grey0" />
 
     <ImageButton
-        android:id="@+id/close"
+        android:id="@+id/img_close"
         android:layout_width="@dimen/not_old_button_size_close"
         android:layout_height="match_parent"
         android:layout_marginEnd="5dp"

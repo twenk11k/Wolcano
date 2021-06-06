@@ -45,7 +45,7 @@
             app:layout_constraintTop_toBottomOf="@id/statusBarCustom" />
 
         <ImageView
-            android:id="@+id/image_empty"
+            android:id="@+id/img_empty"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_marginBottom="@dimen/mini_player_height"
@@ -58,10 +58,10 @@
             app:tint="@color/grey0" />
 
         <TextView
-            android:id="@+id/text_empty_title"
+            android:id="@+id/txt_empty_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/image_empty"
+            android:layout_below="@id/img_empty"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:gravity="center"
@@ -70,7 +70,7 @@
             app:gone="@{vm.isLoading || vm.searchOnlineListLiveData.size() > 0}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/image_empty" />
+            app:layout_constraintTop_toBottomOf="@id/img_empty" />
 
         <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
             android:id="@+id/recyclerView"

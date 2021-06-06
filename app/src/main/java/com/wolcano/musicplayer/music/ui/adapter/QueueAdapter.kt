@@ -69,13 +69,13 @@ class QueueAdapter(
             )
         ) View.VISIBLE else View.INVISIBLE
         holder.binding.indicator.setBackgroundColor(Utils.getAccentColor(activity.applicationContext))
-        holder.binding.line1.text = song?.title
-        holder.binding.line2.text = (if (duration.isEmpty()) "" else "$duration | ") + songList[position]?.artist
+        holder.binding.txtLine1.text = song?.title
+        holder.binding.txtLine2.text = (if (duration.isEmpty()) "" else "$duration | ") + songList[position]?.artist
         val albumUri = "content://media/external/audio/media/" + song?.songId + "/albumart"
         Picasso.get()
             .load(albumUri)
             .placeholder(R.drawable.album_art)
-            .into(holder.binding.albumArt)
+            .into(holder.binding.imgAlbumArt)
 
         if (song?.type == Song.Tip.MODEL0) setOnSongPopupMenuListener(
             holder,
@@ -88,7 +88,7 @@ class QueueAdapter(
     }
 
     private fun setOnSongPopupMenuListener(holder: QueueAdapter.ViewHolder, position: Int) {
-        holder.binding.more.setOnClickListener { v ->
+        holder.binding.imgMore.setOnClickListener { v ->
             try {
                 val contextThemeWrapper =
                     ContextThemeWrapper(v.context, R.style.PopupMenuToolbar)
@@ -206,7 +206,7 @@ class QueueAdapter(
     }
 
     private fun setOnOnlinePopupMenuListener(viewHolder: QueueAdapter.ViewHolder, position: Int) {
-        viewHolder.binding.more.setOnClickListener { v ->
+        viewHolder.binding.imgMore.setOnClickListener { v ->
             try {
                 val contextThemeWrapper =
                     ContextThemeWrapper(v.context, R.style.PopupMenuToolbar)

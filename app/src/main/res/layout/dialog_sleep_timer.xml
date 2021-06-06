@@ -26,7 +26,7 @@
             seekarc:SeekArc_sweepAngle="300" />
 
         <TextView
-            android:id="@+id/timer_display"
+            android:id="@+id/txt_timer_display"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

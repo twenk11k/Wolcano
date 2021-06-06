@@ -7,8 +7,8 @@ import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.skydoves.bindables.binding
 import com.wolcano.musicplayer.music.R
-import com.wolcano.musicplayer.music.databinding.ItemSongOnlineBinding
 import com.wolcano.musicplayer.music.data.model.SongOnline
+import com.wolcano.musicplayer.music.databinding.ItemSongOnlineBinding
 
 class OnlineAdapter(
     private val clickListener: OnlineAdapterClickListener
@@ -30,8 +30,7 @@ class OnlineAdapter(
     }
 
     private fun setOnPopupMenuListener(binding: ItemSongOnlineBinding, pos: Int) {
-        binding.more.setOnClickListener { v ->
-
+        binding.imgMore.setOnClickListener { v ->
             try {
                 val contextThemeWrapper =
                     ContextThemeWrapper(v.context, R.style.PopupMenuToolbar)

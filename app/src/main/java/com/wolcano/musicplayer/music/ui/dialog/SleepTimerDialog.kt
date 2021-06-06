@@ -163,7 +163,7 @@ class SleepTimerDialog : DialogFragment() {
     }
 
     private fun updateTimeDisplayTime() {
-        binding.timerDisplay.text =
+        binding.txtTimerDisplay.text =
             seekArcProgress.toString() + " " + getString(R.string.sleeptimer_min)
     }
 

@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView.AdapterDataObserver
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.wolcano.musicplayer.music.R
-import com.wolcano.musicplayer.music.databinding.FragmentInnerAlbumBinding
 import com.wolcano.musicplayer.music.data.model.Album
+import com.wolcano.musicplayer.music.databinding.FragmentInnerAlbumBinding
 import com.wolcano.musicplayer.music.ui.activity.main.MainActivity
 import com.wolcano.musicplayer.music.ui.adapter.AlbumAdapter
 import com.wolcano.musicplayer.music.ui.dialog.SleepTimerDialog
@@ -124,8 +124,8 @@ class AlbumFragment : BaseFragment(), OnOffsetChangedListener {
     }
 
     fun controlIfEmpty() {
-        binding.empty.setText(R.string.no_album)
-        binding.empty.visibility =
+        binding.txtEmpty.setText(R.string.no_album)
+        binding.txtEmpty.visibility =
             if (adapter == null || adapter?.itemCount == 0) View.VISIBLE else View.GONE
     }
 

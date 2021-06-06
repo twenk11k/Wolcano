@@ -66,19 +66,18 @@ class PlaylistSongAdapter(
         } catch (e: NumberFormatException) {
             e.printStackTrace()
         }
-        holder.binding.line2.text = (if (duration.isEmpty()) "" else "$duration | ") + songList[position].artist
-        holder.binding.line1.text = song?.title
+        holder.binding.txtLine1.text = song?.title
+        holder.binding.txtLine2.text = (if (duration.isEmpty()) "" else "$duration | ") + songList[position].artist
         val contentURI = "content://media/external/audio/media/" + song?.songId + "/albumart"
         Picasso.get()
             .load(contentURI)
             .placeholder(R.drawable.album_art)
-            .into(holder.binding.albumArt)
+            .into(holder.binding.imgAlbumArt)
         setOnPopupMenuListener(holder, position)
-
     }
 
     private fun setOnPopupMenuListener(holder: PlaylistSongAdapter.ViewHolder, position: Int) {
-        holder.binding.more.setOnClickListener { v ->
+        holder.binding.imgMore.setOnClickListener { v ->
             try {
                 val contextThemeWrapper = ContextThemeWrapper(v.context, R.style.PopupMenuToolbar)
                 val popup = PopupMenu(contextThemeWrapper, v)

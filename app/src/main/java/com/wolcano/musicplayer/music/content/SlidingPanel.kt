@@ -42,13 +42,13 @@ class SlidingPanel(view: View, private val activity: Activity) : OnServiceListen
     @Bind(R.id.progressTop1)
     private lateinit var progressBar: ProgressBar
 
-    @Bind(R.id.line1)
+    @Bind(R.id.txt_line_1)
     private lateinit var line1: TextView
 
-    @Bind(R.id.play)
+    @Bind(R.id.img_play)
     private lateinit var play: ImageView
 
-    @Bind(R.id.line2)
+    @Bind(R.id.txt_line_2)
     private lateinit var line2: TextView
 
     @Bind(R.id.panel_top1bg)

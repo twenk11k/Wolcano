@@ -17,18 +17,18 @@
         android:foreground="@drawable/rect_selector">
 
         <TextView
-            android:id="@+id/text"
+            android:id="@+id/txt_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/md_listitem_margin_left"
-            android:layout_toStartOf="@+id/icon"
+            android:layout_toStartOf="@id/img_icon"
             android:textColor="@color/grey0"
             android:textSize="@dimen/md_listitem_textsize" />
 
         <ImageView
-            android:id="@+id/icon"
+            android:id="@+id/img_icon"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_alignParentEnd="true"

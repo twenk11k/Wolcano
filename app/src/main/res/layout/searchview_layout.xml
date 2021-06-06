@@ -38,14 +38,14 @@
                 android:textSize="16sp" />
 
             <ImageButton
-                android:id="@+id/action_up_btn"
+                android:id="@+id/img_back"
                 style="@style/MSV_ImageButton"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_action_navigation_arrow_back"
                 app:tint="@color/white" />
 
             <ImageButton
-                android:id="@+id/action_empty_btn"
+                android:id="@+id/img_clear"
                 style="@style/MSV_ImageButton"
                 android:layout_alignParentEnd="true"
                 android:src="@drawable/ic_action_navigation_close"

@@ -35,11 +35,11 @@ class CopyItemAdapter(private val context: Context, private val copyList: ArrayL
         holder.binding.copy = copyList[position]
         holder.binding.executePendingBindings()
         val copy: Copy? = holder.binding.copy
-        holder.binding.text.text = copy?.text
+        holder.binding.txtName.text = copy?.text
 
-        if (copy?.icon == 0) holder.binding.icon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.baseline_music_note_white_24))
-        if (copy?.icon == 1) holder.binding.icon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.account_circle_white))
-        if (copy?.icon == 2) holder.binding.icon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.baseline_album_white_36))
+        if (copy?.icon == 0) holder.binding.imgIcon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.baseline_music_note_white_24))
+        if (copy?.icon == 1) holder.binding.imgIcon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.account_circle_white))
+        if (copy?.icon == 2) holder.binding.imgIcon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.baseline_album_white_36))
     }
 
     override fun getItemCount(): Int {

@@ -13,7 +13,7 @@ object AppHandler : ActivityLifecycleCallbacks {
     private var observerList: List<Observer>? = null
     private var activityCount = 0
     private var handler: Handler? = null
-    private val HANDLER_DELAY: Long = 500
+    private val handlerDelay: Long = 500
     private var isChecked = false
 
     init {
@@ -65,7 +65,7 @@ object AppHandler : ActivityLifecycleCallbacks {
                 isChecked = false
                 notify(activity, false)
             }
-        }, HANDLER_DELAY)
+        }, handlerDelay)
     }
 
 }

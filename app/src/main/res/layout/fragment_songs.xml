@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
         <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
-            android:id="@+id/recyclerview"
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/mini_player_height"
@@ -27,7 +27,7 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <TextView
-            android:id="@+id/empty"
+            android:id="@+id/txt_empty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"

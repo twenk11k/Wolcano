@@ -49,7 +49,7 @@ class MaterialSearchView @JvmOverloads constructor(
     private var suggestionListView: ListView? = null
     var searchSrcTextView: EditText? = null
     private var backBtn: ImageButton? = null
-    private var emptyBtn: ImageButton? = null
+    private var clearBtn: ImageButton? = null
     private var searchTopBar: RelativeLayout? = null
     private var oldQueryText: CharSequence? = null
     private var userQuery: CharSequence? = null
@@ -119,12 +119,12 @@ class MaterialSearchView @JvmOverloads constructor(
         searchTopBar = searchLayout?.findViewById<View>(R.id.search_top_bar) as RelativeLayout
         suggestionListView = searchLayout?.findViewById<View>(R.id.suggestion_list) as ListView
         searchSrcTextView = searchLayout?.findViewById<View>(R.id.searchTextView) as EditText
-        backBtn = searchLayout?.findViewById<View>(R.id.action_up_btn) as ImageButton
-        emptyBtn = searchLayout?.findViewById<View>(R.id.action_empty_btn) as ImageButton
+        backBtn = searchLayout?.findViewById<View>(R.id.img_back) as ImageButton
+        clearBtn = searchLayout?.findViewById<View>(R.id.img_clear) as ImageButton
         tintView = searchLayout?.findViewById(R.id.transparent_view)
         searchSrcTextView?.setOnClickListener(mOnClickListener)
         backBtn?.setOnClickListener(mOnClickListener)
-        emptyBtn?.setOnClickListener(mOnClickListener)
+        clearBtn?.setOnClickListener(mOnClickListener)
         tintView?.setOnClickListener(mOnClickListener)
         allowVoiceSearch = false
         initSearchView()
@@ -168,7 +168,7 @@ class MaterialSearchView @JvmOverloads constructor(
     private val mOnClickListener = OnClickListener { v ->
         if (v === backBtn) {
             closeSearch()
-        } else if (v === emptyBtn) {
+        } else if (v === clearBtn) {
             searchSrcTextView?.setText(null)
         } else if (v === searchSrcTextView) {
             showSuggestions()
@@ -184,10 +184,10 @@ class MaterialSearchView @JvmOverloads constructor(
         userQuery = text
         val hasText = !TextUtils.isEmpty(text)
         if (hasText) {
-            emptyBtn?.visibility = VISIBLE
+            clearBtn?.visibility = VISIBLE
             onQueryChangeListener?.onQueryTextChange(newText.toString())
         } else {
-            emptyBtn?.visibility = GONE
+            clearBtn?.visibility = GONE
             onQueryChangeListener?.onQueryTextChange("")
             return
         }
@@ -238,11 +238,11 @@ class MaterialSearchView @JvmOverloads constructor(
     }
 
     fun setCloseIcon(drawable: Drawable?) {
-        emptyBtn?.setImageDrawable(drawable)
+        clearBtn?.setImageDrawable(drawable)
     }
 
     fun setCloseIconTint(color: Int) {
-        emptyBtn?.setColorFilter(color, PorterDuff.Mode.SRC_IN)
+        clearBtn?.setColorFilter(color, PorterDuff.Mode.SRC_IN)
     }
 
     fun setBackIcon(drawable: Drawable?) {

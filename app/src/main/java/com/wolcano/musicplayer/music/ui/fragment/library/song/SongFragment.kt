@@ -51,12 +51,12 @@ class SongFragment : BaseFragment(), FilterListener, OnOffsetChangedListener,
         setHasOptionsMenu(true)
 
         Utils.setUpFastScrollRecyclerViewColor(
-            binding.recyclerview, Utils.getAccentColor(
+            binding.recyclerView, Utils.getAccentColor(
                 requireContext()
             )
         )
-        binding.recyclerview.layoutManager = LinearLayoutManager(activity)
-        binding.recyclerview.addItemDecoration(
+        binding.recyclerView.layoutManager = LinearLayoutManager(activity)
+        binding.recyclerView.addItemDecoration(
             DividerItemDecoration(
                 context,
                 DividerItemDecoration.VERTICAL
@@ -106,8 +106,8 @@ class SongFragment : BaseFragment(), FilterListener, OnOffsetChangedListener,
             songList!!,
             this, this
         )
-        binding.recyclerview.adapter = adapter
-        runLayoutAnimation(binding.recyclerview)
+        binding.recyclerView.adapter = adapter
+        runLayoutAnimation(binding.recyclerView)
     }
 
     private fun runLayoutAnimation(recyclerView: RecyclerView) {
@@ -120,8 +120,8 @@ class SongFragment : BaseFragment(), FilterListener, OnOffsetChangedListener,
     }
 
     fun controlIfEmpty() {
-        binding.empty.setText(R.string.no_song)
-        binding.empty.visibility =
+        binding.txtEmpty.setText(R.string.no_song)
+        binding.txtEmpty.visibility =
             if (adapter == null || adapter!!.itemCount == 0) View.VISIBLE else View.GONE
     }
 
@@ -166,9 +166,9 @@ class SongFragment : BaseFragment(), FilterListener, OnOffsetChangedListener,
 
     override fun setFastScrollIndexer(isShown: Boolean) {
         if (isShown) {
-            binding.recyclerview.setThumbEnabled(true)
+            binding.recyclerView.setThumbEnabled(true)
         } else {
-            binding.recyclerview.setThumbEnabled(false)
+            binding.recyclerView.setThumbEnabled(false)
         }
     }
 

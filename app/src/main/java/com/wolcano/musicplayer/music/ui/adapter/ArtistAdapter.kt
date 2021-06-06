@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.wolcano.musicplayer.music.R
-import com.wolcano.musicplayer.music.databinding.ItemArtistBinding
 import com.wolcano.musicplayer.music.data.model.Artist
+import com.wolcano.musicplayer.music.databinding.ItemArtistBinding
 import com.wolcano.musicplayer.music.utils.Utils.createStr
 import com.wolcano.musicplayer.music.utils.Utils.navigateToArtist
 
@@ -31,8 +31,8 @@ class ArtistAdapter(private val context: Activity, private val artistList: List<
 
         val artist: Artist? = holder.binding.artist
 
-        holder.binding.line1.text = artist?.name
-        holder.binding.line2.text = createStr(context, R.plurals.Nsongs, artist!!.songCount)
+        holder.binding.txtLine1.text = artist?.name
+        holder.binding.txtLine2.text = createStr(context, R.plurals.Nsongs, artist!!.songCount)
     }
 
     override fun getItemCount(): Int {

@@ -19,9 +19,9 @@ import com.squareup.picasso.Picasso
 import com.squareup.picasso.Picasso.LoadedFrom
 import com.squareup.picasso.Target
 import com.wolcano.musicplayer.music.R
+import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.databinding.ItemSongBinding
 import com.wolcano.musicplayer.music.listener.PlaylistListener
-import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.provider.RemotePlay.deleteFromRemotePlay
 import com.wolcano.musicplayer.music.provider.RemotePlay.playAdd
 import com.wolcano.musicplayer.music.ui.dialog.Dialogs
@@ -58,23 +58,21 @@ class AlbumSongAdapter(
         } catch (e: NumberFormatException) {
             e.printStackTrace()
         }
-
-        holder.binding.line2.text =
+        holder.binding.txtLine1.text = song?.title
+        holder.binding.txtLine2.text =
             (if (duration.isEmpty()) "" else "$duration | ") + songList?.get(
                 position
             )?.artist
-        holder.binding.line1.text = song?.title
         val albumUri = "content://media/external/audio/media/" + song?.songId + "/albumart"
         Picasso.get()
             .load(albumUri)
             .placeholder(R.drawable.album_art)
-            .into(holder.binding.albumArt)
+            .into(holder.binding.imgAlbumArt)
         setOnPopupMenuListener(holder, position)
     }
 
-
     private fun setOnPopupMenuListener(viewHolder: ViewHolder, position: Int) {
-        viewHolder.binding.more.setOnClickListener { v ->
+        viewHolder.binding.imgMore.setOnClickListener { v ->
             try {
                 val contextThemeWrapper =
                     ContextThemeWrapper(v.context, R.style.PopupMenuToolbar)
