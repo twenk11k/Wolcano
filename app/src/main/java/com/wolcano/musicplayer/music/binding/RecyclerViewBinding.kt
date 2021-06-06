@@ -42,11 +42,7 @@ object RecyclerViewBinding {
         onlineList.whatIfNotNullOrEmpty { itemList ->
             view.adapter.whatIfNotNullAs<OnlineAdapter> { adapter ->
                 if (shouldClearList) {
-                    if (adapter.itemCount >= 15) {
-                        view.setThumbEnabled(true)
-                    } else {
-                        view.setThumbEnabled(false)
-                    }
+                    view.setThumbEnabled(adapter.itemCount >= 15)
                     adapter.clearAndSetOnlineList(itemList)
                 } else {
                     adapter.setOnlineList(itemList)
