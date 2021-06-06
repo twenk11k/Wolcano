@@ -23,9 +23,7 @@ object ViewBinding {
     @BindingAdapter("textDuration", "textArtist")
     fun convertDurationForOnline(view: TextView, durationLong: Long, artist: String) {
         var duration: String = Utils.getDuration(durationLong)
-        duration = (if (duration
-                .isEmpty()
-        ) "" else duration) + "  |  " + artist
+        duration = (if (duration.isEmpty()) "" else duration) + "  |  " + artist
         view.text = duration
     }
 
