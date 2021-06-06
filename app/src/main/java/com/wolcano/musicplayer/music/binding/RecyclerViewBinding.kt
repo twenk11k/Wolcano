@@ -15,14 +15,6 @@ import com.wolcano.musicplayer.music.ui.fragment.online.OnlineViewModel
 object RecyclerViewBinding {
 
     @JvmStatic
-    @BindingAdapter("adapter")
-    fun bindAdapter(view: RecyclerView, adapter: RecyclerView.Adapter<*>) {
-        view.adapter = adapter.apply {
-            stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-        }
-    }
-
-    @JvmStatic
     @BindingAdapter("paginationOnlineList")
     fun paginationOnlineList(view: RecyclerView, viewModel: OnlineViewModel) {
         RecyclerViewPaginator(
