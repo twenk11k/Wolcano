@@ -11,44 +11,42 @@ import com.wolcano.musicplayer.music.content.PlayerEnum
 import com.wolcano.musicplayer.music.content.managers.SessionManager.updateSessionMetaData
 import com.wolcano.musicplayer.music.content.managers.SessionManager.updateSessionPlaybackState
 import com.wolcano.musicplayer.music.content.managers.SoundManager
-import com.wolcano.musicplayer.music.listener.OnServiceListener
 import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.data.persistence.AppDatabase
+import com.wolcano.musicplayer.music.listener.OnServiceListener
 import com.wolcano.musicplayer.music.provider.MusicService.ServiceInit
 import com.wolcano.musicplayer.music.utils.ToastUtils
 import com.wolcano.musicplayer.music.utils.Utils
 import java.io.IOException
 import java.util.*
 import javax.inject.Singleton
+import kotlin.collections.ArrayList
 
 object RemotePlay {
 
     private var soundManager: SoundManager? = null
     private var mediaPlayer: MediaPlayer? = null
     private var intentFilter: IntentFilter? = null
-    private var songList: MutableList<Song?>? = null
-
+    private var songList: ArrayList<Song?>? = null
     private val listenerList: MutableList<OnServiceListener> = ArrayList()
-    private const val IDLE = 0
-    private const val PLAY = 2
 
     private var handler: Handler? = null
 
-    private const val GUNCEL = 300L
+    private const val DELAY = 300L
     private const val PREPARE = 1
+    private const val PAUSE = 3
+    private const val IDLE = 0
+    private const val PLAY = 2
 
     private var state = IDLE
     private var musicService: MusicService? = null
-    private const val PAUSE = 3
     private var serviceConnection: ServiceConnection? = null
 
     fun init(context: Context) {
-
-        songList = AppDatabase.getInstance(context).songDao().getAll() as MutableList<Song?>
+        songList = AppDatabase.getInstance(context).songDao().getAll()
         soundManager = SoundManager(context)
         mediaPlayer = MediaPlayer()
         handler = Handler(Looper.getMainLooper())
-
 
         bindService(context)
         intentFilter = IntentFilter(AudioManager.ACTION_AUDIO_BECOMING_NOISY)
@@ -77,10 +75,10 @@ object RemotePlay {
         context.bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
     }
 
-    fun playAdd(context: Context, alist: List<Song?>, song: Song) {
-        songList?.clear()
-        songList?.addAll(alist)
-        val position = songList!!.indexOf(song)
+    fun playAdd(context: Context, songList: List<Song?>, song: Song) {
+        this.songList?.clear()
+        this.songList?.addAll(songList)
+        val position = this.songList!!.indexOf(song)
         AppDatabase.getInstance(context).songDao().deleteAll()
         AppDatabase.getInstance(context).songDao().insert(song)
         playSong(context, position)
@@ -98,12 +96,16 @@ object RemotePlay {
     }
 
     fun buttonClick(context: Context) {
-        if (isPlaying()) {
-            pauseRemotePlay(context)
-        } else if (isPausing()) {
-            startRemotePlay(context)
-        } else {
-            playSong(context, getRemotePlayPos(context))
+        when {
+            isPlaying() -> {
+                pauseRemotePlay(context)
+            }
+            isPausing() -> {
+                startRemotePlay(context)
+            }
+            else -> {
+                playSong(context, getRemotePlayPos(context))
+            }
         }
     }
 
@@ -144,8 +146,7 @@ object RemotePlay {
         if (songList!!.isEmpty()) {
             return
         }
-        val mode = PlayerEnum.valueOf(Utils.getPlaylistId(context))
-        when (mode) {
+        when (PlayerEnum.valueOf(Utils.getPlaylistId(context))) {
             PlayerEnum.SHUFFLE -> playSong(context, Random().nextInt(songList!!.size))
             PlayerEnum.REPEAT -> if (isCompletion) {
                 playSong(context, getRemotePlayPos(context))
@@ -168,7 +169,6 @@ object RemotePlay {
                 }
             }
             if (song1!!.songId == song.songId) {
-                var isClosed = false
                 if (playPosition > position) {
                     setRemotePlayPos(context, playPosition - 1)
                 } else if (playPosition == position) {
@@ -181,7 +181,7 @@ object RemotePlay {
                     } else if (isPlaying() || isPreparing()) {
                         next(context, false)
                         setRemotePlayPos(context, playPosition - 1)
-                    } else if (!isClosed) {
+                    } else {
                         stopRemotePlay(context)
                         for (listener in listenerList) {
                             listener.onChangeSong(getPlayMusic(context))
@@ -250,7 +250,7 @@ object RemotePlay {
                     listener.onProgressChange(mediaPlayer!!.currentPosition)
                 }
             }
-            handler?.postDelayed(this, GUNCEL)
+            handler?.postDelayed(this, DELAY)
         }
     }
 
@@ -271,12 +271,12 @@ object RemotePlay {
         }
     }
 
-    fun seekTo(msec: Int) {
+    fun seekTo(mSec: Int) {
         if (isPlaying() || isPausing()) {
-            mediaPlayer?.seekTo(msec)
+            mediaPlayer?.seekTo(mSec)
             updateSessionPlaybackState()
             for (listener in listenerList) {
-                listener.onProgressChange(msec)
+                listener.onProgressChange(mSec)
             }
         }
     }

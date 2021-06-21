@@ -16,7 +16,7 @@ object Share {
 
     private const val TYPE_ARTIST = 0
     private const val TYPE_ALBUM = 1
-    const val TYPE_SONG = 2
+    private const val TYPE_SONG = 2
 
     private const val DEFAULT_SORT = "artist_key,album_key,track"
     private const val ALBUM_SORT = "album_key,track"

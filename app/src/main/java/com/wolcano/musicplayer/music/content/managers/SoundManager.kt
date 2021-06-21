@@ -18,8 +18,7 @@ class SoundManager(private val context: Context) : OnAudioFocusChangeListener {
 
     override fun onAudioFocusChange(focusChange: Int) {
         when (focusChange) {
-            AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK -> getMediaPlayer()!!
-                .setVolume(0.5f, 0.5f)
+            AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK -> getMediaPlayer()!!.setVolume(0.5f, 0.5f)
             AudioManager.AUDIOFOCUS_LOSS_TRANSIENT -> {
                 pauseRemotePlay(context.applicationContext, false)
                 isPause = true

@@ -16,9 +16,7 @@ class RemoteBroadcast : BroadcastReceiver() {
             return
         }
         when (keyEvent.keyCode) {
-            KeyEvent.KEYCODE_HEADSETHOOK -> buttonClick(
-                context
-            )
+            KeyEvent.KEYCODE_HEADSETHOOK -> buttonClick(context)
             KeyEvent.KEYCODE_MEDIA_NEXT -> next(context, false)
             KeyEvent.KEYCODE_MEDIA_PREVIOUS -> prev(context)
         }

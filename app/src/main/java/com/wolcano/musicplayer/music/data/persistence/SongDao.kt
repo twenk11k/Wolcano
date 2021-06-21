@@ -10,7 +10,7 @@ import com.wolcano.musicplayer.music.data.model.Song
 interface SongDao {
 
     @Query("SELECT * FROM song")
-    fun getAll(): List<Song>
+    fun getAll(): ArrayList<Song?>?
 
     @Insert
     fun insert(song: Song)
