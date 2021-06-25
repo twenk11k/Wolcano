@@ -42,7 +42,7 @@
                 style="@style/MSV_ImageButton"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_action_navigation_arrow_back"
-                app:tint="@color/white" />
+                app:tint="@android:color/white" />
 
             <ImageButton
                 android:id="@+id/img_clear"
@@ -50,7 +50,7 @@
                 android:layout_alignParentEnd="true"
                 android:src="@drawable/ic_action_navigation_close"
                 android:visibility="gone"
-                app:tint="@color/white" />
+                app:tint="@android:color/white" />
 
             <View
                 android:layout_width="match_parent"

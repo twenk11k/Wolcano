@@ -98,7 +98,7 @@ dependencies {
     implementation(ThirdPartyLibs.APACHE_COMMONS_IO)
     implementation(ThirdPartyLibs.RXBUS)
     implementation(ThirdPartyLibs.SLIDINGUPPANEL)
-    implementation(ThirdPartyLibs.MATERIALSEARCHVIEW)
+    implementation(project(mapOf("path" to ":materialsearchview")))
     implementation(ThirdPartyLibs.PICASSO)
     implementation(ThirdPartyLibs.SEEKARC)
     implementation(ThirdPartyLibs.SANDWICH)

@@ -1,4 +1,4 @@
-package com.wolcano.musicplayer.music.ui.adapter
+package com.twenk11k.materialsearchview
 
 import android.content.Context
 import android.graphics.drawable.Drawable
@@ -8,9 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.afollestad.materialdialogs.MaterialDialog
-import com.wolcano.musicplayer.music.R
-import com.wolcano.musicplayer.music.listener.SetSearchQuery
-import com.wolcano.musicplayer.music.widgets.MaterialSearchView
+import java.util.*
+import kotlin.collections.ArrayList
 
 class SearchAdapter(
     private var context: Context?,
@@ -46,7 +45,11 @@ class SearchAdapter(
                     // Retrieve the autocomplete results.
                     val searchData: MutableList<String> = ArrayList()
                     for (string in suggestions.reversed()) {
-                        if (string.toLowerCase().startsWith(constraint.toString().toLowerCase())) {
+                        if (string.lowercase(Locale.getDefault()).startsWith(
+                                constraint.toString()
+                                    .lowercase(Locale.getDefault())
+                            )
+                        ) {
                             searchData.add(string)
                         }
                     }
@@ -91,13 +94,13 @@ class SearchAdapter(
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
         var convertView = convertView
-        val viewHolder: SearchAdapter.SuggestionsViewHolder
+        val viewHolder: SuggestionsViewHolder
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.searchview_suggestion_item, parent, false)
             viewHolder = SuggestionsViewHolder(convertView)
             convertView?.tag = viewHolder
         } else {
-            viewHolder = convertView.tag as SearchAdapter.SuggestionsViewHolder
+            viewHolder = convertView.tag as SuggestionsViewHolder
         }
         convertView?.setOnClickListener {
             if (searchList.size > 0) callback!!.onSearchQuery(

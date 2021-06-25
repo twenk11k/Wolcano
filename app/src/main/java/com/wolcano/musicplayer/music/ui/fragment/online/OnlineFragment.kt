@@ -11,11 +11,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.twenk11k.materialsearchview.MaterialSearchView
+import com.twenk11k.materialsearchview.SetSearchQuery
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.data.model.SongOnline
 import com.wolcano.musicplayer.music.databinding.FragmentOnlineBinding
-import com.wolcano.musicplayer.music.listener.SetSearchQuery
 import com.wolcano.musicplayer.music.provider.RemotePlay
 import com.wolcano.musicplayer.music.ui.adapter.OnlineAdapter
 import com.wolcano.musicplayer.music.ui.adapter.OnlineAdapterClickListener
@@ -31,7 +32,6 @@ import com.wolcano.musicplayer.music.utils.Utils.getPrimaryColor
 import com.wolcano.musicplayer.music.utils.Utils.isColorLight
 import com.wolcano.musicplayer.music.utils.Utils.setLastSearch
 import com.wolcano.musicplayer.music.utils.Utils.setUpFastScrollRecyclerViewColor
-import com.wolcano.musicplayer.music.widgets.MaterialSearchView
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import kotlin.collections.ArrayList

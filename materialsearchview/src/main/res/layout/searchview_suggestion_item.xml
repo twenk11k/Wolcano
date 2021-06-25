@@ -24,8 +24,8 @@
         android:layout_centerVertical="true"
         android:background="@android:color/transparent"
         android:focusable="false"
-        android:paddingLeft="@dimen/search_icon_padding"
-        android:paddingRight="@dimen/search_icon_padding"
+        android:paddingLeft="@dimen/padding_search_icon"
+        android:paddingRight="@dimen/padding_search_icon"
         android:src="@drawable/ic_suggestion" />
 
     <ImageView
@@ -33,11 +33,11 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
-        android:background="@drawable/btn_selector_wht"
+        android:background="@drawable/btn_selector"
         android:clickable="true"
         android:focusable="false"
-        android:paddingLeft="@dimen/search_icon_padding"
-        android:paddingRight="@dimen/search_icon_padding"
+        android:paddingLeft="@dimen/padding_search_icon"
+        android:paddingRight="@dimen/padding_search_icon"
         android:src="@drawable/ic_suggestion" />
 
 </RelativeLayout>

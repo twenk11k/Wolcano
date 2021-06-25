@@ -1,4 +1,4 @@
-package com.wolcano.musicplayer.music.widgets
+package com.twenk11k.materialsearchview
 
 import android.content.Context
 import android.graphics.PorterDuff
@@ -19,10 +19,7 @@ import android.view.View.OnClickListener
 import android.view.View.OnFocusChangeListener
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
-import com.miguelcatalan.materialsearchview.utils.AnimationUtil
-import com.wolcano.musicplayer.music.R
-import com.wolcano.musicplayer.music.listener.SetSearchQuery
-import com.wolcano.musicplayer.music.ui.adapter.SearchAdapter
+import com.twenk11k.materialsearchview.utils.AnimationUtil
 
 class MaterialSearchView @JvmOverloads constructor(
         context: Context,
@@ -67,42 +64,42 @@ class MaterialSearchView @JvmOverloads constructor(
     private fun initStyle(attrs: AttributeSet?, defStyleAttr: Int) {
         val a = context.obtainStyledAttributes(
                 attrs,
-                com.miguelcatalan.materialsearchview.R.styleable.MaterialSearchView,
+                R.styleable.MaterialSearchView,
                 defStyleAttr,
                 0
         )
         if (a != null) {
-            if (a.hasValue(com.miguelcatalan.materialsearchview.R.styleable.MaterialSearchView_searchBackground)) {
+            if (a.hasValue(R.styleable.MaterialSearchView_searchBackground)) {
                 background =
-                        a.getDrawable(com.miguelcatalan.materialsearchview.R.styleable.MaterialSearchView_searchBackground)
+                        a.getDrawable(R.styleable.MaterialSearchView_searchBackground)
             }
-            if (a.hasValue(com.miguelcatalan.materialsearchview.R.styleable.MaterialSearchView_android_textColor)) {
+            if (a.hasValue(R.styleable.MaterialSearchView_android_textColor)) {
                 setTextColor(
                         a.getColor(
-                                com.miguelcatalan.materialsearchview.R.styleable.MaterialSearchView_android_textColor,
+                                R.styleable.MaterialSearchView_android_textColor,
                                 0
                         )
                 )
             }
-            if (a.hasValue(com.miguelcatalan.materialsearchview.R.styleable.MaterialSearchView_android_textColorHint)) {
+            if (a.hasValue(R.styleable.MaterialSearchView_android_textColorHint)) {
                 setHintTextColor(
                         a.getColor(
-                                com.miguelcatalan.materialsearchview.R.styleable.MaterialSearchView_android_textColorHint,
+                                R.styleable.MaterialSearchView_android_textColorHint,
                                 0
                         )
                 )
             }
-            if (a.hasValue(com.miguelcatalan.materialsearchview.R.styleable.MaterialSearchView_searchCloseIcon)) {
-                setCloseIcon(a.getDrawable(com.miguelcatalan.materialsearchview.R.styleable.MaterialSearchView_searchCloseIcon))
+            if (a.hasValue(R.styleable.MaterialSearchView_searchCloseIcon)) {
+                setCloseIcon(a.getDrawable(R.styleable.MaterialSearchView_searchCloseIcon))
             }
-            if (a.hasValue(com.miguelcatalan.materialsearchview.R.styleable.MaterialSearchView_searchBackIcon)) {
-                setBackIcon(a.getDrawable(com.miguelcatalan.materialsearchview.R.styleable.MaterialSearchView_searchBackIcon))
+            if (a.hasValue(R.styleable.MaterialSearchView_searchBackIcon)) {
+                setBackIcon(a.getDrawable(R.styleable.MaterialSearchView_searchBackIcon))
             }
-            if (a.hasValue(com.miguelcatalan.materialsearchview.R.styleable.MaterialSearchView_searchSuggestionBackground)) {
-                setSuggestionBackground(a.getDrawable(com.miguelcatalan.materialsearchview.R.styleable.MaterialSearchView_searchSuggestionBackground))
+            if (a.hasValue(R.styleable.MaterialSearchView_searchSuggestionBackground)) {
+                setSuggestionBackground(a.getDrawable(R.styleable.MaterialSearchView_searchSuggestionBackground))
             }
-            if (a.hasValue(com.miguelcatalan.materialsearchview.R.styleable.MaterialSearchView_searchSuggestionIcon)) {
-                setSuggestionIcon(a.getDrawable(com.miguelcatalan.materialsearchview.R.styleable.MaterialSearchView_searchSuggestionIcon))
+            if (a.hasValue(R.styleable.MaterialSearchView_searchSuggestionIcon)) {
+                setSuggestionIcon(a.getDrawable(R.styleable.MaterialSearchView_searchSuggestionIcon))
             }
             if (a.hasValue(R.styleable.MaterialSearchView_searchSuggestionClose)) {
                 setSuggestionRemove(a.getDrawable(R.styleable.MaterialSearchView_searchSuggestionClose))
