@@ -75,7 +75,6 @@ dependencies {
     implementation(SupportLibs.ANDROIDX_RECYCLERVIEW)
     implementation(SupportLibs.ANDROID_MATERIAL)
     implementation(SupportLibs.ANDROIDX_FRAGMENT_KTX)
-    implementation(SupportLibs.ANDROIDX_LIFECYCLE_EXTENSIONS)
     implementation(SupportLibs.ANDROIDX_LIFECYCLE_VIEWMODEL_KTX)
     implementation(SupportLibs.ANDROIDX_LIFECYCLE_VIEWMODEL_SAVEDSTATE)
     implementation(SupportLibs.ANDROIDX_LIFECYCLE_RUNTIME_KTX)
@@ -99,11 +98,11 @@ dependencies {
     implementation(ThirdPartyLibs.RXBUS)
     implementation(ThirdPartyLibs.SLIDINGUPPANEL)
     implementation(ThirdPartyLibs.PICASSO)
-    implementation(project(mapOf("path" to ":materialsearchview")))
-    implementation(project(mapOf("path" to ":seekarc")))
     implementation(ThirdPartyLibs.SANDWICH)
     implementation(ThirdPartyLibs.WHATIF)
     implementation(ThirdPartyLibs.BINDABLES)
+    implementation(project(":materialsearchview"))
+    implementation(project(":seekarc"))
 
     implementation(OtherLibs.RETROFIT)
     implementation(OtherLibs.RXJAVA2_ANDROID)
@@ -115,4 +114,8 @@ dependencies {
     kapt(OtherLibs.ROOM_COMPILER)
     implementation(OtherLibs.DAGGER_HILT)
     kapt(OtherLibs.DAGGER_HILT_COMPILER)
+}
+
+kapt {
+    correctErrorTypes = true
 }

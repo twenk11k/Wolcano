@@ -13,12 +13,11 @@ pluginManagement {
         gradlePluginPortal()
         google()
         mavenCentral()
-        jcenter()
     }
 }
 
 rootProject.name = ("Wolcano")
 
 include(
-    "app"
+    "app","materialsearchview", "seekarc"
 )
