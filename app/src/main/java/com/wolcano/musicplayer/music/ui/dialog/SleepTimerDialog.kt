@@ -19,8 +19,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.WhichButton
 import com.afollestad.materialdialogs.actions.setActionButtonEnabled
 import com.afollestad.materialdialogs.customview.customView
-import com.triggertrap.seekarc.SeekArc
-import com.triggertrap.seekarc.SeekArc.OnSeekArcChangeListener
+import com.twenk11k.seekarc.SeekArc
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.databinding.DialogSleepTimerBinding
 import com.wolcano.musicplayer.music.provider.MusicService
@@ -127,7 +126,8 @@ class SleepTimerDialog : DialogFragment() {
         }
 
         binding.seekArc.progressColor = getAccentColor(requireContext())
-        binding.seekArc.setThumbColor(getAccentColor(requireContext()))
+        // TODO add the required method
+//        binding.seekArc.setThumbColor(getAccentColor(requireContext()))
 
         binding.seekArc.post {
             val width = binding.seekArc.width
@@ -143,7 +143,7 @@ class SleepTimerDialog : DialogFragment() {
         updateTimeDisplayTime()
         binding.seekArc.progress = seekArcProgress
 
-        binding.seekArc.setOnSeekArcChangeListener(object : OnSeekArcChangeListener {
+        binding.seekArc.setOnSeekArcChangeListener(object : SeekArc.OnSeekArcChangeListener {
             override fun onProgressChanged(seekArc: SeekArc, i: Int, b: Boolean) {
                 if (i < 1) {
                     seekArc.progress = 1
