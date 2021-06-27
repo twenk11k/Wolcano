@@ -19,7 +19,7 @@ import com.wolcano.musicplayer.music.provider.RemotePlay
 object SessionManager {
 
     private lateinit var musicService: MusicService
-    private var mediaSessionCompat: MediaSessionCompat? = null
+    var mediaSessionCompat: MediaSessionCompat? = null
 
     fun setSessionManager(musicService: MusicService) {
         this.musicService = musicService
