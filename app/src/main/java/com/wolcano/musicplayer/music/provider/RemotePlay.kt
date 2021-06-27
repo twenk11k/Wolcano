@@ -43,7 +43,7 @@ object RemotePlay {
     private var serviceConnection: ServiceConnection? = null
 
     fun init(context: Context) {
-        songList = AppDatabase.getInstance(context).songDao().getAll()
+        songList = AppDatabase.getInstance(context).songDao().getAll() as ArrayList<Song?>
         soundManager = SoundManager(context)
         mediaPlayer = MediaPlayer()
         handler = Handler(Looper.getMainLooper())
