@@ -19,7 +19,9 @@ import android.view.View.OnClickListener
 import android.view.View.OnFocusChangeListener
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import com.twenk11k.materialsearchview.utils.AnimationListener
 import com.twenk11k.materialsearchview.utils.AnimationUtil
+import com.twenk11k.materialsearchview.utils.AnimationUtil.ANIMATION_DURATION_MEDIUM
 
 class MaterialSearchView @JvmOverloads constructor(
         context: Context,
@@ -68,45 +70,43 @@ class MaterialSearchView @JvmOverloads constructor(
                 defStyleAttr,
                 0
         )
-        if (a != null) {
-            if (a.hasValue(R.styleable.MaterialSearchView_searchBackground)) {
-                background =
-                        a.getDrawable(R.styleable.MaterialSearchView_searchBackground)
-            }
-            if (a.hasValue(R.styleable.MaterialSearchView_android_textColor)) {
-                setTextColor(
-                        a.getColor(
-                                R.styleable.MaterialSearchView_android_textColor,
-                                0
-                        )
-                )
-            }
-            if (a.hasValue(R.styleable.MaterialSearchView_android_textColorHint)) {
-                setHintTextColor(
-                        a.getColor(
-                                R.styleable.MaterialSearchView_android_textColorHint,
-                                0
-                        )
-                )
-            }
-            if (a.hasValue(R.styleable.MaterialSearchView_searchCloseIcon)) {
-                setCloseIcon(a.getDrawable(R.styleable.MaterialSearchView_searchCloseIcon))
-            }
-            if (a.hasValue(R.styleable.MaterialSearchView_searchBackIcon)) {
-                setBackIcon(a.getDrawable(R.styleable.MaterialSearchView_searchBackIcon))
-            }
-            if (a.hasValue(R.styleable.MaterialSearchView_searchSuggestionBackground)) {
-                setSuggestionBackground(a.getDrawable(R.styleable.MaterialSearchView_searchSuggestionBackground))
-            }
-            if (a.hasValue(R.styleable.MaterialSearchView_searchSuggestionIcon)) {
-                setSuggestionIcon(a.getDrawable(R.styleable.MaterialSearchView_searchSuggestionIcon))
-            }
-            if (a.hasValue(R.styleable.MaterialSearchView_searchSuggestionClose)) {
-                setSuggestionRemove(a.getDrawable(R.styleable.MaterialSearchView_searchSuggestionClose))
-            }
-            if (a.hasValue(R.styleable.MaterialSearchView_searchSuggestionSend)) {
-                setSuggestionSend(a.getDrawable(R.styleable.MaterialSearchView_searchSuggestionSend))
-            }
+        if (a.hasValue(R.styleable.MaterialSearchView_searchBackground)) {
+            background =
+                    a.getDrawable(R.styleable.MaterialSearchView_searchBackground)
+        }
+        if (a.hasValue(R.styleable.MaterialSearchView_android_textColor)) {
+            setTextColor(
+                    a.getColor(
+                            R.styleable.MaterialSearchView_android_textColor,
+                            0
+                    )
+            )
+        }
+        if (a.hasValue(R.styleable.MaterialSearchView_android_textColorHint)) {
+            setHintTextColor(
+                    a.getColor(
+                            R.styleable.MaterialSearchView_android_textColorHint,
+                            0
+                    )
+            )
+        }
+        if (a.hasValue(R.styleable.MaterialSearchView_searchCloseIcon)) {
+            setCloseIcon(a.getDrawable(R.styleable.MaterialSearchView_searchCloseIcon))
+        }
+        if (a.hasValue(R.styleable.MaterialSearchView_searchBackIcon)) {
+            setBackIcon(a.getDrawable(R.styleable.MaterialSearchView_searchBackIcon))
+        }
+        if (a.hasValue(R.styleable.MaterialSearchView_searchSuggestionBackground)) {
+            setSuggestionBackground(a.getDrawable(R.styleable.MaterialSearchView_searchSuggestionBackground))
+        }
+        if (a.hasValue(R.styleable.MaterialSearchView_searchSuggestionIcon)) {
+            setSuggestionIcon(a.getDrawable(R.styleable.MaterialSearchView_searchSuggestionIcon))
+        }
+        if (a.hasValue(R.styleable.MaterialSearchView_searchSuggestionClose)) {
+            setSuggestionRemove(a.getDrawable(R.styleable.MaterialSearchView_searchSuggestionClose))
+        }
+        if (a.hasValue(R.styleable.MaterialSearchView_searchSuggestionSend)) {
+            setSuggestionSend(a.getDrawable(R.styleable.MaterialSearchView_searchSuggestionSend))
         }
     }
 
@@ -126,7 +126,7 @@ class MaterialSearchView @JvmOverloads constructor(
         allowVoiceSearch = false
         initSearchView()
         suggestionListView?.visibility = GONE
-        setAnimationDuration(AnimationUtil.ANIMATION_DURATION_MEDIUM)
+        setAnimationDuration(ANIMATION_DURATION_MEDIUM)
     }
 
     private fun initSearchView() {
@@ -421,8 +421,8 @@ class MaterialSearchView @JvmOverloads constructor(
     private fun removeFromList(v: View?) {}
 
     private fun setVisibleWithAnimation() {
-        val animationListener: AnimationUtil.AnimationListener =
-                object : AnimationUtil.AnimationListener {
+        val animationListener: AnimationListener =
+                object : AnimationListener {
                     override fun onAnimationStart(view: View): Boolean {
                         return false
                     }
@@ -437,9 +437,9 @@ class MaterialSearchView @JvmOverloads constructor(
                 }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             searchLayout?.visibility = VISIBLE
-            AnimationUtil.reveal(searchTopBar, animationListener)
+            AnimationUtil.reveal(searchTopBar as View, animationListener)
         } else {
-            AnimationUtil.fadeInView(searchLayout, animationDuration, animationListener)
+            AnimationUtil.fadeInView(searchLayout as View, animationDuration, animationListener)
         }
     }
 
