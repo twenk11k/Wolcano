@@ -125,7 +125,7 @@ class SleepTimerDialog : DialogFragment() {
             return materialDialog
         }
 
-        binding.seekArc.progressColor = getAccentColor(requireContext())
+        binding.seekArc.setProgressColor(getAccentColor(requireContext()))
         // TODO add the required method
 //        binding.seekArc.setThumbColor(getAccentColor(requireContext()))
 
@@ -141,12 +141,12 @@ class SleepTimerDialog : DialogFragment() {
 
         seekArcProgress = getLastSleepTimerValue(requireContext())
         updateTimeDisplayTime()
-        binding.seekArc.progress = seekArcProgress
+        binding.seekArc.setProgress(seekArcProgress)
 
         binding.seekArc.setOnSeekArcChangeListener(object : SeekArc.OnSeekArcChangeListener {
             override fun onProgressChanged(seekArc: SeekArc, i: Int, b: Boolean) {
                 if (i < 1) {
-                    seekArc.progress = 1
+                    seekArc.setProgress(1)
                     return
                 }
                 seekArcProgress = i
