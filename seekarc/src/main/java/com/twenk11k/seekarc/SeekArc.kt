@@ -153,8 +153,8 @@ class SeekArc : View {
         var arcColor = ContextCompat.getColor(context, R.color.progress_gray)
 
         var progressColor = ContextCompat.getColor(context, R.color.default_blue_light)
-        var thumbHalfHeight: Int
-        var thumbHalfWidth: Int
+        val thumbHalfHeight: Int
+        val thumbHalfWidth: Int
 
         thumb = ContextCompat.getDrawable(context, R.drawable.seek_arc_control_selector)
         // Convert progress width to pixels for current density
