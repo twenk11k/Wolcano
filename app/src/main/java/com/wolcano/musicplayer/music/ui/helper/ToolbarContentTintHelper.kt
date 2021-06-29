@@ -24,7 +24,6 @@ import com.wolcano.musicplayer.music.ui.helper.TintHelper.createTintedDrawable
 import com.wolcano.musicplayer.music.ui.helper.ToolbarContentTintHelper.InternalToolbarContentTintUtil.applyOverflowMenuTint
 import com.wolcano.musicplayer.music.utils.ColorUtils
 import com.wolcano.musicplayer.music.utils.Utils
-import com.wolcano.musicplayer.music.utils.ViewUtils.removeOnGlobalLayoutListener
 import java.lang.reflect.Field
 
 object ToolbarContentTintHelper {
@@ -280,7 +279,7 @@ object ToolbarContentTintHelper {
                     if (outViews.isEmpty()) return
                     val overflow = outViews[0] as AppCompatImageView
                     overflow.setImageDrawable(createTintedDrawable(overflow.drawable, color))
-                    removeOnGlobalLayoutListener(decorView, this)
+                    decorView.viewTreeObserver.removeOnGlobalLayoutListener(this)
                 }
             })
         }
