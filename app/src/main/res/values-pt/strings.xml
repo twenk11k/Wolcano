@@ -187,8 +187,6 @@
     <string name="errorinter">Ocorreu um erro ao carregar o anúncio. Por favor, tente novamente mais tarde.</string>
     <string name="please">A fila está vazia.</string>
     <string name="http_error">HTTP error fetching URL</string>
-    <string name="pref_title_howtouse">Como Usar?</string>
-    <string name="pref_summary_howtouse">Aprenda a usar o aplicativo.</string>
     <string name="email_us_title">Aviso De Direitos Autorais</string>
     <string name="email_us_via">Enviar email</string>
     <string name="pref_title_email_us">Aviso de direitos autorais</string>

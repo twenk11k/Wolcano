@@ -151,8 +151,6 @@
     <string name="sponsored">Patrocinado</string>
     <string name="first_title">Información Importante</string>
     <string name="close">Cerca</string>
-    <string name="first_dec"> - Para buscar una canción, debes presionar el ícono de búsqueda que aparecerá en el teclado.\n\n - Tenga en cuenta que el reproductor en línea puede no funcionar debido al uso de cualquier red VPN.\n\n - Cuando la aplicación se desinstala del dispositivo, todos los archivos guardados se eliminarán por completo del dispositivo. Tenga esto en cuenta mientras usar esta aplicación. Si desea desinstalarlo, le sugerimos mover los archivos guardados a otro archivo para evitar esto. - Puedes eliminar fácilmente las búsquedas antiguas del historial de búsqueda al mantenerlo presionado.\n\n Wolcano</string>
-    <string name="first_dec_old"> - Para buscar una canción, debes presionar el ícono de búsqueda que aparecerá en el teclado.\n\n - Tenga en cuenta que el reproductor en línea puede no funcionar debido al uso de cualquier red VPN.\n\n- Puedes eliminar fácilmente las búsquedas antiguas del historial de búsqueda al mantenerlo presionado.\n\n Wolcano</string>
     <string name="sleeptimer">Temporizador</string>
     <string name="action_set">Conjunto</string>
     <string name="sleep_timer_set"><![CDATA[Temporizador para dormir configurado para <b>%1$d minutos</b> desde ahora.]]></string>
@@ -188,8 +186,6 @@
     <string name="errorinter">Se produjo un error al ejecutar el anuncio. Por favor, inténtelo de nuevo más tarde.</string>
     <string name="please">La cola de reproducción está vacía.</string>
     <string name="http_error">HTTP error fetching URL</string>
-    <string name="pref_title_howtouse">Cómo Utilizar?</string>
-    <string name="pref_summary_howtouse">Aprende cómo usar Wolcano.</string>
     <string name="pref_title_email_us">Aviso de copyright</string>
     <string name="email_us_title">Aviso De Copyright</string>
     <string name="email_us_via">Enviar correo electrónico</string>

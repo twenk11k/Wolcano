@@ -149,8 +149,6 @@
     <string name="cancelU">İPTAL</string>
     <string name="removeU">KALDIR</string>
 
-    <string name="pref_summary_howtouse">Uygulamanın nasıl kullanıldığını öğrenin.</string>
-    <string name="pref_title_howtouse">Nasıl Kullanılır?</string>
     <string name="nosonuc">Sonuç bulunamadı</string>
 
     <string name="sleeptimer">Uyku Zamanlayıcı</string>

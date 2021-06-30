@@ -5,7 +5,6 @@ import android.content.Intent
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.view.MenuItem
@@ -17,7 +16,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.afollestad.materialdialogs.MaterialDialog
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState
@@ -82,7 +80,6 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         super.onCreate(savedInstanceState)
         setDrawerOptions()
         initViews()
-        displayDialog()
     }
 
     override fun onResume() {
@@ -110,25 +107,6 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
     fun getToolbar(): Toolbar? {
         return findViewById(R.id.toolbar)
-    }
-
-    private fun displayDialog() {
-        val first = Utils.getFirst(this)
-        if (first) {
-            val str = if (Build.VERSION.SDK_INT >= 23) {
-                getString(R.string.first_dec)
-            } else {
-                getString(R.string.first_dec_old)
-            }
-            MaterialDialog(this).show {
-                title(R.string.first_title)
-                message(text = str)
-                positiveButton(R.string.close)
-                cancelOnTouchOutside(false)
-            }
-
-            Utils.setFirst(this, false)
-        }
     }
 
     private fun prev() {

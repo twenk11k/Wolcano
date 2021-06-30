@@ -192,8 +192,6 @@
     <string name="email_us_title">ประกาศเกี่ยวกับลิขสิทธิ์</string>
     <string name="email_us_via">ส่งอีเมล์</string>
     <string name="pref_title_email_us">ประกาศเกี่ยวกับลิขสิทธิ์</string>
-    <string name="pref_title_howtouse">วิธีการใช้งาน?</string>
-    <string name="pref_summary_howtouse">เรียนรู้วิธีการใช้ Wolcano.</string>
 
     <string name="pref_email_us_dialog_content">Wolcano ไม่ได้ใช้เซิร์ฟเวอร์หรือผู้ให้บริการของตัวเองและให้บริการเฉพาะกับบริการอื่น ๆ เท่านั้นและบริการเหล่านี้ไม่มีส่วนเกี่ยวข้องกับ Wolcano.\n
 Wolcano เป็นแอพลิเคชั่นเล่นเพลงประเภทหนึ่งสำหรับแอนดรอยด์ ซึ่งสะดวกในการค้นหาเพลงและง่ายต่อการใช้งาน.\n

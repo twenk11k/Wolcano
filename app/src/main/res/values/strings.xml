@@ -150,8 +150,6 @@
     <string name="sponsored">Sponsored</string>
     <string name="first_title">Important Notice</string>
     <string name="close">Close</string>
-    <string name="first_dec"> - For search a song you must press the search icon which will be displayed on the keyboard after you type the search text.\n\n - When you uninstall the app all the saved files will be removed from your device. For prevent this issue you must move the saved files to an another folder.\n\n - Sleep timer is tend to use for stop currently playing song after some time later.\n\n - You can remove old search from search history if you hold on search text.\n\n Wolcano Music</string>
-    <string name="first_dec_old"> - For search a song you must press the search icon which will be displayed on the keyboard after you type the search text.\n\n - Sleep timer is tend to use for stop currently playing song after some time later.\n\n - You can remove old search from search history if you hold on search text.\n\n Wolcano Music</string>
     <string name="sleeptimer">Sleep Timer</string>
     <string name="action_set">Set</string>
     <string name="sleep_timer_set"><![CDATA[Sleep timer set for <b>%1$d minutes</b> from now.]]></string>
@@ -189,8 +187,6 @@
     <string name="http_error" translatable="false">HTTP error fetching URL</string>
     <string name="email_us_title">Copyright Notice</string>
     <string name="email_us_via">Send Email</string>
-    <string name="pref_summary_howtouse">Learn how to use Wolcano Music.</string>
-    <string name="pref_title_howtouse">How to Use?</string>
     <string name="pref_title_email_us">Copyright notice</string>
     <string name="pref_email_us_dialog_content">- Wolcano Music, does not use its own server or provider and it only provide access to other
 services and all these services have no relation with Wolcano Music.\n

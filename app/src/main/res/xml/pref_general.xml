@@ -21,12 +21,6 @@
             android:summary="@string/pref_summary_sleeptimer"
             android:title="@string/pref_title_sleeptimer" />
 
-        <com.wolcano.musicplayer.music.prefs.CustomPreference
-            android:key="howtouse"
-            android:persistent="false"
-            android:summary="@string/pref_summary_howtouse"
-            android:title="@string/pref_title_howtouse" />
-
     </com.wolcano.musicplayer.music.prefs.CustomPreferenceCategory>
 
 </androidx.preference.PreferenceScreen>

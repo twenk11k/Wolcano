@@ -4,7 +4,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.text.Spanned
@@ -137,21 +136,6 @@ class SettingsActivity : BaseActivitySettings() {
                     )
                     true
                 }
-            val howToUse = findPreference("howtouse") as Preference
-            howToUse.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                val content: String = if (Build.VERSION.SDK_INT >= 23) {
-                    getString(R.string.first_dec)
-                } else {
-                    getString(R.string.first_dec_old)
-                }
-                MaterialDialog(requireActivity()).show {
-                    title(R.string.pref_title_howtouse)
-                    message(text = content)
-                    positiveButton(R.string.close)
-                    cancelOnTouchOutside(false)
-                }
-                true
-            }
             val sleepTimer = findPreference("sleeptimerbehav") as ListPreference
             sleepTimer.setValueIndex(
                 Utils.getOpeningValSleep(
