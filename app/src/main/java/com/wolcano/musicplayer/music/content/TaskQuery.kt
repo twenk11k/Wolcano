@@ -33,4 +33,5 @@ class TaskQuery(
             return cursor
         }
     }
+
 }

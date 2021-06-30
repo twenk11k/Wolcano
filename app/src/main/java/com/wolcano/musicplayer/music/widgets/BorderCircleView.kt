@@ -18,7 +18,7 @@ class BorderCircleView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
-    private var mCheck: Drawable? =
+    private var check: Drawable? =
         ContextCompat.getDrawable(context, R.drawable.border_circle_view_check)
     private val paint: Paint = Paint()
     private val paintBorder: Paint
@@ -74,7 +74,7 @@ class BorderCircleView @JvmOverloads constructor(
             paint
         )
         if (this.isActivated) {
-            val offset = canvasSize / 2 - mCheck!!.intrinsicWidth / 2
+            val offset = canvasSize / 2 - check!!.intrinsicWidth / 2
             if (paintCheck == null) {
                 paintCheck = Paint()
                 paintCheck?.isAntiAlias = true
@@ -88,13 +88,13 @@ class BorderCircleView @JvmOverloads constructor(
             } else {
                 paintCheck?.colorFilter = whiteFilter
             }
-            mCheck?.setBounds(
+            check?.setBounds(
                 offset,
                 offset,
-                mCheck!!.intrinsicWidth - offset,
-                mCheck!!.intrinsicHeight - offset
+                check!!.intrinsicWidth - offset,
+                check!!.intrinsicHeight - offset
             )
-            mCheck?.draw(canvas)
+            check?.draw(canvas)
         }
     }
 
