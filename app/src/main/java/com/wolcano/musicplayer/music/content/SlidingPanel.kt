@@ -113,7 +113,6 @@ class SlidingPanel(view: View, private val activity: Activity) : OnServiceListen
         play.isSelected = false
     }
 
-
     override fun onProgressChange(progress: Int) {
         progressBar.progress = progress
     }
