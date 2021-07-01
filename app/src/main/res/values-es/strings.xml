@@ -1,7 +1,6 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <string name="appname">Wolcano</string>
-    <string name="nav_header_desc">Navigation header</string>
     <string name="settings">Configuración</string>
 
     <string name="recentlyadded">Última Añadido</string>
@@ -20,27 +19,22 @@
 
     <string name="search">Buscar</string>
     <string name="save">Salvar</string>
-    <string name="cnn_err">Error de conexión</string>
-    <string name="nosonuc">No hay resultados</string>
     <string name="delete">Borrar</string>
     <string name="share">Compartir</string>
     <string name="itsstart">Guardar comenzando&#8230;</string>
     <string name="yes">Sí</string>
     <string name="no">No</string>
-    <string name="sharesong">Compartir La Canción</string>
     <string name="albums">Álbumes</string>
     <string name="artists">Artistas</string>
     <string name="genres">Géneros</string>
 
     <string name="sharewolcano">Compartir "Wolcano"</string>
-    <string name="net_mobile">net_mobile</string>
     <string name="warning">Advertencia</string>
 
     <string name="control_inter_message">Estás conectado a una red móvil.Estás seguro de que quieres continuar?</string>
 
     <string name="no_perm_storage">No se pueden escanear canciones en su dispositivo porque no se concede el permiso requerido.</string>
     <string name="no_perm_open_settings">No se puede acceder a la configuración porque no se concede el permiso requerido.</string>
-    <string name="no_perm_add_playlist">Esta acción no se puede realizar porque no se concede el permiso requerido.</string>
 
     <string name="start">00:00</string>
 
@@ -52,17 +46,11 @@
 
     <!-- Example General settings -->
     <string name="pref_header_general">General</string>
-    <string name="pref_header_other">Otro</string>
 
     <!-- Example settings for Notifications -->
-    <string name="pref_header_notifications">Notificaciones</string>
 
     <string name="permissions_denied">Permisos denegados.</string>
     <string name="action_grant">Conceder</string>
-    <string name="presets">Presets</string>
-    <string name="custom">Personalizado</string>
-    <string name="done">Hecho</string>
-    <string name="back">Espalda</string>
     <string name="primary_color_desc_title">Elija el color principal</string>
     <string name="accent_color_desc_title">Elige color de acento</string>
     <string name="pref_header_colors">Colores</string>
@@ -76,7 +64,6 @@
     <string name="pref_title_remember_last_search">Auto búsqueda</string>
     <string name="pref_summary_remember_last_search">Buscar lo último automáticamente.</string>
     <string name="pref_title_delete_history">Eliminar el historial de búsqueda</string>
-    <string name="pref_summary_delete_history">Eliminar todo el historial de búsqueda.</string>
     <string name="pref_delete_history_dialog_content">Todo el historial de búsqueda se eliminará permanentemente.Este proceso no incluye copia de seguridad del historial de búsqueda.\nConfirmas?</string>
 
     <string name="copytoclipboard">Copiar al portapapeles</string>
@@ -101,7 +88,6 @@
     <string name="playlist_name">Ingrese el nombre de la lista de reproducción</string>
     <string name="create">Crear</string>
     <string name="create_playlist_fail">Se produjo un error al crear una nueva lista de reproducción.</string>
-    <string name="create_playlist_success">Lista de reproducción creada con éxito</string>
     <string name="pref_summary_change_delete_history">Eliminar todo el historial de búsqueda.</string>
     <string name="change">Cambio</string>
     <string name="rename_playlist_success">El nombre de la lista de reproducción cambió con éxito</string>
@@ -109,9 +95,6 @@
     <string name="delete_playlist_success">Lista de reproducción eliminada con éxito.</string>
     <string name="removefromplaylist">Eliminar de la lista de reproducción</string>
     <string name="search_history_removed">El historial de búsqueda se eliminó correctamente.</string>
-    <string name="rate">Calificar, Compartir</string>
-    <string name="like_dialog_title">Que te gustaría hacer?</string>
-    <string name="share_the_app">Comparte la aplicación</string>
     <string name="removefromqueue">Eliminar de la cola</string>
     <string name="nowplaying">Ahora Jugando</string>
     <string name="set_ringtone_message_first"><![CDATA[<b>%1$s</b> es requerido para usar  \'modificar la configuración del sistema\' autorisation.\n\nPor favor, inténtelo de nuevo después de que haya otorgado el permiso para establecer como tono de llamada.]]></string>
@@ -134,7 +117,6 @@
     <string name="no_genre">No Género</string>
     <string name="no_album">No Álbum</string>
     <string name="no_artist">No Artista</string>
-    <string name="no_result">No Resultados</string>
     <string name="no_queue">La cola está vacía</string>
     <string name="artist_notification">Artista: </string>
     <string name="notification">Notificación</string>
@@ -145,19 +127,13 @@
     <string name="queue_act">queue</string>
     <string name="removeU">RETIRAR</string>
 
-    <string name="colors">Colores</string>
-    <string name="pref_title_rate">Califica la aplicación en Google Play</string>
     <string name="cannot_play">La canción no puede ser jugada</string>
-    <string name="sponsored">Patrocinado</string>
-    <string name="first_title">Información Importante</string>
-    <string name="close">Cerca</string>
     <string name="sleeptimer">Temporizador</string>
     <string name="action_set">Conjunto</string>
     <string name="sleep_timer_set"><![CDATA[Temporizador para dormir configurado para <b>%1$d minutos</b> desde ahora.]]></string>
     <string name="sleep_timer_set_one"><![CDATA[Temporizador para dormir configurado para <b>%1$d minuto</b> desde ahora.]]></string>
 
     <string name="sleep_timer_canceled">Temporizador de reposo cancelado.</string>
-    <string name="cancel_current_timer">Cancelar el temporizador actual</string>
     <string name="settings_sleeptimer_pause">Pausa la reproducción de la canción</string>
     <string name="settings_sleeptimer_stop">Deja de reproducir la canción</string>
     <string name="base_path_prefix">_(mp3.pm)</string>
@@ -174,18 +150,6 @@
     <string name="sleeptimer_min">minutos</string>
     <string name="search_history_import_success">Historial de búsqueda importado con éxito.</string>
     <string name="cannot_found_file">Archivo no encontrado.</string>
-    <string name="rating_title">Cómo fue tu experiencia con nosotros??</string>
-    <string name="rating_submit">Enviar</string>
-    <string name="form_title">Realimentación</string>
-    <string name="notnow">Ahora No</string>
-    <string name="rating_cancel">Cancelar</string>
-    <string name="form_hint">Dinos dónde podemos mejorar</string>
-    <string name="form_later">Quizás mas tarde</string>
-    <string name="form_never">Nunca</string>
-    <string name="feedback_submit">Gracias por sus realimentación!</string>
-    <string name="errorinter">Se produjo un error al ejecutar el anuncio. Por favor, inténtelo de nuevo más tarde.</string>
-    <string name="please">La cola de reproducción está vacía.</string>
-    <string name="http_error">HTTP error fetching URL</string>
     <string name="pref_title_email_us">Aviso de copyright</string>
     <string name="email_us_title">Aviso De Copyright</string>
     <string name="email_us_via">Enviar correo electrónico</string>

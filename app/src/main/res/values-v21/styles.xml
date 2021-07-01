@@ -25,7 +25,4 @@
 
     </style>
 
-    <style name="NoBorderButton" parent="@android:style/Widget.Material.Button.Borderless.Small">
-        <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
-    </style>
 </resources>

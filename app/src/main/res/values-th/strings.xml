@@ -1,7 +1,6 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <string name="appname">Wolcano</string>
-    <string name="nav_header_desc">Navigation header</string>
     <string name="settings">การตั้งค่า</string>
 
     <string name="recentlyadded">เพิ่มล่าสุด</string>
@@ -20,27 +19,22 @@
 
     <string name="search">ค้นหา</string>
     <string name="save">บันทึก</string>
-    <string name="cnn_err">เกิดข้อผิดพลาดในการเชื่อมต่อ</string>
-    <string name="nosonuc">ไม่มีผลลัพธ์</string>
     <string name="delete">ลบ</string>
     <string name="share">หุ้น</string>
     <string name="itsstart">เริ่มการบันทึก&#8230;</string>
     <string name="yes">ใช่</string>
     <string name="no">ไม่ใช่</string>
-    <string name="sharesong">แชร์เพลง</string>
     <string name="albums">อัลบั้ม</string>
     <string name="artists">ศิลปิน</string>
     <string name="genres">ประเภท</string>
 
     <string name="sharewolcano">หุ้น "Wolcano"</string>
-    <string name="net_mobile">net_mobile</string>
     <string name="warning">การเตือน</string>
 
     <string name="control_inter_message">คุณเชื่อมต่อกับเครือข่ายมือถือ.คุณแน่ใจหรือไม่ว่าต้องการดำเนินการต่อ?</string>
 
     <string name="no_perm_storage">ไม่สามารถสแกนเพลงบนอุปกรณ์ของคุณเนื่องจากไม่ได้รับสิทธิ์ที่จำเป็น.</string>
     <string name="no_perm_open_settings">ไม่สามารถเข้าถึงการตั้งค่าได้เนื่องจากสิทธิ์ที่จำเป็นไม่ได้รับ.</string>
-    <string name="no_perm_add_playlist">ไม่สามารถดำเนินการนี้ได้เนื่องจากไม่ได้รับสิทธิ์ที่ยืนยัน.</string>
 
     <string name="start">00:00</string>
 
@@ -52,17 +46,11 @@
 
     <!-- Example General settings -->
     <string name="pref_header_general">ทั่วไป</string>
-    <string name="pref_header_other">อื่นๆ</string>
 
     <!-- Example settings for Notifications -->
-    <string name="pref_header_notifications">การแจ้งเตือน</string>
 
     <string name="permissions_denied">สิทธิ์ที่ถูกปฏิเสธ.</string>
     <string name="action_grant">แกรนท์</string>
-    <string name="presets">ค่าที่ตั้งไว้</string>
-    <string name="custom">กำหนด เอง</string>
-    <string name="done">เรียบร้อย</string>
-    <string name="back">กลับ</string>
     <string name="primary_color_desc_title">เลือกสีหลัก</string>
     <string name="accent_color_desc_title">เลือกโทนสี</string>
     <string name="pref_header_colors">สี</string>
@@ -76,7 +64,6 @@
     <string name="pref_title_remember_last_search">ค้นหาอัตโนมัติ</string>
     <string name="pref_summary_remember_last_search">ค้นหาอันล่าสุด.</string>
     <string name="pref_title_delete_history">ลบประวัติการค้นหา</string>
-    <string name="pref_summary_delete_history">ลบประวัติการค้นหาทั้งหมด.</string>
     <string name="pref_delete_history_dialog_content">ประวัติการค้นหาทั้งหมดจะถูกนำออกอย่างถาวร.ขั้นตอนนี้ไม่รวมการกู้ข้อมูลการค้นหา.\nคุณยืนยันหรือไม่?</string>
 
     <string name="copytoclipboard">คัดลอกไปที่คลิปบอร์ด</string>
@@ -101,7 +88,6 @@
     <string name="playlist_name">เข้าไปในรายชื่อเพลง</string>
     <string name="create">สร้าง</string>
     <string name="create_playlist_fail">มีข้อผิดพลาดเกิดขึ้นขณะกำลังสร้างรายการที่จะเล่นใหม่.</string>
-    <string name="create_playlist_success">สร้างเพลย์ลิสต์เรียบร้อยแล้ว</string>
     <string name="pref_summary_change_delete_history">ลบประวัติการค้นหาทั้งหมด.</string>
     <string name="change">เปลี่ยน</string>
     <string name="rename_playlist_success">รายชื่อเพลงเปลี่ยนเรียบร้อย</string>
@@ -109,9 +95,6 @@
     <string name="delete_playlist_success">ลบเพลย์ลิสต์เรียบร้อยแล้ว.</string>
     <string name="removefromplaylist">เอาออกจากรายการ</string>
     <string name="search_history_removed">ลบประวัติการค้นหาเรียบร้อย.</string>
-    <string name="rate">อัตรา, หุ้น</string>
-    <string name="like_dialog_title">คุณต้องการทำอะไร</string>
-    <string name="share_the_app">แบ่งปันแอพนี้</string>
     <string name="removefromqueue">ลบออกจากคิวเล่น</string>
     <string name="nowplaying">กำลังเล่นตอนนี้</string>
     <string name="set_ringtone_message_first"><![CDATA[<b>%1$s</b> จำเป็นต้องใช้  \'ปรับเปลี่ยนการตั้งค่าระบบ\' การรับรองสิทธิ์.\n\nกรุณาลองอีกครั้งหลังจากคุณยืนยันการรับรองสิทธิ์เพื่อตั้งเสียงเรียกเข้า.]]></string>
@@ -134,7 +117,6 @@
     <string name="no_genre">ไม่มีประเภท</string>
     <string name="no_album">ไม่มีอัลบั้ม</string>
     <string name="no_artist">ไม่มีศิลปิน</string>
-    <string name="no_result">ไม่มีผลลัพธ์</string>
     <string name="no_queue">คิวการเล่นว่างเปล่า</string>
     <string name="artist_notification">ศิลปิน: </string>
     <string name="notification">การแจ้งเตือน</string>
@@ -143,24 +125,15 @@
     <string name="action_next">ถัด ไป</string>
     <string name="question_remove_history">นำออกจากประวัติการค้นหา?</string>
     <string name="queue_act">คิว</string>
-    <string name="cancelU">ยกเลิก</string>
     <string name="removeU">ลบ</string>
 
-    <string name="colors">สี</string>
-    <string name="pref_title_rate">ราคาจะแสดงที่ Google Play</string>
     <string name="cannot_play">ไม่สามารถเล่นเพลงได้</string>
-    <string name="sponsored">ผู้สนับสนุน</string>
-    <string name="first_title">ข้อมูลสำคัญ</string>
-    <string name="close">ปิด</string>
-    <string name="first_dec"> - คุณต้องกดปุ่มค้นหาซึ่งจะอยู่บนแป้นพิมพ์เพื่อหาเพลง.\n\n - ระวังเครื่องเล่นออนไลน์อาจไม่ทำงานเนื่องจากใช้เครือข่าย VPN.\n\n - เมื่อถอนการติดตั้งแอปพลิเคชัน ไฟล์ที่บันทึกไว้ทั้งหมดจะถูกลบออกจากอุปกรณ์. ควรระวังขณะใช้แอพนี. ถ้าคุณต้องการถอนการติดตั้ง เราขอแนะนำให้คุณเซฟไฟล์ทั้งหมดไปไว้ที่ไฟล์อื่น เพื่อป้องกันปัญหานี้\n\n - คุณสามารถลบคำค้นหาเก่าออกได้ในช่องการค้นหา.\n\n Wolcano</string>
-    <string name="first_dec_old"> - คุณต้องกดปุ่มค้นหาซึ่งจะอยู่บนแป้นพิมพ์เพื่อหาเพลง.\n\n - ระวังเครื่องเล่นออนไลน์อาจไม่ทำงานเนื่องจากใช้เครือข่าย VPN.\n\n - คุณสามารถลบคำค้นหาเก่าออกได้ในช่องการค้นหา.\n\n Wolcano</string>
     <string name="sleeptimer">ตั้งเวลาปิดเครื่อง</string>
     <string name="action_set">ตั้งค่า</string>
     <string name="sleep_timer_set"><![CDATA[ตั้งเวลาปิดไว้สำหรับ <b>%1$d นาที</b> ณ ปัจจุบัน.]]></string>
     <string name="sleep_timer_set_one"><![CDATA[ตั้งเวลาปิดไว้สำหรับ <b>%1$d นาที</b> ณ ปัจจุบัน.]]></string>
 
     <string name="sleep_timer_canceled">ยกเลิกการตั้งเวลาปิดแล้ว.</string>
-    <string name="cancel_current_timer">ยกเลิกตัวจับเวลาปัจจุบัน</string>
     <string name="settings_sleeptimer_pause">หยุดเล่นเพลงชั่วคราว</string>
     <string name="settings_sleeptimer_stop">หยุดการเล่นเพลง</string>
     <string name="base_path_prefix">_(mp3.pm)</string>
@@ -177,18 +150,6 @@
     <string name="sleeptimer_min">นาที</string>
     <string name="search_history_import_success">ดึงประวัติการค้นหาเรียบร้อยแล้ว.</string>
     <string name="cannot_found_file">ไม่พบแฟ้ม.</string>
-    <string name="rating_title">เป็นประสบการณ์ของคุณกับเราอย่างไร?</string>
-    <string name="rating_submit">ส่ง</string>
-    <string name="form_title">ผลตอบรับ</string>
-    <string name="notnow">ไม่ใช่ตอนนี้</string>
-    <string name="rating_cancel">ยกเลิก</string>
-    <string name="form_hint">บอกเราว่าเราสามารถปรับปรุงได้ที่ไหน</string>
-    <string name="form_later">อาจจะในภายหลัง</string>
-    <string name="form_never">ไม่เคย</string>
-    <string name="feedback_submit">ขอบคุณสำหรับความคิดเห็นของคุณ!</string>
-    <string name="errorinter">มีข้อผิดพลาดเกิดขึ้นขณะกำลังโหลดโฆษณา. กรุณาลองใหม่อีกครั้งในภายหลัง</string>
-    <string name="please">คิวการเล่นว่างเปล่า.</string>
-    <string name="http_error">HTTP error fetching URL</string>
     <string name="email_us_title">ประกาศเกี่ยวกับลิขสิทธิ์</string>
     <string name="email_us_via">ส่งอีเมล์</string>
     <string name="pref_title_email_us">ประกาศเกี่ยวกับลิขสิทธิ์</string>
@@ -198,7 +159,6 @@ Wolcano เป็นแอพลิเคชั่นเล่นเพลงป
 Wolcano เคารพสิทธิ์ในทรัพย์สินทางปัญญาและยังช่วยกำจัดเนื้อหาออกจากเครื่องมือการค้นหาโดยเร็วที่สุด. ถ้าคุณเป็นเจ้าของลิขสิทธิ์ หรือตัวแทน กรุณาส่งชื่อของคุณกลับมาผ่านอีเมล์ และในทันทีที่ได้รับ เราจะทำการดำเนินการคัดกรองในโปรแกรมการค้นหา. กรุณาอย่าส่งข้อความที่ผิดพลาด.
 ในกรณีฉุกเฉินกระบวนการทำงานอาจใช้เวลาสักครู่. ขอบคุณในความเข้าใจ.\n
 คุณสามารถกดปุ่ม ใช่ หากคุณต้องการส่งอีเมลถึงเรา.</string>
-
 
 
     <string name="pref_title_rate_app">ราคาแอพพลิเคชัน</string>

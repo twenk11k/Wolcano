@@ -1,28 +1,10 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="nav_header_vertical_spacing">8dp</dimen>
-    <dimen name="nav_header_height">176dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
-    <dimen name="small_margin">4dp</dimen>
     <dimen name="mini_player_height">57dp</dimen>
     <dimen name="text_size_common">16sp</dimen>
-    <dimen name="divider_height">0.5dp</dimen>
-    <dimen name="text_margin">16dp</dimen>
-    <dimen name="linear_layout_list_subtitle_max_width">140.0dip</dimen>
-    <dimen name="linear_layout_list_item_height">72.0dip</dimen>
-    <dimen name="linear_layout_list_item_padding">16.0dip</dimen>
     <dimen name="page_controller_height">50dp</dimen>
-    <dimen name="spacing_card">16dp</dimen>
-
-    <dimen name="playlist_item_height">65dp</dimen>
-    <dimen name="sliding_vertical">16dp</dimen>
 
     <dimen name="adapter_item_height">72dp</dimen>
-    <dimen name="notification_big_size">128dp</dimen>
-    <dimen name="card_grid">160dp</dimen>
-    <dimen name="gif_size">36dp</dimen>
-    <dimen name="not_old_button_size">42dp</dimen>
-    <dimen name="not_old_button_size_close">30dp</dimen>
     <dimen name="border_circle_view_border">1dp</dimen>
 
     <dimen name="dimen_one">1dp</dimen>

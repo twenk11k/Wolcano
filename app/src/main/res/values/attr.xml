@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <bool name="fitsSystemWindows">false</bool>
-    <color name="inset">#0000</color>
 
     <declare-styleable name="MaterialSearchView">
         <attr name="searchBackground" format="integer" />
