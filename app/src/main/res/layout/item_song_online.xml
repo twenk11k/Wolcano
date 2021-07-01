@@ -67,7 +67,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
-                        android:singleLine="true"
+                        android:maxLines="1"
                         android:text="@{data.title}"
                         android:textColor="@color/md_white_1000"
                         android:textSize="16sp" />
@@ -77,7 +77,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="1dp"
-                        android:singleLine="true"
+                        android:maxLines="1"
                         android:textColor="@color/grey0"
                         android:textSize="12sp"
                         app:textArtist="@{data.artistName}"

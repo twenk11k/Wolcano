@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
-            android:singleLine="true"
+            android:maxLines="1"
             android:textColor="@color/white"
             android:textSize="16sp" />
 
@@ -41,7 +41,7 @@
             android:id="@+id/txt_line_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:singleLine="true"
+            android:maxLines="1"
             android:textAppearance="@android:style/TextAppearance.StatusBar.EventContent"
             android:textColor="@color/white_2" />
 
