@@ -108,16 +108,6 @@ object Utils {
         settings.edit().putInt("app_opening_sleep", pos).apply()
     }
 
-    fun setFirst(context: Context, `val`: Boolean) {
-        settings = context.getSharedPreferences("VALUES", Context.MODE_PRIVATE)
-        settings.edit().putBoolean("app_howtouse", `val`).apply()
-    }
-
-    fun getFirst(context: Context): Boolean {
-        settings = context.getSharedPreferences("VALUES", Context.MODE_PRIVATE)
-        return settings.getBoolean("app_howtouse", true)
-    }
-
     fun getAutoSearch(context: Context): Boolean {
         settings = context.getSharedPreferences("VALUES", Context.MODE_PRIVATE)
         return settings.getBoolean("app_auto_search", false)
