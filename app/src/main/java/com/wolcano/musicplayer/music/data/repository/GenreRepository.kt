@@ -103,8 +103,8 @@ class GenreRepository {
                 song.albumId = albumId
                 song.duration = duration
                 song.path = path
-                song.dosName = fileName
-                song.dosSize = fileSize
+                song.fileName = fileName
+                song.fileSize = fileSize
                 list.add(song)
             }
             cursor?.close()

@@ -141,8 +141,8 @@ object SongCover {
         }
         return if (song.type == Song.Tip.MODEL0 && song.albumId > 0) {
             song.albumId.toString()
-        } else if (song.type == Song.Tip.MODEL1 && !TextUtils.isEmpty(song.covPath)) {
-            song.covPath
+        } else if (song.type == Song.Tip.MODEL1 && !TextUtils.isEmpty(song.coverPath)) {
+            song.coverPath
         } else {
             null
         }
@@ -170,7 +170,7 @@ object SongCover {
         bm = if (song?.type == Song.Tip.MODEL0) {
             getAlbumart(context, song.albumId)
         } else {
-            loadModelFile(song!!.covPath)
+            loadModelFile(song!!.coverPath)
         }
         return when (tip) {
             Tip.BLURRED -> ImageUtils.blur(bm)

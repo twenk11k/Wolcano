@@ -10,19 +10,19 @@ import kotlinx.parcelize.Parcelize
 @Entity(tableName = "song")
 @Parcelize
 class Song(
-    @ColumnInfo(name = "song_id") var songId: Long = 0,
-    @ColumnInfo(name = "title") var title: String = "",
-    @ColumnInfo(name = "artist") var artist: String = "",
-    @ColumnInfo(name = "cover_path") val covPath: String = "",
-    @ColumnInfo(name = "type") var type: Int = 0,
-    @ColumnInfo(name = "duration") var duration: Long = 0,
-    @ColumnInfo(name = "path") var path: String = "",
-    @ColumnInfo(name = "fileName") var dosName: String? = null,
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id") val id: Long? = null,
-    @ColumnInfo(name = "fileSize") var dosSize: Long = 0,
+    @ColumnInfo(name = "songId") var songId: Long = 0,
+    @ColumnInfo(name = "type") var type: SongType = SongType.LOCAL,
+    @ColumnInfo(name = "title") var title: String = "",
     @ColumnInfo(name = "album") var album: String = "",
-    @ColumnInfo(name = "albumId") var albumId: Long = 0
+    @ColumnInfo(name = "albumId") var albumId: Long = 0,
+    @ColumnInfo(name = "artist") var artist: String = "",
+    @ColumnInfo(name = "coverPath") val coverPath: String = "",
+    @ColumnInfo(name = "duration") var duration: Long = 0,
+    @ColumnInfo(name = "path") var path: String = "",
+    @ColumnInfo(name = "fileName") var fileName: String? = null,
+    @ColumnInfo(name = "fileSize") var fileSize: Long = 0
 ) : Parcelable {
 
     interface Tip {
@@ -49,13 +49,13 @@ class Song(
         var result = songId.hashCode()
         result = 31 * result + title.hashCode()
         result = 31 * result + artist.hashCode()
-        result = 31 * result + covPath.hashCode()
-        result = 31 * result + type
+        result = 31 * result + coverPath.hashCode()
+        result = 31 * result + type.hashCode()
         result = 31 * result + duration.hashCode()
         result = 31 * result + path.hashCode()
-        result = 31 * result + (dosName?.hashCode() ?: 0)
+        result = 31 * result + (fileName?.hashCode() ?: 0)
         result = 31 * result + (id?.hashCode() ?: 0)
-        result = 31 * result + dosSize.hashCode()
+        result = 31 * result + fileSize.hashCode()
         result = 31 * result + album.hashCode()
         result = 31 * result + albumId.hashCode()
         return result
