@@ -6,6 +6,7 @@ import androidx.annotation.WorkerThread
 import com.skydoves.whatif.whatIfNotNull
 import com.wolcano.musicplayer.music.App
 import com.wolcano.musicplayer.music.data.model.Song
+import com.wolcano.musicplayer.music.data.model.SongType
 import com.wolcano.musicplayer.music.utils.SongUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
@@ -52,7 +53,7 @@ class SongRepository {
             val fileSize = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.SIZE))
             val song = Song()
             song.songId = id
-            song.type = Song.Tip.MODEL0
+            song.type = SongType.LOCAL
             song.title = title
             song.artist = artist
             song.album = album
@@ -114,7 +115,7 @@ class SongRepository {
                 val fileSize = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.SIZE))
                 val song = Song()
                 song.songId = id
-                song.type = Song.Tip.MODEL0
+                song.type = SongType.LOCAL
                 song.title = title
                 song.artist = artist
                 song.album = album
@@ -181,7 +182,7 @@ class SongRepository {
             val fileSize = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.SIZE))
             val song = Song()
             song.songId = id
-            song.type = Song.Tip.MODEL0
+            song.type = SongType.LOCAL
             song.title = title
             song.artist = artist
             song.album = album
@@ -241,7 +242,7 @@ class SongRepository {
             val fileSize = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.SIZE))
             val song = Song()
             song.songId = id
-            song.type = Song.Tip.MODEL0
+            song.type = SongType.LOCAL
             song.title = title
             song.artist = artist
             song.album = album
@@ -302,7 +303,7 @@ class SongRepository {
             val fileSize = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.SIZE))
             val song = Song()
             song.songId = id
-            song.type = Song.Tip.MODEL0
+            song.type = SongType.LOCAL
             song.title = title
             song.artist = artist
             song.album = album
@@ -356,7 +357,7 @@ class SongRepository {
             val fileSize = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.SIZE))
             val song = Song()
             song.songId = id
-            song.type = Song.Tip.MODEL0
+            song.type = SongType.LOCAL
             song.title = title
             song.artist = artist
             song.album = album

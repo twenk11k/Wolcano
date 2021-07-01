@@ -12,6 +12,7 @@ import com.wolcano.musicplayer.music.content.managers.SessionManager.updateSessi
 import com.wolcano.musicplayer.music.content.managers.SessionManager.updateSessionPlaybackState
 import com.wolcano.musicplayer.music.content.managers.SoundManager
 import com.wolcano.musicplayer.music.data.model.Song
+import com.wolcano.musicplayer.music.data.model.SongType
 import com.wolcano.musicplayer.music.data.persistence.AppDatabase
 import com.wolcano.musicplayer.music.listener.OnServiceListener
 import com.wolcano.musicplayer.music.provider.MusicService.ServiceInit
@@ -124,7 +125,7 @@ object RemotePlay {
         try {
             mediaPlayer?.reset()
             mediaPlayer?.setDataSource(song!!.path)
-            if (song!!.type == Song.Tip.MODEL1) {
+            if (song!!.type == SongType.ONLINE) {
                 mediaPlayer?.prepareAsync()
             } else {
                 mediaPlayer?.prepare()

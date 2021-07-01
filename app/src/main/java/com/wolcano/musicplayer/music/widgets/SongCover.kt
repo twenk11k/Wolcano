@@ -10,6 +10,7 @@ import androidx.collection.LruCache
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.data.model.ModelBitmap
 import com.wolcano.musicplayer.music.data.model.Song
+import com.wolcano.musicplayer.music.data.model.SongType
 import com.wolcano.musicplayer.music.utils.ImageUtils
 import com.wolcano.musicplayer.music.utils.Utils.getDeviceScrWidth
 import com.wolcano.musicplayer.music.utils.Utils.getPrimaryColor
@@ -139,9 +140,9 @@ object SongCover {
         if (song == null) {
             return null
         }
-        return if (song.type == Song.Tip.MODEL0 && song.albumId > 0) {
+        return if (song.type == SongType.LOCAL && song.albumId > 0) {
             song.albumId.toString()
-        } else if (song.type == Song.Tip.MODEL1 && !TextUtils.isEmpty(song.coverPath)) {
+        } else if (song.type == SongType.ONLINE && !TextUtils.isEmpty(song.coverPath)) {
             song.coverPath
         } else {
             null
@@ -167,7 +168,7 @@ object SongCover {
 
     private fun loadModelwT(context: Context, song: Song?, tip: Tip): Bitmap? {
         var bm: Bitmap?
-        bm = if (song?.type == Song.Tip.MODEL0) {
+        bm = if (song?.type == SongType.LOCAL) {
             getAlbumart(context, song.albumId)
         } else {
             loadModelFile(song!!.coverPath)

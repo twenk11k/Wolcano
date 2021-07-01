@@ -25,13 +25,6 @@ class Song(
     @ColumnInfo(name = "fileSize") var fileSize: Long = 0
 ) : Parcelable {
 
-    interface Tip {
-        companion object {
-            const val MODEL0 = 0
-            const val MODEL1 = 1
-        }
-    }
-
     override fun equals(o: Any?): Boolean {
         if (o !is Song) {
             return false

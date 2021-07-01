@@ -25,6 +25,7 @@ import com.wolcano.musicplayer.music.content.SlidingPanel
 import com.wolcano.musicplayer.music.content.managers.DisposableManager
 import com.wolcano.musicplayer.music.data.model.ModelBitmap
 import com.wolcano.musicplayer.music.data.model.Song
+import com.wolcano.musicplayer.music.data.model.SongType
 import com.wolcano.musicplayer.music.databinding.ActivityMainBinding
 import com.wolcano.musicplayer.music.listener.OnServiceListener
 import com.wolcano.musicplayer.music.listener.PlaylistListener
@@ -513,7 +514,7 @@ class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         when (v.id) {
             R.id.img_back -> onBackPressed()
             R.id.img_menu -> if (getPlayMusic(this) != null) {
-                if (getPlayMusic(this)!!.type == Song.Tip.MODEL0) {
+                if (getPlayMusic(this)!!.type == SongType.LOCAL) {
                     SongHelperMenu.handleMenuLocal(
                         this,
                         v,

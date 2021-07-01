@@ -16,6 +16,7 @@ import androidx.core.text.HtmlCompat
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.data.model.Song
 import com.wolcano.musicplayer.music.data.model.SongOnline
+import com.wolcano.musicplayer.music.data.model.SongType
 import java.io.File
 
 object SongUtils {
@@ -53,7 +54,7 @@ object SongUtils {
                 val fileSize = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.SIZE))
                 val song = Song()
                 song.songId = id
-                song.type = Song.Tip.MODEL0
+                song.type = SongType.LOCAL
                 song.title = title
                 song.artist = artist
                 song.album = album

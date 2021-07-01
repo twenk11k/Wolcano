@@ -20,6 +20,7 @@ import com.squareup.picasso.Picasso.LoadedFrom
 import com.squareup.picasso.Target
 import com.wolcano.musicplayer.music.R
 import com.wolcano.musicplayer.music.data.model.Song
+import com.wolcano.musicplayer.music.data.model.SongType
 import com.wolcano.musicplayer.music.databinding.QueueAdapterItemBinding
 import com.wolcano.musicplayer.music.listener.PlaylistListener
 import com.wolcano.musicplayer.music.provider.RemotePlay.deleteFromRemotePlay
@@ -77,7 +78,7 @@ class QueueAdapter(
             .placeholder(R.drawable.album_art)
             .into(holder.binding.imgAlbumArt)
 
-        if (song?.type == Song.Tip.MODEL0) setOnSongPopupMenuListener(
+        if (song?.type == SongType.LOCAL) setOnSongPopupMenuListener(
             holder,
             position
         ) else setOnOnlinePopupMenuListener(holder, position)
