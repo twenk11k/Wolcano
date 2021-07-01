@@ -10,7 +10,7 @@ import com.wolcano.musicplayer.music.widgets.SongCover
 object AppCache {
 
     val songList: List<Song> = ArrayList()
-    private val activityList: MutableList<Activity> = ArrayList()
+    private val activityList = ArrayList<Activity>()
 
     fun initializeCache(application: Application) {
         SongCover.init(application.applicationContext)
